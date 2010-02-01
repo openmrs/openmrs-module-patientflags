@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqldiff PUBLIC "-//OpenMRS//DTD OpenMRS SQL Diff Config 1.0//EN" "http://resources.openmrs.org/doctype/sqldiff-1.0.dtd">
+
+<sqldiff version="1.0">
+	<help>
+		USE:
+		The diffs are ordered by datamodel version number.
+		The script
+		can be run in a top down fashion and is
+		expected to not fail or
+		overwrite old data
+
+		EXPECT:
+		- "use business-database-name;" was called
+		prior to
+		calling this script
+	</help>
+
+	<diff>
+		<version>1.0.0</version>
+		<author>Mark Goodrich</author>
+		<date>Oct 30 2009</date>
+		<description>
+			Initial creation of the module schema
+		</description>
+		<sql>
+			CREATE TABLE patientflags_flag (
+			flag_id int(11) NOT NULL
+			auto_increment,
+			name varchar(255) NOT NULL,
+			criteria varchar(255) NOT
+			NULL,
+			message varchar(255) NOT NULL,
+			enabled boolean NOT NULL,
+			PRIMARY
+			KEY (flag_id)
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+			CREATE TABLE
+			patientflags_tag (
+			tag_id int(11) NOT NULL auto_increment,
+			tag
+			varchar(255) NOT NULL,
+			PRIMARY KEY (tag_id)
+			) ENGINE=InnoDB DEFAULT
+			CHARSET=utf8;
+
+			CREATE TABLE patientflags_flag_tag (
+			flag_id int(11) NOT
+			NULL,
+			tag_id int(11) NOT NULL,
+			KEY flag_id (flag_id),
+			KEY tag_id
+			(tag_id),
+			CONSTRAINT FOREIGN KEY (flag_id) REFERENCES
+			patientflags_flag (flag_id),
+			CONSTRAINT FOREIGN KEY (tag_id)
+			REFERENCES patientflags_tag (tag_id)
+			) ENGINE=InnoDB DEFAULT
+			CHARSET=utf8;
+		</sql>
+	</diff>
+	<diff>
+		<version>1.1.0</version>
+		<author>Mark Goodrich</author>
+		<date>Nov 06 2009</date>
+		<description>
+			Add FlagValidator to flag schema
+		</description>
+		<sql>
+			ALTER TABLE patientflags_flag ADD COLUMN evaluator varchar(255)
+			NOT NULL
+		</sql>
+	</diff>
+	<diff>
+		<version>1.1.1</version>
+		<author>Mark Goodrich</author>
+		<date>Nov 10 2009</date>
+		<description>
+			Increase the size of the criteria column
+		</description>
+		<sql>
+			ALTER TABLE patientflags_flag MODIFY COLUMN criteria
+			varchar(5000) NOT NULL
+		</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.3</version>
+		<author>Mark Goodrich</author>
+		<date>Nov 23 2009</date>
+		<description>
+			Added OpenmrsMetadata fields to Flag table
+		</description>
+		<sql>
+			ALTER TABLE patientflags_flag
+			ADD COLUMN `description`
+			varchar(1000),
+			ADD COLUMN `creator` int(11) NOT NULL default '0',
+			ADD
+			COLUMN `date_created` datetime NOT NULL default '0000-00-00
+			00:00:00',
+			ADD COLUMN `changed_by` int(11) default NULL,
+			ADD COLUMN
+			`date_changed` datetime default NULL,
+			ADD COLUMN `retired` tinyint(1)
+			NOT NULL default '0',
+			ADD COLUMN `retired_by` int(11) default NULL,
+			ADD COLUMN `date_retired` datetime default NULL,
+			ADD COLUMN
+			`retire_reason` varchar(255) default NULL,
+			ADD COLUMN `uuid` char(38)
+			NOT NULL;
+	</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.4</version>
+		<author>Mark Goodrich</author>
+		<date>Nov 23 2009</date>
+		<description>
+			Added OpenmrsMetadata fields to Tag table
+		</description>
+		<sql>
+			ALTER TABLE patientflags_tag
+			ADD COLUMN `description`
+			varchar(1000),
+			ADD COLUMN `creator` int(11) NOT NULL default '0',
+			ADD
+			COLUMN `date_created` datetime NOT NULL default '0000-00-00
+			00:00:00',
+			ADD COLUMN `changed_by` int(11) default NULL,
+			ADD COLUMN
+			`date_changed` datetime default NULL,
+			ADD COLUMN `retired` tinyint(1)
+			NOT NULL default '0',
+			ADD COLUMN `retired_by` int(11) default NULL,
+			ADD COLUMN `date_retired` datetime default NULL,
+			ADD COLUMN
+			`retire_reason` varchar(255) default NULL,
+			ADD COLUMN `uuid` char(38)
+			NOT NULL;
+	</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.6</version>
+		<author>Mark Goodrich</author>
+		<date>Dec 09 2009</date>
+		<description>
+			Added Priority to Flag Table and Priority Table
+		</description>
+		<sql>
+			ALTER TABLE patientflags_flag
+			ADD COLUMN `priority_id` int(11) NOT
+			NULL default '1';
+
+			CREATE TABLE patientflags_priority (
+			priority_id
+			int(11) NOT NULL auto_increment,
+			name varchar(255) NOT NULL,
+			style
+			varchar(255) NOT NULL,
+			rank int(11) NOT NULL,
+			description
+			varchar(1000),
+			creator int(11) NOT NULL default '0',
+			date_created
+			datetime NOT NULL default '0000-00-00 00:00:00',
+			changed_by int(11)
+			default NULL,
+			date_changed datetime default NULL,
+			retired tinyint(1)
+			NOT NULL default '0',
+			retired_by int(11) default NULL,
+			date_retired
+			datetime default NULL,
+			retire_reason varchar(255) default NULL,
+			PRIMARY KEY (priority_id)
+			) ENGINE=InnoDB DEFAULT
+			CHARSET=utf8;
+		</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.7</version>
+		<author>Mark Goodrich</author>
+		<date>Dec 10 2009</date>
+		<description>
+			Assign initial Priority values
+		</description>
+		<sql>
+			INSERT INTO patientflags_priority (priority_id, name, style,
+			rank,date_created) VALUES
+			(1,'HIGH','style=\"color:red\"',1,NOW()),(2,'MEDIUM','style=\"color:darkorange\"',2,NOW()),(3,'LOW','',3,NOW());
+
+		</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.8</version>
+		<author>Mark Goodrich</author>
+		<date>Dec 16 2009</date>
+		<description>
+			Changed "tag" column in patientflags_tag table to "name"
+		</description>
+		<sql>
+			ALTER TABLE patientflags_tag CHANGE tag name varchar(255);
+		</sql>
+	</diff>
+
+	<diff>
+		<version>1.1.9</version>
+		<author>Mark Goodrich</author>
+		<date>Dec 21 2009</date>
+		<description>
+			add uuid to priority table
+		</description>
+		<sql>
+			ALTER TABLE patientflags_priority ADD COLUMN `uuid` char(38) NOT
+			NULL;
+			UPDATE patientflags_priority SET uuid=uuid();
+		</sql>
+	</diff>
+
+	<diff>
+		<version>1.2.0</version>
+		<author>Mark Goodrich</author>
+		<date>January 03 2010</date>
+		<description>Add patientflags_displaypoint table; add displaypoints
+			and roles to tags</description>
+		<sql>
+			CREATE TABLE patientflags_displaypoint (
+			displaypoint_id
+			int(11)
+			NOT NULL auto_increment,
+			name varchar(255) NOT NULL,
+			description
+			varchar(1000),
+			creator int(11) NOT NULL default '0',
+			date_created
+			datetime NOT NULL default '0000-00-00 00:00:00',
+			changed_by int(11)
+			default NULL,
+			date_changed datetime default NULL,
+			retired tinyint(1)NOT
+			NULL default '0',
+			retired_by int(11) default NULL,
+			date_retired
+			datetime default NULL,
+			retire_reason varchar(255) default NULL,
+			`uuid`
+			char(38) NOT NULL,
+			PRIMARY KEY (displaypoint_id)
+			) ENGINE=InnoDB
+			DEFAULT
+			CHARSET=utf8;
+
+			INSERT INTO patientflags_displaypoint (displaypoint_id, name, date_created,
+			uuid) VALUES
+			(1,'Patient Dashboard Header',NOW(),uuid()),(2,'Patient Dashboard Overview',NOW(),uuid());
+
+			CREATE TABLE patientflags_tag_role (
+			tag_id int(11) NOT NULL,
+			role
+			varchar(50) NOT NULL,
+			KEY tag_id (tag_id),
+			KEY role (role),
+			CONSTRAINT
+			FOREIGN KEY (tag_id) REFERENCES patientflags_tag (tag_id),
+			CONSTRAINT
+			FOREIGN KEY (role) REFERENCES role (role)
+			) ENGINE=InnoDB DEFAULT
+			CHARSET=utf8;
+
+			CREATE TABLE patientflags_tag_displayPoint (
+			tag_id int(11) NOT NULL,
+			displaypoint_id int(11) NOT NULL,
+			KEY tag_id (tag_id),
+			KEY displaypoint_id
+			(displaypoint_id),
+			CONSTRAINT FOREIGN KEY (tag_id) REFERENCES
+			patientflags_tag (tag_id),
+			CONSTRAINT FOREIGN KEY (displaypoint_id)
+			REFERENCES patientflags_displaypoint (displaypoint_id)
+			) ENGINE=InnoDB
+			DEFAULT
+			CHARSET=utf8;
+		</sql>
+	</diff>
+	
+	<diff>
+		<version>1.2.1</version>
+		<author>Mark Goodrich</author>
+		<date>January 27 2010</date>
+		<description>Fixed typo in displaypoint table name</description>
+		<sql>
+			ALTER TABLE patientflags_tag_displayPoint RENAME patientflags_tag_displaypoint;
+		</sql>
+	</diff>
+	<!--
+		need to do something here to update existing flags with all roles?
+	-->
+
+</sqldiff>

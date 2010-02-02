@@ -9,7 +9,7 @@
 
 	<property environment="env"/>
 	
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../openmrs-1.5.x/lib/ant-contrib/ant-contrib-1.0b2.jar"/>
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../openmrs-1.6.x/lib/ant-contrib/ant-contrib-1.0b2.jar"/>
 	
 	<available file="${env.OPENMRS_BUILD_PROPERTIES_FILE}" property="env.file.exists"/>
 	<available file="${user.home}/Application Data/OpenMRS/OPENMRS-build.properties" property="appdata.file.exists"/>
@@ -58,10 +58,10 @@
 			<fileset dir="lib-common">
 				<include name="**/*.jar"/>
 			</fileset>
-			<fileset dir="../openmrs-1.5.x/lib">
+			<fileset dir="../openmrs-1.6.x/lib">
 				<include name="**/*.jar"/>
 			</fileset>
-			<fileset dir="../openmrs-1.5.x/dist">
+			<fileset dir="../openmrs-1.6.x/dist">
 				<include name="**/*.jar"/>
 			</fileset>
 		</path>

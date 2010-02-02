@@ -22,6 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
+import org.openmrs.logic.util.LogicUtil;
 import org.openmrs.module.Activator;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
@@ -87,6 +88,9 @@ public class PatientFlagsModuleActivator implements Activator {
 			tmpExtensions.add(ext);
 			ModuleFactory.getExtensionMap().put(extId, tmpExtensions);
 		}
+		
+		// register the logic tokens
+		LogicUtil.registerDefaultRules();
 		
 		log.info("Starting Patient Flags Module");
 	}

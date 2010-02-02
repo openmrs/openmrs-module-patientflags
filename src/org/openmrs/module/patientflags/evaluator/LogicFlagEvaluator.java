@@ -40,18 +40,11 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 		// TODO redo this once Logic gets consolidated into one method
 		try {
 			// try the first logic parse method
-			LogicCriteria logicCriteria = logicService.parseString(flag.getCriteria());
+			LogicCriteria logicCriteria = logicService.parse(flag.getCriteria());
 			result = logicService.eval(patient, logicCriteria).toBoolean();
 		}
-		catch (Exception e1) {
-			try {
-				// try the second logic parse method
-				LogicCriteria logicCriteria = LogicCriteria.parse(flag.getCriteria());
-				result = logicService.eval(patient, logicCriteria).toBoolean();
-			}
-			catch (Exception e2) {
-				throw new APIException("Unable to evaluate Logic Flag " + flag.getName(), e2);
-			}
+		catch (Exception e) {
+				throw new APIException("Unable to evaluate Logic Flag " + flag.getName() + ", " + e.getLocalizedMessage(), e);
 		}
 		return result;
 	}
@@ -71,18 +64,11 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 		
 		// TODO redo this once Logic gets consolidated into one method
 		try {
-			LogicCriteria logicCriteria = logicService.parseString(flag.getCriteria());
+			LogicCriteria logicCriteria = logicService.parse(flag.getCriteria());
 			resultMap = logicService.eval(cohort, logicCriteria);
 		}
-		catch (Exception e1) {
-			try {
-				LogicCriteria logicCriteria = LogicCriteria.parse(flag.getCriteria());
-				resultMap = logicService.eval(cohort, logicCriteria);
-			}
-			catch (Exception e2) {
-				throw new APIException("Unable to evaluate Logic Flag " + flag.getName() + ", " + e2.getLocalizedMessage(),
-				        e2);
-			}
+		catch (Exception e) {
+				throw new APIException("Unable to evaluate Logic Flag " + flag.getName() + ", " + e.getLocalizedMessage(),e);
 		}
 		
 		// turn the result map into a Cohort
@@ -109,17 +95,11 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 		LogicService logicService = Context.getLogicService();
 		
 		try {
-			logicService.parseString(flag.getCriteria());
+			logicService.parse(flag.getCriteria());
 			return new FlagValidationResult(true);
 		}
-		catch (Exception e1) {
-			try {
-				LogicCriteria.parse(flag.getCriteria());
-				return new FlagValidationResult(true);
-			}
-			catch (Exception e2) {
-				return new FlagValidationResult(false, e2.getLocalizedMessage());
-			}
+		catch (Exception e) {
+			return new FlagValidationResult(false, e.getLocalizedMessage());
 		}
 		
 		// this throws an exception in some cases, and is an ugly hack anyway....

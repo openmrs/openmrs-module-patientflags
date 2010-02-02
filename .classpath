@@ -3,9 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="web/src"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="lib-common/openmrs-api-1.5.1.9831-dev.jar"/>
-	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.5.1.9831-dev.jar"/>
-	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.5.1.9831-dev.jar"/>
 	<classpathentry kind="lib" path="/openmrs-1.5.x/lib/spring-framework/spring-test.jar" sourcepath="/openmrs-source/spring-framework-2.5.1-with-dependencies.zip"/>
 	<classpathentry kind="lib" path="/openmrs-1.5.x/lib/spring-framework/spring-webmvc.jar" sourcepath="/openmrs-source/spring-webmvc-sources.zip"/>
 	<classpathentry kind="lib" path="/openmrs-1.5.x/lib/tomcat/servlet-api.jar" sourcepath="/openmrs-source/apache-tomcat-5.5.20-src.zip"/>
@@ -47,6 +44,10 @@
 	<classpathentry kind="lib" path="/openmrs-1.5.x/lib/jakarta-taglibs/taglibs-standard-1.1.jar"/>
 	<classpathentry kind="lib" path="dist"/>
 	<classpathentry kind="lib" path="lib/groovy-all-1.6.3.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-api-1.6.0.11889-beta.jar"/>
+	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.6.0.11889-beta.jar"/>
+	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.6.0.11889-beta.jar"/>
+	<classpathentry kind="lib" path="lib-common/logic-0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

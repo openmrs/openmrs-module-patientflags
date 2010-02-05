@@ -4,7 +4,7 @@
 	<!-- Patient Flags Module Properties -->
 	<id>patientflags</id>
 	<name>Patient Flags Module</name>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
 	<package>org.openmrs.module.@MODULE_ID@</package>
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>
@@ -15,7 +15,7 @@
 	<!-- Required Modules -->
 	<require_modules>
 	   	<require_module>org.openmrs.logic</require_module>
-	</require_modules> -->
+	</require_modules>
 
 	<!-- Internationalization -->
 	<messages>

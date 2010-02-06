@@ -39,7 +39,7 @@ public class FlagPatientDashboardHeaderExt extends Extension {
 		
 		List<Flag> results = new ArrayList<Flag>();
 		
-		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), flagService.getDisplayPoint("Patient Dashboard Header"));
+		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Header");
 		
 		if (!results.isEmpty()) {
 			String content = "<TABLE><TR><TD>";

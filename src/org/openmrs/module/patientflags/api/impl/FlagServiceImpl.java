@@ -41,7 +41,6 @@ import org.openmrs.module.patientflags.comparator.TagAlphaComparator;
 import org.openmrs.module.patientflags.db.FlagDAO;
 import org.openmrs.module.patientflags.filter.Filter;
 import org.openmrs.module.patientflags.filter.FilterType;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation of the {@link FlagService}
@@ -100,9 +99,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set<Role>, DisplayPoint)
 	 */
-	@Transactional(readOnly = true)
 	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint){
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
@@ -133,7 +131,15 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 		return generateFlagsForPatient(patient, filter);
 	}
-		
+	
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set<Role>, String)
+	 */
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName){
+		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName));
+	}
+	
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag)
 	 */

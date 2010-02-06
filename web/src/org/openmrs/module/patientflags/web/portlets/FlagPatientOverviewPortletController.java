@@ -46,7 +46,7 @@ public class FlagPatientOverviewPortletController extends PortletController {
 		List<Flag> results = new ArrayList<Flag>();
 		FlagService flagService = Context.getService(FlagService.class);
 		
-		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), flagService.getDisplayPoint("Patient Dashboard Overview"));
+		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
 		
 		model.put("flags", results);
 	}

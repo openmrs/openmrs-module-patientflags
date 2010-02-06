@@ -74,6 +74,22 @@ public interface FlagService extends OpenmrsService {
 	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint);
 	
 	/**
+	 * Generates a list of Flags that are triggers for the specified Patient, filtered by Flags 
+	 * Tagged for a specified location and role
+	 * 
+	 * (This method is identical to generateFlagsForPatient(Patient,Set<Role>,DisplayPoint) except that
+	 * it takes a display point name as a string, instead of an actual DisplayPoint object)
+	 * 
+	 * @param patient the patient to test
+	 * @param roles to filter tagged flags by
+	 * @param displayPointName name of the displayPoint (as a String) to filter tagged flags by
+	 * @return the list of Flags the Patient triggers
+	 */
+	@Transactional(readOnly = true)
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName);
+	
+	
+	/**
 	 * Generates a list of all Patients that match the criteria of the specified Flag
 	 * 
 	 * @param flag the flag to test

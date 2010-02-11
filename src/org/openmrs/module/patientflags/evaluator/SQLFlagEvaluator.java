@@ -38,27 +38,31 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		
 		String criteria = flag.getCriteria();
 		
+		// pull out the "*.patient_id" clause
+		// is this robust enough?
+		Matcher matcher = Pattern.compile("(\\w+\\.patient_id)").matcher(criteria);
+		matcher.find(); // just check for the first occurrence of the pattern... is this enough?
+		String patientIdColumn = matcher.group();
+			
+		// since we are going to append a where/and to the end of this sql statement, we need to trim off trailing ";" and any trailing whitespace
+		matcher = Pattern.compile(";?\\s*$").matcher(criteria);
+		criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
+			
+		// create the criteria for a single patient by appending a "where" or "and" clause
+		String toEval = criteria + (criteria.matches(".*(?i)where.*") ? " and " : " where ") + patientIdColumn + " = "
+			+ patient.getPatientId();
+		
 		try {
-			// pull out the "*.patient_id" clause
-			// is this robust enough?
-			Matcher matcher = Pattern.compile("(\\w+\\.patient_id)").matcher(criteria);
-			matcher.find(); // just check for the first occurrence of the pattern... is this enough?
-			String patientIdColumn = matcher.group();
-			
-			// since we are going to append a where/and to the end of this sql statement, we need to trim off trailing ";" and any trailing whitespace
-			matcher = Pattern.compile(";?\\s*$").matcher(criteria);
-			criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
-			
-			// create the criteria for a single patient by appending a "where" or "and" clause
-			String toEval = criteria + (criteria.matches(".*(?i)where.*") ? " and " : " where ") + patientIdColumn + " = "
-			        + patient.getPatientId();
-			
+			Context.addProxyPrivilege("SQL Level Access");
 			List<List<Object>> resultSet = Context.getAdministrationService().executeSQL(toEval, true);
 			// if the list is empty, return false, otherwise, return true
 			return !resultSet.isEmpty();
 		}
 		catch (Exception e) {
 			throw new APIException("Unable to evaluate SQL Flag " + flag.getName() + ", " + e.getLocalizedMessage(), e);
+		}
+		finally{
+			Context.removeProxyPrivilege("SQL Level Access");
 		}
 	}
 	
@@ -70,10 +74,14 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		List<List<Object>> resultSet;
 		
 		try {
+			Context.addProxyPrivilege("SQL Level Access");
 			resultSet = Context.getAdministrationService().executeSQL(flag.getCriteria(), true);
 		}
 		catch (Exception e) {
 			throw new APIException("Unable to evaluate SQL Flag " + flag.getName() + ", " + e.getLocalizedMessage(), e);
+		}
+		finally{
+			Context.removeProxyPrivilege("SQL Level Access");
 		}
 		
 		Cohort resultCohort = new Cohort();
@@ -103,6 +111,8 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		
 		// try to execute the query, if it throws an exception, fail
 		try {
+			// note that unlike the two eval methods, we don't proxy SQL Level Access privilege here
+			// because we don't want users without SQL Level Access to be able to create SQL Flags
 			Context.getAdministrationService().executeSQL(criteria, true);
 		}
 		catch (Exception e) {

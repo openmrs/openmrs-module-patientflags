@@ -13,9 +13,6 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
-import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
-
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -50,27 +47,19 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 			cohort = new Cohort(Context.getPatientService().getAllPatients());
 		}
 		
-		// get the script to execute
-		String criteria = flag.getCriteria();
-		
-		// get the set of bindings to use
-		Binding bindings = getBindings();
-		
-		// bind the test Cohort
-		bindings.setVariable("testCohort", cohort);
-		
-		// create a Groovy shell & import org.openmrs.*
-		GroovyShell shell = new GroovyShell(bindings);
-		
 		try {
-			Cohort resultCohort = (Cohort) shell.parse("import org.openmrs.*;" + criteria).run();
+			// create a thread to evaluate the groovy script
+			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, cohort, Context.getAuthenticatedUser());
+			new Thread(evaluatorThread).start();
+			
+			// fetch the result from the thread
+			Cohort resultCohort = evaluatorThread.fetchResultCohort();
 			
 			// return the intersection of the originalCohort and the result,
 			// just in case the Groovy script didn't operate on "testCohort"
-			if(resultCohort != null){
+			if (resultCohort != null) {
 				return Cohort.intersect(cohort, resultCohort);
-			}
-			else{
+			} else {
 				// return an empty Cohort if the result set is null
 				return new Cohort();
 			}
@@ -84,46 +73,28 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#validate(Flag)
 	 */
 	public FlagValidationResult validate(Flag flag) {
-		// get the script to execute
-		String criteria = flag.getCriteria();
-		
-		// get the set of bindings to use
-		Binding bindings = getBindings();
-		
-		// bind to an empty Cohort for testing
-		bindings.setVariable("testCohort", new Cohort());
-		
-		// create a Groovy shell with org.openmrs.* imported
-		GroovyShell shell = new GroovyShell(bindings);
-		
 		try {
-			@SuppressWarnings("unused")
-			Cohort resultCohort = (Cohort) shell.parse("import org.openmrs.*;" + criteria).run();
+			// create a thread to test evaluating the groovy script against an empty cohort
+			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, new Cohort(), Context.getAuthenticatedUser());
+			new Thread(evaluatorThread).start();
+			
+			// attempt to fetch result
+			evaluatorThread.fetchResultCohort();
+			
+			// if the fetch was successful, flag should be successfully validated
 			return new FlagValidationResult(true);
 		}
 		catch (Exception e) {
-			return new FlagValidationResult(false, e.getLocalizedMessage());
+			// if the exception was caused by a problem in the groovy script, handle 
+			// the error by failing the validation and passing back the error message
+			if (e instanceof groovy.lang.GroovyRuntimeException) {
+				return new FlagValidationResult(false, e.getLocalizedMessage());
+			}
+			// if it is some other kind of exception, we have larger issues, so throw an API exception
+			else {
+				throw new APIException("Unable to evaluate Groovy Flag " + flag.getName() + ", " + e.getLocalizedMessage(),
+				        e);
+			}
 		}
 	}
-	
-	//TODO: add a better version of this which is driven by a config file.
-	private static Binding getBindings() {
-		final Binding binding = new Binding();
-		binding.setVariable("admin", Context.getAdministrationService());
-		binding.setVariable("cohort", Context.getCohortService());
-		binding.setVariable("concept", Context.getConceptService());
-		binding.setVariable("encounter", Context.getEncounterService());
-		binding.setVariable("form", Context.getFormService());
-		binding.setVariable("locale", Context.getLocale());
-		binding.setVariable("logic", Context.getLogicService());
-		binding.setVariable("obs", Context.getObsService());
-		binding.setVariable("order", Context.getOrderService());
-		binding.setVariable("patient", Context.getPatientService());
-		binding.setVariable("patientSet", Context.getPatientSetService());
-		binding.setVariable("person", Context.getPersonService());
-		binding.setVariable("program", Context.getProgramWorkflowService());
-		binding.setVariable("user", Context.getUserService());
-		return binding;
-	}
-	
 }

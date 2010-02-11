@@ -13,11 +13,13 @@
  */
 package org.openmrs.module.patientflags.api;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
+import org.openmrs.Privilege;
 import org.openmrs.Role;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
@@ -297,10 +299,17 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Saves Patient Flags properties to Global Properties
 	 * 
-	 * @param roperties current Patient Flag properties
+	 * @param properties current Patient Flag properties
 	 * @throws APIException
 	 */
 	@Authorized(value = { "Manage Flags", "Manage Global Properties" }, requireAll = true)
 	public void savePatientFlagsProperties(PatientFlagsProperties properties);
 	
+	/**
+	 * Returns the privileges that the Groovy evaluator should have when 
+	 * executing a Groovy script
+	 * 
+	 * @return privileges the privileges allowed
+	 */
+	public Collection<Privilege> getPrivileges();
 }

@@ -14,6 +14,7 @@
 package org.openmrs.module.patientflags.api.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -24,7 +25,9 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.GlobalProperty;
 import org.openmrs.Patient;
+import org.openmrs.Privilege;
 import org.openmrs.Role;
+import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.impl.BaseOpenmrsService;
@@ -52,6 +55,9 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	/* Local Cache to store all enabled Flags and all Tags to improve real-time searching */
 	private List<Flag> flagCache;
 	private List<Tag> tagCache;
+	
+	/* Local Cache to store the privileges that should be given to a Groovy Evaluator */
+	private Collection<Privilege> privilegeCache;
 	
 	/* Data access object for Flags */
 	private FlagDAO dao;
@@ -412,8 +418,20 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 	}
 	
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getPrivileges()
+	 */
+	public Collection<Privilege> getPrivileges(){
+		// we can get rid of this once onStartup is implemented
+		if (!isInitialized)
+			refreshCache();
+		
+		return privilegeCache;
+	}
+	
 	public void onStartup() {
 		//implement this once OpenMRS "onStartup" functionality has been implemented
+		// then can rid of the "isInitialized" hack
 		//refreshCache();
 	}
 	
@@ -426,6 +444,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * flags and tags must be eagerly loaded for this to work
 	 */
 	private void refreshCache() {
+		// get the enabled flags and all tags for the flag and tag caches
 		flagCache = dao.getAllEnabledFlags();
 		tagCache = getAllTags();
 		
@@ -433,6 +452,19 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		Collections.sort(flagCache, new FlagAlphaComparator());
 		Collections.sort(flagCache, new FlagPriorityComparator());
 		
+		// get the privileges associate with the patient flags default user for the privileges cache
+		Context.addProxyPrivilege("View Users");
+		String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
+		User user = Context.getUserService().getUserByUsername(username);
+
+		if(user.isSuperUser())
+			privilegeCache = Context.getUserService().getAllPrivileges();
+		else
+			privilegeCache = user.getPrivileges();
+		
+		Context.removeProxyPrivilege("View Users");
+		
+		// set the initialized flag to true
 		isInitialized = true;
 	}
 }

@@ -42,15 +42,42 @@ public class PatientFlagsModuleActivator implements Activator {
 		
 		// create necessary global properties if they have not been created
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientHeaderDisplay")) == null) {
-			String description = "DO NOT MODIFY HERE: use \"manage flag display\" to modify; true/false whether or not to display flags in the Patient Dashboard header";
-			Context.getAdministrationService().saveGlobalProperty(
-			    new GlobalProperty("patientflags.patientHeaderDisplay", "true", description));
+			Context
+			        .getAdministrationService()
+			        .saveGlobalProperty(
+			            new GlobalProperty(
+			                    "patientflags.patientHeaderDisplay",
+			                    "true",
+			                    "DO NOT MODIFY HERE: use \"manage flag display\" to modify; true/false whether or not to display flags in the Patient Dashboard overview"));
 		}
 		
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientOverviewDisplay")) == null) {
-			String description = "DO NOT MODIFY HERE: use \"manage flag display\" to modify; true/false whether or not to display flags in the Patient Dashboard overview";
-			Context.getAdministrationService().saveGlobalProperty(
-			    new GlobalProperty("patientflags.patientOverviewDisplay", "true", description));
+			Context
+			        .getAdministrationService()
+			        .saveGlobalProperty(
+			            new GlobalProperty(
+			                    "patientflags.patientOverviewDisplay",
+			                    "true",
+			                    "DO NOT MODIFY HERE: use \"manage flag display\" to modify; true/false whether or not to display flags in the Patient Dashboard header"));
+		}
+		
+		// if no username and password have been defined, as a default use the username/password used by the scheduler
+		if ((Context.getAdministrationService().getGlobalProperty("patientflags.username")) == null) {
+			Context
+			        .getAdministrationService()
+			        .saveGlobalProperty(
+			            new GlobalProperty("patientflags.username", Context.getAdministrationService().getGlobalProperty(
+			                "scheduler.username"),
+			                    "DO NOT MODIFY HERE: user \"manage flag username\" to modify; Username for the OpenMRS user that will evaluate Groovy flags"));
+		}
+		
+		if ((Context.getAdministrationService().getGlobalProperty("patientflags.password")) == null) {
+			Context
+			        .getAdministrationService()
+			        .saveGlobalProperty(
+			            new GlobalProperty("patientflags.password", Context.getAdministrationService().getGlobalProperty(
+			                "scheduler.password"),
+			                    "DO NOT MODIFY HERE: user \"manage flag username\" to modify; Password for the OpenMRS user that will evaluate Groovy flags"));
 		}
 		
 		// configure extension points based on global properties
@@ -89,8 +116,9 @@ public class PatientFlagsModuleActivator implements Activator {
 			ModuleFactory.getExtensionMap().put(extId, tmpExtensions);
 		}
 		
+		// TODO: uncomment this!!!
 		// register the logic tokens
-		LogicUtil.registerDefaultRules();
+		//LogicUtil.registerDefaultRules();
 		
 		log.info("Starting Patient Flags Module");
 	}

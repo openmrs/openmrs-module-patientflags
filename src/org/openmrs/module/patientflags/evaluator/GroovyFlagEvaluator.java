@@ -49,7 +49,8 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 		
 		try {
 			// create a thread to evaluate the groovy script
-			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, cohort, Context.getAuthenticatedUser());
+			// (note that we pass 'null' as the user parameter because we don't want to restrict flag execution based on user)
+			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, cohort, null);
 			new Thread(evaluatorThread).start();
 			
 			// fetch the result from the thread
@@ -75,6 +76,9 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 	public FlagValidationResult validate(Flag flag) {
 		try {
 			// create a thread to test evaluating the groovy script against an empty cohort
+			// (note that in this case we pass the current user to the thread, because we want to restrict flag validation based on the user-
+			//  a user can evaluate a flag even if she doesn't have all the required privileges, but shouldn't be able to create/update a flag
+			//  the does something she doesn't have privileges to do herself)
 			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, new Cohort(), Context.getAuthenticatedUser());
 			new Thread(evaluatorThread).start();
 			

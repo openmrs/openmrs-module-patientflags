@@ -15,13 +15,10 @@ package org.openmrs.module.patientflags.evaluator;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Set;
 
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.Privilege;
 import org.openmrs.User;
@@ -34,17 +31,24 @@ import org.openmrs.module.patientflags.api.FlagService;
  */
 public class GroovyFlagEvaluatorThread implements Runnable{
 	
-	private Log log = LogFactory.getLog(this.getClass());
-	
+	/* the cohort to test */
 	private Cohort testCohort;
 	
+	/* the result cohort */
 	private Cohort resultCohort;
 	
+	/* the flag to test */
 	private Flag flag;
 	
+	/* only allow groovy script privileges associated with this user */
 	private User user;
 	
+	/* stores any exception throw during execution */
 	private Exception exception; 
+	
+	/**
+	 * Constructors
+	 */
 	
 	public GroovyFlagEvaluatorThread(){
 	}
@@ -54,6 +58,10 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 		this.testCohort = cohort;
 		this.user = user;
 	}
+	
+	/**
+	 * Getters and Setters
+	 */
 	
 	public void setTestCohort(Cohort testCohort) {
 	    this.testCohort = testCohort;
@@ -95,19 +103,15 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	    return exception;
     }
 	
+	/**
+	 * Public Methods
+	 */
+	
 	public synchronized Cohort fetchResultCohort() throws Exception{
-		// TODO: change this to processResultCohort!!!
-		// assign and then notify, and then wait???
-		
-		try {
-	        wait();
-        }
-        catch (InterruptedException e) {
-	        // TODO Auto-generated catch block
-	        e.printStackTrace();
-        }
+		// wait for the evaluator thread to alert notify that it's done evaluating
+	    wait();
         
-        // if the evaluator thread created an exception throw it; other return resultCohort
+        // if the evaluator thread created an exception, throw it; otherwise, return resultCohort
         Exception e = getException();
         if(e != null){
         	throw e;
@@ -118,17 +122,10 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	}
 
 	public synchronized void run() {
-		
-		
-		// TODO: should I make this into two try/catches that I handle differently so that non "criteria" issues don't end up in the criteria display
 		try{
+			// open a new session and set the privileges that should be allowed
 			Context.openSession();
 			setPrivileges();
-			
-			//Context.addProxyPrivilege("View Global Properties");
-			//String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
-			//String password = Context.getAdministrationService().getGlobalProperty("patientflags.password");
-			//Context.authenticate(username, password);
 		
 			// get the script to execute
 			String criteria = flag.getCriteria();
@@ -139,25 +136,22 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 			// bind the test Cohort
 			bindings.setVariable("testCohort", getTestCohort());
 		
-			// create a Groovy shell & import org.openmrs.*
+			// create a Groovy shell and execute the criteria, storing the result in the resultCohort
 			GroovyShell shell = new GroovyShell(bindings);
-		
-			// TODO: move this processing to "processResultCohort"??
-		
-			// wait here!!!
-		
 			setResultCohort((Cohort) shell.parse("import org.openmrs.*;" + criteria).run());
+
+			// notify the main thread that execution is complete
 			notify();
 		}
 		catch (Exception e) {
-			// save the exception
+			// save the exception and notify the main thread that execution is complete
 			setException(e);
 			notify();
 		}
     }
 	
 	//TODO: add a better version of this which is driven by a config file.
-	private Binding getBindings() {
+	private static Binding getBindings() {
 		final Binding binding = new Binding();
 		binding.setVariable("admin", Context.getAdministrationService());
 		binding.setVariable("cohort", Context.getCohortService());
@@ -177,16 +171,18 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	}
 	
 	private void setPrivileges(){
-		Collection<Privilege> privileges = Context.getService(FlagService.class).getPrivileges();
+		// fetch the privileges allowed from the privilege cache
+		Collection<Privilege> privileges = new HashSet<Privilege>(Context.getService(FlagService.class).getPrivileges());
 		
 		if(privileges != null){
-				if(!user.isSuperUser()){
+				// if a user is specified, further restrict the privileges allowed to the intersection of the cache privileges
+				// and the user privileges
+				if(user != null && !user.isSuperUser()){
 					privileges.retainAll(user.getPrivileges());
 				}
 		
+				// add the privileges by proxy
 				for(Privilege privilege : privileges){
-					// TODO: get rid of this logging
-					log.error("Adding privilege " + privilege.getPrivilege());
 					Context.addProxyPrivilege(privilege.getPrivilege());	
 				}
 		}

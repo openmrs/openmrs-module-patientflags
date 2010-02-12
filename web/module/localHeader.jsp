@@ -25,10 +25,10 @@
 	</openmrs:hasPrivilege>
 	<openmrs:hasPrivilege privilege="Manage Flags">
 		<li
-			<c:if test='<%= request.getRequestURI().contains("manageFlagDisplay") %>'>class="active"</c:if>>
+			<c:if test='<%= request.getRequestURI().contains("managePatientFlagsProperties") %>'>class="active"</c:if>>
 		<a
-			href="${pageContext.request.contextPath}/module/patientflags/manageFlagDisplay.form"><spring:message
-			code="patientflags.manageFlagDisplay" /></a></li>
+			href="${pageContext.request.contextPath}/module/patientflags/managePatientFlagsProperties.form"><spring:message
+			code="patientflags.managePatientFlagsProperties" /></a></li>
 	</openmrs:hasPrivilege>
 	<openmrs:hasPrivilege privilege="Test Flags">
 		<li

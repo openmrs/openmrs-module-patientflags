@@ -16,7 +16,9 @@ package org.openmrs.module.patientflags.web;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.PatientFlagsProperties;
 import org.openmrs.module.patientflags.api.FlagService;
+import org.openmrs.module.patientflags.web.validators.PatientFlagsPropertiesValidator;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,13 +29,21 @@ import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/module/patientflags/manageFlagDisplay.form")
-public class ManageFlagDisplayController {
+@RequestMapping("/module/patientflags/managePatientFlagsProperties.form")
+public class ManagePatientFlagsProperties {
+	
+	/** Validator for this controller */
+	private PatientFlagsPropertiesValidator validator;
 	
 	/**
-	 * Generic Constructor
+	 * Constructors
 	 */
-	public ManageFlagDisplayController() {
+	public ManagePatientFlagsProperties() {
+	}
+	
+	@Autowired
+	public ManagePatientFlagsProperties(PatientFlagsPropertiesValidator validator) {
+		this.validator = validator;
 	}
 	
 	/**
@@ -48,19 +58,26 @@ public class ManageFlagDisplayController {
 		PatientFlagsProperties properties = Context.getService(FlagService.class).getPatientFlagsProperties();
 		model.addAttribute("properties", properties);
 		
-		return new ModelAndView("/module/patientflags/manageFlagDisplay");
+		return new ModelAndView("/module/patientflags/managePatientFlagsProperties");
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("properties") PatientFlagsProperties properties, BindingResult result,
 	                                  SessionStatus status) {
 		
+		// validate form entries
+		validator.validate(properties, result);
+		
+		if (result.hasErrors()) {
+			return new ModelAndView("/module/patientflags/managePatientFlagsProperties");
+		}
+		
 		// save updated properties
 		Context.getService(FlagService.class).savePatientFlagsProperties(properties);
 		
 		// clears the command object from the session
 		status.setComplete();
-		return new ModelAndView("/module/patientflags/manageFlagDisplaySuccess");
+		return new ModelAndView("/module/patientflags/managePatientFlagsPropertiesSuccess");
 	}
 }
 

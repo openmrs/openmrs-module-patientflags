@@ -10,43 +10,53 @@
  * under the License.
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
- */package org.openmrs.module.patientflags;
-
+ */
+package org.openmrs.module.patientflags;
 
 /**
  * This class represents the configurable properties for the Patient Flags Module
  */
 public class PatientFlagsProperties {
+	
+	/* true/false whether or not to display flags in the Patient Dashboard overview */
 	private Boolean patientHeaderDisplay;
+	
+	/* true/false whether or not to display flags in the Patient Dashboard header */
 	private Boolean patientOverviewDisplay;
+	
+	/* Username for the OpenMRS user that will evaluate Groovy flags */ 
+	private String username;
 	
 	/**
 	 * Constructor
 	 */
-	public PatientFlagsProperties(){}
-
+	public PatientFlagsProperties() {
+	}
 	
 	/**
 	 * Getters and Setters
 	 */
-    public Boolean getPatientHeaderDisplay() {
-    	return patientHeaderDisplay;
-    }
-
+	public Boolean getPatientHeaderDisplay() {
+		return patientHeaderDisplay;
+	}
 	
-    public void setPatientHeaderDisplay(Boolean patientHeaderDisplay) {
-    	this.patientHeaderDisplay = patientHeaderDisplay;
-    }
-
+	public void setPatientHeaderDisplay(Boolean patientHeaderDisplay) {
+		this.patientHeaderDisplay = patientHeaderDisplay;
+	}
 	
-    public Boolean getPatientOverviewDisplay() {
-    	return patientOverviewDisplay;
-    }
-
+	public Boolean getPatientOverviewDisplay() {
+		return patientOverviewDisplay;
+	}
 	
-    public void setPatientOverviewDisplay(Boolean patientOverviewDisplay) {
-    	this.patientOverviewDisplay = patientOverviewDisplay;
-    }
+	public void setPatientOverviewDisplay(Boolean patientOverviewDisplay) {
+		this.patientOverviewDisplay = patientOverviewDisplay;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getUsername() {
+		return username;
+	}
 }
-
-

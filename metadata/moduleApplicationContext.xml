@@ -65,5 +65,8 @@
 	<!-- configure the Priority Validator -->
 	<bean id="priorityValidator" class="org.openmrs.module.patientflags.web.validators.PriorityValidator" />
 	
+	<!-- configure the Patient Flags Properties Validator -->
+	<bean id="patientFlagsPropertiesValidator" class="org.openmrs.module.patientflags.web.validators.PatientFlagsPropertiesValidator" />
+	
 	
 </beans>

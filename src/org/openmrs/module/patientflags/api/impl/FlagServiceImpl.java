@@ -54,6 +54,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	
 	/* Local Cache to store all enabled Flags and all Tags to improve real-time searching */
 	private List<Flag> flagCache;
+	
 	private List<Tag> tagCache;
 	
 	/* Local Cache to store the privileges that should be given to a Groovy Evaluator */
@@ -89,7 +90,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
-			
+		
 		// test each Flag in the cache against the specific Patient
 		for (Flag flag : filter.filter(flagCache)) {
 			// trap bad flags so that they don't hang the system
@@ -105,23 +106,23 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set<Role>, DisplayPoint)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
+	 *      Set<Role>, DisplayPoint)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint){
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
 		
 		// generate the set of tags to filter by
 		Set<Tag> tags = new HashSet<Tag>();
-		for(Tag tag: tagCache){
-			if(displayPoint == null || tag.getDisplayPoints().contains(displayPoint)){
-				if(roles == null){
+		for (Tag tag : tagCache) {
+			if (displayPoint == null || tag.getDisplayPoints().contains(displayPoint)) {
+				if (roles == null) {
 					tags.add(tag);
-				}
-				else{
-					for(Role role: roles){
-						if(tag.getRoles().contains(role)){
+				} else {
+					for (Role role : roles) {
+						if (tag.getRoles().contains(role)) {
 							tags.add(tag);
 							break;
 						}
@@ -139,12 +140,12 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set<Role>, String)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
+	 *      Set<Role>, String)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName){
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
 		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName));
 	}
-	
 	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag)
@@ -388,6 +389,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			        .error("Unable to initialize patientOverviewDisplay parameter, invalid or missing value in global_properties table.");
 		}
 		
+		String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
+		if (username == null) {
+			properties.setUsername(null);
+			log.error("Unable to initialize username parameter, invalid or missing value in global_properties table.");
+		} else {
+			properties.setUsername(username);
+		}
+		
 		return properties;
 	}
 	
@@ -407,6 +416,13 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 				    "patientflags.patientOverviewDisplay");
 				patientOverviewDisplay.setPropertyValue(properties.getPatientOverviewDisplay().toString());
 				Context.getAdministrationService().saveGlobalProperty(patientOverviewDisplay);
+				
+				GlobalProperty username = Context.getAdministrationService().getGlobalPropertyObject("patientflags.username");
+				username.setPropertyValue(properties.getUsername());
+				Context.getAdministrationService().saveGlobalProperty(username);
+			
+				// refresh the cache so the privileges are updated if username changed
+				refreshCache();
 			}
 			catch (Throwable t) {
 				throw new APIException(
@@ -421,7 +437,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getPrivileges()
 	 */
-	public Collection<Privilege> getPrivileges(){
+	public Collection<Privilege> getPrivileges() {
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
@@ -440,8 +456,9 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 */
 	
 	/**
-	 * Refresh the local cache of Flags by loading all enabled Flags from the database Note that
-	 * flags and tags must be eagerly loaded for this to work
+	 * Refresh the local cache of Flags by loading all enabled Flags from the database 
+	 * Also refresh the privilege cache
+	 * Note that flags and tags must be eagerly loaded for this to work
 	 */
 	private void refreshCache() {
 		// get the enabled flags and all tags for the flag and tag caches
@@ -453,17 +470,20 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		Collections.sort(flagCache, new FlagPriorityComparator());
 		
 		// get the privileges associate with the patient flags default user for the privileges cache
-		Context.addProxyPrivilege("View Users");
-		String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
-		User user = Context.getUserService().getUserByUsername(username);
-
-		if(user.isSuperUser())
-			privilegeCache = Context.getUserService().getAllPrivileges();
-		else
-			privilegeCache = user.getPrivileges();
+		try{
+			Context.addProxyPrivilege("View Users");
+			String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
+			User user = Context.getUserService().getUserByUsername(username);
 		
-		Context.removeProxyPrivilege("View Users");
-		
+			if (user.isSuperUser()) // need to explicitly get all privileges if user is a super user
+				privilegeCache = Context.getUserService().getAllPrivileges();
+			else
+				privilegeCache = user.getPrivileges();
+		}
+		finally{
+			Context.removeProxyPrivilege("View Users");
+		}
+			
 		// set the initialized flag to true
 		isInitialized = true;
 	}

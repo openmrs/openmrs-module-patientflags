@@ -49,7 +49,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
 			
 		// create the criteria for a single patient by appending a "where" or "and" clause
-		String toEval = criteria + (criteria.matches(".*(?i)where.*") ? " and " : " where ") + patientIdColumn + " = "
+		String toEval = criteria + (criteria.matches("(?i)(?s).*where.*") ? " and " : " where ") + patientIdColumn + " = "
 			+ patient.getPatientId();
 		
 		try {

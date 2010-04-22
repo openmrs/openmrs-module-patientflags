@@ -29,6 +29,10 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
 	public Boolean eval(Flag flag, Patient patient) {
+		
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate Groovy flag " + flag.getName() + " against voided patient");
+		
 		// create a Cohort that contains just the patient to test, and then evaluate that Cohort
 		Cohort cohort = new Cohort();
 		cohort.addMember(patient.getId());

@@ -34,12 +34,14 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
 	public Boolean eval(Flag flag, Patient patient) {
+		
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate Logic flag " + flag.getName() + " against voided patient");
+		
 		LogicService logicService = Context.getLogicService();
 		boolean result;
 		
-		// TODO redo this once Logic gets consolidated into one method
 		try {
-			// try the first logic parse method
 			LogicCriteria logicCriteria = logicService.parse(flag.getCriteria());
 			result = logicService.eval(patient, logicCriteria).toBoolean();
 		}
@@ -62,7 +64,6 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 			cohort = new Cohort(Context.getPatientService().getAllPatients());
 		}
 		
-		// TODO redo this once Logic gets consolidated into one method
 		try {
 			LogicCriteria logicCriteria = logicService.parse(flag.getCriteria());
 			resultMap = logicService.eval(cohort, logicCriteria);

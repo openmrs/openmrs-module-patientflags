@@ -36,6 +36,9 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	 */
 	public Boolean eval(Flag flag, Patient patient) {
 		
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate SQL flag " + flag.getName() + " against voided patient");
+		
 		String criteria = flag.getCriteria();
 		
 		// pull out the "*.patient_id" clause
@@ -73,6 +76,11 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		
 		List<List<Object>> resultSet;
 		
+		// if the Cohort is null, use a Cohort that contains the entire patient set
+		if (cohort == null) {
+			cohort = new Cohort(Context.getPatientService().getAllPatients());
+		}
+		
 		try {
 			Context.addProxyPrivilege("SQL Level Access");
 			resultSet = Context.getAdministrationService().executeSQL(flag.getCriteria(), true);
@@ -90,9 +98,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 			resultCohort.addMember((Integer) row.get(0));
 		}
 		
-		if (cohort != null) {
-			resultCohort = Cohort.intersect(resultCohort, cohort);
-		}
+		resultCohort = Cohort.intersect(resultCohort, cohort);
 		
 		return resultCohort;
 	}

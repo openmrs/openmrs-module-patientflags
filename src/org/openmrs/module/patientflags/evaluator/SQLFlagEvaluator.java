@@ -76,11 +76,6 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		
 		List<List<Object>> resultSet;
 		
-		// if the Cohort is null, use a Cohort that contains the entire patient set
-		if (cohort == null) {
-			cohort = new Cohort(Context.getPatientService().getAllPatients());
-		}
-		
 		try {
 			Context.addProxyPrivilege("SQL Level Access");
 			resultSet = Context.getAdministrationService().executeSQL(flag.getCriteria(), true);
@@ -95,10 +90,16 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		Cohort resultCohort = new Cohort();
 		
 		for (List<Object> row : resultSet) {
-			resultCohort.addMember((Integer) row.get(0));
+			Integer patient_id = (Integer) row.get(0);
+			
+			// only add patients that haven't been voided
+			if(!Context.getPatientService().getPatient(patient_id).isVoided())
+				resultCohort.addMember((Integer) row.get(0));
 		}
 		
-		resultCohort = Cohort.intersect(resultCohort, cohort);
+		if (cohort != null) {
+			resultCohort = Cohort.intersect(resultCohort, cohort);
+		}
 		
 		return resultCohort;
 	}

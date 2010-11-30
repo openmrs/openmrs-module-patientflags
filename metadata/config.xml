@@ -4,12 +4,12 @@
 	<!-- Patient Flags Module Properties -->
 	<id>patientflags</id>
 	<name>Patient Flags Module</name>
-	<version>1.2.7.1</version>
+	<version>1.2.8</version>
 	<package>org.openmrs.module.@MODULE_ID@</package>
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>
 	<activator>@MODULE_PACKAGE@.PatientFlagsModuleActivator</activator>
-    <require_version>1.6</require_version>
+    <require_version>1.7</require_version>
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->

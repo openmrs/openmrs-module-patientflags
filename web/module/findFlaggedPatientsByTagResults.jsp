@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<%@ taglib prefix="form" uri="resources/spring-form.tld"%>
 
 <!--  THIS JSP PAGE IS CURRENTLY NOT USED, BUT WE'RE KEEPING IN IN PLACE -->
 <!--  IN CASE WE WANT TO REVIVE IT IN THE FUTURE -->

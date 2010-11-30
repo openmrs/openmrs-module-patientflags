@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
-<%@ taglib prefix="form" uri="resources/spring-form.tld"%>
 
 <openmrs:require privilege="Manage Flags" otherwise="/login.htm"
 	redirect="/module/patientflags/editTag.form" />

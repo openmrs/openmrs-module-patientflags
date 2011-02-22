@@ -23,6 +23,7 @@ import org.openmrs.Cohort;
 import org.openmrs.Privilege;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
 
@@ -151,7 +152,8 @@ public class GroovyFlagEvaluatorThread implements Runnable{
     }
 	
 	//TODO: add a better version of this which is driven by a config file.
-	private static Binding getBindings() {
+	@SuppressWarnings("unchecked")
+    private static Binding getBindings() {
 		final Binding binding = new Binding();
 		binding.setVariable("admin", Context.getAdministrationService());
 		binding.setVariable("cohort", Context.getCohortService());
@@ -167,6 +169,18 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 		binding.setVariable("person", Context.getPersonService());
 		binding.setVariable("program", Context.getProgramWorkflowService());
 		binding.setVariable("user", Context.getUserService());
+		
+		// TODO: add bindings for more dynamic services besides MDR-TB
+		if(ModuleFactory.getStartedModulesMap().containsKey("mdrtb")) {
+			try {
+	            Class mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
+	            binding.setVariable("mdrtb", Context.getService(mdrtbServiceClass));
+            }
+            catch (ClassNotFoundException e) {
+	            // do nothing if the class isn't found
+            }
+		}
+		
 		return binding;
 	}
 	

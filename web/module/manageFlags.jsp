@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
+<%@ taglib prefix="springform" uri="resources/spring-form.tld"%>
 
 <openmrs:require privilege="Manage Flags" otherwise="/login.htm"
 	redirect="/module/patientflags/manageFlags.form" />
@@ -17,17 +18,17 @@
 <!--  display the filter box -->
 <c:if test="${!empty tags}">
 <div><b class="boxHeader"><spring:message
-	code="patientflags.manageFlags.filterBy" /></b> <form:form
+	code="patientflags.manageFlags.filterBy" /></b> <springform:form
 	modelAttribute="filter">
 	<table cellpadding="2" cellspacing="0" class="box">
 		<tr>
-			<td><form:select path="tags" multiple="true">
-				<form:options items="${tags}" itemValue="tagId" itemLabel="name" />
-			</form:select></td>
-			<td align="left" valign="top"><nobr><form:radiobutton
+			<td><springform:select path="tags" multiple="true">
+				<springform:options items="${tags}" itemValue="tagId" itemLabel="name" />
+			</springform:select></td>
+			<td align="left" valign="top"><nobr><springform:radiobutton
 				path="type" value="ANYTAG" /> <spring:message
 				code='patientflags.manageFlags.anyTag' /></nobr><br />
-			<nobr><form:radiobutton path="type" value="ALLTAGS" /> <spring:message
+			<nobr><springform:radiobutton path="type" value="ALLTAGS" /> <spring:message
 				code='patientflags.manageFlags.allTags' /></nobr></td>
 			<td width="100%">&nbsp;</td>
 		</tr>
@@ -38,7 +39,7 @@
 			<td>&nbsp;</td>
 		</tr>
 	</table>
-</form:form></div>
+</springform:form></div>
 <br />
 </c:if>
 

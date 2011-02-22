@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
+<%@ taglib prefix="springform" uri="resources/spring-form.tld" %>
 
 <openmrs:require privilege="Manage Flags" otherwise="/login.htm" redirect="/module/patientflags/managePatientFlagsProperties.form" />
 <openmrs:require privilege="Manage Global Properties" otherwise="/login.htm" redirect="/module/patientflags/managePatientFlagsProperties.form" />
@@ -12,16 +13,16 @@
 <div>
 	<b class="boxHeader"><spring:message code="patientflags.managePatientFlagsProperties"/></b>
 	<div class="box">
-		<form:form modelAttribute="properties">
-		<form:errors path="*" cssClass="error"/>
+		<springform:form modelAttribute="properties">
+		<springform:errors path="*" cssClass="error"/>
 			<br/>
-			<form:checkbox path="patientHeaderDisplay" />&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.patientHeaderDisplay"/><br/>
-			<form:checkbox path="patientOverviewDisplay" />&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.patientOverviewDisplay"/><br/>
+			<springform:checkbox path="patientHeaderDisplay" />&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.patientHeaderDisplay"/><br/>
+			<springform:checkbox path="patientOverviewDisplay" />&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.patientOverviewDisplay"/><br/>
 			<br/>
-			&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.username" />:&nbsp;<form:input path="username" /><br/>
+			&nbsp;<spring:message code="patientflags.managePatientFlagsProperties.username" />:&nbsp;<springform:input path="username" /><br/>
 			<br/>
 			<input type="submit" value="<spring:message code='patientflags.saveChanges'/>"/>
-		</form:form>
+		</springform:form>
 	</div>
 </div>
 

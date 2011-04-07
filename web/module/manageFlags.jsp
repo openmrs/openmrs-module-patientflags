@@ -62,7 +62,7 @@
 			<td><c:forEach items="${flag.tags}" var="tag">
 					${tag.name};
 				</c:forEach></td>
-			<td>${flag.priority.name}</td>
+			<td>${flag.priority != null ? flag.priority.name : ''}</td>
 
 			<c:choose>
 				<c:when test="${flag.enabled}">

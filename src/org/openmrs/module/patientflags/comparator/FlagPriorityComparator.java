@@ -22,6 +22,14 @@ import org.openmrs.module.patientflags.Flag;
  */
 public class FlagPriorityComparator implements Comparator<Flag>{
 	public int compare(Flag o1, Flag o2) {
+		 
+		if (o1.getPriority() == null) {
+			return -1;
+		}
+		
+		if (o2.getPriority() == null) {
+			return 1;
+		}
 	    
 		Integer rank1 = o1.getPriority().getRank();
 		Integer rank2 = o2.getPriority().getRank();

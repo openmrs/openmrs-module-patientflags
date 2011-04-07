@@ -17,12 +17,8 @@
 		<property name="criteria" type="java.lang.String" column="criteria"
 			not-null="true" length="5000" />
 
-		<!--
-			must access evaluator through property (getter/setter) in order it to
-			function correctly, since we do some mapping there
-		-->
 		<property name="evaluator" type="java.lang.String" column="evaluator"
-			access="property" />
+			not-null="true" length="255" />
 
 		<property name="message" type="java.lang.String" column="message"
 			not-null="true" length="255" />

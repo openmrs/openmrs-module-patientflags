@@ -4,5 +4,5 @@
 	redirect="/index.htm" />
 
 <c:forEach items="${model.flags}" var="flag">
-	<span ${flag.priority.style}>${flag.localizedMessage}</span><br />
+	<span ${flag.priority != null ? flag.priority.style : ''}>${flag.localizedMessage}</span><br />
 </c:forEach>

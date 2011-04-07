@@ -38,8 +38,8 @@ public class Flag extends BaseOpenmrsMetadata {
 	private String criteria;
 	
 	/* The evaluator to use when evaluating the flag */
-	/* (Stored in database as a String, and mapped by getter/setter pair) */
-	private FlagEvaluator evaluator;
+	/* (Name of the class, stored as a string) */
+	private String evaluator;
 	
 	/* Message to display when a the flag is triggered */
 	private String message;
@@ -159,25 +159,14 @@ public class Flag extends BaseOpenmrsMetadata {
 	 * @throws APIException
 	 */
 	public void setEvaluator(String evaluator) {
-		if (evaluator != null) {
-			try {
-				this.evaluator = (FlagEvaluator) Class.forName(evaluator).newInstance();
-			}
-			catch (Exception e) {
-				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);
-			}
-		}
+		this.evaluator = evaluator;
 	}
 	
 	/**
 	 * @return evaluatorType
 	 */
 	public String getEvaluator() {
-		if (evaluator != null) {
-			return evaluator.getClass().getName();
-		} else {
-			return null;
-		}
+		return evaluator;
 	}
 	
 	/**
@@ -266,6 +255,23 @@ public class Flag extends BaseOpenmrsMetadata {
 	}
 	
 	/**
+	 * Instantiates the evaluator
+	 */
+	public FlagEvaluator instantiateEvaluator() {
+		if (evaluator != null) {
+			try {
+				return (FlagEvaluator) Class.forName(evaluator).newInstance();
+			}
+			catch (Exception e) {
+				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);
+			}
+		}
+		else {
+			throw new APIException("FlagEvaluator is null");
+		}
+	}
+	
+	/**
 	 * Evaluates a given Patient against the flag's criteria by calling the flag's evaluator
 	 * 
 	 * @param patient
@@ -274,7 +280,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	
 	public Boolean eval(Patient patient) {
 		if (evaluator != null && patient != null) {
-			return evaluator.eval(this, patient);
+			return instantiateEvaluator().eval(this, patient);
 		} else {
 			return null;
 		}
@@ -288,7 +294,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	 */
 	public Cohort evalCohort(Cohort cohort) {
 		if (evaluator != null) {
-			return evaluator.evalCohort(this, cohort);
+			return instantiateEvaluator().evalCohort(this, cohort);
 		} else {
 			return null;
 		}
@@ -301,7 +307,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	 */
 	public FlagValidationResult validate() {
 		if (evaluator != null) {
-			return evaluator.validate(this);
+			return instantiateEvaluator().validate(this);
 		} else {
 			return null;
 		}

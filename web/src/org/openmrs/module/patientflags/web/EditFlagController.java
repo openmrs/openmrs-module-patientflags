@@ -19,6 +19,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.PatientFlagsConstants;
@@ -89,7 +90,12 @@ public class EditFlagController {
 		binder.registerCustomEditor(Priority.class, new PropertyEditorSupport() {
 			
 			public void setAsText(String priority) {
-				setValue(Context.getService(FlagService.class).getPriority(Integer.valueOf((String) priority)));
+				if (StringUtils.isBlank(priority)) {
+					setValue(null);
+				}
+				else {
+					setValue(Context.getService(FlagService.class).getPriority(Integer.valueOf((String) priority)));
+				}
 			}
 			
 		});

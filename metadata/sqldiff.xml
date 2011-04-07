@@ -183,21 +183,6 @@
 	</diff>
 
 	<diff>
-		<version>1.1.7</version>
-		<author>Mark Goodrich</author>
-		<date>Dec 10 2009</date>
-		<description>
-			Assign initial Priority values
-		</description>
-		<sql>
-			INSERT INTO patientflags_priority (priority_id, name, style,
-			rank,date_created) VALUES
-			(1,'HIGH','style=\"color:red\"',1,NOW()),(2,'MEDIUM','style=\"color:darkorange\"',2,NOW()),(3,'LOW','',3,NOW());
-
-		</sql>
-	</diff>
-
-	<diff>
 		<version>1.1.8</version>
 		<author>Mark Goodrich</author>
 		<date>Dec 16 2009</date>
@@ -301,5 +286,15 @@
 	<!--
 		need to do something here to update existing flags with all roles?
 	-->
+	
+	<diff>
+		<version>1.2.10</version>
+		<author>Mark Goodrich</author>
+		<date>April 7 2011</date>
+		<description>Make priority not mandatory</description>
+		<sql>
+			ALTER TABLE patientflags_flag MODIFY COLUMN priority_id int(11);
+		</sql>
+	</diff>
 
 </sqldiff>

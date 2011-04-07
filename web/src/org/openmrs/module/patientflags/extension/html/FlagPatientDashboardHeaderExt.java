@@ -48,7 +48,7 @@ public class FlagPatientDashboardHeaderExt extends Extension {
 			//        + Context.getMessageSourceService().getMessage("patientflags.flagpatientdashboard.header") + " ";
 			
 			for (Flag flag : results) {
-				content = content + "<SPAN " + flag.getPriority().getStyle() + ">" + flag.getLocalizedMessage() + "</SPAN>, ";
+				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">" + flag.getLocalizedMessage() + "</SPAN>, ";
 			}
 			
 			// cut off the trailing delimiter

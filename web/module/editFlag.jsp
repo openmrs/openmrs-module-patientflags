@@ -95,6 +95,7 @@
 			<td align="right" valign="top"><spring:message
 				code="patientflags.priority" />:</td>
 			<td><springform:select path="priority">
+				<option value="">&nbsp;</option>
 				<springform:options items="${priorities}" itemValue="priorityId" itemLabel="name" />
 			</springform:select></td>
 		</tr>

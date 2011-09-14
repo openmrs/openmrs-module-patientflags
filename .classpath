@@ -37,7 +37,6 @@
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/tomcat/naming-resources.jar" sourcepath="/openmrs-source/apache-tomcat-5.5.20-src.zip"/>
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/tomcat/tools.jar"/>
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/liquibase/liquibase-1.9.4-mod.jar" sourcepath="/liquibase-19x"/>
-	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/liquibase/liquibase-1.9.4-mod.patch"/>
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/jakarta-taglibs/taglibs-page-1.1.jar"/>
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/jakarta-taglibs/taglibs-request-1.1.jar"/>
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/jakarta-taglibs/taglibs-response-1.1.jar"/>

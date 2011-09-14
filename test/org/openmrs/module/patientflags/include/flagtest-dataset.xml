@@ -22,12 +22,12 @@
   	<concept_name_tag_map concept_name_id="2" concept_name_tag_id="4"/>
   	<concept_name_tag_map concept_name_id="3" concept_name_tag_id="4"/>
   
-	<patientflags_flag flag_id="1" name="Test Sample" criteria="test" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="2" name="Logic Sample" criteria="HEMOGLOBIN" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="3" name="Invalid Logic Sample" criteria="BLAH" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="4" name="SQL Sample" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="5" name="Invalid SQL Sample" criteria="select * from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="6" name="Groovy Sample" criteria="return null;" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="7" name="Invalid Groovy Sample" criteria="bogus" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="1" name="Test Sample" evaluator="org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator" criteria="test" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="2" name="Logic Sample" evaluator="org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator" criteria="HEMOGLOBIN" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="3" name="Invalid Logic Sample" evaluator="org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator" criteria="BLAH" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="4" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="5" name="Invalid SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select * from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="6" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null;" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="7" name="Invalid Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="bogus" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 
 </dataset>

@@ -13,11 +13,10 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import groovy.lang.Binding;
 import groovy.lang.GroovyShell;
+
+import java.util.Collection;
 
 import org.openmrs.Cohort;
 import org.openmrs.Privilege;
@@ -186,19 +185,19 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	
 	private void setPrivileges(){
 		// fetch the privileges allowed from the privilege cache
-		Collection<Privilege> privileges = new HashSet<Privilege>(Context.getService(FlagService.class).getPrivileges());
+		Collection<Privilege> privileges = Context.getService(FlagService.class).getPrivileges();
 		
 		if(privileges != null){
-				// if a user is specified, further restrict the privileges allowed to the intersection of the cache privileges
-				// and the user privileges
-				if(user != null && !user.isSuperUser()){
-					privileges.retainAll(user.getPrivileges());
-				}
-		
-				// add the privileges by proxy
-				for(Privilege privilege : privileges){
-					Context.addProxyPrivilege(privilege.getPrivilege());	
-				}
+			// if a user is specified, further restrict the privileges allowed to the intersection of the cache privileges
+			// and the user privileges
+			if(user != null && !user.isSuperUser()){
+				privileges.retainAll(user.getPrivileges());
+			}
+	
+			// add the privileges by proxy
+			for(Privilege privilege : privileges){
+				Context.addProxyPrivilege(privilege.getPrivilege());	
+			}
 		}
 	}
 }

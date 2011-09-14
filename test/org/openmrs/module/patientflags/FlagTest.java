@@ -25,7 +25,7 @@ import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class FlagTest extends BaseModuleContextSensitiveTest{
 	
-	protected static final String XML_DATASET_PACKAGE_PATH = "org/openmrs/module/patientflags/NewFile.xml";
+	protected static final String XML_DATASET_PACKAGE_PATH = "org/openmrs/module/patientflags/include/flagtest-dataset.xml";
 	
 	/**
 	 * Tests of the Flag class

@@ -21,9 +21,6 @@ import org.openmrs.Cohort;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.test.StartModule;
-import org.openmrs.test.StartModuleExecutionListener;
-import org.springframework.test.annotation.DirtiesContext;
 
 public class FlagTest extends BaseModuleContextSensitiveTest {
 	

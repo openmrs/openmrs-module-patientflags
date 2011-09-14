@@ -151,7 +151,6 @@ public class GroovyFlagEvaluatorThread implements Runnable{
     }
 	
 	//TODO: add a better version of this which is driven by a config file.
-	@SuppressWarnings("unchecked")
     private static Binding getBindings() {
 		final Binding binding = new Binding();
 		binding.setVariable("admin", Context.getAdministrationService());
@@ -172,7 +171,7 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 		// TODO: add bindings for more dynamic services besides MDR-TB
 		if(ModuleFactory.getStartedModulesMap().containsKey("mdrtb")) {
 			try {
-	            Class mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
+	            Class<?> mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
 	            binding.setVariable("mdrtb", Context.getService(mdrtbServiceClass));
             }
             catch (ClassNotFoundException e) {

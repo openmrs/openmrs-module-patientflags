@@ -475,11 +475,19 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
 			User user = Context.getUserService().getUserByUsername(username);
 		
-			if (user.isSuperUser()) // need to explicitly get all privileges if user is a super user
-				privilegeCache = Context.getUserService().getAllPrivileges();
-			else
-				privilegeCache = user.getPrivileges();
+			if (user != null) {
+				if (user.isSuperUser()) { // need to explicitly get all privileges if user is a super user
+					privilegeCache = Context.getUserService().getAllPrivileges();
+				}
+				else {
+					privilegeCache = user.getPrivileges();
+				}
+			}
+			else {
+				privilegeCache = null;
+			}
 		}
+		
 		finally{
 			Context.removeProxyPrivilege("View Users");
 		}

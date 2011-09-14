@@ -44,10 +44,14 @@
 	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/jakarta-taglibs/taglibs-standard-1.1.jar"/>
 	<classpathentry kind="lib" path="dist"/>
 	<classpathentry kind="lib" path="lib/groovy-all-1.6.3.jar"/>
-	<classpathentry kind="lib" path="lib-common/openmrs-api-1.6.0.11889-beta.jar"/>
-	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.6.0.11889-beta.jar"/>
-	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.6.0.11889-beta.jar"/>
 	<classpathentry kind="lib" path="lib-common/logic-0.2.jar"/>
+	<classpathentry kind="lib" path="lib-common/openmrs-api-1.6.4.23210-dev.jar"/>
+	<classpathentry kind="lib" path="lib-common/tests-openmrs-api-1.6.4.23210-dev.jar"/>
+	<classpathentry kind="lib" path="lib-common/web-openmrs-api-1.6.4.23210-dev.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/xerces/xml-apis.jar"/>
+	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/xerces/resolver.jar"/>
+	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/xerces/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="/openmrs-1.6.x/lib/xerces/xercesSamples.jar"/>
 	<classpathentry kind="output" path="build"/>
 </classpath>

@@ -55,6 +55,13 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 			// create a thread to evaluate the groovy script
 			// (note that we pass 'null' as the user parameter because we don't want to restrict flag execution based on user)
 			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, cohort, null);
+			
+			// HACK: could call run method directly instead of using thread to increase performance
+			// but we'd lose the security benefits running in a thread provides
+			// if we do this, then we must also comment out the wait() in fetchResultCohort() in the GroovyFlagEvaluator Thread
+			//evaluatorThread.run();
+			
+			// TODO: do I need to maintain a handle to this thread?
 			new Thread(evaluatorThread).start();
 			
 			// fetch the result from the thread

@@ -1,32 +1,12 @@
 <?xml version="1.0"?>
 <!-- ********************************************************* -->
-<!-- ** Alerts Module                                       ** -->
+<!-- ** Patient Flags Module                                       ** -->
 <!-- **	                                                    ** -->
 <!-- ** @author Mark                                        ** -->
 <!-- ** @version 1.0                                        ** -->
 <!-- ********************************************************* -->
 <project name="PatientFlagsModule" default="package-module">
 
-	<property environment="env"/>
-	
-	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../openmrs-1.6.x/lib/ant-contrib/ant-contrib-1.0b2.jar"/>
-	
-	<available file="${env.OPENMRS_BUILD_PROPERTIES_FILE}" property="env.file.exists"/>
-	<available file="${user.home}/Application Data/OpenMRS/OPENMRS-build.properties" property="appdata.file.exists"/>
-	<available file="${user.home}/.OpenMRS/OPENMRS-build.properties" property="unix.file.exists"/>
-	<if>
-		<equals arg1="${env.file.exists}" arg2="true" />
-		<then><property file="${env.OPENMRS_BUILD_PROPERTIES_FILE}"/></then>
-		<elseif>
-			<equals arg1="${appdata.file.exists}" arg2="true" />
-			<then><property file="${user.home}/Application Data/OpenMRS/OPENMRS-build.properties"/></then>
-		</elseif>
-		<elseif>
-			<equals arg1="${unix.file.exists}" arg2="true" />
-			<then><property file="${user.home}/.OpenMRS/OPENMRS-build.properties"/></then>
-		</elseif>
-		<else><echo message="WARNING: No build properties found"/></else>
-	</if>
 		
 	<!-- *********************************************************** -->
 	<!-- **                     TARGETS                           ** -->
@@ -61,9 +41,7 @@
 			<fileset dir="../openmrs-1.6.x/lib">
 				<include name="**/*.jar"/>
 			</fileset>
-			<fileset dir="../openmrs-1.6.x/dist">
-				<include name="**/*.jar"/>
-			</fileset>
+			
 		</path>
 	
 	</target>
@@ -73,7 +51,7 @@
 		<delete dir="build" />
 	</target>
 	
-	<target name="compile-module" depends="init, clean" description="Compiles the module">
+	<target name="compile-module" depends="init" description="Compiles the module">
 		<mkdir dir="build" />
 		
 		<!-- Copy other source data to the build folder -->
@@ -86,19 +64,20 @@
 		</copy>
 		
 		<!--  Compile module java files -->
-		<javac destdir="build" classpathref="classpath" debug="true" debuglevel="lines,source,vars">
-			<compilerarg line="-g" />
-			<compilerarg line="-target 1.5" />
+		<javac destdir="build" classpathref="classpath" debug="true" debuglevel="lines,source">
 			<src path="src/" />
 			<include name="**/*.java" />
 		</javac>
 		
 		<!--  Compile module web java files -->
-		<javac destdir="build" classpathref="classpath" debug="true" debuglevel="lines,source,vars">
-			<compilerarg line="-g" />
-			<compilerarg line="-target 1.5" />
+		<javac destdir="build" classpathref="classpath" debug="true" debuglevel="lines,source">
 			<src path="web/src/" />
 			<include name="**/*.java" />
+		</javac>
+		<!-- Compile module test java files -->
+		<javac destdir="build" classpathref="classpath" debug="true" debuglevel="lines,sources">
+			<src path="test/" />
+			<include name="**/*.java"/>
 		</javac>
 		
 	</target>
@@ -108,24 +87,14 @@
 		
 		<!-- Copy module metadata -->
 		<copy todir="build/">
-			<fileset dir="metadata/" includes="**/*" excludes="messages*.properties" />
+			<fileset dir="metadata/" includes="**/*" />
 			<filterset refid="variables.to.replace" />
 		</copy>
-		
-		<copy todir="build/">
-			<fileset dir="metadata/" includes="messages*.properties" />
-		</copy>
-		
-		<!-- Copy module web data --> 
-	    <copy todir="build/web/module/"> 
-	    		<fileset dir="web/module/" includes="**/*" excludes="resources/**/*" />
-	            <filterset refid="variables.to.replace" /> 
-	    </copy>  
-	         
-	        <!-- Copy the /web/resources folder separately so that image files are not corrupted -->  
-	    <copy todir="build/web/module/"> 
-	            <fileset dir="web/module/" includes="resources/**/*" /> 
-			</copy> 
+				<!-- Copy module web data -->
+		<copy todir="build/web/module/">
+			<fileset dir="web/module/" includes="**/*" /> 
+			<filterset refid="variables.to.replace" />
+		</copy> 
 		
 		<!-- Copy lib folder -->
 		<!-- (lib should only contain this module's required -->

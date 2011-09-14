@@ -17,13 +17,15 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.Patient;
 import org.openmrs.Cohort;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.test.BaseContextSensitiveTest;
+import org.openmrs.test.BaseModuleContextSensitiveTest;
 
-public class FlagTest extends BaseContextSensitiveTest{
+public class FlagTest extends BaseModuleContextSensitiveTest{
+	
+	protected static final String XML_DATASET_PACKAGE_PATH = "org/openmrs/module/patientflags/NewFile.xml";
 	
 	/**
 	 * Tests of the Flag class
@@ -35,7 +37,7 @@ public class FlagTest extends BaseContextSensitiveTest{
 	@Before
 	public void initTestData() throws Exception{		
 		initializeInMemoryDatabase();
-		executeDataSet("org/openmrs/module/patientflags/include/FlagTest.xml");
+		executeDataSet(XML_DATASET_PACKAGE_PATH);
 		authenticate();
 	}
 	

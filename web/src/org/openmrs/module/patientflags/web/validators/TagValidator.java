@@ -26,8 +26,8 @@ import org.springframework.validation.ValidationUtils;
  */
 public class TagValidator {
 	
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	@SuppressWarnings("rawtypes")
+    public boolean supports(Class clazz) {
 		return Tag.class.isAssignableFrom(clazz);
 	}
 	

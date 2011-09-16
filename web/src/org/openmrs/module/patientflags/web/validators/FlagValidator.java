@@ -25,8 +25,8 @@ import org.springframework.validation.Validator;
  */
 public class FlagValidator implements Validator {
 	
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	@SuppressWarnings("rawtypes")
+    public boolean supports(Class clazz) {
 		return Flag.class.isAssignableFrom(clazz);
 	}
 	

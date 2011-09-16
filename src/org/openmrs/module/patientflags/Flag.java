@@ -20,10 +20,7 @@ import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.Tag;
-import org.openmrs.module.patientflags.FlagValidationResult;
 import org.openmrs.module.patientflags.evaluator.FlagEvaluator;
-import org.openmrs.util.OpenmrsClassLoader;
 
 /**
  * This class represents a row in the flag_flag table. It also provides a means to validate a flag,
@@ -261,7 +258,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	public FlagEvaluator instantiateEvaluator() {
 		if (evaluator != null) {
 			try {
-				return (FlagEvaluator) OpenmrsClassLoader.getInstance().loadClass(evaluator).newInstance();
+				return (FlagEvaluator) Context.loadClass(evaluator).newInstance();
 			}
 			catch (Exception e) {
 				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);

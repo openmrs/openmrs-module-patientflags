@@ -22,8 +22,8 @@ import org.springframework.validation.ValidationUtils;
  */
 public class PriorityValidator {
 	
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	@SuppressWarnings("rawtypes")
+    public boolean supports(Class clazz) {
 		return Priority.class.isAssignableFrom(clazz);
 	}
 	

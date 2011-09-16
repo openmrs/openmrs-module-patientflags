@@ -22,8 +22,8 @@ import org.springframework.validation.Errors;
  */
 public class PatientFlagsPropertiesValidator {
 	
-	@SuppressWarnings("unchecked")
-	public boolean supports(Class clazz) {
+	@SuppressWarnings("rawtypes")
+    public boolean supports(Class clazz) {
 		return PatientFlagsProperties.class.isAssignableFrom(clazz);
 	}
 	

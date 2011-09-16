@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module configVersion="1.0">
+	
+	<!-- Patient Flags Module Properties -->
+	<id>@MODULE_ID@</id>
+	<name>@MODULE_NAME@</name>
+	<version>@MODULE_VERSION@</version>
+	<package>@MODULE_PACKAGE@</package>
+	<author>Mark Goodrich</author>
+	<description>Adds the ability to flag patient records</description>
+	<activator>@MODULE_PACKAGE@.PatientFlagsModuleActivator</activator>
+    <require_version>1.6</require_version>
+	<!-- /Patient Flags Module Properties -->
+	
+	<!-- Required Modules -->
+	<require_modules>
+	   	<require_module>org.openmrs.logic</require_module>
+	</require_modules>
+
+	<!-- Internationalization -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	
+	<!-- Mapping File for the Flag Table -->
+	<mappingFiles>
+		${omodHbmConfig}
+	</mappingFiles>
+	
+	<!--  Extension Points -->
+
+<!--  Handling extension in the activator now so that they can be configured/activated via global properties -->
+	<!--  
+	<extension>
+		<point>org.openmrs.patientDashboard.afterLastEncounter</point>
+		<class>org.openmrs.module.patientflags.extension.html.FlagPatientDashboardHeaderExt</class>
+	</extension> 
+
+	<extension>
+		<point>org.openmrs.patientDashboard.overviewBox</point>
+		<class>org.openmrs.module.patientflags.extension.html.FlagPatientOverviewExt</class>
+	</extension> 
+
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.patientflags.extension.html.FlagAdminExt</class>
+	</extension> -->
+
+	
+	<!-- Required Privileges -->
+	<privilege>
+		<name>Manage Flags</name>
+		<description>Allows user add, edit, and remove flags</description>
+	</privilege>
+	
+	<privilege>
+		<name>Test Flags</name>
+		<description>Allows the user to test a flag, or set of flags, against a Patient set</description>
+	</privilege>
+	
+</module>

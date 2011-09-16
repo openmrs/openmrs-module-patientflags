@@ -33,6 +33,18 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>jar</type>
 		</dependency>
+		
+		
+		<!-- dependencies required for testing -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<type>jar</type>
+			<version>2.2.2</version>
+			<scope>test</scope>
+		</dependency>	
+	
+		
 	</dependencies>
 
 	<build>

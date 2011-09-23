@@ -42,6 +42,14 @@
 			<version>2.2.2</version>
 			<scope>test</scope>
 		</dependency>	
+		
+		<dependency>
+		 	<groupId>org.openmrs.module</groupId>
+		  	<artifactId>logic</artifactId>
+		  	<type>jar</type>
+		  	<version>0.5</version>
+		  	<scope>test</scope>
+		</dependency>
 	
 		
 	</dependencies>

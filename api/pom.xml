@@ -28,39 +28,13 @@
 			<type>jar</type>
 		</dependency>
 
-		<!--  include the groovy module, but don't include antlr and asm (which it depends on) because they are already provided by openmrs -->
+		<!--  include the groovy module -->
 
 		<dependency>
   			<groupId>org.codehaus.groovy</groupId>
   			<artifactId>groovy</artifactId>
   			<version>1.7.6</version>
   			<type>jar</type>
-  			<exclusions>
-				<exclusion>
-					<groupId>antlr</groupId>
-					<artifactId>antlr</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm-commons</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm-tree</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm-util</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>asm</groupId>
-					<artifactId>asm-analysis</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 	</dependencies>

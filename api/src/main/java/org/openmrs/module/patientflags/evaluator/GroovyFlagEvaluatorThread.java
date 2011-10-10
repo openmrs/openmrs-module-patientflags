@@ -139,13 +139,15 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 			// create a Groovy shell and execute the criteria, storing the result in the resultCohort
 			GroovyShell shell = new GroovyShell(bindings);
 			setResultCohort((Cohort) shell.parse("import org.openmrs.*;" + criteria).run());
-
-			// notify the main thread that execution is complete
-			notify();
+	
 		}
 		catch (Exception e) {
-			// save the exception and notify the main thread that execution is complete
+			// save the exception and set the result to null
 			setException(e);
+			setResultCohort(null);
+		}
+		finally {
+			// notify the main thread that execution is complete
 			notify();
 		}
     }

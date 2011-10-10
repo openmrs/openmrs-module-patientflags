@@ -33,7 +33,8 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 	/**
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
-	public Boolean eval(Flag flag, Patient patient) {
+	@SuppressWarnings("deprecation")
+    public Boolean eval(Flag flag, Patient patient) {
 		
 		if(patient.isVoided())
 			throw new APIException("Unable to evaluate Logic flag " + flag.getName() + " against voided patient");

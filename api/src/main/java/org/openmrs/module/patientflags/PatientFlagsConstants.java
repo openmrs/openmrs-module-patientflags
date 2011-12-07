@@ -37,4 +37,7 @@ public class PatientFlagsConstants {
 		newMap.put("groovy", "org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator");
 		return Collections.unmodifiableMap(newMap);
 	}
+	
+	/* Other Constants */
+	public static final String DEFAULT_PATIENT_LINK = "/patientDashboard.form?";
 }

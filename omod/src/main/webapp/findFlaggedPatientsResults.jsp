@@ -18,7 +18,7 @@
 		<c:forEach items="${flaggedPatients}" var="patientId">
 			<tr class="${i % 2 == 0 ? 'evenRow' : 'oddRow'}">
 				<td><a
-					href="${pageContext.request.contextPath}/patientDashboard.form?patientId=${patientId}"><openmrs:patientWidget
+					href="${pageContext.request.contextPath}${patientLink}patientId=${patientId}"><openmrs:patientWidget
 					patientId="${patientId}" size="full" /></a></td>
 			</tr>
 			<c:set var="i" value="${i + 1}" />

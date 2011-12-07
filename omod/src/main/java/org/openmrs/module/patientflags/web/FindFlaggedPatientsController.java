@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.openmrs.Cohort;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlagsConstants;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.patientflags.filter.Filter;
@@ -107,6 +108,7 @@ public class FindFlaggedPatientsController {
 		else{
 			model.addAttribute("flaggedPatients", null);
 		}
+		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
 		
 		// clears the command object from the session
 		status.setComplete();

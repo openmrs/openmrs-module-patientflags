@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>patientflags-parent</artifactId>
+		<artifactId>patientflags</artifactId>
 		<version>1.3.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>patientflags-api</artifactId>

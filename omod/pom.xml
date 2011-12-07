@@ -2,11 +2,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.openmrs.module</groupId>
-		<artifactId>patientflags-parent</artifactId>
+		<artifactId>patientflags</artifactId>
 		<version>1.3.3-SNAPSHOT</version>
 	</parent>
-	<artifactId>patientflags</artifactId>
-	<packaging>omod</packaging>
+	<artifactId>patientflags-omod</artifactId>
+	<packaging>jar</packaging>
 	<name>Patient Flags Module OMOD</name>
 	<description>OpenMRS module project for Patient Flags Module</description>
 
@@ -74,6 +74,7 @@
 	</dependencies>
 
 	<build>
+	    <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
@@ -129,9 +130,22 @@
 				<groupId>org.openmrs.maven.plugins</groupId>
 				<artifactId>maven-openmrs-plugin</artifactId>
 				<extensions>true</extensions>
-				<configuration>
-					<verifyOmod>false</verifyOmod>
-				</configuration>
+				 	<executions>
+	 	 	        	 <execution>
+                      		<id>init</id>
+                      		<phase>initialize</phase>
+                      		<goals>
+                              	<goal>initialize-module</goal>
+                      		</goals>
+              			</execution>
+              			<execution>
+                      		<id>pack</id>
+                      		<phase>package</phase>
+                      		<goals>
+                             	<goal>package-module</goal>
+                      		</goals>
+              			</execution>
+      			</executions>
 			</plugin>
 			<plugin>
        			<groupId>org.codehaus.mojo</groupId>
@@ -154,10 +168,10 @@
 	</build>
 
 	<properties>
-		<MODULE_ID>${project.artifactId}</MODULE_ID>
+		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
 		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
 		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
-		<MODULE_PACKAGE>${project.parent.groupId}.${project.artifactId}</MODULE_PACKAGE>
+		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
 	</properties>
 
 </project>

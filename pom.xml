@@ -16,6 +16,14 @@
 		<url>http://svn.openmrs.org/openmrs-modules/patientflags/tags/patientflags-parent-1.3.0</url>
 	</scm>
 
+	<distributionManagement>
+		<repository>
+			<id>openmrs-repo-modules</id>
+			<name>Modules</name>
+			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+		</repository>
+	</distributionManagement>
+
 	<modules>
 		<module>api</module>
 		<module>omod</module>

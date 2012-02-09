@@ -10,52 +10,115 @@
 	<name>Patient Flags Module API</name>
 	<description>API project for Patient Flags Module</description>
 
-	<dependencies>
-		
+	<dependencies>	
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
 			<type>jar</type>
 		</dependency>
-		
-		  <!-- add for OpenMRS 1.8+
-		<dependency>
-			<groupId>org.openmrs.api</groupId>
-			<artifactId>openmrs-api</artifactId>
-			<type>test-jar</type>
-		</dependency>
-		-->
-		
 		<dependency>
 			<groupId>org.openmrs.web</groupId>
 			<artifactId>openmrs-web</artifactId>
 			<type>jar</type>
-			<scope>provided</scope>
 		</dependency>
 		
-		  <!-- add for OpenMRS 1.8+
-		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
-			<type>test-jar</type>
-		</dependency>
-		-->
-		
-		<dependency>
-			<groupId>org.openmrs.test</groupId>
-			<artifactId>openmrs-test</artifactId>
-			<type>jar</type>  <!-- change to "pom" for 1.8+ -->
-		</dependency>
-
 		<!--  include the groovy module -->
-
 		<dependency>
   			<groupId>org.codehaus.groovy</groupId>
   			<artifactId>groovy</artifactId>
   			<version>1.7.6</version>
   			<type>jar</type>
-		</dependency>
-
+		</dependency>	
+		
 	</dependencies>
+
+	<!-- different profiles for building/testing against different version of openmrs -->
+	<profiles>
+		<profile>
+			<id>openmrs-1.6</id>
+			<dependencies>	
+				<dependency>
+					<groupId>org.openmrs.test</groupId>
+					<artifactId>openmrs-test</artifactId>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+	
+		<profile>
+			<id>openmrs-1.7</id>
+			<dependencies>	
+				<dependency>
+					<groupId>org.openmrs.test</groupId>
+					<artifactId>openmrs-test</artifactId>
+					<type>jar</type>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>openmrs-1.8</id>
+			<dependencies>				
+				<dependency>
+				    <groupId>org.openmrs.api</groupId>
+				    <artifactId>openmrs-api</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.web</groupId>
+				    <artifactId>openmrs-web</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.test</groupId>
+				    <artifactId>openmrs-test</artifactId>
+				    <type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>openmrs-1.9</id>
+			<dependencies>				
+				<dependency>
+				    <groupId>org.openmrs.api</groupId>
+				    <artifactId>openmrs-api</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.web</groupId>
+				    <artifactId>openmrs-web</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.test</groupId>
+				    <artifactId>openmrs-test</artifactId>
+				    <type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+		
+		<profile>
+			<id>openmrs-1.10</id>
+			<dependencies>				
+				<dependency>
+				    <groupId>org.openmrs.api</groupId>
+				    <artifactId>openmrs-api</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.web</groupId>
+				    <artifactId>openmrs-web</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.test</groupId>
+				    <artifactId>openmrs-test</artifactId>
+				    <type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+	
+	</profiles>
 
 </project>

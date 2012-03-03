@@ -4,7 +4,7 @@
 	<!-- Patient Flags Module Properties -->
 	<id>@MODULE_ID@</id>
 	<name>@MODULE_NAME@</name>
-	<version>@MODULE_VERSION@-r${buildNumber}</version>
+	<version>@MODULE_VERSION@</version>
 	<package>@MODULE_PACKAGE@</package>
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>

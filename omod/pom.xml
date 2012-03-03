@@ -45,6 +45,13 @@
 		  	<scope>test</scope>
 		</dependency>
 		
+		<dependency>
+  			<groupId>org.codehaus.groovy</groupId>
+  			<artifactId>groovy</artifactId>
+  			<version>1.7.6</version>
+  			<type>jar</type>
+  			<scope>test</scope>
+		</dependency>	
 		
 	</dependencies>
 

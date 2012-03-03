@@ -22,12 +22,13 @@
 			<type>jar</type>
 		</dependency>
 		
-		<!--  include the groovy module -->
+		<!--  include the groovy module, but mark as provided since it is included in core OpenMRS -->
 		<dependency>
   			<groupId>org.codehaus.groovy</groupId>
   			<artifactId>groovy</artifactId>
   			<version>1.7.6</version>
   			<type>jar</type>
+  			<scope>provided</scope>
 		</dependency>	
 		
 	</dependencies>

@@ -9,7 +9,7 @@
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>
 	<activator>@MODULE_PACKAGE@.PatientFlagsModuleActivator</activator>
-    <require_version>1.6</require_version>
+    <require_version>1.6.3</require_version>
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->

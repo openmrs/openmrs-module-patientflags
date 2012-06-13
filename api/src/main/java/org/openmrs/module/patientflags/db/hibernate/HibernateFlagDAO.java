@@ -64,7 +64,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.db.FlagDAO#getFlags(Integer)
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getFlag(Integer)
 	 */
 	public Flag getFlag(Integer flagId) {
 		return (Flag) sessionFactory.getCurrentSession().get(Flag.class, flagId);

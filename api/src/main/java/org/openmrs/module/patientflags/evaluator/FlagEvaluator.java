@@ -50,4 +50,6 @@ public interface FlagEvaluator {
 	 * @return FlagValidationResult
 	 */
 	public FlagValidationResult validate(Flag flag);
+	
+	public String evalMessage(Flag flag, int patientId);
 }

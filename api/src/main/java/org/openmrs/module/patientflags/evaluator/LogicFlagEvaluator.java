@@ -135,5 +135,10 @@ public class LogicFlagEvaluator implements FlagEvaluator {
 		// if we test patientIds 1 thru 100 without getting a match, don't bother to validate, return "true"
 		return new FlagValidationResult(true); */
 	}
+
+	@Override
+	public String evalMessage(Flag flag, int patientId) {
+		return flag.getMessage();
+	}
 	
 }

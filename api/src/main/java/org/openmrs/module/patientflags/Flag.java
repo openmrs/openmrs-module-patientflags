@@ -284,6 +284,16 @@ public class Flag extends BaseOpenmrsMetadata {
 		}
 	}
 	
+	public String evalMessage(Integer patientId){
+		System.out.println(evaluator+" in start " +patientId);
+		if (evaluator != null && patientId != null) {
+			System.out.println("passed first if");
+			return instantiateEvaluator().evalMessage(this, patientId);
+		} else {
+			return getLocalizedMessage();
+		}
+	}
+	
 	/**
 	 * Evaluates a given Cohort against the flag's criteria by calling the flag's evaluator
 	 * 

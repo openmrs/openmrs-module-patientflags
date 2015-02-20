@@ -129,4 +129,73 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		// if we've gotten this far, mark the criteria as valid
 		return new FlagValidationResult(true);
 	}
+
+	@Override
+	public String evalMessage(Flag flag, int patientId) {
+		String literal = "\\$\\{\\d{1,2}\\}";
+		String message = flag.getMessage();
+		System.out.println("my message ::::"+message);
+
+		if(!message.matches(".*("+literal+")+.*")){
+			return message;
+		}
+		
+		System.out.println("Replacing values in "+message);
+		
+		Patient p = Context.getPatientService().getPatient(patientId);
+		if(p.isVoided())
+			throw new APIException("VOIDED PATIENT");
+		
+		String criteria = flag.getCriteria();
+		
+		// pull out the "*.patient_id" clause
+		// is this robust enough?
+		Matcher matcher = Pattern.compile("(\\w+\\.patient_id)").matcher(criteria);
+		matcher.find(); // just check for the first occurrence of the pattern... is this enough?
+		String patientIdColumn = matcher.group();
+			
+		// since we are going to append a where/and to the end of this sql statement, we need to trim off trailing ";" and any trailing whitespace
+		matcher = Pattern.compile(";?\\s*$").matcher(criteria);
+		criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
+			
+		// create the criteria for a single patient by appending a "where" or "and" clause
+		String toEval = criteria + (criteria.matches("(?i)(?s).*where.*") ? " and " : " where ") + patientIdColumn + " = "
+			+ p.getPatientId();
+		
+		try {
+			Context.addProxyPrivilege("SQL Level Access");
+			List<List<Object>> resultSet = Context.getAdministrationService().executeSQL(toEval, true);
+			// list would for sure contain one only one patient
+			if(!resultSet.isEmpty()){// empty resultset means no one matched the criteria
+				Matcher m = Pattern.compile(literal).matcher(message);
+				while (!m.hitEnd() && m.find()) {// replace each instance until end
+					String replaceString = m.group();
+					try{
+						//get index between the brackets ${indexNumber}
+						int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
+						if(index < resultSet.get(0).size()){// do nothing if index is invalid
+							message = message.replace(replaceString, resultSet.get(0).get(index).toString());
+							System.out.println("Replaced "+replaceString +" ON "+index);
+						}
+					}
+					catch(Exception e){
+						//do nothing. text would remain unreplaced
+					}
+				}
+			}
+			else {
+				System.out.println("result set empty");
+			}
+		}
+		catch (Exception e) {
+			throw new APIException("Unable to evaluate SQL Flag Message" + flag.getName() + ", " + e.getLocalizedMessage(), e);
+		}
+		finally{
+			Context.removeProxyPrivilege("SQL Level Access");
+		}
+		
+		System.out.println("final message");
+
+		return message;
+	}
 }

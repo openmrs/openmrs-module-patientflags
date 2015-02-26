@@ -1,3 +1,4 @@
+<%@page import="org.openmrs.module.patientflags.Flag"%>
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
 <openmrs:require privilege="Test Flags" otherwise="/login.htm"
@@ -20,6 +21,17 @@
 				<td><a
 					href="${pageContext.request.contextPath}${patientLink}patientId=${patientId}"><openmrs:patientWidget
 					patientId="${patientId}" size="full" /></a></td>
+				<td>
+				<c:set var="flag" value="${flag}"/>
+				<c:set var="patient_id" value="${patientId}"/>
+				 <%
+				 Flag flag = (Flag)pageContext.getAttribute("flag");
+				 System.out.println(flag+"::FLAG JSP");
+				 Integer patient_id = (Integer)pageContext.getAttribute("patient_id");
+				 System.out.println(patient_id+"::patient_id JSP");
+				 out.println(flag.evalMessage(patient_id));
+				  %>
+  				</td>
 			</tr>
 			<c:set var="i" value="${i + 1}" />
 		</c:forEach>

@@ -16,22 +16,12 @@
 	</b>
 	<table cellpadding="2" cellspacing="0" class="box">
 		<c:set var="i" value="0" />
-		<c:forEach items="${flaggedPatients}" var="patientId">
+		<c:forEach items="${flaggedPatients}" var="flagp">
 			<tr class="${i % 2 == 0 ? 'evenRow' : 'oddRow'}">
 				<td><a
-					href="${pageContext.request.contextPath}${patientLink}patientId=${patientId}"><openmrs:patientWidget
-					patientId="${patientId}" size="full" /></a></td>
-				<td>
-				<c:set var="flag" value="${flag}"/>
-				<c:set var="patient_id" value="${patientId}"/>
-				 <%
-				 Flag flag = (Flag)pageContext.getAttribute("flag");
-				 System.out.println(flag+"::FLAG JSP");
-				 Integer patient_id = (Integer)pageContext.getAttribute("patient_id");
-				 System.out.println(patient_id+"::patient_id JSP");
-				 out.println(flag.evalMessage(patient_id));
-				  %>
-  				</td>
+					href="${pageContext.request.contextPath}${patientLink}patientId=${flagp.patientId}"><openmrs:patientWidget
+					patientId="${flagp.patientId}" size="full" /></a></td>
+				<td>${flagp.flagMessage}</td>
 			</tr>
 			<c:set var="i" value="${i + 1}" />
 		</c:forEach>

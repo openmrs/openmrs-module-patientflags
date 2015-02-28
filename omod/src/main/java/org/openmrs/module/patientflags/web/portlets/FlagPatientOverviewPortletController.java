@@ -14,6 +14,7 @@
 package org.openmrs.module.patientflags.web.portlets;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +49,16 @@ public class FlagPatientOverviewPortletController extends PortletController {
 		
 		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
 		
-		model.put("flags", results);
+		List<Map<String, Object>> fgl = new ArrayList<Map<String, Object>>();
+		for (Flag flag : results) {
+			Map<String, Object> mapFp = new HashMap<String, Object>();
+
+			mapFp.put("flag", flag);
+			mapFp.put("flagMessage", flag.evalMessage(patientID));
+			
+			fgl.add(mapFp);
+		}
+		
+		model.put("flaglist", fgl);
 	}
 }

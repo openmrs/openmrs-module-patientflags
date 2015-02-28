@@ -17,6 +17,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -31,6 +33,8 @@ import org.openmrs.module.patientflags.FlagValidationResult;
  */
 public class SQLFlagEvaluator implements FlagEvaluator {
 	
+	private Log log = LogFactory.getLog(this.getClass());
+
 	/**
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
@@ -134,13 +138,12 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	public String evalMessage(Flag flag, int patientId) {
 		String literal = "\\$\\{\\d{1,2}\\}";
 		String message = flag.getMessage();
-		System.out.println("my message ::::"+message);
 
 		if(!message.matches(".*("+literal+")+.*")){
 			return message;
 		}
 		
-		System.out.println("Replacing values in "+message);
+		log.info("Replacing values in "+message);
 		
 		Patient p = Context.getPatientService().getPatient(patientId);
 		if(p.isVoided())
@@ -175,7 +178,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 						int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
 						if(index < resultSet.get(0).size()){// do nothing if index is invalid
 							message = message.replace(replaceString, resultSet.get(0).get(index).toString());
-							System.out.println("Replaced "+replaceString +" ON "+index);
+							log.info("Replaced "+replaceString +" ON "+index);
 						}
 					}
 					catch(Exception e){
@@ -184,7 +187,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 				}
 			}
 			else {
-				System.out.println("result set empty");
+				log.info("result set empty");
 			}
 		}
 		catch (Exception e) {
@@ -194,8 +197,6 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 			Context.removeProxyPrivilege("SQL Level Access");
 		}
 		
-		System.out.println("final message");
-
 		return message;
 	}
 }

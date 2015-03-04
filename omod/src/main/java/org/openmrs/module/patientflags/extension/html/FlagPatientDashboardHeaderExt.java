@@ -43,14 +43,9 @@ public class FlagPatientDashboardHeaderExt extends Extension {
 		
 		if (!results.isEmpty()) {
 			String content = "<TABLE><TR><TD>";
-			
-			// comment out the header text for now
-			//        + Context.getMessageSourceService().getMessage("patientflags.flagpatientdashboard.header") + " ";
-			
 			for (Flag flag : results) {
-				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">" + flag.getLocalizedMessage() + "</SPAN>, ";
+				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">" + flag.getName() + "</SPAN>, ";
 			}
-			
 			// cut off the trailing delimiter
 			content = content.substring(0, content.length() - 2);
 			content = content + "</TD></TR></TABLE>";

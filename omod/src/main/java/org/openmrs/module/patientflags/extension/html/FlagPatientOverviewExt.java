@@ -32,8 +32,7 @@ public class FlagPatientOverviewExt extends BoxExt {
 	
 	@Override
 	public String getContent() {
-		// TODO Auto-generated method stub
-		return null;
+		return "<br>";
 	}
 	
 	/**

@@ -13,7 +13,10 @@
  */
 package org.openmrs.module.patientflags.web;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
@@ -102,12 +105,22 @@ public class FindFlaggedPatientsController {
 		ModelMap model = new ModelMap();
 		model.addAttribute("flag", flag);
 		model.addAttribute("allPatients", allPatients);
+		List<Map<String, Object>> fpl = new ArrayList<Map<String, Object>>();
+		
 		if(flaggedPatients != null){
-			model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
+			Set<Integer> idsFp = flaggedPatients.getMemberIds();
+			for (Integer patientId : idsFp) {
+				Map<String, Object> mapFp = new HashMap<String, Object>();
+
+				mapFp.put("patientId", patientId);
+				mapFp.put("flagMessage", flag.evalMessage(patientId));
+				
+				fpl.add(mapFp);
+			}
 		}
-		else{
-			model.addAttribute("flaggedPatients", null);
-		}
+
+		model.addAttribute("flaggedPatients", fpl);
+
 		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
 		
 		// clears the command object from the session

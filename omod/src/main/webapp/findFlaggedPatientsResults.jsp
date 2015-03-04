@@ -1,3 +1,4 @@
+<%@page import="org.openmrs.module.patientflags.Flag"%>
 <%@ include file="/WEB-INF/template/include.jsp"%>
 
 <openmrs:require privilege="Test Flags" otherwise="/login.htm"
@@ -15,11 +16,12 @@
 	</b>
 	<table cellpadding="2" cellspacing="0" class="box">
 		<c:set var="i" value="0" />
-		<c:forEach items="${flaggedPatients}" var="patientId">
+		<c:forEach items="${flaggedPatients}" var="flagp">
 			<tr class="${i % 2 == 0 ? 'evenRow' : 'oddRow'}">
 				<td><a
-					href="${pageContext.request.contextPath}${patientLink}patientId=${patientId}"><openmrs:patientWidget
-					patientId="${patientId}" size="full" /></a></td>
+					href="${pageContext.request.contextPath}${patientLink}patientId=${flagp.patientId}"><openmrs:patientWidget
+					patientId="${flagp.patientId}" size="full" /></a></td>
+				<td>${flagp.flagMessage}</td>
 			</tr>
 			<c:set var="i" value="${i + 1}" />
 		</c:forEach>

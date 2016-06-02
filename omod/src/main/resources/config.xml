@@ -13,9 +13,31 @@
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->
+	<require_module version="${webservicesRestVersion}">
+			org.openmrs.module.webservices.rest
+		</require_module>
 <!-- 	<require_modules>
 	   	<require_module>org.openmrs.logic</require_module>
 	</require_modules> -->
+	
+	<!-- Module Activator -->
+	<activator>${project.parent.groupId}.${project.parent.artifactId}.patientflag_restActivator
+	</activator>
+
+
+	<!-- Adds link to admin page -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>${project.parent.groupId}.${project.parent.artifactId}.extension.html.AdminList
+		</class>
+	</extension>
+
+	<!-- Maps hibernate file's, if present -->
+	<mappingFiles>
+
+		BasicExample.hbm.xml
+
+	</mappingFiles>
 
 	<!-- Internationalization -->
 	<messages>

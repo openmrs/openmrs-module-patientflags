@@ -68,5 +68,10 @@
 	<!-- configure the Patient Flags Properties Validator -->
 	<bean id="patientFlagsPropertiesValidator" class="org.openmrs.module.patientflags.web.validators.PatientFlagsPropertiesValidator" />
 	
+	<!-- Annotation based controllers -->
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping"/>
+	
+	<context:component-scan base-package="org.openmrs.module.patientflags.rest.controller" />
+	
 	
 </beans>

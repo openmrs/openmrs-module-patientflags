@@ -11,14 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.patientflag_rest.web.resource;
+package org.openmrs.module.webservices.rest.web.resource;
 
 import java.util.List;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflag_rest.util.FlagUtil;
-import org.openmrs.module.patientflag_rest.web.wrapper.FlagWrapper;
+import org.openmrs.module.webservices.rest.web.wrapper.FlagWrapper;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
@@ -28,12 +28,8 @@ import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingReadableResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 
-/**
- * {@link Resource} for Patient Flag
- *
- * @author Stélio Moiane
- *
- */
+
+
 @Resource(name = RestConstants.VERSION_1
 		+ "/flags", order = 2, supportedClass = FlagWrapper.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*",
 				"1.10.*", "1.11.*", "1.12.*" })

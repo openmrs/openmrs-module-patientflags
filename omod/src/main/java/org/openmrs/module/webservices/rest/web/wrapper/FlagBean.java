@@ -11,20 +11,29 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.patientflag_rest.api;
+package org.openmrs.module.webservices.rest.web.wrapper;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
-import org.openmrs.api.context.Context;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import java.io.Serializable;
 
-/**
- * Tests {@link ${BasicExampleService}}.
- */
-public class  BasicExampleServiceTest extends BaseModuleContextSensitiveTest {
-	
-	@Test
-	public void shouldSetupContext() {
-		assertNotNull(Context.getService(BasicExampleService.class));
+
+public class FlagBean implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String name;
+
+	private String message;
+
+	public FlagBean(final String name, final String message) {
+		this.name = name;
+		this.message = message;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public String getMessage() {
+		return this.message;
 	}
 }

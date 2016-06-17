@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * The main controller.
  */
 @Controller
-public class  patientflag_restManageController {
+public class  PatientFlagRestController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	

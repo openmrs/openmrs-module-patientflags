@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.webservices.rest.util;
+package org.openmrs.patientflags.rest.util;
 
 import java.util.ArrayList;
 import java.util.List;

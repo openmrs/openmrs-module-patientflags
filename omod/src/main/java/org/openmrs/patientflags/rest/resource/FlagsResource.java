@@ -11,22 +11,22 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.module.webservices.rest.web.resource;
+package org.openmrs.patientflags.rest..resource;
 
 import java.util.List;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflag_rest.util.FlagUtil;
-import org.openmrs.module.webservices.rest.web.wrapper.FlagWrapper;
+import org.openmrs.patientflags.rest..wrapper.FlagWrapper;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.module.webservices.rest.web.RestConstants;
-import org.openmrs.module.webservices.rest.web.annotation.Resource;
-import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentation;
-import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
-import org.openmrs.module.webservices.rest.web.representation.Representation;
-import org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingReadableResource;
-import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
+import org.openmrs.patientflags.rest..RestConstants;
+import org.openmrs.patientflags.rest..annotation.Resource;
+import org.openmrs.patientflags.rest..representation.DefaultRepresentation;
+import org.openmrs.patientflags.rest..representation.FullRepresentation;
+import org.openmrs.patientflags.rest..representation.Representation;
+import org.openmrs.patientflags.rest..resource.impl.BaseDelegatingReadableResource;
+import org.openmrs.patientflags.rest..resource.impl.DelegatingResourceDescription;
 
 
 
@@ -37,7 +37,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 public class FlagsResource extends BaseDelegatingReadableResource<FlagWrapper> {
 
 	/**
-	 * @see org.openmrs.module.webservices.rest.web.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.webservices.rest.web.representation.Representation)
+	 * @see org.openmrs.patientflags.rest..resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.patientflags.rest..representation.Representation)
 	 */
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(final Representation rep) {

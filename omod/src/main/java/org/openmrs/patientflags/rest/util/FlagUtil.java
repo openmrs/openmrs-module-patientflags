@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.openmrs.Patient;
-import org.openmrs.patientflags.rest..wrapper.FlagBean;
-import org.openmrs.patientflags.rest..wrapper.PatientBean;
+import org.openmrs.patientflags.rest.wrapper.FlagBean;
+import org.openmrs.patientflags.rest.wrapper.PatientBean;
 import org.openmrs.module.patientflags.Flag;
 
 public class FlagUtil {

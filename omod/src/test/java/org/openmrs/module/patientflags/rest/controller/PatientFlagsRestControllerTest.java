@@ -19,7 +19,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.module.webservices.rest.web.RestTestConstants1_9;
 import org.openmrs.module.webservices.rest.web.v1_0.controller.MainResourceControllerTest;
 
 
@@ -31,13 +30,38 @@ public class PatientFlagsRestControllerTest extends MainResourceControllerTest {
 	@Before
 	public void before() throws Exception {
 	
-		this.service = Context.getService(FlagService.class);
+		service = Context.getService(FlagService.class);
 	}
 	
 	
 	@Test
 	public void shouldSetupContext() {
-		assertNotNull(this.service);
+		Assert.assertNotNull(service);
 	}
+	
+	/**
+     * @see MainResourceControllerTest#getURI()
+     */
+    @Override
+    public String getURI() {
+        return "patientflagsrest";
+    }
+    
+    /**
+     * @see MainResourceControllerTest#getUuid()
+     */
+    @Override
+    public String getUuid() {
+        return null;
+    }
+    
+	
+	/**
+     * @see MainResourceControllerTest#getAllCount()
+     */
+    @Override
+    public long getAllCount() {
+        return 1;
+    }
 }
 

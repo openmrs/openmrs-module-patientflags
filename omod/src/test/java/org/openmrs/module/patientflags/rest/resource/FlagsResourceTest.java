@@ -13,27 +13,75 @@
  */
 package org.openmrs.patientflags.rest.resource;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Properties;
 
+import java.util.List;
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.openmrs.Cohort;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
+import org.openmrs.patientflags.rest.util.FlagUtil;
+import org.openmrs.patientflags.rest.wrapper.FlagWrapper;
+import org.openmrs.patientflags.rest.resource.FlagsResource;
+import org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResourceTest;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.util.OpenmrsUtil;
-import org.openmrs.module.webservices.rest.web.RestTestConstants1_9;
-import org.openmrs.module.webservices.rest.web.v1_0.controller.MainResourceControllerTest;
 
 
-public class FlagsResourceTest extends MainResourceControllerTest {
 
+public class FlagsResourceTest extends BaseDelegatingResourceTest<FlagsResource, FlagWrapper> {
+
+	@Before
+	public void setup() throws Exception {
+		executeDataSet("flagtest-dataset-openmrs-1.10.xml");
+	}
+	
+	@Override
+	public FlagWrapper newObject() {
+		
+		return FlagUtil.flagsConverter(Context.getService(FlagService.class).getFlag(getUuidProperty()));
+	}
+	
+	@Override
+	public void validateRefRepresentation() throws Exception {
+		super.validateRefRepresentation();
+		assertPropEquals("voided", null); // voided parameter only included if voided
+	}
+	
+	@Override
+	public void validateDefaultRepresentation() throws Exception {
+		super.validateDefaultRepresentation();
+		assertPropEquals("startDate", getObject().getStartDate());
+		assertPropEquals("endDate", getObject().getEndDate());
+		assertPropEquals("voided", getObject().isVoided());
+		assertPropPresent("patient");
+		assertPropPresent("uuid");
+		assertPropPresent("flags");
+		assertPropNotPresent("auditInfo");
+	}
+	
+	@Override
+	public void validateFullRepresentation() throws Exception {
+		super.validateFullRepresentation();
+		assertPropEquals("startDate", getObject().getStartDate());
+		assertPropEquals("endDate", getObject().getEndDate());
+		assertPropEquals("voided", getObject().isVoided());
+		assertPropPresent("patient");
+		assertPropPresent("uuid");
+		assertPropPresent("flags");
+		assertPropPresent("auditInfo");
+	}
+	
+	@Override
+	public String getDisplayProperty() {
+		return "Mr. Dumb Test Hornblower Esq., Xanadu: 2005-01-03 00:00:00.0 - 2005-01-03 11:00:00.0";
+	}
+	
+	@Override
+	public String getUuidProperty() {
+		return "759799ab-c9a5-435e-b671-77773ada7499";
+	}
+	
 }
 
 

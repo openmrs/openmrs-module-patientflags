@@ -49,10 +49,10 @@ public class FlagTest extends MainResourceControllerTest {
 	public void shouldCreateNewPatientFlag() throws Exception {
 		
 		
-		String json = "{ \"flag_id\":\"3\", \"name\":\"Invalid Logic Sample\", 
-				+ "\"evaluator\:\"org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator\", \"criteria\:\"BLAH\", "
-				+ "\"message\:\"Test\", \"enabled\:\"1\", \"creator\:\"1\", \"date_created\:\"2005-09-22 00:00:00.0\", "
-				+ "\"retired\:\"false\", \"uuid\:\"da7f524f-27ce-4bb2-86d6-6d1d05312bd5\" }";
+		String json = "{ \"flag_id\":3, \"name\":\"Invalid Logic Sample\", "
+				+ "\"evaluator\":\"org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator\", \"criteria\":\"BLAH\", "
+				+ "\"message\":\"Test\", \"enabled\":\"1\", \"creator\":\"1\", \"date_created\":\"2016-06-26 00:00:00.0\", "
+				+ "\"retired\": \"false\", \"uuid\": \"da7f524f-27ce-4bb2-86d6-6d1d05312bd5\" }";
 				
 				
 		MockHttpServletRequest req = request(RequestMethod.POST, getURI());
@@ -62,7 +62,7 @@ public class FlagTest extends MainResourceControllerTest {
 		Assert.assertNotNull(PropertyUtils.getProperty(flag, "uuid"));
 		Assert.assertEquals("da7f524f-27ce-4bb2-86d6-6d1d05312bd5",
 		    PropertyUtils.getProperty(PropertyUtils.getProperty(flag, "flag_id"), "uuid"));
-		Assert.assertEquals("3",
+		Assert.assertEquals(3,
 		    PropertyUtils.getProperty(PropertyUtils.getProperty(flag, "name"), "uuid"));
 		Assert.assertEquals("BLAH", PropertyUtils.getProperty(flag, "criteria"));
 		Assert.assertEquals("org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator",

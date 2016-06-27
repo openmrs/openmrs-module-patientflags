@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.patientflags.rest.controller;
+package org.openmrs.module.patientflags.rest.controller;
 
 
 import org.junit.Assert;

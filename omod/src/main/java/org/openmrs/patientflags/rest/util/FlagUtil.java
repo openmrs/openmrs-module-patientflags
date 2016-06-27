@@ -11,14 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.patientflags.rest.util;
+package org.openmrs.module.patientflags.rest.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.openmrs.Patient;
-import org.openmrs.patientflags.rest.wrapper.FlagBean;
-import org.openmrs.patientflags.rest.wrapper.PatientBean;
+import org.openmrs.module.patientflags.rest.wrapper.FlagBean;
+import org.openmrs.module.patientflags.rest.wrapper.PatientBean;
 import org.openmrs.module.patientflags.Flag;
 
 public class FlagUtil {

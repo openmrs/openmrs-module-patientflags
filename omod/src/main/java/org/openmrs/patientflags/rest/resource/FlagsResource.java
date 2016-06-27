@@ -11,14 +11,14 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.patientflags.rest.resource;
+package org.openmrs.module.patientflags.rest.resource;
 
 import java.util.List;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.patientflags.rest.util.FlagUtil;
-import org.openmrs.patientflags.rest.wrapper.FlagWrapper;
+import org.openmrs.module.patientflags.rest.util.FlagUtil;
+import org.openmrs.module.patientflags.rest.wrapper.FlagWrapper;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
@@ -37,7 +37,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 public class FlagsResource extends BaseDelegatingReadableResource<FlagWrapper> {
 
 	/**
-	 * @see org.openmrs.patientflags.rest.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.patientflags.rest.representation.Representation)
+	 * @see org.openmrs.module.patientflags.rest.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.patientflags.rest.representation.Representation)
 	 */
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(final Representation rep) {

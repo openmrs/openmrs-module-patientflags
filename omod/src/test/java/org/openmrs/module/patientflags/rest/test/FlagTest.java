@@ -11,7 +11,7 @@
  *
  * Copyright (C) OpenMRS, LLC.  All Rights Reserved.
  */
-package org.openmrs.patientflags.rest.test;
+package org.openmrs.module.patientflags.rest.test;
 
 import java.io.File;
 import java.io.FileInputStream;

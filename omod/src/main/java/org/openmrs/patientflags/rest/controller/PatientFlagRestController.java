@@ -29,7 +29,7 @@ public class  PatientFlagRestController {
 	
 	protected final Log log = LogFactory.getLog(getClass());
 	
-	@RequestMapping(value = "/module/patientflag_rest/manage", method = RequestMethod.GET)
+	@RequestMapping(value = "/module/patientflags/manage", method = RequestMethod.GET)
 	public void manage(ModelMap model) {
 		model.addAttribute("user", Context.getAuthenticatedUser());
 	}

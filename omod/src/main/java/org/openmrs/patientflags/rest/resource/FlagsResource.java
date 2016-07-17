@@ -63,9 +63,11 @@ public class FlagsResource extends BaseDelegatingReadableResource<Flag> {
 		return new Flag();
 	}
 
-	public List<Flag> getByUniqueId(final String uniqueId) {
+	@Override
+	public Flag getByUniqueId(final String uniqueId) {
 		final Patient patient = Context.getPatientService().getPatientByUuid(uniqueId);
-		return Context.getService(FlagService.class).generateFlagsForPatient(patient);
+		final List<Flag> flags = Context.getService(FlagService.class).generateFlagsForPatient(patient);
+		return flags.get(0);//returns first flag.
 	}
 
 	private List<Flag> getFlag(final String uniqueId) {

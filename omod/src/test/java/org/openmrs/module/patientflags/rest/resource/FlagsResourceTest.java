@@ -40,7 +40,7 @@ public class FlagsResourceTest extends BaseDelegatingResourceTest<FlagsResource,
 	@Override
 	public Flag newObject() {
 	
-		 return Context.getService(FlagService.class).getFlag(getUuidProperty());
+		 return Context.getService(FlagService.class).getFlag(Integer.valueOf(getUuidProperty()));
 	}
 	
 	@Override

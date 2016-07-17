@@ -17,8 +17,7 @@ import java.util.List;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.rest.util.FlagUtil;
-import org.openmrs.module.patientflags.rest.wrapper.FlagWrapper;
+import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.webservices.rest.web.RestConstants;
 import org.openmrs.module.webservices.rest.web.annotation.Resource;
@@ -30,11 +29,9 @@ import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceD
 
 
 
-@Resource(name = RestConstants.VERSION_1
-		+ "/flags", order = 2, supportedClass = FlagWrapper.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*",
-				"1.10.*", "1.11.*", "1.12.*" })
+@Resource(name = RestConstants.VERSION_1 + "/flags", order = 2, supportedClass = Flag.class, supportedOpenmrsVersions = { "1.8.*", "1.9.*", "1.10.*", "1.11.*", "1.12.*" })
 // order must be greater than that for PatientResource(order=0) RESTWS-273
-public class FlagsResource extends BaseDelegatingReadableResource<FlagWrapper> {
+public class FlagsResource extends BaseDelegatingReadableResource<Flag> {
 
 	/**
 	 * @see org.openmrs.module.patientflags.rest.resource.impl.DelegatingCrudResource#getRepresentationDescription(org.openmrs.module.patientflags.rest.representation.Representation)
@@ -62,24 +59,19 @@ public class FlagsResource extends BaseDelegatingReadableResource<FlagWrapper> {
 	}
 
 	@Override
-	public FlagWrapper newDelegate() {
-		return null;
+	public Flag newDelegate() {
+		return new Flag();
 	}
 
-	@Override
-	public FlagWrapper getByUniqueId(final String uniqueId) {
-
-		return this.getFlagWrapper(uniqueId);
+	public List<Flag> getByUniqueId(final String uniqueId) {
+		final Patient patient = Context.getPatientService().getPatientByUuid(uniqueId);
+		return Context.getService(FlagService.class).generateFlagsForPatient(patient);
 	}
 
-	private FlagWrapper getFlagWrapper(final String uniqueId) {
+	private List<Flag> getFlag(final String uniqueId) {
 		final Patient patient = Context.getPatientService().getPatientByUuid(uniqueId);
 		final FlagService flagService = Context.getService(FlagService.class);
 
-		final List<org.openmrs.module.patientflags.Flag> flagsForPatient = flagService.generateFlagsForPatient(patient);
-		final FlagWrapper flagWrapper = new FlagWrapper(FlagUtil.flagsConverter(flagsForPatient));
-
-		flagWrapper.setPatient(FlagUtil.patientConverter(patient));
-		return flagWrapper;
+		return flagService.generateFlagsForPatient(patient);
 	}
 }

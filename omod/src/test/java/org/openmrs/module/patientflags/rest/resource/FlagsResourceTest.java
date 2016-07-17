@@ -22,16 +22,15 @@ import org.junit.Assert.*;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.module.patientflags.rest.util.FlagUtil;
-import org.openmrs.module.patientflags.rest.wrapper.FlagWrapper;
 import org.openmrs.module.patientflags.rest.resource.FlagsResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResourceTest;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 
 
-public class FlagsResourceTest extends BaseDelegatingResourceTest<FlagsResource, FlagWrapper> {
+public class FlagsResourceTest extends BaseDelegatingResourceTest<FlagsResource, Flag> {
 
 	@Before
 	public void setup() throws Exception {
@@ -39,9 +38,9 @@ public class FlagsResourceTest extends BaseDelegatingResourceTest<FlagsResource,
 	}
 	
 	@Override
-	public FlagWrapper newObject() {
+	public Flag newObject() {
 	
-		 return null;
+		 return Context.getService(FlagService.class).getFlag(getUuidProperty());
 	}
 	
 	@Override

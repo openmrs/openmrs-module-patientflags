@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
@@ -28,6 +27,8 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.openmrs.util.OpenmrsUtil;
+
+
 
 public class FlagTest extends BaseModuleContextSensitiveTest {
 	

@@ -32,7 +32,6 @@ public class PatientFlagsConstants {
 	
 	private static Map<String, String> createFlagEvaluatorMap() {
 		Map<String, String> newMap = new HashMap<String, String>();
-		newMap.put("logic", "org.openmrs.module.patientflags.evaluator.LogicFlagEvaluator");
 		newMap.put("sql", "org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		newMap.put("groovy", "org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator");
 		return Collections.unmodifiableMap(newMap);

@@ -57,7 +57,6 @@
 	<properties>
 		<openMRSVersion>1.6.5</openMRSVersion>
 		<openMRSMinorVersion>1.6</openMRSMinorVersion>
-		<logicVersion>0.5</logicVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	
@@ -109,7 +108,6 @@
 			<properties>
 				<openMRSVersion>1.6.5</openMRSVersion>
 				<openMRSMinorVersion>1.6</openMRSMinorVersion>
-				<logicVersion>0.5</logicVersion>
 			</properties>
 		    
 		    <dependencyManagement>
@@ -132,7 +130,6 @@
 			<properties>
 				<openMRSVersion>1.7.3</openMRSVersion>
 				<openMRSMinorVersion>1.7</openMRSMinorVersion>
-				<logicVersion>0.5</logicVersion>
 			</properties>
 		    
 		     <dependencyManagement>
@@ -155,7 +152,6 @@
 		    <properties>
 				<openMRSVersion>1.8.3</openMRSVersion>
 				<openMRSMinorVersion>1.8</openMRSMinorVersion>
-				<logicVersion>0.5</logicVersion>
 			</properties>
 		    
 		    <dependencyManagement>
@@ -191,7 +187,7 @@
 		    <properties>
 				<openMRSVersion>1.9.0</openMRSVersion>
 				<openMRSMinorVersion>1.9</openMRSMinorVersion>
-				<logicVersion>0.5</logicVersion>
+
 			</properties>
 		    
 		    <dependencyManagement>
@@ -225,9 +221,8 @@
 			<id>openmrs-1.10</id>
 			
 		    <properties>
-				<openMRSVersion>1.10.0-SNAPSHOT</openMRSVersion>
+				<openMRSVersion>1.10.0</openMRSVersion>
 				<openMRSMinorVersion>1.10</openMRSMinorVersion>
-				<logicVersion>0.5</logicVersion>
 			</properties>
 		    
 		    <dependencyManagement>

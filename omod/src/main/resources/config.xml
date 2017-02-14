@@ -13,9 +13,6 @@
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->
-<!-- 	<require_modules>
-	   	<require_module>org.openmrs.logic</require_module>
-	</require_modules> -->
 
 	<!-- Internationalization -->
 	<messages>

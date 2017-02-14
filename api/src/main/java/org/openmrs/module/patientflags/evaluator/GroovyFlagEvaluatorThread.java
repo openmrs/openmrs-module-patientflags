@@ -161,7 +161,6 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 		binding.setVariable("encounter", Context.getEncounterService());
 		binding.setVariable("form", Context.getFormService());
 		binding.setVariable("locale", Context.getLocale());
-		binding.setVariable("logic", Context.getLogicService());
 		binding.setVariable("obs", Context.getObsService());
 		binding.setVariable("order", Context.getOrderService());
 		binding.setVariable("patient", Context.getPatientService());

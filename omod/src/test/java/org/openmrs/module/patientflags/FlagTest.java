@@ -71,28 +71,28 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void validate_shouldAcceptValidSQLCriteria() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(4);
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Assert.assertTrue(flag.validate().getResult());
 	}
 	
 	@Test
 	public void validate_shouldRejectInvalidSQLCriteria() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(5);
+		Flag flag = Context.getService(FlagService.class).getFlag(2);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Assert.assertFalse(flag.validate().getResult());
 	}
 	
 	@Test
 	public void validate_shouldAcceptValidGroovyCriteria() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(6);
+		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
 		Assert.assertTrue(flag.validate().getResult());
 	}
 	
 	@Test
 	public void validate_shouldRejectInvalidGroovyCriteria() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(7);
+		Flag flag = Context.getService(FlagService.class).getFlag(4);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
 		Assert.assertFalse(flag.validate().getResult());
 	}
@@ -103,28 +103,28 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void eval_sqlShouldReturnNullIfNoPatient() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(4);
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Assert.assertNull(flag.eval(null));
 	}
 	
 	@Test
 	public void eval_groovyShouldReturnNullIfNoPatient() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(6);
+		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
 		Assert.assertNull(flag.eval(null));
 	}
 	
 	@Test
 	public void eval_sqlShouldReturnFalseForTestPatient() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(4);
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
 	}
 	
 	@Test
 	public void eval_groovyShouldReturnFalseForTestPatient() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(6);
+		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
 		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
 	}
@@ -138,7 +138,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void evalCohort_sqlShouldReturnEmptyCohort() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(4);
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Cohort cohort = flag.evalCohort(new Cohort());
 		Assert.assertTrue(cohort.isEmpty());
@@ -146,7 +146,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	
 	@Test
 	public void evalCohort_sqlNullShouldReturnCohort() throws Exception {
-		Flag flag = Context.getService(FlagService.class).getFlag(4);
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Cohort cohort = flag.evalCohort(null);
 		Assert.assertTrue(cohort.isEmpty());

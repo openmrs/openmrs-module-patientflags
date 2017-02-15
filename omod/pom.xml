@@ -238,6 +238,27 @@
 				</dependency>
 			</dependencies>
 		</profile>
+
+		<profile>
+			<id>openmrs-1.11</id>
+			<dependencies>				
+				<dependency>
+				    <groupId>org.openmrs.api</groupId>
+				    <artifactId>openmrs-api</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.web</groupId>
+				    <artifactId>openmrs-web</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.test</groupId>
+				    <artifactId>openmrs-test</artifactId>
+				    <type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
 		
 		<!--deploys webapp files directly to web app directory -->
 		  <profile>

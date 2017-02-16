@@ -22,6 +22,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.Cohort;
+import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.PatientFlagsConstants;
@@ -99,7 +100,11 @@ public class FindFlaggedPatientsController {
 		FlagService flagService = Context.getService(FlagService.class);
 		flag = flagService.getFlag(flag.getFlagId());
 		Cohort flaggedPatients = flagService.getFlaggedPatients(flag);
-		Cohort allPatients = Context.getPatientSetService().getAllPatients();
+		Cohort allPatients = new Cohort();
+		List<Patient> patients = Context.getPatientService().getAllPatients();
+		for (Patient i : patients) {
+			allPatients.addMember(i.getPatientId());
+		}
 		
 		// create the model map
 		ModelMap model = new ModelMap();
@@ -144,7 +149,11 @@ public class FindFlaggedPatientsController {
 		
 		// returns a map of flagged Patients and the respective flags
 		Cohort flaggedPatients = flagService.getFlaggedPatients(flags);
-		Cohort allPatients = Context.getPatientSetService().getAllPatients();
+		Cohort allPatients = new Cohort();
+		List<Patient> patients = Context.getPatientService().getAllPatients();
+		for (Patient i : patients) {
+			allPatients.addMember(i.getPatientId());
+		}
 		
 		// create the model map
 		ModelMap model = new ModelMap();

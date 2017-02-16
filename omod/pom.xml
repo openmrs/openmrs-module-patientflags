@@ -259,6 +259,41 @@
 				</dependency>
 			</dependencies>
 		</profile>
+		<profile>
+            <id>openmrs-2.0</id>
+            <dependencies>
+                    <dependency>
+                        <groupId>org.openmrs.api</groupId>
+                        <artifactId>openmrs-api</artifactId>
+                        <type>test-jar</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.openmrs.web</groupId>
+                        <artifactId>openmrs-web</artifactId>
+                        <type>test-jar</type>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.openmrs.test</groupId>
+                        <artifactId>openmrs-test</artifactId>
+                        <type>pom</type>
+                    </dependency>
+					<dependency>
+						<groupId>org.openmrs.module</groupId>
+						<artifactId>legacyui-api</artifactId>
+					</dependency>
+					<dependency>
+						<groupId>org.openmrs.module</groupId>
+						<artifactId>legacyui-omod</artifactId>
+					</dependency>
+					<dependency>
+			            <groupId>javax.servlet</groupId>
+			            <artifactId>javax.servlet-api</artifactId>
+			            <version>3.0.1</version>
+			            <scope>provided</scope>
+			        </dependency>              
+            </dependencies>
+         </profile>
+
 		
 		<!--deploys webapp files directly to web app directory -->
 		  <profile>

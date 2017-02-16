@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.Activator;
+import org.openmrs.module.ModuleActivator;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
@@ -30,7 +30,7 @@ import org.openmrs.module.ModuleFactory;
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class PatientFlagsModuleActivator implements Activator {
+public class PatientFlagsModuleActivator implements ModuleActivator {
 	
 	private Log log = LogFactory.getLog(this.getClass());
 	
@@ -120,6 +120,41 @@ public class PatientFlagsModuleActivator implements Activator {
 		thisModule.setExtensions(new Vector<Extension>());
 		
 		log.info("Shutting down Patient Flags Module");
+	}
+	@Override
+	public void willRefreshContext() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void contextRefreshed() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void willStart() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void started() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void willStop() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void stopped() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

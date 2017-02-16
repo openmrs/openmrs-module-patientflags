@@ -1,0 +1,1244 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (mmap) failed to map 65536 bytes for committing reserved memory.
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (os_linux.cpp:2630), pid=12998, tid=0x00007f8180478700
+#
+# JRE version: OpenJDK Runtime Environment (8.0_111-b14) (build 1.8.0_111-8u111-b14-3~14.04.1-b14)
+# Java VM: OpenJDK 64-Bit Server VM (25.111-b14 mixed mode linux-amd64 compressed oops)
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00007f817c0cc800):  JavaThread "C1 CompilerThread1" daemon [_thread_in_vm, id=13006, stack(0x00007f8180378000,0x00007f8180479000)]
+
+Stack: [0x00007f8180378000,0x00007f8180479000],  sp=0x00007f81804770c0,  free space=1020k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [libjvm.so+0x9fd2bd]
+V  [libjvm.so+0x4bd82a]
+V  [libjvm.so+0x860280]
+V  [libjvm.so+0x85ad7f]
+V  [libjvm.so+0x9fa174]
+V  [libjvm.so+0x5c4ebc]
+V  [libjvm.so+0x449646]
+V  [libjvm.so+0x8305f6]
+V  [libjvm.so+0x3ea35c]
+V  [libjvm.so+0x331ac9]
+V  [libjvm.so+0x331e13]
+V  [libjvm.so+0x332b68]
+V  [libjvm.so+0x4752a6]
+V  [libjvm.so+0x47643c]
+V  [libjvm.so+0x9a7a08]
+V  [libjvm.so+0x85d682]
+C  [libpthread.so.0+0x8184]  start_thread+0xc4
+
+
+Current CompileTask:
+C1:  78143 11916       3       org.h2.command.Parser::parseCreateTable (1124 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00007f817d40f000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3b9dcc16]-HelperThread-#2" daemon [_thread_blocked, id=13197, stack(0x00007f81413e3000,0x00007f81414e4000)]
+  0x00007f817d40d000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3b9dcc16]-HelperThread-#1" daemon [_thread_blocked, id=13196, stack(0x00007f81414e4000,0x00007f81415e5000)]
+  0x00007f817d423800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3b9dcc16]-HelperThread-#0" daemon [_thread_blocked, id=13195, stack(0x00007f81415e5000,0x00007f81416e6000)]
+  0x00007f817d45a800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3b9dcc16]-AdminTaskTimer" daemon [_thread_blocked, id=13194, stack(0x00007f81416e6000,0x00007f81417e7000)]
+  0x00007f817d420000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13192, stack(0x00007f81417e7000,0x00007f81418e8000)]
+  0x00007f817d41e800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13191, stack(0x00007f81418e8000,0x00007f81419e9000)]
+  0x00007f817d41d800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13190, stack(0x00007f81419e9000,0x00007f8141aea000)]
+  0x00007f817d453000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13189, stack(0x00007f8141aea000,0x00007f8141beb000)]
+  0x00007f817d458800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62fc199c]-HelperThread-#2" daemon [_thread_blocked, id=13188, stack(0x00007f8141beb000,0x00007f8141cec000)]
+  0x00007f817d456800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62fc199c]-HelperThread-#1" daemon [_thread_blocked, id=13187, stack(0x00007f8141cec000,0x00007f8141ded000)]
+  0x00007f817d454800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62fc199c]-HelperThread-#0" daemon [_thread_blocked, id=13186, stack(0x00007f8141ded000,0x00007f8141eee000)]
+  0x00007f817d454000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62fc199c]-AdminTaskTimer" daemon [_thread_blocked, id=13185, stack(0x00007f8141eee000,0x00007f8141fef000)]
+  0x00007f817d451000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13184, stack(0x00007f8141fef000,0x00007f81420f0000)]
+  0x00007f817d44f000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13183, stack(0x00007f81420f0000,0x00007f81421f1000)]
+  0x00007f817d44d000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13182, stack(0x00007f81421f1000,0x00007f81422f2000)]
+  0x00007f817cc3e000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13181, stack(0x00007f81422f2000,0x00007f81423f3000)]
+  0x00007f817cc3c000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5d8d6db9]-HelperThread-#2" daemon [_thread_blocked, id=13180, stack(0x00007f81423f3000,0x00007f81424f4000)]
+  0x00007f817cc3a000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5d8d6db9]-HelperThread-#1" daemon [_thread_blocked, id=13179, stack(0x00007f81424f4000,0x00007f81425f5000)]
+  0x00007f817cc38800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5d8d6db9]-HelperThread-#0" daemon [_thread_blocked, id=13178, stack(0x00007f81425f5000,0x00007f81426f6000)]
+  0x00007f817d38f800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5d8d6db9]-AdminTaskTimer" daemon [_thread_blocked, id=13177, stack(0x00007f81426f6000,0x00007f81427f7000)]
+  0x00007f817d38c800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13175, stack(0x00007f81427f7000,0x00007f81428f8000)]
+  0x00007f817d38a800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13174, stack(0x00007f81428f8000,0x00007f81429f9000)]
+  0x00007f817d389800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13173, stack(0x00007f81429f9000,0x00007f8142afa000)]
+  0x00007f817d388800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13172, stack(0x00007f8142afa000,0x00007f8142bfb000)]
+  0x00007f817d4ab000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|429fe49b]-HelperThread-#2" daemon [_thread_blocked, id=13171, stack(0x00007f8142bfb000,0x00007f8142cfc000)]
+  0x00007f817d4a9000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|429fe49b]-HelperThread-#1" daemon [_thread_blocked, id=13170, stack(0x00007f8142cfc000,0x00007f8142dfd000)]
+  0x00007f817d4a7000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|429fe49b]-HelperThread-#0" daemon [_thread_blocked, id=13169, stack(0x00007f8142dfd000,0x00007f8142efe000)]
+  0x00007f817d4a5800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|429fe49b]-AdminTaskTimer" daemon [_thread_blocked, id=13168, stack(0x00007f8142efe000,0x00007f8142fff000)]
+  0x00007f817d4a2800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13167, stack(0x00007f8142fff000,0x00007f8143100000)]
+  0x00007f817d4a0800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13166, stack(0x00007f8143100000,0x00007f8143201000)]
+  0x00007f817d49f000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13165, stack(0x00007f8143201000,0x00007f8143302000)]
+  0x00007f817d49d800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13164, stack(0x00007f8143302000,0x00007f8143403000)]
+  0x00007f817d49b000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|28016a5]-HelperThread-#2" daemon [_thread_blocked, id=13163, stack(0x00007f8143403000,0x00007f8143504000)]
+  0x00007f817d499000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|28016a5]-HelperThread-#1" daemon [_thread_blocked, id=13162, stack(0x00007f8143504000,0x00007f8143605000)]
+  0x00007f817d497800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|28016a5]-HelperThread-#0" daemon [_thread_blocked, id=13161, stack(0x00007f8143605000,0x00007f8143706000)]
+  0x00007f817d496800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|28016a5]-AdminTaskTimer" daemon [_thread_blocked, id=13160, stack(0x00007f8143706000,0x00007f8143807000)]
+  0x00007f817d433000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13158, stack(0x00007f8143a07000,0x00007f8143b08000)]
+  0x00007f817d432800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13157, stack(0x00007f8143b08000,0x00007f8143c09000)]
+  0x00007f817d42f800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13156, stack(0x00007f8143c09000,0x00007f8143d0a000)]
+  0x00007f817d42d800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13155, stack(0x00007f8143d0a000,0x00007f8143e0b000)]
+  0x00007f817d412800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|c42dd09]-HelperThread-#2" daemon [_thread_blocked, id=13154, stack(0x00007f8143e0b000,0x00007f8143f0c000)]
+  0x00007f817d410800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|c42dd09]-HelperThread-#1" daemon [_thread_blocked, id=13153, stack(0x00007f8143f0c000,0x00007f814400d000)]
+  0x00007f817d029000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|c42dd09]-HelperThread-#0" daemon [_thread_blocked, id=13152, stack(0x00007f814400d000,0x00007f814410e000)]
+  0x00007f817d026800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|c42dd09]-AdminTaskTimer" daemon [_thread_blocked, id=13151, stack(0x00007f814410e000,0x00007f814420f000)]
+  0x00007f817cc29000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13150, stack(0x00007f814440f000,0x00007f8144510000)]
+  0x00007f817cc27000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13149, stack(0x00007f8144510000,0x00007f8144611000)]
+  0x00007f817ccdf000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13148, stack(0x00007f8144611000,0x00007f8144712000)]
+  0x00007f817cc24800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13147, stack(0x00007f8144712000,0x00007f8144813000)]
+  0x00007f817ccdd000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|6c9b4c32]-HelperThread-#2" daemon [_thread_blocked, id=13146, stack(0x00007f8144813000,0x00007f8144914000)]
+  0x00007f817ccdb000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|6c9b4c32]-HelperThread-#1" daemon [_thread_blocked, id=13145, stack(0x00007f8144914000,0x00007f8144a15000)]
+  0x00007f817ccd9800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|6c9b4c32]-HelperThread-#0" daemon [_thread_blocked, id=13144, stack(0x00007f8144a15000,0x00007f8144b16000)]
+  0x00007f817ccd8000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|6c9b4c32]-AdminTaskTimer" daemon [_thread_blocked, id=13143, stack(0x00007f8144b16000,0x00007f8144c17000)]
+  0x00007f817d018800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13141, stack(0x00007f8144c17000,0x00007f8144d18000)]
+  0x00007f817d017000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13140, stack(0x00007f8144d18000,0x00007f8144e19000)]
+  0x00007f817d013800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13139, stack(0x00007f8144e19000,0x00007f8144f1a000)]
+  0x00007f817d014800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13138, stack(0x00007f8144f1a000,0x00007f814501b000)]
+  0x00007f817d012000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5613b0b8]-HelperThread-#2" daemon [_thread_blocked, id=13137, stack(0x00007f814501b000,0x00007f814511c000)]
+  0x00007f817d047000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5613b0b8]-HelperThread-#1" daemon [_thread_blocked, id=13136, stack(0x00007f814511c000,0x00007f814521d000)]
+  0x00007f817d044800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5613b0b8]-HelperThread-#0" daemon [_thread_blocked, id=13135, stack(0x00007f814521d000,0x00007f814531e000)]
+  0x00007f817d044000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|5613b0b8]-AdminTaskTimer" daemon [_thread_blocked, id=13134, stack(0x00007f814531e000,0x00007f814541f000)]
+  0x00007f817cc36000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13133, stack(0x00007f814541f000,0x00007f8145520000)]
+  0x00007f817cfa2000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13132, stack(0x00007f8145520000,0x00007f8145621000)]
+  0x00007f817cfa0000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13131, stack(0x00007f8145621000,0x00007f8145722000)]
+  0x00007f817cf9e800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13130, stack(0x00007f8145722000,0x00007f8145823000)]
+  0x00007f817cf9c800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|579a8aa]-HelperThread-#2" daemon [_thread_blocked, id=13128, stack(0x00007f8145823000,0x00007f8145924000)]
+  0x00007f817cc34800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|579a8aa]-HelperThread-#1" daemon [_thread_blocked, id=13127, stack(0x00007f8145924000,0x00007f8145a25000)]
+  0x00007f817cc33000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|579a8aa]-HelperThread-#0" daemon [_thread_blocked, id=13126, stack(0x00007f8145a25000,0x00007f8145b26000)]
+  0x00007f817cc31800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|579a8aa]-AdminTaskTimer" daemon [_thread_blocked, id=13125, stack(0x00007f8145b26000,0x00007f8145c27000)]
+  0x00007f817d050000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13124, stack(0x00007f8145c27000,0x00007f8145d28000)]
+  0x00007f817d04e800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13123, stack(0x00007f8145d28000,0x00007f8145e29000)]
+  0x00007f817d04c800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13122, stack(0x00007f8145e29000,0x00007f8145f2a000)]
+  0x00007f817d13d800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13121, stack(0x00007f8145f2a000,0x00007f814602b000)]
+  0x00007f817d13c000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|57c02b40]-HelperThread-#2" daemon [_thread_blocked, id=13120, stack(0x00007f814602b000,0x00007f814612c000)]
+  0x00007f817d13a000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|57c02b40]-HelperThread-#1" daemon [_thread_blocked, id=13119, stack(0x00007f814612c000,0x00007f814622d000)]
+  0x00007f817d139000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|57c02b40]-HelperThread-#0" daemon [_thread_blocked, id=13118, stack(0x00007f814622d000,0x00007f814632e000)]
+  0x00007f817d138000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|57c02b40]-AdminTaskTimer" daemon [_thread_blocked, id=13117, stack(0x00007f814632e000,0x00007f814642f000)]
+  0x00007f817d2f4800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13116, stack(0x00007f814642f000,0x00007f8146530000)]
+  0x00007f817d2f3000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13115, stack(0x00007f8146530000,0x00007f8146631000)]
+  0x00007f817d2f1000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13114, stack(0x00007f8146631000,0x00007f8146732000)]
+  0x00007f817d2ef000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13113, stack(0x00007f8146732000,0x00007f8146833000)]
+  0x00007f817d0e8000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2496a9d6]-HelperThread-#2" daemon [_thread_blocked, id=13111, stack(0x00007f8146833000,0x00007f8146934000)]
+  0x00007f817cac4800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2496a9d6]-HelperThread-#1" daemon [_thread_blocked, id=13110, stack(0x00007f8146934000,0x00007f8146a35000)]
+  0x00007f817cac3000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2496a9d6]-HelperThread-#0" daemon [_thread_blocked, id=13109, stack(0x00007f8146a35000,0x00007f8146b36000)]
+  0x00007f817cac2000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2496a9d6]-AdminTaskTimer" daemon [_thread_blocked, id=13108, stack(0x00007f8146b36000,0x00007f8146c37000)]
+  0x00007f817cabf800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13107, stack(0x00007f8146c37000,0x00007f8146d38000)]
+  0x00007f817d330800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13106, stack(0x00007f8146d38000,0x00007f8146e39000)]
+  0x00007f817d32f000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13105, stack(0x00007f8146e39000,0x00007f8146f3a000)]
+  0x00007f817d32e000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13104, stack(0x00007f8146f3a000,0x00007f814703b000)]
+  0x00007f817d32b000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|36690fb5]-HelperThread-#2" daemon [_thread_blocked, id=13102, stack(0x00007f814703b000,0x00007f814713c000)]
+  0x00007f817d329800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|36690fb5]-HelperThread-#1" daemon [_thread_blocked, id=13101, stack(0x00007f814713c000,0x00007f814723d000)]
+  0x00007f817d305800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|36690fb5]-HelperThread-#0" daemon [_thread_blocked, id=13100, stack(0x00007f814723d000,0x00007f814733e000)]
+  0x00007f817d304800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|36690fb5]-AdminTaskTimer" daemon [_thread_blocked, id=13099, stack(0x00007f814733e000,0x00007f814743f000)]
+  0x00007f817d2ff800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13097, stack(0x00007f814743f000,0x00007f8147540000)]
+  0x00007f817d14b800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13096, stack(0x00007f8147540000,0x00007f8147641000)]
+  0x00007f817d14a000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13095, stack(0x00007f8147641000,0x00007f8147742000)]
+  0x00007f817d149000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13094, stack(0x00007f8147742000,0x00007f8147843000)]
+  0x00007f817d145800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3044d42a]-HelperThread-#2" daemon [_thread_blocked, id=13093, stack(0x00007f8147843000,0x00007f8147944000)]
+  0x00007f817d319800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3044d42a]-HelperThread-#1" daemon [_thread_blocked, id=13092, stack(0x00007f8147944000,0x00007f8147a45000)]
+  0x00007f817d318000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3044d42a]-HelperThread-#0" daemon [_thread_blocked, id=13091, stack(0x00007f8147a45000,0x00007f8147b46000)]
+  0x00007f817ccf4800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3044d42a]-AdminTaskTimer" daemon [_thread_blocked, id=13090, stack(0x00007f8147b46000,0x00007f8147c47000)]
+  0x00007f817d315000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13089, stack(0x00007f8147c47000,0x00007f8147d48000)]
+  0x00007f817d322800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13088, stack(0x00007f8147d48000,0x00007f8147e49000)]
+  0x00007f817d312800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13087, stack(0x00007f8147e49000,0x00007f8147f4a000)]
+  0x00007f817cff5000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13086, stack(0x00007f8147f4a000,0x00007f814804b000)]
+  0x00007f817d31f800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62bf1085]-HelperThread-#2" daemon [_thread_blocked, id=13085, stack(0x00007f814804b000,0x00007f814814c000)]
+  0x00007f817d31d800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62bf1085]-HelperThread-#1" daemon [_thread_blocked, id=13084, stack(0x00007f814814c000,0x00007f814824d000)]
+  0x00007f817cff4000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62bf1085]-HelperThread-#0" daemon [_thread_blocked, id=13083, stack(0x00007f814824d000,0x00007f814834e000)]
+  0x00007f817cff3000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|62bf1085]-AdminTaskTimer" daemon [_thread_blocked, id=13082, stack(0x00007f814834e000,0x00007f814844f000)]
+  0x00007f817cff0000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13080, stack(0x00007f814844f000,0x00007f8148550000)]
+  0x00007f817cfef000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13079, stack(0x00007f8148550000,0x00007f8148651000)]
+  0x00007f817cfee800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13078, stack(0x00007f8148651000,0x00007f8148752000)]
+  0x00007f817cb26800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13077, stack(0x00007f8148752000,0x00007f8148853000)]
+  0x00007f817cb24000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|7d386be9]-HelperThread-#2" daemon [_thread_blocked, id=13076, stack(0x00007f8148853000,0x00007f8148954000)]
+  0x00007f817cb22800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|7d386be9]-HelperThread-#1" daemon [_thread_blocked, id=13075, stack(0x00007f8148954000,0x00007f8148a55000)]
+  0x00007f817cb22000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|7d386be9]-HelperThread-#0" daemon [_thread_blocked, id=13074, stack(0x00007f8148a55000,0x00007f8148b56000)]
+  0x00007f817cb21800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|7d386be9]-AdminTaskTimer" daemon [_thread_blocked, id=13073, stack(0x00007f8148b56000,0x00007f8148c57000)]
+  0x00007f817cc49000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13069, stack(0x00007f8148c57000,0x00007f8148d58000)]
+  0x00007f817cc47800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13068, stack(0x00007f8148d58000,0x00007f8148e59000)]
+  0x00007f817cc46000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13067, stack(0x00007f8148e59000,0x00007f8148f5a000)]
+  0x00007f817cce6000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13066, stack(0x00007f8148f5a000,0x00007f814905b000)]
+  0x00007f817cce4000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|264f2b1a]-HelperThread-#2" daemon [_thread_blocked, id=13064, stack(0x00007f814905b000,0x00007f814915c000)]
+  0x00007f817cce2000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|264f2b1a]-HelperThread-#1" daemon [_thread_blocked, id=13063, stack(0x00007f814915c000,0x00007f814925d000)]
+  0x00007f817cce0800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|264f2b1a]-HelperThread-#0" daemon [_thread_blocked, id=13062, stack(0x00007f814925d000,0x00007f814935e000)]
+  0x00007f817d33b000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|264f2b1a]-AdminTaskTimer" daemon [_thread_blocked, id=13061, stack(0x00007f814935e000,0x00007f814945f000)]
+  0x00007f817d05a000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13060, stack(0x00007f814945f000,0x00007f8149560000)]
+  0x00007f817d058000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13059, stack(0x00007f8149560000,0x00007f8149661000)]
+  0x00007f817d057000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13058, stack(0x00007f8149661000,0x00007f8149762000)]
+  0x00007f817d056000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13057, stack(0x00007f8149762000,0x00007f8149863000)]
+  0x00007f817cc66000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|1ac12253]-HelperThread-#2" daemon [_thread_blocked, id=13056, stack(0x00007f8149863000,0x00007f8149964000)]
+  0x00007f817cc64000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|1ac12253]-HelperThread-#1" daemon [_thread_blocked, id=13055, stack(0x00007f8149964000,0x00007f8149a65000)]
+  0x00007f817cc62800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|1ac12253]-HelperThread-#0" daemon [_thread_blocked, id=13054, stack(0x00007f8149a65000,0x00007f8149b66000)]
+  0x00007f817cc61800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|1ac12253]-AdminTaskTimer" daemon [_thread_blocked, id=13053, stack(0x00007f8149b66000,0x00007f8149c67000)]
+  0x00007f817d011000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13051, stack(0x00007f8149c67000,0x00007f8149d68000)]
+  0x00007f817d00f000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13050, stack(0x00007f8149d68000,0x00007f8149e69000)]
+  0x00007f817d00d000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13049, stack(0x00007f8149e69000,0x00007f8149f6a000)]
+  0x00007f817d00b800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13048, stack(0x00007f8149f6a000,0x00007f814a06b000)]
+  0x00007f817d36b800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|31cb03fb]-HelperThread-#2" daemon [_thread_blocked, id=13047, stack(0x00007f814a06b000,0x00007f814a16c000)]
+  0x00007f817d369800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|31cb03fb]-HelperThread-#1" daemon [_thread_blocked, id=13046, stack(0x00007f814a16c000,0x00007f814a26d000)]
+  0x00007f817d368000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|31cb03fb]-HelperThread-#0" daemon [_thread_blocked, id=13045, stack(0x00007f814a26d000,0x00007f814a36e000)]
+  0x00007f817d367800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|31cb03fb]-AdminTaskTimer" daemon [_thread_blocked, id=13044, stack(0x00007f814a36e000,0x00007f814a46f000)]
+  0x00007f817caf1000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13043, stack(0x00007f814a46f000,0x00007f814a570000)]
+  0x00007f817caef800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13042, stack(0x00007f814a570000,0x00007f814a671000)]
+  0x00007f817caed800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13041, stack(0x00007f814a671000,0x00007f814a772000)]
+  0x00007f817caec000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13040, stack(0x00007f814a772000,0x00007f814a873000)]
+  0x00007f817d386800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3040fba9]-HelperThread-#2" daemon [_thread_blocked, id=13038, stack(0x00007f814aa73000,0x00007f814ab74000)]
+  0x00007f817d385000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3040fba9]-HelperThread-#1" daemon [_thread_blocked, id=13037, stack(0x00007f814ab74000,0x00007f814ac75000)]
+  0x00007f817d384000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3040fba9]-HelperThread-#0" daemon [_thread_blocked, id=13036, stack(0x00007f814ac75000,0x00007f814ad76000)]
+  0x00007f817d383800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|3040fba9]-AdminTaskTimer" daemon [_thread_blocked, id=13035, stack(0x00007f814ad76000,0x00007f814ae77000)]
+  0x00007f817d374800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13034, stack(0x00007f814ae77000,0x00007f814af78000)]
+  0x00007f817d373000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13033, stack(0x00007f814af78000,0x00007f814b079000)]
+  0x00007f817d371000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13032, stack(0x00007f814b079000,0x00007f814b17a000)]
+  0x00007f817d370000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13031, stack(0x00007f814b17a000,0x00007f814b27b000)]
+  0x00007f817d36e800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2927d781]-HelperThread-#2" daemon [_thread_blocked, id=13030, stack(0x00007f814b27b000,0x00007f814b37c000)]
+  0x00007f817d36d800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2927d781]-HelperThread-#1" daemon [_thread_blocked, id=13029, stack(0x00007f814b37c000,0x00007f814b47d000)]
+  0x00007f817d36d000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2927d781]-HelperThread-#0" daemon [_thread_blocked, id=13028, stack(0x00007f814b47d000,0x00007f814b57e000)]
+  0x00007f817d35e000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|2927d781]-AdminTaskTimer" daemon [_thread_blocked, id=13027, stack(0x00007f814b57e000,0x00007f814b67f000)]
+  0x00007f817d150800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptNumeric" daemon [_thread_blocked, id=13025, stack(0x00007f814ba7f000,0x00007f814bb80000)]
+  0x00007f817d119800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.Drug" daemon [_thread_blocked, id=13024, stack(0x00007f814bb80000,0x00007f814bc81000)]
+  0x00007f817d14d000 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptName" daemon [_thread_blocked, id=13023, stack(0x00007f814bc81000,0x00007f814bd82000)]
+  0x00007f817d12d800 JavaThread "Hibernate Search sync consumer thread for index org.openmrs.ConceptComplex" daemon [_thread_blocked, id=13022, stack(0x00007f814cba6000,0x00007f814cca7000)]
+  0x00007f817ce77000 JavaThread "Statistics Thread-__DEFAULT__-1" daemon [_thread_blocked, id=13018, stack(0x00007f814cca7000,0x00007f814cda8000)]
+  0x00007f817d0e2800 JavaThread "__DEFAULT__" daemon [_thread_blocked, id=13016, stack(0x00007f814cda8000,0x00007f814cea9000)]
+  0x00007f817cf3a800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|416c8bb5]-HelperThread-#2" daemon [_thread_blocked, id=13015, stack(0x00007f814d4a9000,0x00007f814d5aa000)]
+  0x00007f817cf1b800 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|416c8bb5]-HelperThread-#1" daemon [_thread_blocked, id=13014, stack(0x00007f814d5aa000,0x00007f814d6ab000)]
+  0x00007f817cf3e000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|416c8bb5]-HelperThread-#0" daemon [_thread_blocked, id=13013, stack(0x00007f814d6ab000,0x00007f814d7ac000)]
+  0x00007f817cf33000 JavaThread "C3P0PooledConnectionPoolManager[identityToken->2rvy8f9mj86k9e102ddn|416c8bb5]-AdminTaskTimer" daemon [_thread_blocked, id=13012, stack(0x00007f814e8b6000,0x00007f814e9b7000)]
+  0x00007f817ceab000 JavaThread "Abandoned connection cleanup thread" daemon [_thread_blocked, id=13011, stack(0x00007f816c012000,0x00007f816c113000)]
+  0x00007f817c0d0000 JavaThread "Service Thread" daemon [_thread_blocked, id=13007, stack(0x00007f8180277000,0x00007f8180378000)]
+=>0x00007f817c0cc800 JavaThread "C1 CompilerThread1" daemon [_thread_in_vm, id=13006, stack(0x00007f8180378000,0x00007f8180479000)]
+  0x00007f817c0ca800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=13005, stack(0x00007f8180479000,0x00007f818057a000)]
+  0x00007f817c0c8800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=13004, stack(0x00007f818057a000,0x00007f818067b000)]
+  0x00007f817c0a1800 JavaThread "Finalizer" daemon [_thread_blocked, id=13003, stack(0x00007f8180804000,0x00007f8180905000)]
+  0x00007f817c09c800 JavaThread "Reference Handler" daemon [_thread_blocked, id=13002, stack(0x00007f8180905000,0x00007f8180a06000)]
+  0x00007f817c00a000 JavaThread "main" [_thread_in_Java, id=13000, stack(0x00007f8185001000,0x00007f8185102000)]
+
+Other Threads:
+  0x00007f817c095000 VMThread [stack: 0x00007f8180a06000,0x00007f8180b07000] [id=13001]
+  0x00007f817c0df000 WatcherThread [stack: 0x00007f8180176000,0x00007f8180277000] [id=13008]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x00007f817c0056f0] CodeCache_lock - owner thread: 0x00007f817c0cc800
+[0x00007f817c006d70] Compile_lock - owner thread: 0x00007f817c0cc800
+[0x00007f817c006e70] MethodCompileQueue_lock - owner thread: 0x00007f817c0cc800
+
+Heap:
+ def new generation   total 208128K, used 164284K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,  83% used [0x00000000d1a00000, 0x00000000db114c38, 0x00000000dceb0000)
+  from space 23104K,  41% used [0x00000000de540000, 0x00000000dee9a4a0, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 403994K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  87% used [0x00000000e1150000, 0x00000000f9bd6918, 0x00000000f9bd6a00, 0x00000000fd4ea000)
+ Metaspace       used 54225K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+
+Card table byte_map: [0x00007f818161a000,0x00007f818178e000] byte_map_base: 0x00007f8180f8d000
+
+Polling page: 0x00007f818511a000
+
+CodeCache: size=245760Kb used=33923Kb max_used=34598Kb free=211836Kb
+ bounds [0x00007f816d000000, 0x00007f816f200000, 0x00007f817c000000]
+ total_blobs=9760 nmethods=9190 adapters=480
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 77.375 Thread 0x00007f817c0cc800 nmethod 11909 0x00007f816d93ca50 code [0x00007f816d93cba0, 0x00007f816d93ccd0]
+Event: 77.386 Thread 0x00007f817c0cc800 11910 %     3       com.sun.beans.TypeResolver::erase @ 10 (32 bytes)
+Event: 77.387 Thread 0x00007f817c0cc800 nmethod 11910% 0x00007f816d2f9c50 code [0x00007f816d2f9de0, 0x00007f816d2fa280]
+Event: 77.444 Thread 0x00007f817c0cc800 11912       2       org.hibernate.mapping.Component::getType (43 bytes)
+Event: 77.445 Thread 0x00007f817c0cc800 nmethod 11912 0x00007f816d33a590 code [0x00007f816d33a720, 0x00007f816d33aa80]
+Event: 77.758 Thread 0x00007f817c0cc800 11913   !   2       sun.reflect.GeneratedConstructorAccessor42::newInstance (77 bytes)
+Event: 77.773 Thread 0x00007f817c0cc800 nmethod 11913 0x00007f816d70e750 code [0x00007f816d70e920, 0x00007f816d70eeb8]
+Event: 77.939 Thread 0x00007f817c0cc800 11915       3       org.hibernate.loader.BasicLoader::generateSuffixes (55 bytes)
+Event: 77.970 Thread 0x00007f817c0cc800 nmethod 11915 0x00007f816d3ec710 code [0x00007f816d3ec900, 0x00007f816d3ed310]
+Event: 78.073 Thread 0x00007f817c0cc800 11916       3       org.h2.command.Parser::parseCreateTable (1124 bytes)
+
+GC Heap History (10 events):
+Event: 74.316 GC heap before
+{Heap before GC invocations=212 (full 8):
+ def new generation   total 208128K, used 196203K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K, 100% used [0x00000000d1a00000, 0x00000000dceb0000, 0x00000000dceb0000)
+  from space 23104K,  48% used [0x00000000dceb0000, 0x00000000dd99ac38, 0x00000000de540000)
+  to   space 23104K,   0% used [0x00000000de540000, 0x00000000de540000, 0x00000000dfbd0000)
+ tenured generation   total 462440K, used 371412K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  80% used [0x00000000e1150000, 0x00000000f7c05128, 0x00000000f7c05200, 0x00000000fd4ea000)
+ Metaspace       used 54192K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+Event: 74.483 GC heap after
+Heap after GC invocations=213 (full 8):
+ def new generation   total 208128K, used 22335K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,   0% used [0x00000000d1a00000, 0x00000000d1a00000, 0x00000000dceb0000)
+  from space 23104K,  96% used [0x00000000de540000, 0x00000000dfb0ff98, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 371412K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  80% used [0x00000000e1150000, 0x00000000f7c05128, 0x00000000f7c05200, 0x00000000fd4ea000)
+ Metaspace       used 54192K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+}
+Event: 75.209 GC heap before
+{Heap before GC invocations=213 (full 8):
+ def new generation   total 208128K, used 207359K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K, 100% used [0x00000000d1a00000, 0x00000000dceb0000, 0x00000000dceb0000)
+  from space 23104K,  96% used [0x00000000de540000, 0x00000000dfb0ff98, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 371412K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  80% used [0x00000000e1150000, 0x00000000f7c05128, 0x00000000f7c05200, 0x00000000fd4ea000)
+ Metaspace       used 54207K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+Event: 75.285 GC heap after
+Heap after GC invocations=214 (full 8):
+ def new generation   total 208128K, used 11266K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,   0% used [0x00000000d1a00000, 0x00000000d1a00000, 0x00000000dceb0000)
+  from space 23104K,  48% used [0x00000000dceb0000, 0x00000000dd9b0ab0, 0x00000000de540000)
+  to   space 23104K,   0% used [0x00000000de540000, 0x00000000de540000, 0x00000000dfbd0000)
+ tenured generation   total 462440K, used 382165K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  82% used [0x00000000e1150000, 0x00000000f8685570, 0x00000000f8685600, 0x00000000fd4ea000)
+ Metaspace       used 54207K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+}
+Event: 75.774 GC heap before
+{Heap before GC invocations=214 (full 8):
+ def new generation   total 208128K, used 196290K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K, 100% used [0x00000000d1a00000, 0x00000000dceb0000, 0x00000000dceb0000)
+  from space 23104K,  48% used [0x00000000dceb0000, 0x00000000dd9b0ab0, 0x00000000de540000)
+  to   space 23104K,   0% used [0x00000000de540000, 0x00000000de540000, 0x00000000dfbd0000)
+ tenured generation   total 462440K, used 382165K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  82% used [0x00000000e1150000, 0x00000000f8685570, 0x00000000f8685600, 0x00000000fd4ea000)
+ Metaspace       used 54217K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+Event: 75.840 GC heap after
+Heap after GC invocations=215 (full 8):
+ def new generation   total 208128K, used 17846K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,   0% used [0x00000000d1a00000, 0x00000000d1a00000, 0x00000000dceb0000)
+  from space 23104K,  77% used [0x00000000de540000, 0x00000000df6ad878, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 382165K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  82% used [0x00000000e1150000, 0x00000000f8685570, 0x00000000f8685600, 0x00000000fd4ea000)
+ Metaspace       used 54217K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+}
+Event: 76.616 GC heap before
+{Heap before GC invocations=215 (full 8):
+ def new generation   total 208128K, used 202870K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K, 100% used [0x00000000d1a00000, 0x00000000dceb0000, 0x00000000dceb0000)
+  from space 23104K,  77% used [0x00000000de540000, 0x00000000df6ad878, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 382165K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  82% used [0x00000000e1150000, 0x00000000f8685570, 0x00000000f8685600, 0x00000000fd4ea000)
+ Metaspace       used 54219K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+Event: 76.705 GC heap after
+Heap after GC invocations=216 (full 8):
+ def new generation   total 208128K, used 23104K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,   0% used [0x00000000d1a00000, 0x00000000d1a00000, 0x00000000dceb0000)
+  from space 23104K, 100% used [0x00000000dceb0000, 0x00000000de540000, 0x00000000de540000)
+  to   space 23104K,   0% used [0x00000000de540000, 0x00000000de540000, 0x00000000dfbd0000)
+ tenured generation   total 462440K, used 390977K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  84% used [0x00000000e1150000, 0x00000000f8f20588, 0x00000000f8f20600, 0x00000000fd4ea000)
+ Metaspace       used 54219K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+}
+Event: 77.604 GC heap before
+{Heap before GC invocations=216 (full 8):
+ def new generation   total 208128K, used 208128K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K, 100% used [0x00000000d1a00000, 0x00000000dceb0000, 0x00000000dceb0000)
+  from space 23104K, 100% used [0x00000000dceb0000, 0x00000000de540000, 0x00000000de540000)
+  to   space 23104K,   0% used [0x00000000de540000, 0x00000000de540000, 0x00000000dfbd0000)
+ tenured generation   total 462440K, used 390977K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  84% used [0x00000000e1150000, 0x00000000f8f20588, 0x00000000f8f20600, 0x00000000fd4ea000)
+ Metaspace       used 54225K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+Event: 77.708 GC heap after
+Heap after GC invocations=217 (full 8):
+ def new generation   total 208128K, used 9577K [0x00000000d1a00000, 0x00000000dfbd0000, 0x00000000e1150000)
+  eden space 185024K,   0% used [0x00000000d1a00000, 0x00000000d1a00000, 0x00000000dceb0000)
+  from space 23104K,  41% used [0x00000000de540000, 0x00000000dee9a4a0, 0x00000000dfbd0000)
+  to   space 23104K,   0% used [0x00000000dceb0000, 0x00000000dceb0000, 0x00000000de540000)
+ tenured generation   total 462440K, used 403994K [0x00000000e1150000, 0x00000000fd4ea000, 0x0000000100000000)
+   the space 462440K,  87% used [0x00000000e1150000, 0x00000000f9bd6918, 0x00000000f9bd6a00, 0x00000000fd4ea000)
+ Metaspace       used 54225K, capacity 56032K, committed 56320K, reserved 1099776K
+  class space    used 5950K, capacity 6335K, committed 6400K, reserved 1048576K
+}
+
+Deoptimization events (10 events):
+Event: 42.521 Thread 0x00007f817c00a000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f816eaf4a30 method=java.lang.reflect.AnnotatedElement.isAnnotationPresent(Ljava/lang/Class;)Z @ 7
+Event: 44.491 Thread 0x00007f817c00a000 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007f816ebe43a8 method=org.dom4j.tree.NamespaceStack.getAttributeQName(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)Lorg/dom4j/QName; @ 20
+Event: 45.523 Thread 0x00007f817c00a000 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007f816eb9a2b8 method=org.h2.engine.Database.findSchema(Ljava/lang/String;)Lorg/h2/schema/Schema; @ 8
+Event: 49.452 Thread 0x00007f817c00a000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f816da79024 method=java.util.HashMap.remove(Ljava/lang/Object;)Ljava/lang/Object; @ 14
+Event: 51.331 Thread 0x00007f817c00a000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f816da1a35c method=org.springframework.core.BridgeMethodResolver.isVisibilityBridgeMethodPair(Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;)Z @ 18
+Event: 51.331 Thread 0x00007f817c00a000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f816db91238 method=org.springframework.core.BridgeMethodResolver.isVisibilityBridgeMethodPair(Ljava/lang/reflect/Method;Ljava/lang/reflect/Method;)Z @ 18
+Event: 54.075 Thread 0x00007f817c00a000 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007f816ecfcac4 method=org.apache.commons.logging.impl.SLF4JLogFactory.getInstance(Ljava/lang/String;)Lorg/apache/commons/logging/Log; @ 19
+Event: 54.219 Thread 0x00007f817c00a000 Uncommon trap: reason=predicate action=maybe_recompile pc=0x00007f816d1e9ad4 method=java.util.TimSort.binarySort([Ljava/lang/Object;IIILjava/util/Comparator;)V @ 37
+Event: 55.269 Thread 0x00007f817c00a000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00007f816e34ac08 method=java.util.LinkedHashMap.afterNodeRemoval(Ljava/util/HashMap$Node;)V @ 27
+Event: 68.626 Thread 0x00007f817c00a000 Uncommon trap: reason=null_check action=make_not_entrant pc=0x00007f816ec897a8 method=org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(Lorg/springframework/beans/factory/support/RootBeanDefinition;Ljava/lang/String;Lorg/sp
+
+Internal exceptions (10 events):
+Event: 77.394 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/AbstractPoolBackedDataSourceBeanInfo> (0x00000000d8832338) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.399 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/PoolBackedDataSourceBaseBeanInfo> (0x00000000d8857960) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.399 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/IdentityTokenResolvableBeanInfo> (0x00000000d887cee8) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.400 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/AbstractIdentityTokenizedBeanInfo> (0x00000000d88a2530) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.400 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/AbstractIdentityTokenizedCustomizer> (0x00000000d88c9710) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.400 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/IdentityTokenResolvableCustomizer> (0x00000000d88efdc8) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.401 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/PoolBackedDataSourceBaseCustomizer> (0x00000000d8917c98) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.401 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/impl/AbstractPoolBackedDataSourceCustomizer> (0x00000000d8958478) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210
+Event: 77.402 Thread 0x00007f817c00a000 Exception <a 'java/lang/ClassNotFoundException': com/mchange/v2/c3p0/PoolBackedDataSourceCustomizer> (0x00000000d89c8238) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/classfile/systemDictionary.cpp, line 210]
+Event: 77.428 Thread 0x00007f817c00a000 Exception <a 'java/lang/AbstractMethodError': com.mchange.v2.c3p0.impl.NewProxyConnection.createClob()Ljava/sql/Clob;> (0x00000000d89e8a48) thrown at [/build/openjdk-8-8itSJj/openjdk-8-8u111-b14/src/hotspot/src/share/vm/interpreter/linkResolver.cpp, line 
+
+Events (10 events):
+Event: 77.773 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816e6ffd90
+Event: 77.773 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816e700b50
+Event: 77.773 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816e79c890
+Event: 77.908 Thread 0x00007f817c00a000 DEOPT PACKING pc=0x00007f816e633a0f sp=0x00007f81850fbe40
+Event: 77.917 Thread 0x00007f817c00a000 DEOPT UNPACKING pc=0x00007f816d047373 sp=0x00007f81850fbc88 mode 0
+Event: 77.971 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816e923410
+Event: 77.971 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816e930b50
+Event: 77.972 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816ea39110
+Event: 77.972 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816eaa1610
+Event: 77.972 Thread 0x00007f817c0cc800 flushing nmethod 0x00007f816ebbf750
+
+
+Dynamic libraries:
+00400000-00401000 r-xp 00000000 08:01 262473                             /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+00600000-00601000 r--p 00000000 08:01 262473                             /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+00601000-00602000 rw-p 00001000 08:01 262473                             /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+01ec9000-01eea000 rw-p 00000000 00:00 0                                  [heap]
+d1a00000-dfbd0000 rw-p 00000000 00:00 0 
+dfbd0000-e1150000 ---p 00000000 00:00 0 
+e1150000-fd4ea000 rw-p 00000000 00:00 0 
+fd4ea000-100000000 ---p 00000000 00:00 0 
+100000000-100640000 rw-p 00000000 00:00 0 
+100640000-140000000 ---p 00000000 00:00 0 
+7f81413e3000-7f81413e6000 ---p 00000000 00:00 0 
+7f81413e6000-7f81414e4000 rw-p 00000000 00:00 0                          [stack:13197]
+7f81414e4000-7f81414e7000 ---p 00000000 00:00 0 
+7f81414e7000-7f81415e5000 rw-p 00000000 00:00 0                          [stack:13196]
+7f81415e5000-7f81415e8000 ---p 00000000 00:00 0 
+7f81415e8000-7f81416e6000 rw-p 00000000 00:00 0                          [stack:13195]
+7f81416e6000-7f81416e9000 ---p 00000000 00:00 0 
+7f81416e9000-7f81417e7000 rw-p 00000000 00:00 0                          [stack:13194]
+7f81417e7000-7f81417ea000 ---p 00000000 00:00 0 
+7f81417ea000-7f81418e8000 rw-p 00000000 00:00 0                          [stack:13192]
+7f81418e8000-7f81418eb000 ---p 00000000 00:00 0 
+7f81418eb000-7f81419e9000 rw-p 00000000 00:00 0                          [stack:13191]
+7f81419e9000-7f81419ec000 ---p 00000000 00:00 0 
+7f81419ec000-7f8141aea000 rw-p 00000000 00:00 0                          [stack:13190]
+7f8141aea000-7f8141aed000 ---p 00000000 00:00 0 
+7f8141aed000-7f8141beb000 rw-p 00000000 00:00 0                          [stack:13189]
+7f8141beb000-7f8141bee000 ---p 00000000 00:00 0 
+7f8141bee000-7f8141cec000 rw-p 00000000 00:00 0                          [stack:13188]
+7f8141cec000-7f8141cef000 ---p 00000000 00:00 0 
+7f8141cef000-7f8141ded000 rw-p 00000000 00:00 0                          [stack:13187]
+7f8141ded000-7f8141df0000 ---p 00000000 00:00 0 
+7f8141df0000-7f8141eee000 rw-p 00000000 00:00 0                          [stack:13186]
+7f8141eee000-7f8141ef1000 ---p 00000000 00:00 0 
+7f8141ef1000-7f8141fef000 rw-p 00000000 00:00 0                          [stack:13185]
+7f8141fef000-7f8141ff2000 ---p 00000000 00:00 0 
+7f8141ff2000-7f81420f0000 rw-p 00000000 00:00 0                          [stack:13184]
+7f81420f0000-7f81420f3000 ---p 00000000 00:00 0 
+7f81420f3000-7f81421f1000 rw-p 00000000 00:00 0                          [stack:13183]
+7f81421f1000-7f81421f4000 ---p 00000000 00:00 0 
+7f81421f4000-7f81422f2000 rw-p 00000000 00:00 0                          [stack:13182]
+7f81422f2000-7f81422f5000 ---p 00000000 00:00 0 
+7f81422f5000-7f81423f3000 rw-p 00000000 00:00 0                          [stack:13181]
+7f81423f3000-7f81423f6000 ---p 00000000 00:00 0 
+7f81423f6000-7f81424f4000 rw-p 00000000 00:00 0                          [stack:13180]
+7f81424f4000-7f81424f7000 ---p 00000000 00:00 0 
+7f81424f7000-7f81425f5000 rw-p 00000000 00:00 0                          [stack:13179]
+7f81425f5000-7f81425f8000 ---p 00000000 00:00 0 
+7f81425f8000-7f81426f6000 rw-p 00000000 00:00 0                          [stack:13178]
+7f81426f6000-7f81426f9000 ---p 00000000 00:00 0 
+7f81426f9000-7f81427f7000 rw-p 00000000 00:00 0                          [stack:13177]
+7f81427f7000-7f81427fa000 ---p 00000000 00:00 0 
+7f81427fa000-7f81428f8000 rw-p 00000000 00:00 0                          [stack:13175]
+7f81428f8000-7f81428fb000 ---p 00000000 00:00 0 
+7f81428fb000-7f81429f9000 rw-p 00000000 00:00 0                          [stack:13174]
+7f81429f9000-7f81429fc000 ---p 00000000 00:00 0 
+7f81429fc000-7f8142afa000 rw-p 00000000 00:00 0                          [stack:13173]
+7f8142afa000-7f8142afd000 ---p 00000000 00:00 0 
+7f8142afd000-7f8142bfb000 rw-p 00000000 00:00 0                          [stack:13172]
+7f8142bfb000-7f8142bfe000 ---p 00000000 00:00 0 
+7f8142bfe000-7f8142cfc000 rw-p 00000000 00:00 0                          [stack:13171]
+7f8142cfc000-7f8142cff000 ---p 00000000 00:00 0 
+7f8142cff000-7f8142dfd000 rw-p 00000000 00:00 0                          [stack:13170]
+7f8142dfd000-7f8142e00000 ---p 00000000 00:00 0 
+7f8142e00000-7f8142efe000 rw-p 00000000 00:00 0                          [stack:13169]
+7f8142efe000-7f8142f01000 ---p 00000000 00:00 0 
+7f8142f01000-7f8142fff000 rw-p 00000000 00:00 0                          [stack:13168]
+7f8142fff000-7f8143002000 ---p 00000000 00:00 0 
+7f8143002000-7f8143100000 rw-p 00000000 00:00 0                          [stack:13167]
+7f8143100000-7f8143103000 ---p 00000000 00:00 0 
+7f8143103000-7f8143201000 rw-p 00000000 00:00 0                          [stack:13166]
+7f8143201000-7f8143204000 ---p 00000000 00:00 0 
+7f8143204000-7f8143302000 rw-p 00000000 00:00 0                          [stack:13165]
+7f8143302000-7f8143305000 ---p 00000000 00:00 0 
+7f8143305000-7f8143403000 rw-p 00000000 00:00 0                          [stack:13164]
+7f8143403000-7f8143406000 ---p 00000000 00:00 0 
+7f8143406000-7f8143504000 rw-p 00000000 00:00 0                          [stack:13163]
+7f8143504000-7f8143507000 ---p 00000000 00:00 0 
+7f8143507000-7f8143605000 rw-p 00000000 00:00 0                          [stack:13162]
+7f8143605000-7f8143608000 ---p 00000000 00:00 0 
+7f8143608000-7f8143706000 rw-p 00000000 00:00 0                          [stack:13161]
+7f8143706000-7f8143709000 ---p 00000000 00:00 0 
+7f8143709000-7f81438c7000 rw-p 00000000 00:00 0                          [stack:13160]
+7f81438c7000-7f8143a07000 ---p 00000000 00:00 0 
+7f8143a07000-7f8143a0a000 ---p 00000000 00:00 0 
+7f8143a0a000-7f8143b08000 rw-p 00000000 00:00 0                          [stack:13158]
+7f8143b08000-7f8143b0b000 ---p 00000000 00:00 0 
+7f8143b0b000-7f8143c09000 rw-p 00000000 00:00 0                          [stack:13157]
+7f8143c09000-7f8143c0c000 ---p 00000000 00:00 0 
+7f8143c0c000-7f8143d0a000 rw-p 00000000 00:00 0                          [stack:13156]
+7f8143d0a000-7f8143d0d000 ---p 00000000 00:00 0 
+7f8143d0d000-7f8143e0b000 rw-p 00000000 00:00 0                          [stack:13155]
+7f8143e0b000-7f8143e0e000 ---p 00000000 00:00 0 
+7f8143e0e000-7f8143f0c000 rw-p 00000000 00:00 0                          [stack:13154]
+7f8143f0c000-7f8143f0f000 ---p 00000000 00:00 0 
+7f8143f0f000-7f814400d000 rw-p 00000000 00:00 0                          [stack:13153]
+7f814400d000-7f8144010000 ---p 00000000 00:00 0 
+7f8144010000-7f814410e000 rw-p 00000000 00:00 0                          [stack:13152]
+7f814410e000-7f8144111000 ---p 00000000 00:00 0 
+7f8144111000-7f814440f000 rw-p 00000000 00:00 0                          [stack:13151]
+7f814440f000-7f8144412000 ---p 00000000 00:00 0 
+7f8144412000-7f8144510000 rw-p 00000000 00:00 0                          [stack:13150]
+7f8144510000-7f8144513000 ---p 00000000 00:00 0 
+7f8144513000-7f8144611000 rw-p 00000000 00:00 0                          [stack:13149]
+7f8144611000-7f8144614000 ---p 00000000 00:00 0 
+7f8144614000-7f8144712000 rw-p 00000000 00:00 0                          [stack:13148]
+7f8144712000-7f8144715000 ---p 00000000 00:00 0 
+7f8144715000-7f8144813000 rw-p 00000000 00:00 0                          [stack:13147]
+7f8144813000-7f8144816000 ---p 00000000 00:00 0 
+7f8144816000-7f8144914000 rw-p 00000000 00:00 0                          [stack:13146]
+7f8144914000-7f8144917000 ---p 00000000 00:00 0 
+7f8144917000-7f8144a15000 rw-p 00000000 00:00 0                          [stack:13145]
+7f8144a15000-7f8144a18000 ---p 00000000 00:00 0 
+7f8144a18000-7f8144b16000 rw-p 00000000 00:00 0                          [stack:13144]
+7f8144b16000-7f8144b19000 ---p 00000000 00:00 0 
+7f8144b19000-7f8144c17000 rw-p 00000000 00:00 0                          [stack:13143]
+7f8144c17000-7f8144c1a000 ---p 00000000 00:00 0 
+7f8144c1a000-7f8144d18000 rw-p 00000000 00:00 0                          [stack:13141]
+7f8144d18000-7f8144d1b000 ---p 00000000 00:00 0 
+7f8144d1b000-7f8144e19000 rw-p 00000000 00:00 0                          [stack:13140]
+7f8144e19000-7f8144e1c000 ---p 00000000 00:00 0 
+7f8144e1c000-7f8144f1a000 rw-p 00000000 00:00 0                          [stack:13139]
+7f8144f1a000-7f8144f1d000 ---p 00000000 00:00 0 
+7f8144f1d000-7f814501b000 rw-p 00000000 00:00 0                          [stack:13138]
+7f814501b000-7f814501e000 ---p 00000000 00:00 0 
+7f814501e000-7f814511c000 rw-p 00000000 00:00 0                          [stack:13137]
+7f814511c000-7f814511f000 ---p 00000000 00:00 0 
+7f814511f000-7f814521d000 rw-p 00000000 00:00 0                          [stack:13136]
+7f814521d000-7f8145220000 ---p 00000000 00:00 0 
+7f8145220000-7f814531e000 rw-p 00000000 00:00 0                          [stack:13135]
+7f814531e000-7f8145321000 ---p 00000000 00:00 0 
+7f8145321000-7f814541f000 rw-p 00000000 00:00 0                          [stack:13134]
+7f814541f000-7f8145422000 ---p 00000000 00:00 0 
+7f8145422000-7f8145520000 rw-p 00000000 00:00 0                          [stack:13133]
+7f8145520000-7f8145523000 ---p 00000000 00:00 0 
+7f8145523000-7f8145621000 rw-p 00000000 00:00 0                          [stack:13132]
+7f8145621000-7f8145624000 ---p 00000000 00:00 0 
+7f8145624000-7f8145722000 rw-p 00000000 00:00 0                          [stack:13131]
+7f8145722000-7f8145725000 ---p 00000000 00:00 0 
+7f8145725000-7f8145823000 rw-p 00000000 00:00 0                          [stack:13130]
+7f8145823000-7f8145826000 ---p 00000000 00:00 0 
+7f8145826000-7f8145924000 rw-p 00000000 00:00 0                          [stack:13128]
+7f8145924000-7f8145927000 ---p 00000000 00:00 0 
+7f8145927000-7f8145a25000 rw-p 00000000 00:00 0                          [stack:13127]
+7f8145a25000-7f8145a28000 ---p 00000000 00:00 0 
+7f8145a28000-7f8145b26000 rw-p 00000000 00:00 0                          [stack:13126]
+7f8145b26000-7f8145b29000 ---p 00000000 00:00 0 
+7f8145b29000-7f8145c27000 rw-p 00000000 00:00 0                          [stack:13125]
+7f8145c27000-7f8145c2a000 ---p 00000000 00:00 0 
+7f8145c2a000-7f8145d28000 rw-p 00000000 00:00 0                          [stack:13124]
+7f8145d28000-7f8145d2b000 ---p 00000000 00:00 0 
+7f8145d2b000-7f8145e29000 rw-p 00000000 00:00 0                          [stack:13123]
+7f8145e29000-7f8145e2c000 ---p 00000000 00:00 0 
+7f8145e2c000-7f8145f2a000 rw-p 00000000 00:00 0                          [stack:13122]
+7f8145f2a000-7f8145f2d000 ---p 00000000 00:00 0 
+7f8145f2d000-7f814602b000 rw-p 00000000 00:00 0                          [stack:13121]
+7f814602b000-7f814602e000 ---p 00000000 00:00 0 
+7f814602e000-7f814612c000 rw-p 00000000 00:00 0                          [stack:13120]
+7f814612c000-7f814612f000 ---p 00000000 00:00 0 
+7f814612f000-7f814622d000 rw-p 00000000 00:00 0                          [stack:13119]
+7f814622d000-7f8146230000 ---p 00000000 00:00 0 
+7f8146230000-7f814632e000 rw-p 00000000 00:00 0                          [stack:13118]
+7f814632e000-7f8146331000 ---p 00000000 00:00 0 
+7f8146331000-7f814642f000 rw-p 00000000 00:00 0                          [stack:13117]
+7f814642f000-7f8146432000 ---p 00000000 00:00 0 
+7f8146432000-7f8146530000 rw-p 00000000 00:00 0                          [stack:13116]
+7f8146530000-7f8146533000 ---p 00000000 00:00 0 
+7f8146533000-7f8146631000 rw-p 00000000 00:00 0                          [stack:13115]
+7f8146631000-7f8146634000 ---p 00000000 00:00 0 
+7f8146634000-7f8146732000 rw-p 00000000 00:00 0                          [stack:13114]
+7f8146732000-7f8146735000 ---p 00000000 00:00 0 
+7f8146735000-7f8146833000 rw-p 00000000 00:00 0                          [stack:13113]
+7f8146833000-7f8146836000 ---p 00000000 00:00 0 
+7f8146836000-7f8146934000 rw-p 00000000 00:00 0                          [stack:13111]
+7f8146934000-7f8146937000 ---p 00000000 00:00 0 
+7f8146937000-7f8146a35000 rw-p 00000000 00:00 0                          [stack:13110]
+7f8146a35000-7f8146a38000 ---p 00000000 00:00 0 
+7f8146a38000-7f8146b36000 rw-p 00000000 00:00 0                          [stack:13109]
+7f8146b36000-7f8146b39000 ---p 00000000 00:00 0 
+7f8146b39000-7f8146c37000 rw-p 00000000 00:00 0                          [stack:13108]
+7f8146c37000-7f8146c3a000 ---p 00000000 00:00 0 
+7f8146c3a000-7f8146d38000 rw-p 00000000 00:00 0                          [stack:13107]
+7f8146d38000-7f8146d3b000 ---p 00000000 00:00 0 
+7f8146d3b000-7f8146e39000 rw-p 00000000 00:00 0                          [stack:13106]
+7f8146e39000-7f8146e3c000 ---p 00000000 00:00 0 
+7f8146e3c000-7f8146f3a000 rw-p 00000000 00:00 0                          [stack:13105]
+7f8146f3a000-7f8146f3d000 ---p 00000000 00:00 0 
+7f8146f3d000-7f814703b000 rw-p 00000000 00:00 0                          [stack:13104]
+7f814703b000-7f814703e000 ---p 00000000 00:00 0 
+7f814703e000-7f814713c000 rw-p 00000000 00:00 0                          [stack:13102]
+7f814713c000-7f814713f000 ---p 00000000 00:00 0 
+7f814713f000-7f814723d000 rw-p 00000000 00:00 0                          [stack:13101]
+7f814723d000-7f8147240000 ---p 00000000 00:00 0 
+7f8147240000-7f814733e000 rw-p 00000000 00:00 0                          [stack:13100]
+7f814733e000-7f8147341000 ---p 00000000 00:00 0 
+7f8147341000-7f814743f000 rw-p 00000000 00:00 0                          [stack:13099]
+7f814743f000-7f8147442000 ---p 00000000 00:00 0 
+7f8147442000-7f8147540000 rw-p 00000000 00:00 0                          [stack:13097]
+7f8147540000-7f8147543000 ---p 00000000 00:00 0 
+7f8147543000-7f8147641000 rw-p 00000000 00:00 0                          [stack:13096]
+7f8147641000-7f8147644000 ---p 00000000 00:00 0 
+7f8147644000-7f8147742000 rw-p 00000000 00:00 0                          [stack:13095]
+7f8147742000-7f8147745000 ---p 00000000 00:00 0 
+7f8147745000-7f8147843000 rw-p 00000000 00:00 0                          [stack:13094]
+7f8147843000-7f8147846000 ---p 00000000 00:00 0 
+7f8147846000-7f8147944000 rw-p 00000000 00:00 0                          [stack:13093]
+7f8147944000-7f8147947000 ---p 00000000 00:00 0 
+7f8147947000-7f8147a45000 rw-p 00000000 00:00 0                          [stack:13092]
+7f8147a45000-7f8147a48000 ---p 00000000 00:00 0 
+7f8147a48000-7f8147b46000 rw-p 00000000 00:00 0                          [stack:13091]
+7f8147b46000-7f8147b49000 ---p 00000000 00:00 0 
+7f8147b49000-7f8147c47000 rw-p 00000000 00:00 0                          [stack:13090]
+7f8147c47000-7f8147c4a000 ---p 00000000 00:00 0 
+7f8147c4a000-7f8147d48000 rw-p 00000000 00:00 0                          [stack:13089]
+7f8147d48000-7f8147d4b000 ---p 00000000 00:00 0 
+7f8147d4b000-7f8147e49000 rw-p 00000000 00:00 0                          [stack:13088]
+7f8147e49000-7f8147e4c000 ---p 00000000 00:00 0 
+7f8147e4c000-7f8147f4a000 rw-p 00000000 00:00 0                          [stack:13087]
+7f8147f4a000-7f8147f4d000 ---p 00000000 00:00 0 
+7f8147f4d000-7f814804b000 rw-p 00000000 00:00 0                          [stack:13086]
+7f814804b000-7f814804e000 ---p 00000000 00:00 0 
+7f814804e000-7f814814c000 rw-p 00000000 00:00 0                          [stack:13085]
+7f814814c000-7f814814f000 ---p 00000000 00:00 0 
+7f814814f000-7f814824d000 rw-p 00000000 00:00 0                          [stack:13084]
+7f814824d000-7f8148250000 ---p 00000000 00:00 0 
+7f8148250000-7f814834e000 rw-p 00000000 00:00 0                          [stack:13083]
+7f814834e000-7f8148351000 ---p 00000000 00:00 0 
+7f8148351000-7f814844f000 rw-p 00000000 00:00 0                          [stack:13082]
+7f814844f000-7f8148452000 ---p 00000000 00:00 0 
+7f8148452000-7f8148550000 rw-p 00000000 00:00 0                          [stack:13080]
+7f8148550000-7f8148553000 ---p 00000000 00:00 0 
+7f8148553000-7f8148651000 rw-p 00000000 00:00 0                          [stack:13079]
+7f8148651000-7f8148654000 ---p 00000000 00:00 0 
+7f8148654000-7f8148752000 rw-p 00000000 00:00 0                          [stack:13078]
+7f8148752000-7f8148755000 ---p 00000000 00:00 0 
+7f8148755000-7f8148853000 rw-p 00000000 00:00 0                          [stack:13077]
+7f8148853000-7f8148856000 ---p 00000000 00:00 0 
+7f8148856000-7f8148954000 rw-p 00000000 00:00 0                          [stack:13076]
+7f8148954000-7f8148957000 ---p 00000000 00:00 0 
+7f8148957000-7f8148a55000 rw-p 00000000 00:00 0                          [stack:13075]
+7f8148a55000-7f8148a58000 ---p 00000000 00:00 0 
+7f8148a58000-7f8148b56000 rw-p 00000000 00:00 0                          [stack:13074]
+7f8148b56000-7f8148b59000 ---p 00000000 00:00 0 
+7f8148b59000-7f8148c57000 rw-p 00000000 00:00 0                          [stack:13073]
+7f8148c57000-7f8148c5a000 ---p 00000000 00:00 0 
+7f8148c5a000-7f8148d58000 rw-p 00000000 00:00 0                          [stack:13069]
+7f8148d58000-7f8148d5b000 ---p 00000000 00:00 0 
+7f8148d5b000-7f8148e59000 rw-p 00000000 00:00 0                          [stack:13068]
+7f8148e59000-7f8148e5c000 ---p 00000000 00:00 0 
+7f8148e5c000-7f8148f5a000 rw-p 00000000 00:00 0                          [stack:13067]
+7f8148f5a000-7f8148f5d000 ---p 00000000 00:00 0 
+7f8148f5d000-7f814905b000 rw-p 00000000 00:00 0                          [stack:13066]
+7f814905b000-7f814905e000 ---p 00000000 00:00 0 
+7f814905e000-7f814915c000 rw-p 00000000 00:00 0                          [stack:13064]
+7f814915c000-7f814915f000 ---p 00000000 00:00 0 
+7f814915f000-7f814925d000 rw-p 00000000 00:00 0                          [stack:13063]
+7f814925d000-7f8149260000 ---p 00000000 00:00 0 
+7f8149260000-7f814935e000 rw-p 00000000 00:00 0                          [stack:13062]
+7f814935e000-7f8149361000 ---p 00000000 00:00 0 
+7f8149361000-7f814945f000 rw-p 00000000 00:00 0                          [stack:13061]
+7f814945f000-7f8149462000 ---p 00000000 00:00 0 
+7f8149462000-7f8149560000 rw-p 00000000 00:00 0                          [stack:13060]
+7f8149560000-7f8149563000 ---p 00000000 00:00 0 
+7f8149563000-7f8149661000 rw-p 00000000 00:00 0                          [stack:13059]
+7f8149661000-7f8149664000 ---p 00000000 00:00 0 
+7f8149664000-7f8149762000 rw-p 00000000 00:00 0                          [stack:13058]
+7f8149762000-7f8149765000 ---p 00000000 00:00 0 
+7f8149765000-7f8149863000 rw-p 00000000 00:00 0                          [stack:13057]
+7f8149863000-7f8149866000 ---p 00000000 00:00 0 
+7f8149866000-7f8149964000 rw-p 00000000 00:00 0                          [stack:13056]
+7f8149964000-7f8149967000 ---p 00000000 00:00 0 
+7f8149967000-7f8149a65000 rw-p 00000000 00:00 0                          [stack:13055]
+7f8149a65000-7f8149a68000 ---p 00000000 00:00 0 
+7f8149a68000-7f8149b66000 rw-p 00000000 00:00 0                          [stack:13054]
+7f8149b66000-7f8149b69000 ---p 00000000 00:00 0 
+7f8149b69000-7f8149c67000 rw-p 00000000 00:00 0                          [stack:13053]
+7f8149c67000-7f8149c6a000 ---p 00000000 00:00 0 
+7f8149c6a000-7f8149d68000 rw-p 00000000 00:00 0                          [stack:13051]
+7f8149d68000-7f8149d6b000 ---p 00000000 00:00 0 
+7f8149d6b000-7f8149e69000 rw-p 00000000 00:00 0                          [stack:13050]
+7f8149e69000-7f8149e6c000 ---p 00000000 00:00 0 
+7f8149e6c000-7f8149f6a000 rw-p 00000000 00:00 0                          [stack:13049]
+7f8149f6a000-7f8149f6d000 ---p 00000000 00:00 0 
+7f8149f6d000-7f814a06b000 rw-p 00000000 00:00 0                          [stack:13048]
+7f814a06b000-7f814a06e000 ---p 00000000 00:00 0 
+7f814a06e000-7f814a16c000 rw-p 00000000 00:00 0                          [stack:13047]
+7f814a16c000-7f814a16f000 ---p 00000000 00:00 0 
+7f814a16f000-7f814a26d000 rw-p 00000000 00:00 0                          [stack:13046]
+7f814a26d000-7f814a270000 ---p 00000000 00:00 0 
+7f814a270000-7f814a36e000 rw-p 00000000 00:00 0                          [stack:13045]
+7f814a36e000-7f814a371000 ---p 00000000 00:00 0 
+7f814a371000-7f814a46f000 rw-p 00000000 00:00 0                          [stack:13044]
+7f814a46f000-7f814a472000 ---p 00000000 00:00 0 
+7f814a472000-7f814a570000 rw-p 00000000 00:00 0                          [stack:13043]
+7f814a570000-7f814a573000 ---p 00000000 00:00 0 
+7f814a573000-7f814a671000 rw-p 00000000 00:00 0                          [stack:13042]
+7f814a671000-7f814a674000 ---p 00000000 00:00 0 
+7f814a674000-7f814a772000 rw-p 00000000 00:00 0                          [stack:13041]
+7f814a772000-7f814a775000 ---p 00000000 00:00 0 
+7f814a775000-7f814aa73000 rw-p 00000000 00:00 0                          [stack:13040]
+7f814aa73000-7f814aa76000 ---p 00000000 00:00 0 
+7f814aa76000-7f814ab74000 rw-p 00000000 00:00 0                          [stack:13038]
+7f814ab74000-7f814ab77000 ---p 00000000 00:00 0 
+7f814ab77000-7f814ac75000 rw-p 00000000 00:00 0                          [stack:13037]
+7f814ac75000-7f814ac78000 ---p 00000000 00:00 0 
+7f814ac78000-7f814ad76000 rw-p 00000000 00:00 0                          [stack:13036]
+7f814ad76000-7f814ad79000 ---p 00000000 00:00 0 
+7f814ad79000-7f814ae77000 rw-p 00000000 00:00 0                          [stack:13035]
+7f814ae77000-7f814ae7a000 ---p 00000000 00:00 0 
+7f814ae7a000-7f814af78000 rw-p 00000000 00:00 0                          [stack:13034]
+7f814af78000-7f814af7b000 ---p 00000000 00:00 0 
+7f814af7b000-7f814b079000 rw-p 00000000 00:00 0                          [stack:13033]
+7f814b079000-7f814b07c000 ---p 00000000 00:00 0 
+7f814b07c000-7f814b17a000 rw-p 00000000 00:00 0                          [stack:13032]
+7f814b17a000-7f814b17d000 ---p 00000000 00:00 0 
+7f814b17d000-7f814b27b000 rw-p 00000000 00:00 0                          [stack:13031]
+7f814b27b000-7f814b27e000 ---p 00000000 00:00 0 
+7f814b27e000-7f814b37c000 rw-p 00000000 00:00 0                          [stack:13030]
+7f814b37c000-7f814b37f000 ---p 00000000 00:00 0 
+7f814b37f000-7f814b47d000 rw-p 00000000 00:00 0                          [stack:13029]
+7f814b47d000-7f814b480000 ---p 00000000 00:00 0 
+7f814b480000-7f814b57e000 rw-p 00000000 00:00 0                          [stack:13028]
+7f814b57e000-7f814b581000 ---p 00000000 00:00 0 
+7f814b581000-7f814b87f000 rw-p 00000000 00:00 0                          [stack:13027]
+7f814b87f000-7f814ba7f000 rw-p 00000000 00:00 0 
+7f814ba7f000-7f814ba82000 ---p 00000000 00:00 0 
+7f814ba82000-7f814bb80000 rw-p 00000000 00:00 0                          [stack:13025]
+7f814bb80000-7f814bb83000 ---p 00000000 00:00 0 
+7f814bb83000-7f814bc81000 rw-p 00000000 00:00 0                          [stack:13024]
+7f814bc81000-7f814bc84000 ---p 00000000 00:00 0 
+7f814bc84000-7f814bf82000 rw-p 00000000 00:00 0                          [stack:13023]
+7f814bf82000-7f814c182000 rw-p 00000000 00:00 0 
+7f814c182000-7f814c382000 rw-p 00000000 00:00 0 
+7f814c382000-7f814c399000 r-xp 00000000 08:01 2134                       /lib/x86_64-linux-gnu/libresolv-2.19.so
+7f814c399000-7f814c599000 ---p 00017000 08:01 2134                       /lib/x86_64-linux-gnu/libresolv-2.19.so
+7f814c599000-7f814c59a000 r--p 00017000 08:01 2134                       /lib/x86_64-linux-gnu/libresolv-2.19.so
+7f814c59a000-7f814c59b000 rw-p 00018000 08:01 2134                       /lib/x86_64-linux-gnu/libresolv-2.19.so
+7f814c59b000-7f814c59d000 rw-p 00000000 00:00 0 
+7f814c59d000-7f814c5a2000 r-xp 00000000 08:01 2157                       /lib/x86_64-linux-gnu/libnss_dns-2.19.so
+7f814c5a2000-7f814c7a1000 ---p 00005000 08:01 2157                       /lib/x86_64-linux-gnu/libnss_dns-2.19.so
+7f814c7a1000-7f814c7a2000 r--p 00004000 08:01 2157                       /lib/x86_64-linux-gnu/libnss_dns-2.19.so
+7f814c7a2000-7f814c7a3000 rw-p 00005000 08:01 2157                       /lib/x86_64-linux-gnu/libnss_dns-2.19.so
+7f814c7a3000-7f814c7a5000 r-xp 00000000 08:01 66667                      /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f814c7a5000-7f814c9a4000 ---p 00002000 08:01 66667                      /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f814c9a4000-7f814c9a5000 r--p 00001000 08:01 66667                      /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f814c9a5000-7f814c9a6000 rw-p 00002000 08:01 66667                      /lib/x86_64-linux-gnu/libnss_mdns4_minimal.so.2
+7f814c9a6000-7f814cba6000 rw-p 00000000 00:00 0 
+7f814cba6000-7f814cba9000 ---p 00000000 00:00 0 
+7f814cba9000-7f814cca7000 rw-p 00000000 00:00 0                          [stack:13022]
+7f814cca7000-7f814ccaa000 ---p 00000000 00:00 0 
+7f814ccaa000-7f814cda8000 rw-p 00000000 00:00 0                          [stack:13018]
+7f814cda8000-7f814cdab000 ---p 00000000 00:00 0 
+7f814cdab000-7f814d0a9000 rw-p 00000000 00:00 0                          [stack:13016]
+7f814d0a9000-7f814d2a9000 rw-p 00000000 00:00 0 
+7f814d2a9000-7f814d4a9000 rw-p 00000000 00:00 0 
+7f814d4a9000-7f814d4ac000 ---p 00000000 00:00 0 
+7f814d4ac000-7f814d5aa000 rw-p 00000000 00:00 0                          [stack:13015]
+7f814d5aa000-7f814d5ad000 ---p 00000000 00:00 0 
+7f814d5ad000-7f814d6ab000 rw-p 00000000 00:00 0                          [stack:13014]
+7f814d6ab000-7f814d6ae000 ---p 00000000 00:00 0 
+7f814d6ae000-7f814d7ac000 rw-p 00000000 00:00 0                          [stack:13013]
+7f814d7ac000-7f814d7bd000 r-xp 00000000 08:01 262422                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnio.so
+7f814d7bd000-7f814d9bc000 ---p 00011000 08:01 262422                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnio.so
+7f814d9bc000-7f814d9bd000 r--p 00010000 08:01 262422                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnio.so
+7f814d9bd000-7f814d9be000 rw-p 00011000 08:01 262422                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnio.so
+7f814d9be000-7f814dbbe000 rw-p 00000000 00:00 0 
+7f814dbbe000-7f814dbc7000 r-xp 00000000 08:01 262411                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libmanagement.so
+7f814dbc7000-7f814ddc6000 ---p 00009000 08:01 262411                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libmanagement.so
+7f814ddc6000-7f814ddc7000 r--p 00008000 08:01 262411                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libmanagement.so
+7f814ddc7000-7f814ddc8000 rw-p 00009000 08:01 262411                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libmanagement.so
+7f814ddc8000-7f814ddcb000 r-xp 00000000 08:01 59179                      /lib/x86_64-linux-gnu/libnss_myhostname.so.2
+7f814ddcb000-7f814dfca000 ---p 00003000 08:01 59179                      /lib/x86_64-linux-gnu/libnss_myhostname.so.2
+7f814dfca000-7f814dfcb000 r--p 00002000 08:01 59179                      /lib/x86_64-linux-gnu/libnss_myhostname.so.2
+7f814dfcb000-7f814dfcc000 rw-p 00003000 08:01 59179                      /lib/x86_64-linux-gnu/libnss_myhostname.so.2
+7f814dfcc000-7f814dfe2000 r-xp 00000000 08:01 262427                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7f814dfe2000-7f814e1e2000 ---p 00016000 08:01 262427                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7f814e1e2000-7f814e1e3000 r--p 00016000 08:01 262427                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7f814e1e3000-7f814e1e4000 rw-p 00017000 08:01 262427                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libnet.so
+7f814e1e4000-7f814e3e4000 rw-p 00000000 00:00 0 
+7f814e3e4000-7f814e5e4000 rw-p 00000000 00:00 0 
+7f814e5e4000-7f814e7e4000 rw-p 00000000 00:00 0 
+7f814e8b6000-7f814e8b9000 ---p 00000000 00:00 0 
+7f814e8b9000-7f814ebb7000 rw-p 00000000 00:00 0                          [stack:13012]
+7f814ebb7000-7f814edb7000 rw-p 00000000 00:00 0 
+7f814edb7000-7f814efb7000 rw-p 00000000 00:00 0 
+7f814efb7000-7f814f1b7000 rw-p 00000000 00:00 0 
+7f814f1b7000-7f814f3b7000 rw-p 00000000 00:00 0 
+7f814f3b7000-7f814f3bc000 r-xp 00000000 08:01 23584                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f814f3bc000-7f814f5bb000 ---p 00005000 08:01 23584                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f814f5bb000-7f814f5bc000 r--p 00004000 08:01 23584                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f814f5bc000-7f814f5bd000 rw-p 00005000 08:01 23584                      /usr/lib/x86_64-linux-gnu/libXdmcp.so.6.0.0
+7f814f5bd000-7f814f5bf000 r-xp 00000000 08:01 23954                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f814f5bf000-7f814f7bf000 ---p 00002000 08:01 23954                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f814f7bf000-7f814f7c0000 r--p 00002000 08:01 23954                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f814f7c0000-7f814f7c1000 rw-p 00003000 08:01 23954                      /usr/lib/x86_64-linux-gnu/libXau.so.6.0.0
+7f814f7c1000-7f814f7de000 r-xp 00000000 08:01 23938                      /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f814f7de000-7f814f9de000 ---p 0001d000 08:01 23938                      /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f814f9de000-7f814f9df000 r--p 0001d000 08:01 23938                      /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f814f9df000-7f814f9e0000 rw-p 0001e000 08:01 23938                      /usr/lib/x86_64-linux-gnu/libxcb.so.1.1.0
+7f814f9e0000-7f814f9ef000 r-xp 00000000 08:01 58939                      /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f814f9ef000-7f814fbee000 ---p 0000f000 08:01 58939                      /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f814fbee000-7f814fbef000 r--p 0000e000 08:01 58939                      /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f814fbef000-7f814fbf0000 rw-p 0000f000 08:01 58939                      /usr/lib/x86_64-linux-gnu/libXi.so.6.1.0
+7f814fbf0000-7f814fbf5000 r-xp 00000000 08:01 59155                      /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f814fbf5000-7f814fdf4000 ---p 00005000 08:01 59155                      /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f814fdf4000-7f814fdf5000 r--p 00004000 08:01 59155                      /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f814fdf5000-7f814fdf6000 rw-p 00005000 08:01 59155                      /usr/lib/x86_64-linux-gnu/libXtst.so.6.1.0
+7f814fdf6000-7f814fdff000 r-xp 00000000 08:01 58684                      /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f814fdff000-7f814fffe000 ---p 00009000 08:01 58684                      /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f814fffe000-7f814ffff000 r--p 00008000 08:01 58684                      /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f814ffff000-7f8150000000 rw-p 00009000 08:01 58684                      /usr/lib/x86_64-linux-gnu/libXrender.so.1.3.0
+7f8150000000-7f8151258000 rw-p 00000000 00:00 0 
+7f8151258000-7f8154000000 ---p 00000000 00:00 0 
+7f8154000000-7f8154021000 rw-p 00000000 00:00 0 
+7f8154021000-7f8158000000 ---p 00000000 00:00 0 
+7f8158000000-7f8158021000 rw-p 00000000 00:00 0 
+7f8158021000-7f815c000000 ---p 00000000 00:00 0 
+7f815c000000-7f815e6d3000 rw-p 00000000 00:00 0 
+7f815e6d3000-7f8160000000 ---p 00000000 00:00 0 
+7f8160000000-7f8160027000 rw-p 00000000 00:00 0 
+7f8160027000-7f8164000000 ---p 00000000 00:00 0 
+7f8164000000-7f81640c1000 rw-p 00000000 00:00 0 
+7f81640c1000-7f8168000000 ---p 00000000 00:00 0 
+7f8168000000-7f8168146000 rw-p 00000000 00:00 0 
+7f8168146000-7f816c000000 ---p 00000000 00:00 0 
+7f816c012000-7f816c015000 ---p 00000000 00:00 0 
+7f816c015000-7f816c113000 rw-p 00000000 00:00 0                          [stack:13011]
+7f816c113000-7f816c243000 r-xp 00000000 08:01 23457                      /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f816c243000-7f816c443000 ---p 00130000 08:01 23457                      /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f816c443000-7f816c444000 r--p 00130000 08:01 23457                      /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f816c444000-7f816c448000 rw-p 00131000 08:01 23457                      /usr/lib/x86_64-linux-gnu/libX11.so.6.3.0
+7f816c448000-7f816c459000 r-xp 00000000 08:01 23912                      /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f816c459000-7f816c658000 ---p 00011000 08:01 23912                      /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f816c658000-7f816c659000 r--p 00010000 08:01 23912                      /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f816c659000-7f816c65a000 rw-p 00011000 08:01 23912                      /usr/lib/x86_64-linux-gnu/libXext.so.6.4.0
+7f816c66a000-7f816c66e000 r--s 00097000 08:01 262398                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/jsse.jar
+7f816c66e000-7f816c6c2000 r-xp 00000000 08:01 262407                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt_xawt.so
+7f816c6c2000-7f816c8c1000 ---p 00054000 08:01 262407                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt_xawt.so
+7f816c8c1000-7f816c8c2000 r--p 00053000 08:01 262407                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt_xawt.so
+7f816c8c2000-7f816c8c5000 rw-p 00054000 08:01 262407                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt_xawt.so
+7f816c8c5000-7f816c8c6000 rw-p 00000000 00:00 0 
+7f816c8c6000-7f816c966000 r-xp 00000000 08:01 262417                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt.so
+7f816c966000-7f816cb66000 ---p 000a0000 08:01 262417                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt.so
+7f816cb66000-7f816cb67000 r--p 000a0000 08:01 262417                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt.so
+7f816cb67000-7f816cb72000 rw-p 000a1000 08:01 262417                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libawt.so
+7f816cb72000-7f816cb97000 rw-p 00000000 00:00 0 
+7f816cb97000-7f816cb9a000 r--s 00007000 08:01 1185331                    /home/vagrant/.m2/repository/org/apache/maven/surefire/surefire-junit4/2.12.4/surefire-junit4-2.12.4.jar
+7f816cb9a000-7f816cba0000 r--s 00046000 08:01 917884                     /home/vagrant/.m2/repository/jfree/jcommon/1.0.15/jcommon-1.0.15.jar
+7f816cba0000-7f816cbb0000 r--s 0013f000 08:01 917882                     /home/vagrant/.m2/repository/jfree/jfreechart/1.0.12/jfreechart-1.0.12.jar
+7f816cbb0000-7f816cbba000 r--s 00074000 08:01 1185526                    /home/vagrant/.m2/repository/org/openmrs/directwebremoting/dwr/2.0.7-mod/dwr-2.0.7-mod.jar
+7f816cbba000-7f816cbda000 r--s 003a3000 08:01 1185524                    /home/vagrant/.m2/repository/org/openmrs/module/legacyui-omod/1.2.3/legacyui-omod-1.2.3.jar
+7f816cbda000-7f816cbdb000 r--s 00000000 08:01 1185521                    /home/vagrant/.m2/repository/org/openmrs/module/legacyui-api/1.2.3/legacyui-api-1.2.3.jar
+7f816cbdb000-7f816cbde000 r--s 0000f000 08:01 790718                     /home/vagrant/.m2/repository/com/carrotsearch/junit-benchmarks/0.7.0/junit-benchmarks-0.7.0.jar
+7f816cbde000-7f816cbdf000 r--s 0000c000 08:01 790716                     /home/vagrant/.m2/repository/org/hamcrest/hamcrest-library/1.3/hamcrest-library-1.3.jar
+7f816cbdf000-7f816cbe1000 r--s 00009000 08:01 790714                     /home/vagrant/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar
+7f816cbe1000-7f816cbe3000 r--s 00003000 08:01 790712                     /home/vagrant/.m2/repository/org/powermock/powermock-api-support/1.5/powermock-api-support-1.5.jar
+7f816cbe3000-7f816cbe6000 r--s 0000e000 08:01 790711                     /home/vagrant/.m2/repository/org/powermock/powermock-api-mockito/1.5/powermock-api-mockito-1.5.jar
+7f816cbe6000-7f816cbe8000 r--s 00009000 08:01 790708                     /home/vagrant/.m2/repository/org/powermock/powermock-reflect/1.5/powermock-reflect-1.5.jar
+7f816cbe8000-7f816cbeb000 r--s 00012000 08:01 790707                     /home/vagrant/.m2/repository/org/powermock/powermock-core/1.5/powermock-core-1.5.jar
+7f816cbeb000-7f816cbed000 r--s 00002000 08:01 790704                     /home/vagrant/.m2/repository/org/powermock/powermock-module-junit4-common/1.5/powermock-module-junit4-common-1.5.jar
+7f816cbed000-7f816cbef000 r--s 00005000 08:01 790702                     /home/vagrant/.m2/repository/org/powermock/powermock-module-junit4/1.5/powermock-module-junit4-1.5.jar
+7f816cbef000-7f816cbf1000 r--s 00005000 08:01 790700                     /home/vagrant/.m2/repository/org/objenesis/objenesis/1.0/objenesis-1.0.jar
+7f816cbf1000-7f816cc10000 r--s 00150000 08:01 790699                     /home/vagrant/.m2/repository/org/mockito/mockito-core/1.9.5/mockito-core-1.9.5.jar
+7f816cc10000-7f816cc13000 r--s 00015000 08:01 790697                     /home/vagrant/.m2/repository/xmlunit/xmlunit/1.3/xmlunit-1.3.jar
+7f816cc13000-7f816cc1d000 r--s 00085000 08:01 790694                     /home/vagrant/.m2/repository/org/dbunit/dbunit/2.4.7/dbunit-2.4.7.jar
+7f816cc1d000-7f816cc23000 r--s 00078000 08:01 790692                     /home/vagrant/.m2/repository/org/apache/derby/derbyclient/10.4.2.0/derbyclient-10.4.2.0.jar
+7f816cc23000-7f816cc26000 r--s 00045000 08:01 790690                     /home/vagrant/.m2/repository/net/sourceforge/jtds/jtds/1.2.2/jtds-1.2.2.jar
+7f816cc26000-7f816cc29000 r--s 00012000 08:01 790688                     /home/vagrant/.m2/repository/org/databene/databene-gui/0.1.9/databene-gui-0.1.9.jar
+7f816cc29000-7f816cc32000 r--s 0004d000 08:01 790686                     /home/vagrant/.m2/repository/org/databene/databene-commons/0.4.9/databene-commons-0.4.9.jar
+7f816cc32000-7f816cc41000 r--s 000b7000 08:01 790684                     /home/vagrant/.m2/repository/org/freemarker/freemarker/2.3.9/freemarker-2.3.9.jar
+7f816cc41000-7f816cc60000 r--s 0015b000 08:01 790682                     /home/vagrant/.m2/repository/org/apache/poi/poi/3.5-beta5/poi-3.5-beta5.jar
+7f816cc60000-7f816cc63000 r--s 00017000 08:01 790680                     /home/vagrant/.m2/repository/org/databene/databene-webdecs/0.4.9/databene-webdecs-0.4.9.jar
+7f816cc63000-7f816cc73000 r--s 00139000 08:01 790678                     /home/vagrant/.m2/repository/org/databene/databene-benerator/0.5.9/databene-benerator-0.5.9.jar
+7f816cc73000-7f816cc79000 r--s 00036000 08:01 790676                     /home/vagrant/.m2/repository/junit/junit/4.11/junit-4.11.jar
+7f816cc79000-7f816cc87000 r--s 00191000 08:01 790675                     /home/vagrant/.m2/repository/com/h2database/h2/1.4.187/h2-1.4.187.jar
+7f816cc87000-7f816cc93000 r--s 0006f000 08:01 790672                     /home/vagrant/.m2/repository/org/springframework/spring-test/4.1.4.RELEASE/spring-test-4.1.4.RELEASE.jar
+7f816cc93000-7f816cc95000 r--s 00004000 08:01 1185366                    /home/vagrant/.m2/repository/org/openmrs/web/openmrs-web/2.0.4/openmrs-web-2.0.4-tests.jar
+7f816cc95000-7f816cca3000 r--s 001dc000 08:01 794181                     /home/vagrant/.m2/repository/org/openmrs/api/openmrs-api/2.0.4/openmrs-api-2.0.4-tests.jar
+7f816cca3000-7f816cca5000 r--s 00004000 08:01 917897                     /home/vagrant/.m2/repository/asm/asm-tree/3.2/asm-tree-3.2.jar
+7f816cca5000-7f816cca6000 r--s 00004000 08:01 917895                     /home/vagrant/.m2/repository/asm/asm-analysis/3.2/asm-analysis-3.2.jar
+7f816cca6000-7f816ccab000 r--s 00068000 08:01 790610                     /home/vagrant/.m2/repository/antlr/antlr/2.7.7/antlr-2.7.7.jar
+7f816ccab000-7f816ccf8000 r--s 00482000 08:01 917921                     /home/vagrant/.m2/repository/org/codehaus/groovy/groovy/1.7.6/groovy-1.7.6.jar
+7f816ccf8000-7f816ccf9000 r--s 0000a000 08:01 917971                     /home/vagrant/.m2/repository/asm/asm/3.3.1/asm-3.3.1.jar
+7f816ccf9000-7f816cd00000 r--s 00040000 08:01 917970                     /home/vagrant/.m2/repository/cglib/cglib/2.2.2/cglib-2.2.2.jar
+7f816cd00000-7f816cd01000 r--s 00008000 08:01 790764                     /home/vagrant/.m2/repository/org/owasp/encoder/encoder/1.2/encoder-1.2.jar
+7f816cd01000-7f816cd04000 r--s 0001b000 08:01 790762                     /home/vagrant/.m2/repository/org/apache/struts/struts-tiles/1.3.8/struts-tiles-1.3.8.jar
+7f816cd04000-7f816cd09000 r--s 00039000 08:01 790759                     /home/vagrant/.m2/repository/org/apache/struts/struts-taglib/1.3.8/struts-taglib-1.3.8.jar
+7f816cd09000-7f816cd0f000 r--s 0004b000 08:01 790760                     /home/vagrant/.m2/repository/org/apache/struts/struts-core/1.3.8/struts-core-1.3.8.jar
+7f816cd0f000-7f816cd11000 r--s 00005000 08:01 790756                     /home/vagrant/.m2/repository/sslext/sslext/1.2-0/sslext-1.2-0.jar
+7f816cd11000-7f816cd13000 r--s 0000e000 08:01 790755                     /home/vagrant/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar
+7f816cd13000-7f816cd16000 r--s 0001f000 08:01 790754                     /home/vagrant/.m2/repository/commons-validator/commons-validator/1.3.1/commons-validator-1.3.1.jar
+7f816cd16000-7f816cd18000 r--s 00014000 08:01 790750                     /home/vagrant/.m2/repository/commons-chain/commons-chain/1.1/commons-chain-1.1.jar
+7f816cd18000-7f816cd1c000 r--s 00020000 08:01 790749                     /home/vagrant/.m2/repository/commons-digester/commons-digester/1.8/commons-digester-1.8.jar
+7f816cd1c000-7f816cd22000 r--s 0004f000 08:01 790746                     /home/vagrant/.m2/repository/org/apache/velocity/velocity-tools/2.0/velocity-tools-2.0.jar
+7f816cd22000-7f816cd23000 r--s 00001000 08:01 790744                     /home/vagrant/.m2/repository/taglibs/page/1.0.1/page-1.0.1.jar
+7f816cd23000-7f816cd2c000 r--s 00058000 08:01 790742                     /home/vagrant/.m2/repository/taglibs/standard/1.1.2/standard-1.1.2.jar
+7f816cd2c000-7f816cd2e000 r--s 00005000 08:01 790740                     /home/vagrant/.m2/repository/taglibs/response/1.0.1/response-1.0.1.jar
+7f816cd2e000-7f816cd30000 r--s 00008000 08:01 790738                     /home/vagrant/.m2/repository/taglibs/request/1.0.1/request-1.0.1.jar
+7f816cd30000-7f816cd36000 r--s 0007e000 08:01 790736                     /home/vagrant/.m2/repository/postgresql/postgresql/9.0-801.jdbc4/postgresql-9.0-801.jdbc4.jar
+7f816cd36000-7f816cd3e000 r--s 000ce000 08:01 790734                     /home/vagrant/.m2/repository/mysql/mysql-connector-java/5.1.28/mysql-connector-java-5.1.28.jar
+7f816cd3e000-7f816cd41000 r--s 00012000 08:01 790732                     /home/vagrant/.m2/repository/org/springframework/spring-oxm/4.1.4.RELEASE/spring-oxm-4.1.4.RELEASE.jar
+7f816cd41000-7f816cd50000 r--s 000b0000 08:01 790730                     /home/vagrant/.m2/repository/org/springframework/spring-webmvc/4.1.4.RELEASE/spring-webmvc-4.1.4.RELEASE.jar
+7f816cd50000-7f816cd60000 r--s 0009f000 08:01 790728                     /home/vagrant/.m2/repository/org/springframework/spring-web/4.1.4.RELEASE/spring-web-4.1.4.RELEASE.jar
+7f816cd60000-7f816cd63000 r--s 0000c000 08:01 790726                     /home/vagrant/.m2/repository/commons-fileupload/commons-fileupload/1.2.1/commons-fileupload-1.2.1.jar
+7f816cd63000-7f816cd65000 r--s 00004000 08:01 790724                     /home/vagrant/.m2/repository/javax/servlet/jstl/1.1.2/jstl-1.1.2.jar
+7f816cd65000-7f816cd67000 r--s 00016000 08:01 790723                     /home/vagrant/.m2/repository/javax/servlet/servlet-api/2.4/servlet-api-2.4.jar
+7f816cd67000-7f816cd69000 r--s 0000b000 08:01 790720                     /home/vagrant/.m2/repository/javax/servlet/jsp-api/2.0/jsp-api-2.0.jar
+7f816cd69000-7f816cd6c000 r--s 00025000 08:01 1185360                    /home/vagrant/.m2/repository/org/openmrs/web/openmrs-web/2.0.4/openmrs-web-2.0.4.jar
+7f816cd6c000-7f816ce43000 r--s 007a9000 08:01 790671                     /home/vagrant/.m2/repository/net/sf/ehcache/ehcache/2.10.0/ehcache-2.10.0.jar
+7f816ce43000-7f816ceb3000 r--s 00643000 08:01 790669                     /home/vagrant/.m2/repository/org/codehaus/groovy/groovy-all/2.4.6/groovy-all-2.4.6.jar
+7f816ceb3000-7f816cec1000 r--s 000b1000 08:01 790666                     /home/vagrant/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.9.13/jackson-mapper-asl-1.9.13.jar
+7f816cec1000-7f816cec5000 r--s 00035000 08:01 790664                     /home/vagrant/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.9.13/jackson-core-asl-1.9.13.jar
+7f816cec5000-7f816cece000 r--s 00051000 08:01 790662                     /home/vagrant/.m2/repository/org/hibernate/hibernate-validator/4.2.0.Final/hibernate-validator-4.2.0.Final.jar
+7f816cece000-7f816ced1000 r--s 00009000 08:01 790661                     /home/vagrant/.m2/repository/javax/validation/validation-api/1.0.0.GA/validation-api-1.0.0.GA.jar
+7f816ced1000-7f816cee8000 r--s 00110000 08:01 790659                     /home/vagrant/.m2/repository/xerces/xercesImpl/2.8.0/xercesImpl-2.8.0.jar
+7f816cee8000-7f816cee9000 r--s 00000000 08:01 790407                     /home/vagrant/.m2/repository/org/openmrs/liquibase/ext/type-converter/1.0.1/type-converter-1.0.1.jar
+7f816cee9000-7f816ceeb000 r--s 00000000 08:01 790405                     /home/vagrant/.m2/repository/org/openmrs/liquibase/ext/identity-insert/1.2.1/identity-insert-1.2.1.jar
+7f816ceeb000-7f816ceed000 r--s 00001000 08:01 790404                     /home/vagrant/.m2/repository/org/openmrs/liquibase/ext/modify-column/2.0.2/modify-column-2.0.2.jar
+7f816ceed000-7f816cefe000 r--s 000d2000 08:01 790656                     /home/vagrant/.m2/repository/org/liquibase/liquibase-core/2.0.5/liquibase-core-2.0.5.jar
+7f816cefe000-7f816cf00000 r--s 0000e000 08:01 790655                     /home/vagrant/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+7f816cf00000-7f816cf07000 r--s 00067000 08:01 790652                     /home/vagrant/.m2/repository/javax/mail/mail/1.4.1/mail-1.4.1.jar
+7f816cf07000-7f816cf09000 r--s 00005000 08:01 790651                     /home/vagrant/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+7f816cf09000-7f816cf0a000 r--s 00001000 08:01 790650                     /home/vagrant/.m2/repository/xmlpull/xmlpull/1.1.3.1/xmlpull-1.1.3.1.jar
+7f816cf0a000-7f816cf16000 r--s 0006a000 08:01 790646                     /home/vagrant/.m2/repository/com/thoughtworks/xstream/xstream/1.4.3/xstream-1.4.3.jar
+7f816cf16000-7f816cf18000 r--s 00003000 08:01 790644                     /home/vagrant/.m2/repository/org/slf4j/jcl-over-slf4j/1.6.0/jcl-over-slf4j-1.6.0.jar
+7f816cf18000-7f816cf1a000 r--s 00005000 08:01 790640                     /home/vagrant/.m2/repository/org/slf4j/slf4j-api/1.6.0/slf4j-api-1.6.0.jar
+7f816cf1a000-7f816cf1f000 r--s 00048000 08:01 790638                     /home/vagrant/.m2/repository/dom4j/dom4j/1.6.1/dom4j-1.6.1.jar
+7f816cf1f000-7f816cf25000 r--s 0002f000 08:01 790636                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-queries/4.10.4/lucene-queries-4.10.4.jar
+7f816cf25000-7f816cf28000 r--s 0001b000 08:01 790635                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-sandbox/4.10.4/lucene-sandbox-4.10.4.jar
+7f816cf28000-7f816cf52000 r--s 00248000 08:01 790632                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-core/4.10.4/lucene-core-4.10.4.jar
+7f816cf52000-7f816cf5b000 r--s 00057000 08:01 790631                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-queryparser/4.10.4/lucene-queryparser-4.10.4.jar
+7f816cf5b000-7f816cf5f000 r--s 00028000 08:01 790627                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-facet/4.10.4/lucene-facet-4.10.4.jar
+7f816cf5f000-7f816cf70000 r--s 0018f000 08:01 790626                     /home/vagrant/.m2/repository/org/apache/lucene/lucene-analyzers-common/4.10.4/lucene-analyzers-common-4.10.4.jar
+7f816cf70000-7f816cf85000 r--s 000d4000 08:01 790628                     /home/vagrant/.m2/repository/org/hibernate/hibernate-search-engine/5.1.2.Final/hibernate-search-engine-5.1.2.Final.jar
+7f816cf85000-7f816cf89000 r--s 0001e000 08:01 790622                     /home/vagrant/.m2/repository/org/hibernate/hibernate-search-orm/5.1.2.Final/hibernate-search-orm-5.1.2.Final.jar
+7f816cf89000-7f816cf8d000 r--s 0001e000 08:01 790621                     /home/vagrant/.m2/repository/org/hibernate/hibernate-ehcache/4.3.9.Final/hibernate-ehcache-4.3.9.Final.jar
+7f816cf8d000-7f816cf9b000 r--s 00080000 08:01 790618                     /home/vagrant/.m2/repository/com/mchange/mchange-commons-java/0.2.3.4/mchange-commons-java-0.2.3.4.jar
+7f816cf9b000-7f816cfa2000 r--s 00061000 08:01 790617                     /home/vagrant/.m2/repository/com/mchange/c3p0/0.9.2.1/c3p0-0.9.2.1.jar
+7f816cfa2000-7f816d000000 r--s 004ab000 08:01 790598                     /home/vagrant/.m2/repository/org/hibernate/hibernate-core/4.3.9.Final/hibernate-core-4.3.9.Final.jar
+7f816d000000-7f816f200000 rwxp 00000000 00:00 0 
+7f816f210000-7f817c000000 ---p 00000000 00:00 0 
+7f817c000000-7f817d54e000 rw-p 00000000 00:00 0 
+7f817d54e000-7f8180000000 ---p 00000000 00:00 0 
+7f8180000000-7f8180001000 r--s 00002000 08:01 790645                     /home/vagrant/.m2/repository/org/slf4j/slf4j-log4j12/1.6.0/slf4j-log4j12-1.6.0.jar
+7f8180001000-7f8180002000 r--s 00009000 08:01 790614                     /home/vagrant/.m2/repository/org/hibernate/hibernate-c3p0/4.3.9.Final/hibernate-c3p0-4.3.9.Final.jar
+7f8180002000-7f8180004000 r--s 00011000 08:01 790613                     /home/vagrant/.m2/repository/org/jboss/jandex/1.1.0.Final/jandex-1.1.0.Final.jar
+7f8180004000-7f8180009000 r--s 00017000 08:01 790608                     /home/vagrant/.m2/repository/org/hibernate/javax/persistence/hibernate-jpa-2.1-api/1.0.0.Final/hibernate-jpa-2.1-api-1.0.0.Final.jar
+7f8180009000-7f818000c000 r--s 00010000 08:01 790606                     /home/vagrant/.m2/repository/org/hibernate/common/hibernate-commons-annotations/4.0.5.Final/hibernate-commons-annotations-4.0.5.Final.jar
+7f818000c000-7f818000d000 r--s 00006000 08:01 790604                     /home/vagrant/.m2/repository/org/jboss/spec/javax/transaction/jboss-transaction-api_1.2_spec/1.0.0.Final/jboss-transaction-api_1.2_spec-1.0.0.Final.jar
+7f818000d000-7f818000e000 r--s 00002000 08:01 790602                     /home/vagrant/.m2/repository/org/jboss/logging/jboss-logging-annotations/1.2.0.Beta1/jboss-logging-annotations-1.2.0.Beta1.jar
+7f818000e000-7f8180010000 r--s 0000c000 08:01 790600                     /home/vagrant/.m2/repository/org/jboss/logging/jboss-logging/3.1.3.GA/jboss-logging-3.1.3.GA.jar
+7f8180010000-7f8180019000 r--s 000ae000 08:01 790597                     /home/vagrant/.m2/repository/org/javassist/javassist/3.19.0-GA/javassist-3.19.0-GA.jar
+7f8180019000-7f8180037000 r--s 001d4000 08:01 790596                     /home/vagrant/.m2/repository/ca/uhn/hapi/hapi-structures-v26/2.0/hapi-structures-v26-2.0.jar
+7f8180037000-7f8180052000 r--s 001a9000 08:01 790592                     /home/vagrant/.m2/repository/ca/uhn/hapi/hapi-structures-v25/2.0/hapi-structures-v25-2.0.jar
+7f8180052000-7f8180070000 r--s 0027d000 08:01 790590                     /home/vagrant/.m2/repository/xalan/xalan/2.7.0/xalan-2.7.0.jar
+7f8180070000-7f8180073000 r--s 00023000 08:01 790588                     /home/vagrant/.m2/repository/org/jdom/jdom/1.1/jdom-1.1.jar
+7f8180073000-7f8180075000 r--s 00009000 08:01 790587                     /home/vagrant/.m2/repository/commons-cli/commons-cli/1.2/commons-cli-1.2.jar
+7f8180075000-7f818007f000 r--s 00079000 08:01 790584                     /home/vagrant/.m2/repository/ca/uhn/hapi/hapi-base/2.0/hapi-base-2.0.jar
+7f818007f000-7f8180085000 r--s 00049000 08:01 790582                     /home/vagrant/.m2/repository/cglib/cglib-nodep/2.2/cglib-nodep-2.2.jar
+7f8180085000-7f8180086000 r--s 00008000 08:01 790580                     /home/vagrant/.m2/repository/asm/asm-util/2.2.3/asm-util-2.2.3.jar
+7f8180086000-7f8180087000 r--s 00003000 08:01 790575                     /home/vagrant/.m2/repository/asm/asm-commons/2.2.3/asm-commons-2.2.3.jar
+7f8180087000-7f8180091000 r--s 0005f000 08:01 790574                     /home/vagrant/.m2/repository/org/springframework/spring-jdbc/4.1.4.RELEASE/spring-jdbc-4.1.4.RELEASE.jar
+7f8180091000-7f8180098000 r--s 00037000 08:01 790570                     /home/vagrant/.m2/repository/org/springframework/spring-tx/4.1.4.RELEASE/spring-tx-4.1.4.RELEASE.jar
+7f8180098000-7f81800a0000 r--s 00054000 08:01 790569                     /home/vagrant/.m2/repository/org/springframework/spring-orm/4.1.4.RELEASE/spring-orm-4.1.4.RELEASE.jar
+7f81800a0000-7f81800a2000 r--s 00000000 08:01 790566                     /home/vagrant/.m2/repository/aopalliance/aopalliance/1.0/aopalliance-1.0.jar
+7f81800a2000-7f81800ab000 r--s 0004f000 08:01 790564                     /home/vagrant/.m2/repository/org/springframework/spring-aop/4.1.4.RELEASE/spring-aop-4.1.4.RELEASE.jar
+7f81800ab000-7f81800b0000 r--s 0003b000 08:01 790562                     /home/vagrant/.m2/repository/org/springframework/spring-expression/4.1.4.RELEASE/spring-expression-4.1.4.RELEASE.jar
+7f81800b0000-7f81800c8000 r--s 000e3000 08:01 790561                     /home/vagrant/.m2/repository/org/springframework/spring-context/4.1.4.RELEASE/spring-context-4.1.4.RELEASE.jar
+7f81800c8000-7f81800d5000 r--s 000a0000 08:01 790559                     /home/vagrant/.m2/repository/org/springframework/spring-beans/4.1.4.RELEASE/spring-beans-4.1.4.RELEASE.jar
+7f81800d5000-7f81800e9000 r--s 000e2000 08:01 790556                     /home/vagrant/.m2/repository/org/springframework/spring-core/4.1.4.RELEASE/spring-core-4.1.4.RELEASE.jar
+7f81800e9000-7f81800f0000 r--s 00059000 08:01 790554                     /home/vagrant/.m2/repository/log4j/log4j/1.2.15/log4j-1.2.15.jar
+7f81800f0000-7f81800f4000 r--s 0003c000 08:01 790553                     /home/vagrant/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+7f81800f4000-7f81800fc000 r--s 0005f000 08:01 790549                     /home/vagrant/.m2/repository/org/apache/velocity/velocity/1.6.2/velocity-1.6.2.jar
+7f81800fc000-7f8180105000 r--s 00062000 08:01 790402                     /home/vagrant/.m2/repository/org/azeckoski/reflectutils/0.9.14/reflectutils-0.9.14.jar
+7f8180105000-7f8180108000 r--s 00018000 08:01 790548                     /home/vagrant/.m2/repository/commons-io/commons-io/1.4/commons-io-1.4.jar
+7f8180108000-7f818010d000 r--s 0002a000 08:01 790547                     /home/vagrant/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+7f818010d000-7f8180113000 r--s 00048000 08:01 790546                     /home/vagrant/.m2/repository/org/apache/commons/commons-lang3/3.1/commons-lang3-3.1.jar
+7f8180113000-7f8180120000 r--s 00083000 08:01 790550                     /home/vagrant/.m2/repository/commons-collections/commons-collections/3.2.2/commons-collections-3.2.2.jar
+7f8180120000-7f8180135000 r--s 001f2000 08:01 794179                     /home/vagrant/.m2/repository/org/openmrs/api/openmrs-api/2.0.4/openmrs-api-2.0.4.jar
+7f8180135000-7f8180137000 r--s 00008000 08:01 400669                     /home/vagrant/craigappl/openmrs-module-patientflags/api/target/patientflags-api-1.3.5-SNAPSHOT.jar
+7f8180137000-7f818013b000 r--s 00019000 08:01 1185302                    /home/vagrant/.m2/repository/org/apache/maven/surefire/surefire-api/2.12.4/surefire-api-2.12.4.jar
+7f818013b000-7f818013d000 r--s 00007000 08:01 1185300                    /home/vagrant/.m2/repository/org/apache/maven/surefire/surefire-booter/2.12.4/surefire-booter-2.12.4.jar
+7f818013d000-7f818013e000 r--s 00003000 08:01 532815                     /home/vagrant/craigappl/openmrs-module-patientflags/omod/target/surefire/surefirebooter6264759120652086969.jar
+7f818013e000-7f8180140000 r--s 00008000 08:01 262456                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunec.jar
+7f8180140000-7f818015b000 r--s 001d5000 08:01 262454                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/nashorn.jar
+7f818015b000-7f8180176000 r--s 00394000 08:01 262458                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/cldrdata.jar
+7f8180176000-7f8180177000 ---p 00000000 00:00 0 
+7f8180177000-7f8180277000 rw-p 00000000 00:00 0                          [stack:13008]
+7f8180277000-7f818027a000 ---p 00000000 00:00 0 
+7f818027a000-7f8180378000 rw-p 00000000 00:00 0                          [stack:13007]
+7f8180378000-7f818037b000 ---p 00000000 00:00 0 
+7f818037b000-7f8180479000 rw-p 00000000 00:00 0                          [stack:13006]
+7f8180479000-7f818047c000 ---p 00000000 00:00 0 
+7f818047c000-7f818057a000 rw-p 00000000 00:00 0                          [stack:13005]
+7f818057a000-7f818057d000 ---p 00000000 00:00 0 
+7f818057d000-7f818067b000 rw-p 00000000 00:00 0                          [stack:13004]
+7f818067b000-7f8180804000 r--p 00000000 08:01 26969                      /usr/lib/locale/locale-archive
+7f8180804000-7f8180807000 ---p 00000000 00:00 0 
+7f8180807000-7f8180905000 rw-p 00000000 00:00 0                          [stack:13003]
+7f8180905000-7f8180908000 ---p 00000000 00:00 0 
+7f8180908000-7f8180a06000 rw-p 00000000 00:00 0                          [stack:13002]
+7f8180a06000-7f8180a07000 ---p 00000000 00:00 0 
+7f8180a07000-7f8180b54000 rw-p 00000000 00:00 0                          [stack:13001]
+7f8180b54000-7f8180d22000 r--s 03bf1000 08:01 262465                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/rt.jar
+7f8180d22000-7f8181522000 rw-p 00000000 00:00 0 
+7f8181522000-7f8181604000 rw-p 00000000 00:00 0 
+7f8181604000-7f818161a000 ---p 00000000 00:00 0 
+7f818161a000-7f818168b000 rw-p 00000000 00:00 0 
+7f818168b000-7f8181695000 ---p 00000000 00:00 0 
+7f8181695000-7f8181778000 rw-p 00000000 00:00 0 
+7f8181778000-7f818178d000 ---p 00000000 00:00 0 
+7f818178d000-7f8181816000 rw-p 00000000 00:00 0 
+7f8181816000-7f8181b4e000 ---p 00000000 00:00 0 
+7f8181b4e000-7f8181b56000 r-xp 00000000 08:01 262418                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7f8181b56000-7f8181d55000 ---p 00008000 08:01 262418                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7f8181d55000-7f8181d56000 r--p 00007000 08:01 262418                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7f8181d56000-7f8181d57000 rw-p 00008000 08:01 262418                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libzip.so
+7f8181d57000-7f8181d61000 r-xp 00000000 08:01 2166                       /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f8181d61000-7f8181f60000 ---p 0000a000 08:01 2166                       /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f8181f60000-7f8181f61000 r--p 00009000 08:01 2166                       /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f8181f61000-7f8181f62000 rw-p 0000a000 08:01 2166                       /lib/x86_64-linux-gnu/libnss_files-2.19.so
+7f8181f62000-7f8181f6d000 r-xp 00000000 08:01 2273                       /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f8181f6d000-7f818216c000 ---p 0000b000 08:01 2273                       /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f818216c000-7f818216d000 r--p 0000a000 08:01 2273                       /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f818216d000-7f818216e000 rw-p 0000b000 08:01 2273                       /lib/x86_64-linux-gnu/libnss_nis-2.19.so
+7f818216e000-7f8182185000 r-xp 00000000 08:01 2194                       /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f8182185000-7f8182384000 ---p 00017000 08:01 2194                       /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f8182384000-7f8182385000 r--p 00016000 08:01 2194                       /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f8182385000-7f8182386000 rw-p 00017000 08:01 2194                       /lib/x86_64-linux-gnu/libnsl-2.19.so
+7f8182386000-7f8182388000 rw-p 00000000 00:00 0 
+7f8182388000-7f8182391000 r-xp 00000000 08:01 2072                       /lib/x86_64-linux-gnu/libnss_compat-2.19.so
+7f8182391000-7f8182590000 ---p 00009000 08:01 2072                       /lib/x86_64-linux-gnu/libnss_compat-2.19.so
+7f8182590000-7f8182591000 r--p 00008000 08:01 2072                       /lib/x86_64-linux-gnu/libnss_compat-2.19.so
+7f8182591000-7f8182592000 rw-p 00009000 08:01 2072                       /lib/x86_64-linux-gnu/libnss_compat-2.19.so
+7f8182592000-7f81825bf000 r-xp 00000000 08:01 262428                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7f81825bf000-7f81827be000 ---p 0002d000 08:01 262428                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7f81827be000-7f81827bf000 r--p 0002c000 08:01 262428                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7f81827bf000-7f81827c1000 rw-p 0002d000 08:01 262428                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libjava.so
+7f81827c1000-7f81827d1000 r-xp 00000000 08:01 262408                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7f81827d1000-7f81829d0000 ---p 00010000 08:01 262408                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7f81829d0000-7f81829d2000 r--p 0000f000 08:01 262408                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7f81829d2000-7f81829d3000 rw-p 00011000 08:01 262408                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/libverify.so
+7f81829d3000-7f81829da000 r-xp 00000000 08:01 2213                       /lib/x86_64-linux-gnu/librt-2.19.so
+7f81829da000-7f8182bd9000 ---p 00007000 08:01 2213                       /lib/x86_64-linux-gnu/librt-2.19.so
+7f8182bd9000-7f8182bda000 r--p 00006000 08:01 2213                       /lib/x86_64-linux-gnu/librt-2.19.so
+7f8182bda000-7f8182bdb000 rw-p 00007000 08:01 2213                       /lib/x86_64-linux-gnu/librt-2.19.so
+7f8182bdb000-7f8182bf1000 r-xp 00000000 08:01 2064                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8182bf1000-7f8182df0000 ---p 00016000 08:01 2064                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8182df0000-7f8182df1000 rw-p 00015000 08:01 2064                       /lib/x86_64-linux-gnu/libgcc_s.so.1
+7f8182df1000-7f8182ef6000 r-xp 00000000 08:01 2131                       /lib/x86_64-linux-gnu/libm-2.19.so
+7f8182ef6000-7f81830f5000 ---p 00105000 08:01 2131                       /lib/x86_64-linux-gnu/libm-2.19.so
+7f81830f5000-7f81830f6000 r--p 00104000 08:01 2131                       /lib/x86_64-linux-gnu/libm-2.19.so
+7f81830f6000-7f81830f7000 rw-p 00105000 08:01 2131                       /lib/x86_64-linux-gnu/libm-2.19.so
+7f81830f7000-7f81831dd000 r-xp 00000000 08:01 23624                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19
+7f81831dd000-7f81833dc000 ---p 000e6000 08:01 23624                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19
+7f81833dc000-7f81833e4000 r--p 000e5000 08:01 23624                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19
+7f81833e4000-7f81833e6000 rw-p 000ed000 08:01 23624                      /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.19
+7f81833e6000-7f81833fb000 rw-p 00000000 00:00 0 
+7f81833fb000-7f8183ff3000 r-xp 00000000 08:01 262413                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7f8183ff3000-7f81841f3000 ---p 00bf8000 08:01 262413                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7f81841f3000-7f8184291000 r--p 00bf8000 08:01 262413                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7f8184291000-7f81842ba000 rw-p 00c96000 08:01 262413                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+7f81842ba000-7f81842ec000 rw-p 00000000 00:00 0 
+7f81842ec000-7f8184305000 r-xp 00000000 08:01 2218                       /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f8184305000-7f8184504000 ---p 00019000 08:01 2218                       /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f8184504000-7f8184505000 r--p 00018000 08:01 2218                       /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f8184505000-7f8184506000 rw-p 00019000 08:01 2218                       /lib/x86_64-linux-gnu/libpthread-2.19.so
+7f8184506000-7f818450a000 rw-p 00000000 00:00 0 
+7f818450a000-7f818450d000 r-xp 00000000 08:01 2210                       /lib/x86_64-linux-gnu/libdl-2.19.so
+7f818450d000-7f818470c000 ---p 00003000 08:01 2210                       /lib/x86_64-linux-gnu/libdl-2.19.so
+7f818470c000-7f818470d000 r--p 00002000 08:01 2210                       /lib/x86_64-linux-gnu/libdl-2.19.so
+7f818470d000-7f818470e000 rw-p 00003000 08:01 2210                       /lib/x86_64-linux-gnu/libdl-2.19.so
+7f818470e000-7f8184726000 r-xp 00000000 08:01 2080                       /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f8184726000-7f8184925000 ---p 00018000 08:01 2080                       /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f8184925000-7f8184926000 r--p 00017000 08:01 2080                       /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f8184926000-7f8184927000 rw-p 00018000 08:01 2080                       /lib/x86_64-linux-gnu/libz.so.1.2.8
+7f8184927000-7f8184ae1000 r-xp 00000000 08:01 2211                       /lib/x86_64-linux-gnu/libc-2.19.so
+7f8184ae1000-7f8184ce1000 ---p 001ba000 08:01 2211                       /lib/x86_64-linux-gnu/libc-2.19.so
+7f8184ce1000-7f8184ce5000 r--p 001ba000 08:01 2211                       /lib/x86_64-linux-gnu/libc-2.19.so
+7f8184ce5000-7f8184ce7000 rw-p 001be000 08:01 2211                       /lib/x86_64-linux-gnu/libc-2.19.so
+7f8184ce7000-7f8184cec000 rw-p 00000000 00:00 0 
+7f8184cec000-7f8184cf9000 r-xp 00000000 08:01 262424                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7f8184cf9000-7f8184ef9000 ---p 0000d000 08:01 262424                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7f8184ef9000-7f8184efa000 r--p 0000d000 08:01 262424                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7f8184efa000-7f8184efb000 rw-p 0000e000 08:01 262424                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/jli/libjli.so
+7f8184efb000-7f8184f1e000 r-xp 00000000 08:01 2229                       /lib/x86_64-linux-gnu/ld-2.19.so
+7f8184f1e000-7f8184f22000 r--s 00037000 08:01 262452                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunpkcs11.jar
+7f8184f22000-7f8184f23000 r--s 0000a000 08:01 262455                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/jaccess.jar
+7f8184f23000-7f8184f26000 r--s 0000f000 08:01 262457                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/icedtea-sound.jar
+7f8184f26000-7f8184f30000 r--s 00116000 08:01 262451                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/localedata.jar
+7f8184f30000-7f8185001000 rw-p 00000000 00:00 0 
+7f8185001000-7f8185004000 ---p 00000000 00:00 0 
+7f8185004000-7f8185107000 rw-p 00000000 00:00 0                          [stack:13000]
+7f8185107000-7f8185109000 r--s 00006000 08:01 61725                      /usr/share/java/java-atk-wrapper.jar
+7f8185109000-7f818510e000 r--s 0003b000 08:01 262460                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/sunjce_provider.jar
+7f818510e000-7f8185110000 r--s 00001000 08:01 262453                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/dnsns.jar
+7f8185110000-7f8185111000 r--s 00010000 08:01 262459                     /usr/lib/jvm/java-8-openjdk-amd64/jre/lib/ext/zipfs.jar
+7f8185111000-7f8185119000 rw-s 00000000 08:01 400730                     /tmp/hsperfdata_vagrant/12998
+7f8185119000-7f818511a000 rw-p 00000000 00:00 0 
+7f818511a000-7f818511b000 r--p 00000000 00:00 0 
+7f818511b000-7f818511d000 rw-p 00000000 00:00 0 
+7f818511d000-7f818511e000 r--p 00022000 08:01 2229                       /lib/x86_64-linux-gnu/ld-2.19.so
+7f818511e000-7f818511f000 rw-p 00023000 08:01 2229                       /lib/x86_64-linux-gnu/ld-2.19.so
+7f818511f000-7f8185120000 rw-p 00000000 00:00 0 
+7ffcbef04000-7ffcbef25000 rw-p 00000000 00:00 0                          [stack]
+7ffcbefec000-7ffcbefee000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+
+VM Arguments:
+java_command: /home/vagrant/craigappl/openmrs-module-patientflags/omod/target/surefire/surefirebooter6264759120652086969.jar /home/vagrant/craigappl/openmrs-module-patientflags/omod/target/surefire/surefire8215889195359316482tmp /home/vagrant/craigappl/openmrs-module-patientflags/omod/target/surefire/surefire_04137380718856650690tmp
+java_class_path (initial): /home/vagrant/craigappl/openmrs-module-patientflags/omod/target/surefire/surefirebooter6264759120652086969.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x9fddb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGBUS: [libjvm.so+0x9fddb0], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGFPE: [libjvm.so+0x85be50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGPIPE: [libjvm.so+0x85be50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGXFSZ: [libjvm.so+0x85be50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGILL: [libjvm.so+0x85be50], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGUSR1: SIG_DFL, sa_mask[0]=00000000000000000000000000000000, sa_flags=none
+SIGUSR2: [libjvm.so+0x85bd20], sa_mask[0]=00100000000000000000000000000000, sa_flags=SA_RESTART|SA_SIGINFO
+SIGHUP: [libjvm.so+0x85bf10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGINT: [libjvm.so+0x85bf10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGTERM: [libjvm.so+0x85bf10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+SIGQUIT: [libjvm.so+0x85bf10], sa_mask[0]=11111111011111111101111111111110, sa_flags=SA_RESTART|SA_SIGINFO
+
+
+---------------  S Y S T E M  ---------------
+
+OS:DISTRIB_ID=Ubuntu
+DISTRIB_RELEASE=14.04
+DISTRIB_CODENAME=trusty
+DISTRIB_DESCRIPTION="Ubuntu 14.04.5 LTS"
+
+uname:Linux 3.13.0-95-generic #142-Ubuntu SMP Fri Aug 12 17:00:09 UTC 2016 x86_64
+libc:glibc 2.19 NPTL 2.19 
+rlimit: STACK 8192k, CORE 0k, NPROC 23585, NOFILE 4096, AS infinity
+load average:1.77 0.86 0.47
+
+/proc/meminfo:
+MemTotal:        3033024 kB
+MemFree:           62892 kB
+Buffers:             224 kB
+Cached:            12908 kB
+SwapCached:            0 kB
+Active:          2867816 kB
+Inactive:          11640 kB
+Active(anon):    2867032 kB
+Inactive(anon):     5456 kB
+Active(file):        784 kB
+Inactive(file):     6184 kB
+Unevictable:          32 kB
+Mlocked:              32 kB
+SwapTotal:             0 kB
+SwapFree:              0 kB
+Dirty:               300 kB
+Writeback:             0 kB
+AnonPages:       2866392 kB
+Mapped:             6856 kB
+Shmem:              6116 kB
+Slab:              34576 kB
+SReclaimable:      15656 kB
+SUnreclaim:        18920 kB
+KernelStack:        5000 kB
+PageTables:        22072 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     1516512 kB
+Committed_AS:    4558908 kB
+VmallocTotal:   34359738367 kB
+VmallocUsed:       34752 kB
+VmallocChunk:   34359697100 kB
+HardwareCorrupted:     0 kB
+AnonHugePages:   1728512 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       2048 kB
+DirectMap4k:       36800 kB
+DirectMap2M:     3059712 kB
+
+
+CPU:total 1 (1 cores per cpu, 1 threads per core) family 6 model 78 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, avx, aes, clmul, 3dnowpref, lzcnt, tsc, tscinvbit
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 78
+model name	: Intel(R) Core(TM) i7-6600U CPU @ 2.60GHz
+stepping	: 3
+cpu MHz		: 2807.631
+cache size	: 4096 KB
+physical id	: 0
+siblings	: 1
+core id		: 0
+cpu cores	: 1
+apicid		: 0
+initial apicid	: 0
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 22
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 syscall nx rdtscp lm constant_tsc rep_good nopl xtopology nonstop_tsc pni pclmulqdq monitor ssse3 cx16 sse4_1 sse4_2 movbe popcnt aes xsave avx rdrand lahf_lm abm 3dnowprefetch rdseed
+bogomips	: 5615.26
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 39 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 3033024k(62768k free), swap 0k(0k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.111-b14) for linux-amd64 JRE (1.8.0_111-8u111-b14-3~14.04.1-b14), built on Nov  5 2016 13:21:07 by "buildd" with gcc 4.8.4
+
+time: Thu Feb 16 05:02:34 2017
+elapsed time: 78 seconds (0d 0h 1m 18s)
+

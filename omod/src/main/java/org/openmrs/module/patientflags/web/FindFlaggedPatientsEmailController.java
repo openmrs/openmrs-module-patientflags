@@ -14,6 +14,7 @@
 package org.openmrs.module.patientflags.web;
 
 import org.openmrs.Cohort;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
@@ -27,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 
 /**
  * Controller that handles retrieving Patients that match a Flag criteria for email output
@@ -56,7 +58,11 @@ public class FindFlaggedPatientsEmailController {
 		FlagService flagService = Context.getService(FlagService.class);
 		flag = flagService.getFlag(flag.getFlagId());
 		Cohort flaggedPatients = flagService.getFlaggedPatients(flag);
-		Cohort allPatients = Context.getPatientSetService().getAllPatients();
+		Cohort allPatients = new Cohort();
+		List<Patient> patients = Context.getPatientService().getAllPatients();
+		for (Patient i : patients) {
+			allPatients.addMember(i.getPatientId());
+		}
 		
 		// create the model map
 		ModelMap model = new ModelMap();

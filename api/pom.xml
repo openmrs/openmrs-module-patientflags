@@ -22,7 +22,7 @@
 			<type>jar</type>
 		</dependency>
 		
-		<!--  include groovy, but mark as provided since it is included with the logic module -->
+		<!--  include groovy, but mark as provided since it is included with openmrs-core v1.10+-->
 		<dependency>
   			<groupId>org.codehaus.groovy</groupId>
   			<artifactId>groovy</artifactId>
@@ -120,6 +120,47 @@
 			</dependencies>
 		</profile>
 	
+		<profile>
+			<id>openmrs-1.11</id>
+			<dependencies>				
+				<dependency>
+				    <groupId>org.openmrs.api</groupId>
+				    <artifactId>openmrs-api</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.web</groupId>
+				    <artifactId>openmrs-web</artifactId>
+				    <type>test-jar</type>
+				</dependency>
+				<dependency>
+				    <groupId>org.openmrs.test</groupId>
+				    <artifactId>openmrs-test</artifactId>
+				    <type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
+
+		 <profile>
+                        <id>openmrs-2.0</id>
+                        <dependencies>
+                                <dependency>
+                                    <groupId>org.openmrs.api</groupId>
+                                    <artifactId>openmrs-api</artifactId>
+                                    <type>test-jar</type>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.openmrs.web</groupId>
+                                    <artifactId>openmrs-web</artifactId>
+                                    <type>test-jar</type>
+                                </dependency>
+                                <dependency>
+                                    <groupId>org.openmrs.test</groupId>
+                                    <artifactId>openmrs-test</artifactId>
+                                    <type>pom</type>
+                                </dependency>
+                        </dependencies>
+                </profile>
 	</profiles>
 
 </project>

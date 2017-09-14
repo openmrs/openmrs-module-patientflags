@@ -29,9 +29,48 @@
   			<version>1.7.6</version>
   			<type>jar</type>
   			<scope>provided</scope>
-		</dependency>	
-		
+		</dependency>
+
+		<!-- dependencies required for testing -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<type>jar</type>
+			<version>2.2.2</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.txt</include>
+					<include>**/*.properties</include>
+				</includes>
+			</testResource>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.xml</exclude>
+					<exclude>**/*.txt</exclude>
+					<exclude>**/*.properties</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+	</build>
 
 	<!-- different profiles for building/testing against different version of openmrs -->
 	<profiles>
@@ -130,26 +169,34 @@
 			</dependencies>
 		</profile>
 
-		 <profile>
-                        <id>openmrs-2.0</id>
-                        <dependencies>
-                                <dependency>
-                                    <groupId>org.openmrs.api</groupId>
-                                    <artifactId>openmrs-api</artifactId>
-                                    <type>test-jar</type>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.openmrs.web</groupId>
-                                    <artifactId>openmrs-web</artifactId>
-                                    <type>test-jar</type>
-                                </dependency>
-                                <dependency>
-                                    <groupId>org.openmrs.test</groupId>
-                                    <artifactId>openmrs-test</artifactId>
-                                    <type>pom</type>
-                                </dependency>
-                        </dependencies>
-                </profile>
+	 	<profile>
+			<id>openmrs-2.0</id>
+			<dependencies>
+				<dependency>
+					<groupId>org.openmrs.api</groupId>
+					<artifactId>openmrs-api</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.web</groupId>
+					<artifactId>openmrs-web</artifactId>
+					<type>test-jar</type>
+				</dependency>
+				<dependency>
+					<groupId>org.openmrs.test</groupId>
+					<artifactId>openmrs-test</artifactId>
+					<type>pom</type>
+				</dependency>
+			</dependencies>
+		</profile>
 	</profiles>
+
+	<properties>
+		<MODULE_ID>${project.parent.artifactId}</MODULE_ID>
+		<MODULE_NAME>${project.parent.name}</MODULE_NAME>
+		<MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
+		<MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
+	</properties>
+
 
 </project>

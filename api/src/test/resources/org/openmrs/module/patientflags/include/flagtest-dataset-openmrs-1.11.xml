@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<dataset>
+	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
+    <person person_id="2" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+
+	<!-- concepts taken from LogicBasicTest.concepts.xml -->
+	<concept concept_id="1" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2005-01-01 00:00:00.0" uuid="5c43a33f-82c9-427d-92cd-02b3e0e3e1f9"/>
+  	<concept concept_id="2" retired="false" datatype_id="2" class_id="2" is_set="false" creator="1" date_created="2005-01-01 00:00:00.0" uuid="0362ad75-bf39-4958-bcd6-4ea5c0de476b"/>
+  	<concept concept_id="3" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2005-01-01 00:00:00.0" uuid="bc28d511-51d6-4e57-ab82-ec047e702a2d"/>
+  	<concept_class concept_class_id="1" name="Finding" description="A medical discovery" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="8ffbbe0d-b5b4-4a50-959f-6b80e0b8e272"/>
+  	<concept_class concept_class_id="2" name="Question" description="Question on a form" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="7f23a539-2a40-44c6-8295-2755f9adea13"/>
+  	<concept_datatype concept_datatype_id="1" name="Numeric" hl7_abbreviation="NM" description="Numeric value, including integer or float" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="e0787956-0b2f-4ba6-b17c-4dff2064f9fc"/>
+  	<concept_datatype concept_datatype_id="2" name="Coded" hl7_abbreviation="CWE" description="Coded answer" creator="1" date_created="2005-01-01 00:00:00.0" retired="false" uuid="fd66ac86-80e1-4cb8-8a58-36cd677a7522"/>
+  	<concept_description concept_description_id="1" concept_id="1" description="# of cd4 cells in the body" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" uuid="24045af5-e3a5-4096-a009-cfd49978585e"/>
+  	<concept_description concept_description_id="2" concept_id="2" description="Active meds" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" uuid="b1345fb4-f9ec-4801-9f92-bbf75e8a11d4"/>
+  	<concept_description concept_description_id="3" concept_id="3" description="mass" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" uuid="61c5cdc6-f5ef-48af-8c90-c8f807001ee9"/>
+  	<concept_name concept_id="1" locale_preferred="true" name="HEMOGLOBIN" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="1" voided="false" uuid="d4784150-3fdd-4e7f-a41e-7eb4ec8bd6fd"/>
+  	<concept_name concept_id="2" locale_preferred="true" name="CURRENT ANTIRETROVIRAL DRUGS USED FOR TREATMENT" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="2" voided="false" uuid="ceb058e2-f636-47ea-acd0-b6906c7f4401"/>
+  	<concept_name concept_id="3" locale_preferred="true" name="WEIGHT (KG)" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="3" voided="false" uuid="0586cb3c-9115-4e77-8329-f5455e1c641e"/>
+  	<concept_name_tag concept_name_tag_id="4" tag="preferred" description="preferred name in a language" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="54d67a06-62d9-426b-a2e5-e3cccbff10f9"/>
+  	<concept_name_tag_map concept_name_id="1" concept_name_tag_id="4"/>
+  	<concept_name_tag_map concept_name_id="2" concept_name_tag_id="4"/>
+  	<concept_name_tag_map concept_name_id="3" concept_name_tag_id="4"/>
+  
+	<patientflags_flag flag_id="1" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="2" name="Invalid SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select * from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="3" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null;" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="4" name="Invalid Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="bogus" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+
+</dataset>

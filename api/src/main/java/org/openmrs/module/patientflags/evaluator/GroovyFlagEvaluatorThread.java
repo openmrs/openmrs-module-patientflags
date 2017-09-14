@@ -154,33 +154,40 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	
 	//TODO: add a better version of this which is driven by a config file.
     private static Binding getBindings() {
-		final Binding binding = new Binding();
-		binding.setVariable("admin", Context.getAdministrationService());
-		binding.setVariable("cohort", Context.getCohortService());
-		binding.setVariable("concept", Context.getConceptService());
-		binding.setVariable("encounter", Context.getEncounterService());
-		binding.setVariable("form", Context.getFormService());
-		binding.setVariable("locale", Context.getLocale());
-		binding.setVariable("obs", Context.getObsService());
-		binding.setVariable("order", Context.getOrderService());
-		binding.setVariable("patient", Context.getPatientService());
-		binding.setVariable("patientSet", Context.getPatientService().getAllPatients(true));
-		binding.setVariable("person", Context.getPersonService());
-		binding.setVariable("program", Context.getProgramWorkflowService());
-		binding.setVariable("user", Context.getUserService());
-		
-		// TODO: add bindings for more dynamic services besides MDR-TB
-		if(ModuleFactory.getStartedModulesMap().containsKey("mdrtb")) {
-			try {
-	            Class<?> mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
-	            binding.setVariable("mdrtb", Context.getService(mdrtbServiceClass));
-            }
-            catch (ClassNotFoundException e) {
-	            // do nothing if the class isn't found
-            }
+		try {
+			Context.addProxyPrivilege("View Patients");
+			Context.addProxyPrivilege("Get Patients");
+
+			final Binding binding = new Binding();
+			binding.setVariable("admin", Context.getAdministrationService());
+			binding.setVariable("cohort", Context.getCohortService());
+			binding.setVariable("concept", Context.getConceptService());
+			binding.setVariable("encounter", Context.getEncounterService());
+			binding.setVariable("form", Context.getFormService());
+			binding.setVariable("locale", Context.getLocale());
+			binding.setVariable("obs", Context.getObsService());
+			binding.setVariable("order", Context.getOrderService());
+			binding.setVariable("patient", Context.getPatientService());
+			binding.setVariable("patientSet", Context.getPatientService().getAllPatients(true));
+			binding.setVariable("person", Context.getPersonService());
+			binding.setVariable("program", Context.getProgramWorkflowService());
+			binding.setVariable("user", Context.getUserService());
+
+			// TODO: add bindings for more dynamic services besides MDR-TB
+			if (ModuleFactory.getStartedModulesMap().containsKey("mdrtb")) {
+				try {
+					Class<?> mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
+					binding.setVariable("mdrtb", Context.getService(mdrtbServiceClass));
+				} catch (ClassNotFoundException e) {
+					// do nothing if the class isn't found
+				}
+			}
+
+			return binding;
+		} finally {
+			Context.removeProxyPrivilege("View Patients");
+			Context.removeProxyPrivilege("Get Patients");
 		}
-		
-		return binding;
 	}
 	
 	private void setPrivileges(){

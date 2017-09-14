@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.ModuleActivator;
+import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
@@ -30,13 +30,10 @@ import org.openmrs.module.ModuleFactory;
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class PatientFlagsModuleActivator implements ModuleActivator {
-	
+public class PatientFlagsModuleActivator extends BaseModuleActivator {
+
 	private Log log = LogFactory.getLog(this.getClass());
 	
-	/**
-	 * @see org.openmrs.module.Activator#startup()
-	 */
 	public void startup() {
 		
 		// create necessary global properties if they have not been created
@@ -109,9 +106,6 @@ public class PatientFlagsModuleActivator implements ModuleActivator {
 		log.info("Starting Patient Flags Module");
 	}
 	
-	/**
-	 * @see org.openmrs.module.Activator#shutdown()
-	 */
 	public void shutdown() {
 		
 		// need to delete the configured extensions here to assure that they aren't double-loaded on next startup
@@ -121,40 +115,4 @@ public class PatientFlagsModuleActivator implements ModuleActivator {
 		
 		log.info("Shutting down Patient Flags Module");
 	}
-	@Override
-	public void willRefreshContext() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void contextRefreshed() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void willStart() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void started() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void willStop() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void stopped() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }

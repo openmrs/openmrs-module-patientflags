@@ -265,51 +265,51 @@
 			</dependencyManagement>
 		</profile>
 		<profile>
-          <id>openmrs-2.0</id>
+			<id>openmrs-2.0</id>
 
-          <properties>
-                   <openMRSVersion>2.0.4</openMRSVersion>
-                   <openMRSMinorVersion>2.0</openMRSMinorVersion>
-                   <legacyuiVersion>1.2.3</legacyuiVersion>
-           </properties>
+			<properties>
+				<openMRSVersion>2.0.4</openMRSVersion>
+				<openMRSMinorVersion>2.0</openMRSMinorVersion>
+				<legacyuiVersion>1.2.3</legacyuiVersion>
+			</properties>
 
-          <dependencyManagement>
-                  <dependencies>
-                      <dependency>
-                          <groupId>org.openmrs.module</groupId>
-                          <artifactId>legacyui-omod</artifactId>
-                          <version>${legacyuiVersion}</version>
-                          <scope>provided</scope>
-                      </dependency>
-                      <dependency>
-                          <groupId>org.openmrs.module</groupId>
-                          <artifactId>legacyui-api</artifactId>
-                          <version>${legacyuiVersion}</version>
-                          <scope>provided</scope>
-                      </dependency>
-                      <dependency>
-                          <groupId>org.openmrs.api</groupId>
-                          <artifactId>openmrs-api</artifactId>
-                          <version>${openMRSVersion}</version>
-                          <type>test-jar</type>
-                          <scope>test</scope>
-                      </dependency>
-                      <dependency>
-                          <groupId>org.openmrs.web</groupId>
-                          <artifactId>openmrs-web</artifactId>
-                          <version>${openMRSVersion}</version>
-                          <type>test-jar</type>
-                          <scope>test</scope>
-                      </dependency>
-                      <dependency>
-                          <groupId>org.openmrs.test</groupId>
-                          <artifactId>openmrs-test</artifactId>
-                          <version>${openMRSVersion}</version>
-                          <type>pom</type>
-                          <scope>test</scope>
-                      </dependency>
-                    </dependencies>
-              </dependencyManagement>
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+					    <groupId>org.openmrs.module</groupId>
+					    <artifactId>legacyui-omod</artifactId>
+					    <version>${legacyuiVersion}</version>
+					    <scope>provided</scope>
+					</dependency>
+					<dependency>
+					    <groupId>org.openmrs.module</groupId>
+					    <artifactId>legacyui-api</artifactId>
+					    <version>${legacyuiVersion}</version>
+					    <scope>provided</scope>
+					</dependency>
+					<dependency>
+					    <groupId>org.openmrs.api</groupId>
+					    <artifactId>openmrs-api</artifactId>
+					    <version>${openMRSVersion}</version>
+					    <type>test-jar</type>
+					    <scope>test</scope>
+					</dependency>
+					<dependency>
+					    <groupId>org.openmrs.web</groupId>
+					    <artifactId>openmrs-web</artifactId>
+					    <version>${openMRSVersion}</version>
+					    <type>test-jar</type>
+					    <scope>test</scope>
+					</dependency>
+					<dependency>
+					    <groupId>org.openmrs.test</groupId>
+					    <artifactId>openmrs-test</artifactId>
+					    <version>${openMRSVersion}</version>
+					    <type>pom</type>
+					    <scope>test</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
       </profile>
 
 

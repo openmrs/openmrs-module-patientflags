@@ -13,7 +13,9 @@
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->
-
+	<require_modules>
+		${requireLegacyuiModule}
+	</require_modules>
 	<!-- Internationalization -->
 	<messages>
 		<lang>en</lang>

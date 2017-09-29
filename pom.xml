@@ -72,6 +72,12 @@
 				<type>pom</type>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>uiframework-api</artifactId>
+				<version>${uiframeworkVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -80,6 +86,7 @@
 		<openMRSVersion>1.9.0</openMRSVersion>
 		<openMRSMinorVersion>1.9</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 	</properties>
 	
 	<build>
@@ -161,9 +168,7 @@
 				<legacyuiVersion>1.2.3</legacyuiVersion>
 				<requireLegacyuiModule>
 					<![CDATA[
-						<require_module version="${legacyuiVersion}">
-							org.openmrs.module.legacyui
-						</require_module>
+						<require_module version="${legacyuiVersion}">org.openmrs.module.legacyui</require_module>
 					]]>
 				</requireLegacyuiModule>
 			</properties>

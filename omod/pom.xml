@@ -43,6 +43,10 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
 		</dependency>
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>uiframework-api</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -119,7 +123,27 @@
           			<doUpdate>false</doUpdate>
         		</configuration>
      			</plugin>
-   		</plugins>	
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>Expand moduleApplicationContext and messages</id>
+							<goals>
+								<goal>unpack-dependencies</goal>
+							</goals>
+							<phase>generate-resources</phase>
+							<configuration>
+								<includeGroupIds>${project.parent.groupId}</includeGroupIds>
+								<includeArtifactIds>${project.parent.artifactId}-api</includeArtifactIds>
+								<excludeTransitive>true</excludeTransitive>
+								<includes>**/*</includes>
+								<outputDirectory>${project.build.directory}/classes</outputDirectory>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+   		</plugins>
 	</build>
 
 	<properties>

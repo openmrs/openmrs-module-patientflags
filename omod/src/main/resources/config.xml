@@ -14,6 +14,7 @@
 	
 	<!-- Required Modules -->
 	<require_modules>
+		<require_module version="${uiframeworkVersion}">org.openmrs.module.uiframework</require_module>
 		${requireLegacyuiModule}
 	</require_modules>
 	<!-- Internationalization -->
@@ -57,5 +58,11 @@
 		<name>Test Flags</name>
 		<description>Allows the user to test a flag, or set of flags, against a Patient set</description>
 	</privilege>
-	
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with @MODULE_ID@.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
 </module>

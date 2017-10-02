@@ -6,7 +6,7 @@
     <div class="info-body">
     	<ul>
             <% flags.each { flag -> %>
-                <li><span style="border: 1px solid #51a351; color: #51a351; padding: 1px 2px; border-radius: 4px;"> ${ flag } </span></li>
+                <li><span style=" ${ flag.priority.style } "> ${ flag.message } </span></li>
             <% } %>
     	</ul>
     </div>

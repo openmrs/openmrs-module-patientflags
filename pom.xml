@@ -171,6 +171,12 @@
 						<require_module version="${legacyuiVersion}">org.openmrs.module.legacyui</require_module>
 					]]>
 				</requireLegacyuiModule>
+				<omodHbmConfig>
+					DisplayPoint.hbm.xml
+					Flag.hbm.xml
+					Priority.hbm.xml
+					Tag.hbm.xml
+				</omodHbmConfig>
 			</properties>
 
 			<dependencyManagement>

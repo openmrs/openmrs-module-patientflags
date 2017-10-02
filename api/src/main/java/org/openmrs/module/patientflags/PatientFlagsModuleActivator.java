@@ -33,7 +33,11 @@ import org.openmrs.module.ModuleFactory;
 public class PatientFlagsModuleActivator extends BaseModuleActivator {
 
 	private Log log = LogFactory.getLog(this.getClass());
-	
+
+	public void started() {
+		startup();
+	}
+
 	public void startup() {
 		
 		// create necessary global properties if they have not been created

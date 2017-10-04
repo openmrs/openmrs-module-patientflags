@@ -25,7 +25,7 @@
 	
 	<!-- Mapping File for the Flag Table -->
 	<mappingFiles>
-		${omodHbmConfig}
+		DisplayPoint.hbm.xml Flag.hbm.xml Priority.hbm.xml Tag.hbm.xml
 	</mappingFiles>
 	
 	<!--  Extension Points -->

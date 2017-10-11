@@ -22,6 +22,10 @@
 		<lang>en</lang>
 		<file>messages.properties</file>
 	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
 	
 	<!-- Mapping File for the Flag Table -->
 	<mappingFiles>

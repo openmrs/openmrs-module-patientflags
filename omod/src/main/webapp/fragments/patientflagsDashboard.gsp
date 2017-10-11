@@ -2,7 +2,7 @@
 
 <div class="info-section">
     <div class="info-header">
-        <h3>${ ui.message("patientflags.patientOverview.title") }</h3>
+        <i class="icon-flag"></i><h3>${ ui.message("patientflags.patientOverview.title") }</h3>
     </div>
 
     <div class="info-body">

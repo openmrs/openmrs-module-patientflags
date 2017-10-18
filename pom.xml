@@ -166,11 +166,6 @@
 				<openMRSVersion>2.0.4</openMRSVersion>
 				<openMRSMinorVersion>2.0</openMRSMinorVersion>
 				<legacyuiVersion>1.2.3</legacyuiVersion>
-				<requireLegacyuiModule>
-					<![CDATA[
-						<require_module version="${legacyuiVersion}">org.openmrs.module.legacyui</require_module>
-					]]>
-				</requireLegacyuiModule>
 				<omodHbmConfig>
 					DisplayPoint.hbm.xml
 					Flag.hbm.xml

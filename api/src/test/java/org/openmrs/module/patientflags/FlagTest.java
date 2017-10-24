@@ -154,15 +154,6 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 		Assert.assertTrue(cohort.isEmpty());
 	}
 	
-	
-	
-	/**
-	 * Mimics org.openmrs.web.Listener.getRuntimeProperties()
-	 * 
-	 * @param testDatasetName name of the dataset
-	 * @return Properties runtime
-	 * @throws Exception 
-	 */
     @SuppressWarnings("deprecation")
     public String getTestDatasetFilename(String testDatasetName) throws Exception {
 		

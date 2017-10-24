@@ -16,10 +16,10 @@ package org.openmrs.module.patientflags.db.hibernate;
 import java.util.List;
 
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.Priority;
@@ -34,14 +34,14 @@ public class HibernateFlagDAO implements FlagDAO {
 	/**
 	 * Hibernate session factory
 	 */
-	private SessionFactory sessionFactory;
+	private DbSessionFactory sessionFactory;
 	
 	/**
 	 * Set session factory
 	 * 
 	 * @param sessionFactory
 	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
+	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
 	

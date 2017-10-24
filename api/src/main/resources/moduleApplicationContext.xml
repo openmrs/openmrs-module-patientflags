@@ -25,7 +25,7 @@
 						<bean class="org.openmrs.module.patientflags.api.impl.FlagServiceImpl">
 							<property name="flagDAO">
 								<bean class="org.openmrs.module.patientflags.db.hibernate.HibernateFlagDAO">
-									<property name="sessionFactory"><ref bean="sessionFactory"/></property>	
+									<property name="sessionFactory"><ref bean="dbSessionFactory"/></property>
 								</bean>
 							</property>
 						</bean>

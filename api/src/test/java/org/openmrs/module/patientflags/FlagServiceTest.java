@@ -216,7 +216,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		// now create the flag
 		Flag flag = new Flag("test", "test", "test");
 		flag.setPriority(priority);
-		flag.setEvaluator("org.openmrs.module.patientflags.evaluator");
+		flag.setEvaluator("org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		return flag;
 	}
 }

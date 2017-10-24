@@ -159,7 +159,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	/**
 	 * Mimics org.openmrs.web.Listener.getRuntimeProperties()
 	 * 
-	 * @param webappName name to use when looking up the runtime properties env var or filename
+	 * @param testDatasetName name of the dataset
 	 * @return Properties runtime
 	 * @throws Exception 
 	 */

@@ -22,7 +22,7 @@ import org.apache.commons.logging.LogFactory;
 
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.Activator;
+import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
@@ -30,14 +30,11 @@ import org.openmrs.module.ModuleFactory;
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class PatientFlagsModuleActivator implements Activator {
-	
+public class PatientFlagsModuleActivator extends BaseModuleActivator {
+
 	private Log log = LogFactory.getLog(this.getClass());
-	
-	/**
-	 * @see org.openmrs.module.Activator#startup()
-	 */
-	public void startup() {
+
+	public void started() {
 		
 		// create necessary global properties if they have not been created
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientHeaderDisplay")) == null) {
@@ -109,9 +106,6 @@ public class PatientFlagsModuleActivator implements Activator {
 		log.info("Starting Patient Flags Module");
 	}
 	
-	/**
-	 * @see org.openmrs.module.Activator#shutdown()
-	 */
 	public void shutdown() {
 		
 		// need to delete the configured extensions here to assure that they aren't double-loaded on next startup
@@ -121,5 +115,4 @@ public class PatientFlagsModuleActivator implements Activator {
 		
 		log.info("Shutting down Patient Flags Module");
 	}
-	
 }

@@ -5,6 +5,9 @@
 
 <hibernate-configuration>
 	<session-factory>
-		${hbmConfig}
+		<mapping resource="DisplayPoint.hbm.xml" />
+		<mapping resource="Flag.hbm.xml" />
+		<mapping resource="Priority.hbm.xml" />
+		<mapping resource="Tag.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

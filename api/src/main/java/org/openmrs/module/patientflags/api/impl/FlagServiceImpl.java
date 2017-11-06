@@ -471,6 +471,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 		// get the privileges associate with the patient flags default user for the privileges cache
 		try{
+			Context.addProxyPrivilege("Get Users");
 			Context.addProxyPrivilege("View Users");
 			String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
 			User user = Context.getUserService().getUserByUsername(username);
@@ -489,6 +490,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		}
 		
 		finally{
+			Context.removeProxyPrivilege("Get Users");
 			Context.removeProxyPrivilege("View Users");
 		}
 			

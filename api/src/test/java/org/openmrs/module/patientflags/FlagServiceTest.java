@@ -8,6 +8,9 @@ import junit.framework.Assert;
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.Priority;
+import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
@@ -213,7 +216,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		// now create the flag
 		Flag flag = new Flag("test", "test", "test");
 		flag.setPriority(priority);
-		flag.setEvaluator("org.openmrs.module.patientflags.evaluator");
+		flag.setEvaluator("org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		return flag;
 	}
 }

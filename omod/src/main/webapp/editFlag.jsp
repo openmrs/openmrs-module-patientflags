@@ -68,13 +68,6 @@
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td><springform:radiobutton cssClass="evaluator" path="evaluator" value="logic" /> <spring:message
-				code="patientflags.editFlag.logic" /> <spring:message
-				code="patientflags.editFlag.exampleLogicCriteria" /> <springform:errors
-				path="evaluator" cssClass="error" /></td>
-		</tr>
-		<tr>
-			<td>&nbsp;</td>
 			<td><springform:radiobutton id="customEvaluator" path="evaluator" value="dummyValue"/> <spring:message
 				code="patientflags.editFlag.custom" /> <span id="customEvaluatorBlock"><spring:message
 				code="patientflags.editFlag.customEvaluator" /> <input id="customEvaluatorTextbox" name="customEvaluator" type="text" value="${customEvaluator}" size="70"/></div><springform:errors

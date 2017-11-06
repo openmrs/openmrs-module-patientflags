@@ -9,23 +9,35 @@
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>
 	<activator>@MODULE_PACKAGE@.PatientFlagsModuleActivator</activator>
-    <!-- <require_version>1.6.3</require_version> -->
+
+	<require_version>1.11.4, 1.10.2 - 1.10.*, 1.9.9 - 1.9.*</require_version>
+
 	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->
-<!-- 	<require_modules>
-	   	<require_module>org.openmrs.logic</require_module>
-	</require_modules> -->
+
+	<require_modules>
+		<require_module version="${uiframeworkVersion}">org.openmrs.module.uiframework</require_module>
+	</require_modules>
+
+	<!-- Aware of Modules-->
+	<aware_of_modules>
+		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+	</aware_of_modules>
 
 	<!-- Internationalization -->
 	<messages>
 		<lang>en</lang>
 		<file>messages.properties</file>
 	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
 	
 	<!-- Mapping File for the Flag Table -->
 	<mappingFiles>
-		${omodHbmConfig}
+		DisplayPoint.hbm.xml Flag.hbm.xml Priority.hbm.xml Tag.hbm.xml
 	</mappingFiles>
 	
 	<!--  Extension Points -->
@@ -58,5 +70,11 @@
 		<name>Test Flags</name>
 		<description>Allows the user to test a flag, or set of flags, against a Patient set</description>
 	</privilege>
-	
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with @MODULE_ID@.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
 </module>

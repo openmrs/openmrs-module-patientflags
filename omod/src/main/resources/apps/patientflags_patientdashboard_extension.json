@@ -1,0 +1,10 @@
+[
+  {
+    "id": "patientflags.patientDashboard.secondColumnFragments",
+    "extensionPointId": "patientDashboard.secondColumnFragments",
+    "extensionParams": {
+      "provider": "${project.parent.artifactId}",
+      "fragment": "patientflagsDashboard"
+    }
+  }
+]

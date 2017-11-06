@@ -13,32 +13,21 @@
  */
 package org.openmrs.module.patientflags;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.Properties;
-
 import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.Flag;
-import org.openmrs.module.patientflags.PatientFlagsConstants;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
-import org.openmrs.util.OpenmrsUtil;
 
 public class FlagTest extends BaseModuleContextSensitiveTest {
-	
-	public static final String TEST_DATASETS_PROPERTIES_FILE = "test-datasets.properties";
-	
+
 	protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
-	
-	protected static final String XML_DATASET = "flagTestDataSet";	
-	
+
+	private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "flagtest-dataset.xml";
+
 	/**
 	 * Tests of the Flag class
 	 */
@@ -49,7 +38,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	@Before
 	public void initTestData() throws Exception {
 		initializeInMemoryDatabase();
-		executeDataSet(XML_DATASET_PATH + getTestDatasetFilename(XML_DATASET));
+		executeDataSet(TEST_DATASET_FILE);
 		authenticate();
 	}
 	
@@ -152,31 +141,5 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
 		Cohort cohort = flag.evalCohort(null);
 		Assert.assertTrue(cohort.isEmpty());
-	}
-	
-    @SuppressWarnings("deprecation")
-    public String getTestDatasetFilename(String testDatasetName) throws Exception {
-		
-		InputStream propertiesFileStream = null;
-		
-		// try to load the file if its a straight up path to the file or
-		// if its a classpath path to the file
-		if (new File(TEST_DATASETS_PROPERTIES_FILE).exists()) {
-			propertiesFileStream = new FileInputStream(TEST_DATASETS_PROPERTIES_FILE);
-		} else {
-			propertiesFileStream = getClass().getClassLoader().getResourceAsStream(TEST_DATASETS_PROPERTIES_FILE);
-			if (propertiesFileStream == null)
-				throw new FileNotFoundException("Unable to find '" + TEST_DATASETS_PROPERTIES_FILE + "' in the classpath");
-		}
-  
-		Properties props = new Properties();
-		
-		OpenmrsUtil.loadProperties(props, propertiesFileStream);
-
-		if (props.getProperty(testDatasetName) == null) {
-			throw new Exception ("Test dataset named " + testDatasetName + " not found in properties file");
-		}
-		
-		return props.getProperty(testDatasetName);
 	}
 }

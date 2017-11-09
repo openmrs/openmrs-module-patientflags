@@ -78,6 +78,18 @@
 				<version>${uiframeworkVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>metadatadeploy-api</artifactId>
+				<version>${metadatadeployVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>metadatasharing-api</artifactId>
+				<version>${metadatasharingVersion}</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -87,6 +99,8 @@
 		<openMRSMinorVersion>1.9</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
+		<metadatadeployVersion>1.8.1</metadatadeployVersion>
+		<metadatasharingVersion>1.2.2</metadatasharingVersion>
 	</properties>
 
 	<build>

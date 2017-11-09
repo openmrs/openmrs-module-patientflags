@@ -13,11 +13,11 @@
  */
 package org.openmrs.module.patientflags.db.hibernate;
 
-import java.util.List;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.api.APIException;
+import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.patientflags.DisplayPoint;
@@ -25,6 +25,8 @@ import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.db.FlagDAO;
+
+import java.util.List;
 
 /**
  * Implementation of the {@link FlagDAO}
@@ -69,7 +71,36 @@ public class HibernateFlagDAO implements FlagDAO {
 	public Flag getFlag(Integer flagId) {
 		return (Flag) sessionFactory.getCurrentSession().get(Flag.class, flagId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getFlagByUuid(String)
+	 */
+	public Flag getFlagByUuid(String uuid) throws DAOException {
+		return (Flag)this.sessionFactory.getCurrentSession().createQuery("from Flag f where f.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getFlagByName(String)
+	 */
+	public Flag getFlagByName(String name) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Flag.class);
+		if (Context.getAdministrationService().isDatabaseStringComparisonCaseSensitive()) {
+			criteria.add(Restrictions.ilike("name", name));
+		} else {
+			criteria.add(Restrictions.eq("name", name));
+		}
+
+		List<Flag> list = criteria.list();
+
+		if (list.size() == 1) {
+			return list.get(0);
+		} else if (list.size() == 0) {
+			return null;
+		} else {
+			throw new APIException("Multiple flags found with the name '" + name + "'");
+		}
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#saveFlag(Flag)
 	 */
@@ -111,16 +142,30 @@ public class HibernateFlagDAO implements FlagDAO {
 	 */
 	public Tag getTag(String name) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
-		criteria.add(Restrictions.ilike("name", name, MatchMode.EXACT));
-		
-		if (criteria.list().size() > 0) {
-			// note the assumption here is that two tags with the same case-insensitive tags aren't allowed; if there are two, this just returns the first one it finds
-			return (Tag) criteria.list().get(0);
+		if (Context.getAdministrationService().isDatabaseStringComparisonCaseSensitive()) {
+			criteria.add(Restrictions.ilike("name", name));
 		} else {
+			criteria.add(Restrictions.eq("name", name));
+		}
+
+		List<Tag> list = criteria.list();
+
+		if (list.size() == 1) {
+			return list.get(0);
+		} else if (list.size() == 0) {
 			return null;
+		} else {
+			throw new APIException("Multiple tags found with the name '" + name + "'");
 		}
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getTagByUuid(String)
+	 */
+	public Tag getTagByUuid(String uuid) throws DAOException {
+		return (Tag)this.sessionFactory.getCurrentSession().createQuery("from Tag t where t.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#saveTag(Tag)
 	 */
@@ -168,7 +213,37 @@ public class HibernateFlagDAO implements FlagDAO {
 	public Priority getPriority(Integer priorityId) {
 		return (Priority) sessionFactory.getCurrentSession().get(Priority.class, priorityId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getPriorityByUuid(String)
+	 */
+	public Priority getPriorityByUuid(String uuid) throws DAOException {
+		return (Priority) this.sessionFactory.getCurrentSession().createQuery("from Priority p where p.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getPriorityByName(String)
+	 */
+	public Priority getPriorityByName(String name) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Priority.class);
+		if (Context.getAdministrationService().isDatabaseStringComparisonCaseSensitive()) {
+			criteria.add(Restrictions.ilike("name", name));
+		} else {
+			criteria.add(Restrictions.eq("name", name));
+		}
+
+		List<Priority> list = criteria.list();
+
+		if (list.size() == 1) {
+			return list.get(0);
+		} else if (list.size() == 0) {
+			return null;
+		} else {
+			throw new APIException("Multiple priorities found with the name '" + name + "'");
+		}
+
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#savePriority(Priority)
 	 */
@@ -239,5 +314,4 @@ public class HibernateFlagDAO implements FlagDAO {
 		DisplayPoint displayPoint = getDisplayPoint(displayPointId);
 		sessionFactory.getCurrentSession().delete(displayPoint);
 	}
-	
 }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="patientflags-unique-flagname-20171115-1600" author="ssmusoke">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="patientflags_flag_name_unique"></indexExists>
+            </not>
+        </preConditions>
+        <comment>Add a unique constraint to the name of the flag</comment>
+        <addUniqueConstraint tableName="patientflags_flag" columnNames="name" constraintName="patientflags_flag_name_unique"></addUniqueConstraint>
+    </changeSet>
+
+    <changeSet id="patientflags-unique-priorityname-20171115-1600" author="ssmusoke">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="patientflags_priority_name_unique"></indexExists>
+            </not>
+        </preConditions>
+        <comment>Add a unique constraint to the name of the priority</comment>
+        <addUniqueConstraint tableName="patientflags_priority" columnNames="name"  constraintName="patientflags_priority_name_unique"></addUniqueConstraint>
+    </changeSet>
+
+    <changeSet id="patientflags-unique-tagname-20171115-1600" author="ssmusoke">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <indexExists indexName="patientflags_tag_name_unique"></indexExists>
+            </not>
+        </preConditions>
+        <comment>Add a unique constraint to the name of the tag</comment>
+        <addUniqueConstraint tableName="patientflags_tag" columnNames="name"  constraintName="patientflags_tag_name_unique"></addUniqueConstraint>
+    </changeSet>
+
+</databaseChangeLog>

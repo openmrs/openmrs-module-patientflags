@@ -13,13 +13,7 @@
  */
 package org.openmrs.module.patientflags.api.impl;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
@@ -44,6 +38,14 @@ import org.openmrs.module.patientflags.comparator.TagAlphaComparator;
 import org.openmrs.module.patientflags.db.FlagDAO;
 import org.openmrs.module.patientflags.filter.Filter;
 import org.openmrs.module.patientflags.filter.FilterType;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of the {@link FlagService}
@@ -184,7 +186,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagsByFilter()
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagsByFilter(Filter)
 	 */
 	public List<Flag> getFlagsByFilter(Filter filter) {
 		// should we change this so the filtering happens in the DAO?
@@ -199,12 +201,26 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlag(Flag)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlag(Integer)
 	 */
 	public Flag getFlag(Integer flagId) {
 		return dao.getFlag(flagId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagByUuid(String)
+	 */
+	public Flag getFlagByUuid(String uuid) {
+		return dao.getFlagByUuid(uuid);
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagByName(String)
+	 */
+	public Flag getFlagByName(String name) {
+		return dao.getFlagByName(name);
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#saveFlag(Flag)
 	 */
@@ -224,7 +240,17 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then refresh the cache
 		refreshCache();
 	}
-	
+
+	public void retireFlag(Flag flag, String retiredReason) {
+		if (StringUtils.isNotBlank(retiredReason)) {
+			flag.setRetired(true);
+			flag.setRetireReason(retiredReason);
+			Context.getService(FlagService.class).saveFlag(flag);
+		} else {
+			throw new APIException("A reason is required when retiring a patient flag");
+		}
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllTags()
 	 */
@@ -243,7 +269,21 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Tag getTag(Integer tagId) {
 		return dao.getTag(tagId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getTagByUuid(String)
+	 */
+	public Tag getTagByUuid(String uuid) {
+		return dao.getTagByUuid(uuid);
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getTagByName(String)
+	 */
+	public Tag getTagByName(String name) {
+		return dao.getTag(name);
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getTag(String)
 	 */
@@ -268,7 +308,20 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then refresh the cache
 		refreshCache();
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#retireFlag(Flag, String)
+	 */
+	public void retireTag(Tag tag, String retiredReason) {
+		if (StringUtils.isNotBlank(retiredReason)) {
+			tag.setRetired(true);
+			tag.setRetireReason(retiredReason);
+			Context.getService(FlagService.class).saveTag(tag);
+		} else {
+			throw new APIException("A reason is required when retiring a tag for patient flags");
+		}
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllPriorities()
 	 */
@@ -287,7 +340,21 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Priority getPriority(Integer priorityId) {
 		return dao.getPriority(priorityId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getPriorityByUuid(String)
+	 */
+	public Priority getPriorityByUuid(String uuid) {
+		return dao.getPriorityByUuid(uuid);
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getPriorityByName(String)
+	 */
+	public Priority getPriorityByName(String name) {
+		return dao.getPriorityByName(name);
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#savePriority(Priority)
 	 */
@@ -314,7 +381,21 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// remove the flag from the DB table
 		dao.purgePriority(priorityId);
 	}
-	
+
+	/**
+	 *
+	 * @see org.openmrs.module.patientflags.api.FlagService#retirePriority(Priority, String)
+	 */
+	public void retirePriority(Priority priority, String retiredReason) {
+		if (StringUtils.isNotBlank(retiredReason)) {
+			priority.setRetired(true);
+			priority.setRetireReason(retiredReason);
+			Context.getService(FlagService.class).savePriority(priority);
+		} else {
+			throw new APIException("A reason is required when retiring a priority for patient flags");
+		}
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllDisplayPoints()
 	 */
@@ -328,7 +409,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public DisplayPoint getDisplayPoint(Integer displayPointId) {
 		return dao.getDisplayPoint(displayPointId);
 	}
-	
+
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getDisplayPointByUuid(String)
+	 */
+	public DisplayPoint getDisplayPointByUuid(String uuid) {
+		return null;
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getDisplayPoint(String)
 	 */

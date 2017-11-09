@@ -90,7 +90,6 @@ public interface FlagService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName);
 	
-	
 	/**
 	 * Generates a list of all Patients that match the criteria of the specified Flag
 	 * 
@@ -104,7 +103,7 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Generate a map of all Patients that match the criteria of the specific Flags
 	 * 
-	 * @param flags
+	 * @param flags The flags for which patients are to be retrieved
 	 * @return a map of Patients and there corresponding flags
 	 */
 	@Transactional(readOnly = true)
@@ -133,12 +132,32 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Retrieve a specific Flag based on its flagId
 	 * 
-	 * @param flagId
+	 * @param flagId The ID of the flag  to retrieve
 	 * @return the flag which matches the specific ID
 	 */
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Flag getFlag(Integer flagId);
+
+	/**
+	 * Retrieve a specific Flag based on its uuid
+	 *
+	 * @param uuid The uuid of the flag  to retrieve
+	 * @return the flag which matches the specific uuid
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Flag getFlagByUuid(String uuid);
+
+	/**
+	 * Retrieve a specific Flag based on its name
+	 *
+	 * @param name The name of the flag  to retrieve
+	 * @return the flag which matches the specific name
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Flag getFlagByName(String name);
 	
 	/**
 	 * Adds or updates a specific flag in the database
@@ -155,6 +174,15 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
 	public void purgeFlag(Integer flagId);
+
+	/**
+	 * Retires a specific flag
+	 *
+	 * @param flag the flag to retire
+	 * @param reason The reason for retiring the flag
+	 */
+	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
+	public void retireFlag(Flag flag, String reason);
 	
 	/**
 	 * Generates a list of all Patient Flag Tags
@@ -168,12 +196,32 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Retrieve a specific Tag based on its tagId
 	 * 
-	 * @param tagId
+	 * @param tagId The ID of the tag  to retrieve
 	 * @return the Tag which matches the specific ID
 	 */
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Tag getTag(Integer tagId);
+
+	/**
+	 * Retrieve a specific Tag based on its uuid
+	 *
+	 * @param uuid The uuid of the tag  to retrieve
+	 * @return the Tag which matches the specific uuid
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Tag getTagByUuid(String uuid);
+
+	/**
+	 * Retrieve a specific Tag based on its name
+	 *
+	 * @param name The name of the tag  to retrieve
+	 * @return the Tag which matches the specific name
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Tag getTagByName(String name);
 	
 	/**
 	 * Retrieve a specific Tag based on its name string
@@ -181,7 +229,6 @@ public interface FlagService extends OpenmrsService {
 	 * @param name then name of tag (case-insensitive) to retrieve
 	 * @return the Tag which matches the specific name
 	 */
-	// TODO add functionality so as not to allow two flags with the same name
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Tag getTag(String name);
@@ -201,6 +248,15 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
 	public void purgeTag(Integer tagId);
+
+	/**
+	 * Retires a specific Tag
+	 *
+	 * @param tag The Tag to be retired
+	 * @param reason The reason for retiring the flag
+	 */
+	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
+	public void retireTag(Tag tag, String reason);
 	
 	/**
 	 * Service methods that operate on Priorities
@@ -218,12 +274,32 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Retrieve a specific Priority based on its priorityId
 	 * 
-	 * @param tagId
-	 * @return the Tag which matches the specific ID
+	 * @param priorityId The priorityId for the priority to retrieve
+	 * @return the Priority which matches the specific ID
 	 */
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Priority getPriority(Integer priorityId);
+
+	/**
+	 * Retrieve a specific Priority based on its uuid
+	 *
+	 * @param uuid The uuid of the priority  to retrieve
+	 * @return the Priority which matches the specific uuid
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Priority getPriorityByUuid(String uuid);
+
+	/**
+	 * Retrieve a specific Priority based on its name
+	 *
+	 * @param name The name of the priority  to retrieve
+	 * @return the Priority which matches the specified name
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public Priority getPriorityByName(String name);
 	
 	/**
 	 * Adds or updates a specific priority in the database
@@ -240,6 +316,15 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
 	public void purgePriority(Integer priorityId);
+
+	/**
+	 * Removes a specific priority from the database
+	 *
+	 * @param priority the Priority to retire
+	 * @param reason The reason for retiring the priority
+	 */
+	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
+	public void retirePriority(Priority priority, String reason);
 	
 	/**
 	 * Generates a list of all DisplayPoints
@@ -259,6 +344,16 @@ public interface FlagService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public DisplayPoint getDisplayPoint(Integer displayPointId);
+
+	/**
+	 * Retrieve a specific DisplayPoint based on its uuid
+	 *
+	 * @param uuid The uuid of the DisplayPoint to retrieve
+	 * @return the DisplayPoint which matches the specific uuid
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	public DisplayPoint getDisplayPointByUuid(String uuid);
 	
 	/**
 	 * Retrieve a specific DisplayPoint based on its name string
@@ -273,7 +368,7 @@ public interface FlagService extends OpenmrsService {
 	/**
 	 * Adds or updates a specific DisplayPoint in the database
 	 * 
-	 * @param tag the DisplayPoint to add or update
+	 * @param displayPoint the DisplayPoint to add or update
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
 	public void saveDisplayPoint(DisplayPoint displayPoint);
@@ -284,7 +379,7 @@ public interface FlagService extends OpenmrsService {
 	 * @param displayPointId the DisplayPointId of the DisplayPoint to remove
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
-	public void purgeDisplayPoint(Integer DisplayPointId);
+	public void purgeDisplayPoint(Integer displayPointId);
 	
 	/**
 	 * Returns the current Patient Flags properties in a PatientFlagsProperties object

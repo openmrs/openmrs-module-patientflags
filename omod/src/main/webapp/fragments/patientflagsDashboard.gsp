@@ -8,7 +8,7 @@
     <div class="info-body">
     	<ul>
             <% flags.each { flag -> %>
-                <li><span style=" ${ flag.priority.style } "> ${ flag.message } </span></li>
+                <li><span style=" ${ flag.priority.style } "> ${ flag.evalMessage(config.patientId) } </span></li>
             <% } %>
     	</ul>
     </div>

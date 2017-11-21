@@ -15,29 +15,32 @@
 	<context:component-scan base-package="@MODULE_PACKAGE@" />
 	
 	<!--  Configure the Flag Service -->
-   	<bean parent="serviceContext" id="flagService">
+	<!-- Service -->
+	<bean parent="serviceContext">
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.patientflags.api.FlagService</value>
-				<bean class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
-					<property name="transactionManager"><ref bean="transactionManager"/></property>
-					<property name="target">
-						<bean class="org.openmrs.module.patientflags.api.impl.FlagServiceImpl">
-							<property name="flagDAO">
-								<bean class="org.openmrs.module.patientflags.db.hibernate.HibernateFlagDAO">
-									<property name="sessionFactory"><ref bean="dbSessionFactory"/></property>
-								</bean>
-							</property>
-						</bean>
-					</property>
-					<property name="preInterceptors">
-							<ref bean="serviceInterceptors"/>  <!--  handles common metadata fields -->
-					</property>
-					<property name="transactionAttributeSource">
-						<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
-					</property>
-				</bean>
+				<ref local="flagService"/>
 			</list>
+		</property>
+	</bean>
+
+	<bean id="flagService" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="transactionManager"><ref bean="transactionManager"/></property>
+		<property name="target">
+			<bean class="org.openmrs.module.patientflags.api.impl.FlagServiceImpl">
+				<property name="flagDAO">
+					<bean class="org.openmrs.module.patientflags.db.hibernate.HibernateFlagDAO">
+						<property name="sessionFactory"><ref bean="dbSessionFactory"/></property>
+					</bean>
+				</property>
+			</bean>
+		</property>
+		<property name="preInterceptors">
+				<ref bean="serviceInterceptors"/>  <!--  handles common metadata fields -->
+		</property>
+		<property name="transactionAttributeSource">
+			<bean class="org.springframework.transaction.annotation.AnnotationTransactionAttributeSource"/>
 		</property>
 	</bean>
 

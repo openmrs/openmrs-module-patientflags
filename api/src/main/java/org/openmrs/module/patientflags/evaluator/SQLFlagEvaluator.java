@@ -133,8 +133,9 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		// if we've gotten this far, mark the criteria as valid
 		return new FlagValidationResult(true);
 	}
-
-	@Override
+	/**
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#evalMessage(Flag, int)
+	 */
 	public String evalMessage(Flag flag, int patientId) {
 		String literal = "\\$\\{\\d{1,2}\\}";
 		String message = flag.getMessage();

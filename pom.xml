@@ -32,6 +32,7 @@
 	<modules>
 		<module>api</module>
 		<module>omod</module>
+		<module>owa</module>
 	</modules>
 
 	<dependencyManagement>

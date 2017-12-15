@@ -1,0 +1,28 @@
+<div style="width: auto; height: auto">
+  <form>
+    <input type="text" style="width: 80%; height: 30px" ng-model="vm.query" ng-change="vm.onsearch()" placeholder="Search by Name or ID" />
+  </form> <br/>
+    
+  <img ng-hide="vm.loading" src="../../img/loading.gif"/>
+
+  <div ng-hide="vm.notFound"> <small> ** No Matches Found ** </small> </div>
+
+  <div ng-hide="vm.IsHidden" style="height: 250px; overflow: scroll">
+    <table>
+      <tr>
+        <th> Identifier </th>
+        <th> Name </th>
+        <th> Gender </th>
+        <th> Age </th>
+        <th> Birthdate </th>
+      </tr>
+      <tr ng-repeat="patient in vm.patients | filter: vm.query">
+        <td> {{patient.identifiers[0].identifier}} </td>
+        <td> {{patient.person.display}} </td>
+        <td> {{patient.person.gender}} </td>
+        <td> {{patient.person.age}} </td>
+        <td> {{patient.person.birthdate}} </td>
+      </tr>
+    </table>
+  </div>
+</div>

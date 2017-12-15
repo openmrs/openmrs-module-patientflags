@@ -1,0 +1,186 @@
+<div ng-hide="vm.isHiddenPerson" style="width: auto; height: auto">
+
+  <h4> Step I </h4>
+  <hr>
+
+  <img ng-hide="vm.loading" src="../../img/loading.gif" />
+
+  <div class="note-container">
+    <div ng-hide="vm.blankPerson" class="note error">
+      <div class="text">
+        <i class="icon-remove medium"></i>
+        <p>
+          Kindly fill all the required fields <br/>
+        </p>
+      </div>
+    </div>
+
+    <div ng-hide="vm.errorAge" class="note error">
+      <div class="text">
+        <i class="icon-remove medium"></i>
+        <p>
+          Age must be a number between 1 and 100 <br/>
+        </p>
+      </div>
+    </div>
+
+    <div ng-hide="vm.errorPerson" class="note error">
+      <div class="text">
+        <i class="icon-remove medium"></i>
+        <p>
+          Kindly check and fill all the fields properly <br/>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form class="simple-form-ui">
+
+    <p class="input-position-class">
+      <label name="input-id">Given Name <small>(required)</small> </label>
+      <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.names[0].givenName" placeholder="Enter First/Given Name" ng-class="{'illegalValue': vm.invalidGivenName}" ng-change="vm.invalidGivenName=false" />
+    </p>
+    <p ng-show="vm.invalidGivenName" class="field-error"> Given Name is required </p>
+
+    <p class="input-position-class">
+      <label name="input-id">Middle Name</label>
+      <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.names[0].middleName" placeholder="Enter Middle Name" />
+    </p>
+
+    <p class="input-position-class">
+      <label name="input-id">Family Name <small>(required)</small> </label>
+      <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.names[0].familyName" placeholder="Enter Family Name" ng-class="{'illegalValue': vm.invalidFamilyName}" ng-change="vm.invalidFamilyName=false" />
+    </p>
+    <p ng-show="vm.invalidFamilyName" class="field-error"> Family Name is required </p>
+
+    Select Gender
+    <p>
+      <select ng-change="vm.onSelectGender()" ng-model="vm.selectedGender" ng-init="vm.selectedGender = 'Male'">
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+        <option value="Other">Other</option>
+      </select>
+    </p>
+
+    <label name="input-id">Age <small>(required)</small> </label>
+    <p>
+      <input type="text" style="width: 10%; height: 25px" ng-model="vm.personData.age" placeholder="Enter Age" ng-class="{'illegalValue': vm.invalidAge}" ng-change="vm.invalidAge=false" />
+    </p>
+    <p ng-show="vm.invalidAge" class="field-error"> Age must be a number between 1 and 100 </p>
+
+    <a href="" ng-click="vm.addressFields()"> Hide/Show Address Fields (optional) </a> <br/><br/>
+
+    <div ng-hide="vm.addressHidden">
+      <p class="input-position-class">
+        <label name="input-id">Address 1</label>
+        <input type="text" style="width: 40%; height: 25px" ng-model="vm.personData.addresses[0].address1" placeholder="Enter Address" />
+      </p>
+      <p class="input-position-class">
+        <label name="input-id">Address 2</label>
+        <input type="text" style="width: 40%; height: 25px" ng-model="vm.personData.addresses[0].address2" placeholder="Enter Address" />
+      </p>
+      <p class="input-position-class">
+        <label name="input-id">City / Village</label>
+        <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.addresses[0].cityVillage" placeholder="Enter CIty or Village" />
+      </p>
+      <p class="input-position-class">
+        <label name="input-id">State / Province</label>
+        <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.addresses[0].stateProvince" placeholder="Enter State/Province" />
+      </p>
+      <p class="input-position-class">
+        <label name="input-id">Country</label>
+        <input type="text" style="width: 20%; height: 25px" ng-model="vm.personData.addresses[0].country" placeholder="Enter Country" />
+      </p>
+    </div>
+
+    <input type="submit" ng-click="vm.oncreatePerson()" value="Next Step" />
+  </form> <br/>
+
+</div>
+
+<div ng-hide="vm.isHiddenPatient" style="width: auto; height: auto">
+
+  <div>
+    <a href="" ng-click="vm.back()"> <small> &lt;&lt; Back to Step I </small> </a>
+  </div>
+
+  <h4> Step II </h4>
+  <hr>
+
+  <img ng-hide="vm.loadingPatient" src="../../img/loading.gif" />
+
+  <div class="note-container">
+    <div ng-hide="vm.errorPatient">
+      <div class="note error">
+        <div class="text">
+          <i class="icon-remove medium"></i>
+          <p>
+            <b> Error : </b> {{vm.errorMessage}} <br/>
+            <b> Message : </b> {{vm.globalErrorMessage}}
+          </p>
+        </div>
+      </div> <br/>
+    </div>
+
+    <div ng-hide="vm.statusPatient">
+      <div class="note success">
+        <div class="text">
+          <i class="icon-ok medium"></i>
+          <p>
+            Patient created successfully <br/>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div ng-hide="vm.statusPatient">
+      <a href="" ng-click="vm.newPatient()">
+        &lt;&lt; Create a new Patient </a> <br/><br/>
+    </div>
+  </div>
+
+  <form class="simple-form-ui">
+    <p> Choose patient identifier type </p>
+
+    <select ng-change="vm.onSelectIdentifier()" ng-model="vm.selectedIdentifier">
+      <option ng-repeat="x in vm.identifierTypes" value="{{x.uuid}}">{{x.display}}</option>
+    </select> <br/>
+
+    <div ng-hide="vm.identifiersPart">
+      <p class="input-position-class">
+        <label name="input-id">Patient Identifier <small>(required)</small> </label>
+        <input type="text" style="width: 20%; height: 25px" ng-model="vm.patientData.identifiers[0].identifier" placeholder="Enter Identifier" ng-class="{'illegalValue': vm.blankIdentifier}" ng-change="vm.blankIdentifier=false" />
+      </p>
+      <p ng-show="vm.blankIdentifier" class="field-error"> Identifier is required </p>
+      <a href ng-click="vm.generateIdentifier()"> <small> Click to generate Identifier if needed </small> </a>
+      <img ng-hide="vm.loadingIdentifier" src="../../img/loading.gif" /> <br/>
+      <small> ** We need to have idgen module installed in order to generate the Identifier </small> <br/><br/>
+    </div>
+
+    <div ng-hide="vm.oldIdentifiersPart">
+      <p class="input-position-class">
+        <label name="input-id">OpenMRS ID Identifier <small>(required)</small> </label>
+        <input type="text" style="width: 20%; height: 25px" ng-model="vm.oldPatientData.identifiers[0].identifier" placeholder="OpenMRS ID Identifier" ng-class="{'illegalValue': vm.blankOpenmrsIdentifier}" ng-change="vm.blankOpenmrsIdentifier=false" />
+      </p>
+      <p ng-show="vm.blankOpenmrsIdentifier" class="field-error"> OpenMRS ID Identifier is required </p>
+      <a href ng-click="vm.generateIdentifier()"> <small> Click to generate Identifier if needed </small> </a>
+      <img ng-hide="vm.loadingIdentifier" src="../../img/loading.gif" /> <br/>
+      <small> ** We need to have idgen module installed in order to generate the Identifier </small> <br/><br/>
+
+      <p class="input-position-class">
+        <label name="input-id">Identifier <small>(required)</small> </label>
+        <input type="text" style="width: 30%; height: 25px" ng-model="vm.oldPatientData.identifiers[1].identifier" placeholder="Enter Identifier" ng-class="{'illegalValue': vm.blankOldIdentifier}" ng-change="vm.blankOldIdentifier=false" />
+      </p>
+      <p ng-show="vm.blankOldIdentifier" class="field-error"> Identifier is required </p>
+    </div>
+
+    <p> Choose patient location </p>
+
+    <select ng-change="vm.onSelectLocation()" ng-model="vm.selectedLocation">
+      <option ng-repeat="x in vm.locations" value="{{x.uuid}}">{{x.name}}</option>
+    </select> <br/>
+
+    <input type="submit" ng-click="vm.oncreatePatient()" value="Confirm" />
+  </form> <br/><br/>
+
+</div>

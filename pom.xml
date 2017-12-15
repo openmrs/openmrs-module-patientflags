@@ -74,6 +74,20 @@
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
+				<artifactId>webservices.rest-omod</artifactId>
+				<version>${webservices.rest-omod.version}</version>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>webservices.rest-omod-common</artifactId>
+				<version>${webservices.rest-omod.version}</version>
+				<classifier>tests</classifier>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
 				<artifactId>uiframework-api</artifactId>
 				<version>${uiframeworkVersion}</version>
 				<scope>provided</scope>
@@ -101,6 +115,7 @@
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
+		<webservices.rest-omod.version>2.13</webservices.rest-omod.version>
 	</properties>
 
 	<build>

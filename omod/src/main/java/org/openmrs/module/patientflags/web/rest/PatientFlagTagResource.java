@@ -1,6 +1,7 @@
 package org.openmrs.module.patientflags.web.rest;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
@@ -14,16 +15,10 @@ import org.openmrs.module.webservices.rest.web.representation.DefaultRepresentat
 import org.openmrs.module.webservices.rest.web.representation.FullRepresentation;
 import org.openmrs.module.webservices.rest.web.representation.Representation;
 import org.openmrs.module.webservices.rest.web.resource.api.PageableResult;
-import org.openmrs.module.webservices.rest.web.resource.impl.AlreadyPaged;
 import org.openmrs.module.webservices.rest.web.resource.impl.DelegatingResourceDescription;
 import org.openmrs.module.webservices.rest.web.resource.impl.MetadataDelegatingCrudResource;
 import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.openmrs.api.context.Context.getService;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/tag", supportedClass = Tag.class, supportedOpenmrsVersions = {
 		"1.9.*", "1.10.*", "1.11.*", "1.12.*", "2.0.*" })
@@ -53,7 +48,6 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag>{
 		getService().purgeTag(tag.getTagId());
 	}
 
-
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() {
 		DelegatingResourceDescription cp = super.getUpdatableProperties();
@@ -66,7 +60,7 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag>{
 
 	@Override
 	public DelegatingResourceDescription getCreatableProperties(){
-		DelegatingResourceDescription cp = super.getUpdatableProperties();
+		DelegatingResourceDescription cp = super.getCreatableProperties();
 		cp.addRequiredProperty("name");
 		cp.addRequiredProperty("roles");
 		cp.addRequiredProperty("displayPoints");
@@ -101,7 +95,6 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag>{
 		return description;
 	}
 
-
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		return new NeedsPaging<Tag>(getService().getAllTags(), context);
@@ -117,16 +110,12 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag>{
 		return new NeedsPaging<Tag>(tags, context);
 	}
 
-
 	private FlagService getService() {
 		return Context.getService(FlagService.class);
 	}
 
-
 	private static String getStringFilter(String param, RequestContext req) {
-
 		return StringUtils.isEmpty(req.getParameter(param)) ? null : req.getParameter(param);
 	}
-
 
 }

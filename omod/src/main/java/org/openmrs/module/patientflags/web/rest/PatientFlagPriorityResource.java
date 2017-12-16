@@ -32,7 +32,7 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 			description = new DelegatingResourceDescription();
 			description.addProperty("name");
 			description.addProperty("style");
-			description.addProperty("name");
+			description.addProperty("rank");
 			
 			if (rep instanceof DefaultRepresentation) {
 				description.addSelfLink();

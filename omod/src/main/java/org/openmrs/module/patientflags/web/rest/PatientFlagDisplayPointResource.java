@@ -26,8 +26,6 @@ import java.util.List;
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/displaypoint", supportedClass = DisplayPoint.class, supportedOpenmrsVersions = {
 		"1.9.*", "1.10.*", "1.11.*", "1.12.*", "2.0.*" })
 public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResource<DisplayPoint>{
-
-
 	public DisplayPoint newDelegate() {
 		return new DisplayPoint();
 	}
@@ -43,7 +41,6 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 			displayPoint = getService().getDisplayPoint(displayPointId);
 		return displayPoint;
 	}
-
 
 	@Override
 	public void purge(DisplayPoint displayPoint, RequestContext arg1) throws ResponseException {
@@ -77,7 +74,6 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 		return description;
 	}
 
-
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		return new NeedsPaging<DisplayPoint>(getService().getAllDisplayPoints(), context);
@@ -93,16 +89,11 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 		return new NeedsPaging<DisplayPoint>(displayPoints, context);
 	}
 
-
 	private FlagService getService() {
 		return Context.getService(FlagService.class);
 	}
 
-
 	private static String getStringFilter(String param, RequestContext req) {
-
 		return StringUtils.isEmpty(req.getParameter(param)) ? null : req.getParameter(param);
 	}
-
-
 }

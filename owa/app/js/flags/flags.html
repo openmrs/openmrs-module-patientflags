@@ -1,0 +1,16 @@
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Tags</th>
+        <th>Priority</th>
+        <th>Status</th>
+    </thead>
+    <tbody>
+        <tr ng-repeat="flag in vm.flags">
+            <td>{{flag.name}}</td>
+            <td>{{flag.tags}}</td>
+            <td>{{flag.priority.name}}</td>
+            <td>{{flag.status}}</td>
+        </tr>
+    </tbody>
+</table>

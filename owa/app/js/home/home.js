@@ -10,6 +10,8 @@ import encounterComponent from './components/encounter.component.js';
 import observationComponent from './components/observation.component.js';
 import providerComponent from './components/provider.component.js';
 import patientCreateComponent from './components/patientCreate.component.js';
+import flagsComponent from '../flags/flags.component';
+import flagsCreateComponent from '../flags/flagsCreate.component';
 import uicommons from 'openmrs-contrib-uicommons';
 
 let homeModule = angular.module('home', [ uiRouter, 'openmrs-contrib-uicommons'])
@@ -23,9 +25,14 @@ let homeModule = angular.module('home', [ uiRouter, 'openmrs-contrib-uicommons']
         });
 
         $stateProvider.state('createPatient', {
-        url: '/create-patient',
-        template: require('./patientCreatePage.html')
-        })
+            url: '/create-patient',
+            template: require('./patientCreatePage.html')
+        });
+
+        $stateProvider.state('createFlag', {
+            url: '/create-flag',
+            template: require('../flags/flagCreatePage.html')
+        });
     })
     .config(['$qProvider', function ($qProvider) {
       $qProvider.errorOnUnhandledRejections(false);
@@ -46,6 +53,8 @@ let homeModule = angular.module('home', [ uiRouter, 'openmrs-contrib-uicommons']
     .component('encounterComponent', encounterComponent)
     .component('observationComponent', observationComponent)
     .component('providerComponent', providerComponent)
-    .component('patientCreateComponent', patientCreateComponent );
+    .component('patientCreateComponent', patientCreateComponent)
+    .component('flags', flagsComponent)
+    .component('flagsCreateComponent', flagsCreateComponent);
 
 export default homeModule;

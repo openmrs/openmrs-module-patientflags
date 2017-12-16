@@ -3,4 +3,3 @@ addons:
 language: java
 jdk:
  - oraclejdk8
- 

@@ -24,6 +24,7 @@ import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
@@ -219,6 +220,13 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 */
 	public Flag getFlagByName(String name) {
 		return dao.getFlagByName(name);
+	}
+	
+	/**
+	 * @see FlagService#searchFlags(String, String, Boolean, List)
+	 */
+	public List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) {
+		return dao.searchFlags(name, evaluator, enabled, tags);
 	}
 
 	/**

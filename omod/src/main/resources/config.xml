@@ -24,6 +24,7 @@
 	<!-- Aware of Modules-->
 	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+		<aware_of_module>org.openmrs.module.owa</aware_of_module>
 	</aware_of_modules>
 
 	<!-- Internationalization -->

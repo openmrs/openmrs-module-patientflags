@@ -1,0 +1,9 @@
+[
+  {
+    "id": "${project.parent.groupId}.${project.parent.artifactId}.patientflags.group",
+    "extensionPointId": "org.openmrs.module.adminui.adminGroups",
+    "type": "group",
+    "label": "patientflags.admin.title",
+    "icon": "icon-map-marker"
+  }
+]

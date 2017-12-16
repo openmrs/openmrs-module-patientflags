@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.patientflags.db.hibernate;
 
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Restrictions;
@@ -99,6 +100,32 @@ public class HibernateFlagDAO implements FlagDAO {
 		} else {
 			throw new APIException("Multiple flags found with the name '" + name + "'");
 		}
+	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#searchFlags(String, String, Boolean, List<String>)
+	 */
+	@SuppressWarnings("unchecked")
+	public List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Flag.class);
+		
+		if(StringUtils.isNotBlank(name)) {
+			criteria.add(Restrictions.ilike("name", name, MatchMode.START));
+		}
+		
+		if(StringUtils.isNotBlank(evaluator)) {
+			criteria.add(Restrictions.eq("evaluator", evaluator));
+		}
+		
+		if(enabled != null) {
+			criteria.add(Restrictions.eq("enabled", enabled));
+		}
+		
+		if(tags != null && tags.size() > 0) {
+			criteria.add(Restrictions.in("tags", tags));
+		}
+
+		return criteria.list();
 	}
 
 	/**

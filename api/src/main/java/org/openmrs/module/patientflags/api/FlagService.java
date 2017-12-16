@@ -24,6 +24,7 @@ import org.openmrs.Role;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.PatientFlagsConstants;
@@ -159,6 +160,21 @@ public interface FlagService extends OpenmrsService {
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Flag getFlagByName(String name);
 	
+	/**
+	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped. 
+	 * Any parameter can be null to skip the filter
+	 *
+	 * @param name
+	 * @param evaluator
+	 * @param enabled
+	 * @param tags
+	 * @return the list of flags matching specified criteria
+	 * @throws DAOException
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags);
+
 	/**
 	 * Adds or updates a specific flag in the database
 	 * 

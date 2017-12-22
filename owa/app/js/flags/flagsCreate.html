@@ -1,0 +1,24 @@
+<div ng-hide="vm.isHiddenPerson" style="width: auto; height: auto">
+    <img ng-hide="!vm.loading" src="../../img/loading.gif" />
+
+    <div class="note-container">
+        <div ng-hide="vm.blankPerson" class="note error">
+            <div class="text">
+                <i class="icon-remove medium"></i>
+                <p>
+                    Kindly fill all the required fields <br/>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <form class="simple-form-ui">
+        <p class="input-position-class">
+            <label >Name <small>(required)</small> </label>
+            <input name="input-name" type="text" style="width: 20%; height: 25px" ng-model="vm.flagData.name" placeholder="Enter Name" ng-class="{'illegalValue': vm.invalidName}" ng-change="vm.invalidName=false" />
+        </p>
+        <p ng-show="vm.invalidName" class="field-error"> Name is required </p>
+
+    </form>
+
+</div>

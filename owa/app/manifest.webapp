@@ -1,0 +1,19 @@
+{
+  "version": "0.1.0",
+  "name": "patientflags",
+  "description": "GUI for OpenMRS Patient Flags Module",
+  "launch_path": "index.html",
+  "icons": {
+    "48": "/img/omrs-button.png"
+  },
+  "developer": {
+    "name": "openmrs",
+    "url": "https://github.com/openmrs/openmrs-module-patientflags"
+  },
+  "default_locale": "en",
+    "activities": {
+      "openmrs": {
+        "href": "*"
+      }
+    }
+}

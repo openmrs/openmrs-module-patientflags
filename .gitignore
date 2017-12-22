@@ -69,3 +69,13 @@ nb-configuration.xml
 !.github/
 *~
 #############
+
+### npm owa ###
+owa/bower_components
+owa/node_modules
+owa/dist
+owa/config.json
+owa/node
+owa/*.zip
+owa/etc
+###########

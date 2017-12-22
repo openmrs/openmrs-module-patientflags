@@ -1,0 +1,72 @@
+/* * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
+body {
+    font-family: "OpenSans", Arial, sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+    max-width: 1000px;
+    margin: 10px auto;
+    background: #eeeeee;
+    color: #363463;
+    font-size: 16px;
+}
+
+header {
+    position: relative;
+    background-color: #00463f;
+    color: #CCC;
+    line-height: 1em;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    display: block;
+    min-height: 48px;
+}
+
+header .logo {
+    float: left;
+    margin: 4px;
+    display: block;
+}
+
+header .logo img {
+    width: 120px;
+}
+
+#body-wrapper {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -o-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    min-height: 500px;
+    justify-content: center;
+}
+
+.app-title {
+    display: block;
+    float: right;
+    color: #eeeeee;
+    font-size: 32px;
+    margin: 4px;
+    height: 100%;
+    padding-top: 12px;
+    padding-right: 5px;
+}
+
+.instructions {
+    align-self: center;
+}
+

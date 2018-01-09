@@ -1,3 +1,5 @@
+addons:
+  chrome: stable
 language: java
 jdk:
  - oraclejdk8

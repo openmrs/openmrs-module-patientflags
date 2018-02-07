@@ -70,6 +70,19 @@ public interface FlagDAO {
 	public Flag getFlagByName(String name) throws DAOException;
 	
 	/**
+	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped. 
+	 * Any parameter can be null to skip the filter
+	 *
+	 * @param name
+	 * @param evaluator
+	 * @param enabled
+	 * @param tags
+	 * @return the list of flags matching specified criteria
+	 * @throws DAOException
+	 */
+	List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) throws DAOException;
+	
+	/**
 	 * Saves a Flag in the Flag table
 	 * 
 	 * @param flag the flag to save

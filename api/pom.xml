@@ -10,6 +10,28 @@
 	<name>Patient Flags Module API</name>
 	<description>API project for Patient Flags Module</description>
 
+<!-- SCM : to point to the urls that the module lives at -->
+		
+<scm>
+    <connection>scm:git:https://github.com/openmrs/openmrs-module-patientflags</connection>
+    <developerConnection>scm:git:https://github.com/openmrs/openmrs-module-patientflags</developerConnection>
+    <url>https://github.com/openmrs/openmrs-module-patientflags</url>
+</scm>
+
+<!-- Dstribution Management :Where to drop the omod -->
+<distributionManagement>
+    <repository>
+        <id>openmrs-repo-modules</id>
+        <name>Modules</name>
+        <url>http://mavenrepo.openmrs.org/nexus/content/repositories/modules/</url>
+    </repository>
+    
+    <snapshotRepository>
+        <id>openmrs-repo-snapshots</id>
+        <name>OpenMRS Snapshots</name>
+        <url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+    </snapshotRepository>
+</distributionManagement>
 	<dependencies>	
 		<dependency>
 			<groupId>org.openmrs.api</groupId>

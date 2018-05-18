@@ -10,6 +10,27 @@
 	<name>Patient Flags Module API</name>
 	<description>API project for Patient Flags Module</description>
 
+<!-- SCM : to point to the urls that the module lives at -->
+		
+<scm>
+	<connection>scm:git:https://github.com/tendomatGitHub/openmrs-module-patientflags</connection>
+		<developerConnection>scm:git:https://github.com/tendomatGitHub/openmrs-module-patientflags</developerConnection>
+		<url>https://github.com/tendomatGitHub/openmrs-module-patientflags/</url>
+</scm>
+
+<!-- Dstribution Management :Where to drop the omod -->
+<distributionManagement>
+    <repository>
+			<id>bintray-tendomart-maven</id>
+			<name>tendomart-bintray</name>
+<url>https://api.bintray.com/maven/tendomart/maven/openmrs-module-patientflags/;publish=1</url>
+		</repository>
+		<snapshotRepository>
+			<id>openmrs-repo-snapshots</id>
+			<name>OpenMRS Snapshots</name>
+			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/snapshots</url>
+		</snapshotRepository>
+</distributionManagement>
 	<dependencies>	
 		<dependency>
 			<groupId>org.openmrs.api</groupId>

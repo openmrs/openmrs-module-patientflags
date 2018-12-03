@@ -5,23 +5,34 @@
         <artifactId>patientflags</artifactId>
         <version>2.1.0-SNAPSHOT</version>
     </parent>
+    
     <artifactId>patientflags-omod</artifactId>
     <packaging>jar</packaging>
     <name>Patient Flags Module OMOD</name>
     <description>OpenMRS module project for Patient Flags Module</description>
 
     <dependencies>
-
-        <dependency>
+		<dependency>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>patientflags-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- <dependency>
             <groupId>org.openmrs.api</groupId>
             <artifactId>openmrs-api</artifactId>
             <type>jar</type>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>org.openmrs.web</groupId>
             <artifactId>openmrs-web</artifactId>
-            <type>jar</type>
+            <scope>provided</scope>
         </dependency>
+        <dependency>
+			<groupId>org.openmrs.web</groupId>
+			<artifactId>openmrs-web</artifactId>
+			<scope>provided</scope>
+			<classifier>tests</classifier>
+		</dependency>
 
         <dependency>
             <groupId>${project.parent.groupId}</groupId>
@@ -30,12 +41,8 @@
             <type>zip</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>org.openmrs.module</groupId>
-            <artifactId>patientflags-api</artifactId>
-            <version>${project.parent.version}</version>
-        </dependency>
-		<dependency>
+        
+		<!-- <dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
 			<type>test-jar</type>
@@ -49,52 +56,42 @@
 			<groupId>org.openmrs.test</groupId>
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>webservices.rest-omod</artifactId>
-			<scope>provided</scope>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>webservices.rest-omod-common</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>uiframework-api</artifactId>
 		</dependency>
+		<dependency>
+		    <groupId>org.openmrs.module</groupId>
+		    <artifactId>legacyui-omod</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.openmrs.module</groupId>
+		    <artifactId>legacyui-api</artifactId>
+		</dependency>
+	
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.8.5</version>
+		</dependency>
     </dependencies>
 
     <build>
         <finalName>${project.parent.artifactId}-${project.parent.version}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>resources</exclude>
-                </excludes>
-                <targetPath>web/module</targetPath>
-            </resource>
-            <resource>
-                <directory>src/main/webapp</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>resources</include>
-                </includes>
-                <targetPath>web/module</targetPath>
-            </resource>
-        </resources>
-
-        <pluginManagement>
+        <!-- <pluginManagement>
             <plugins>
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
@@ -103,50 +100,15 @@
                     </configuration>
                 </plugin>
             </plugins>
-        </pluginManagement>
+        </pluginManagement> -->
         <plugins>
-            <plugin>
-                <groupId>org.openmrs.maven.plugins</groupId>
-                <artifactId>maven-openmrs-plugin</artifactId>
-
-                <extensions>true</extensions>
-                <executions>
-                    <execution>
-                        <id>init</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>initialize-module</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>pack</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>package-module</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.0</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
+			<plugin>
+				<groupId>org.openmrs.maven.plugins</groupId>
+				<artifactId>maven-openmrs-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>include-owa</id>
@@ -167,6 +129,12 @@
                             <outputDirectory>${project.build.directory}/classes/web/module/owas</outputDirectory>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
                     <execution>
                         <id>Expand moduleApplicationContext and messages</id>
                         <goals>
@@ -182,68 +150,7 @@
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>  -->
         </plugins>
     </build>
-
-    <properties>
-        <MODULE_ID>${project.parent.artifactId}</MODULE_ID>
-        <MODULE_NAME>${project.parent.name}</MODULE_NAME>
-        <MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
-        <MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
-    </properties>
-
-    <!-- different profiles for building/testing against different version of openmrs -->
-    <profiles>
-        <profile>
-            <id>openmrs-2.0</id>
-            <dependencies>
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>legacyui-api</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>org.openmrs.module</groupId>
-                    <artifactId>legacyui-omod</artifactId>
-                </dependency>
-                <dependency>
-                    <groupId>javax.servlet</groupId>
-                    <artifactId>javax.servlet-api</artifactId>
-                    <version>3.0.1</version>
-                    <scope>provided</scope>
-                </dependency>
-            </dependencies>
-        </profile>
-
-
-        <!--deploys webapp files directly to web app directory -->
-        <profile>
-            <id>deploy-web</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-antrun-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>run</goal>
-                                </goals>
-                                <configuration>
-                                    <tasks>
-                                        <copy todir="${deploy.path}/WEB-INF/view/module/${project.parent.artifactId}">
-                                            <fileset dir="src/main/webapp" includes="**/*" />
-                                        </copy>
-                                    </tasks>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-
-    </profiles>
-
 </project>

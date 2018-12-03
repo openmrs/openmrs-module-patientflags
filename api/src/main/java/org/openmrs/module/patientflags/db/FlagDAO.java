@@ -50,24 +50,37 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	public Flag getFlag(Integer flagId) throws DAOException;
-
+	
 	/**
 	 * Gets a Flag from the Flag table by its uuid
-	 *
+	 * 
 	 * @param uuid the uuid of the flag to retrieve
 	 * @return the specified Flag
 	 * @throws DAOException
 	 */
 	public Flag getFlagByUuid(String uuid) throws DAOException;
-
+	
 	/**
 	 * Gets a Flag from the Flag table by its name
-	 *
+	 * 
 	 * @param name the name of the flag to retrieve
 	 * @return the specified Flag
 	 * @throws DAOException
 	 */
 	public Flag getFlagByName(String name) throws DAOException;
+	
+	/**
+	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped.
+	 * Any parameter can be null to skip the filter
+	 * 
+	 * @param name
+	 * @param evaluator
+	 * @param enabled
+	 * @param tags
+	 * @return the list of flags matching specified criteria
+	 * @throws DAOException
+	 */
+	List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) throws DAOException;
 	
 	/**
 	 * Saves a Flag in the Flag table
@@ -110,10 +123,10 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	public Tag getTag(String name) throws DAOException;
-
+	
 	/**
 	 * Gets a Tag from the Tag table by its uuid
-	 *
+	 * 
 	 * @param uuid
 	 * @return the specified Tag
 	 * @throws DAOException
@@ -152,19 +165,19 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	public Priority getPriority(Integer priorityId) throws DAOException;
-
+	
 	/**
 	 * Gets a Priority from the Priority table by its uuid
-	 *
+	 * 
 	 * @param uuid the uuid of the Priority to retrieve
 	 * @return the specified Priority
 	 * @throws DAOException
 	 */
 	public Priority getPriorityByUuid(String uuid) throws DAOException;
-
+	
 	/**
 	 * Gets a Priority from the Priority table by its uuid
-	 *
+	 * 
 	 * @param name the name of the Priority to retrieve
 	 * @return the specified Priority
 	 * @throws DAOException

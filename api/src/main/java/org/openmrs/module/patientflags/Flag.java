@@ -14,6 +14,8 @@
 package org.openmrs.module.patientflags;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.Cohort;
@@ -263,8 +265,7 @@ public class Flag extends BaseOpenmrsMetadata {
 			catch (Exception e) {
 				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);
 			}
-		}
-		else {
+		} else {
 			throw new APIException("FlagEvaluator is null");
 		}
 	}
@@ -276,7 +277,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	 * @return true/false
 	 */
 	
-	public Boolean eval(Patient patient) {
+	public EvaluatedFlag eval(Patient patient) {
 		if (evaluator != null && patient != null) {
 			return instantiateEvaluator().eval(this, patient);
 		} else {
@@ -284,12 +285,88 @@ public class Flag extends BaseOpenmrsMetadata {
 		}
 	}
 	
-	public String evalMessage(Integer patientId){
+	public String evalMessage(Integer patientId) {
 		if (evaluator != null && patientId != null) {
 			return instantiateEvaluator().evalMessage(this, patientId);
 		} else {
 			return getLocalizedMessage();
 		}
+	}
+	
+	public String evalMessage(Patient patient, Object[] objects) {
+		String literal = "\\$\\{\\d{1,2}\\}";
+		String message = getMessage();
+		
+		if (!message.matches(".*(" + literal + ")+.*")) {
+			return message;
+		}
+		
+		try {
+			if (objects != null && objects.length > 0) {// empty resultset means no data returned
+			
+				if (objects[0] instanceof Object[]) {
+					String finalMessage = "";
+					for (Object itemObject : objects) {
+						Object[] items = (Object[]) itemObject;
+						finalMessage += extractMessage(literal, message, items) + " ";
+					}
+					
+					return finalMessage;
+				} else {
+					return extractMessage(literal, message, objects);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
+	}
+	
+	private String extractMessage(String literal, String messageStr, Object[] objects) {
+		Matcher m = Pattern.compile(literal).matcher(messageStr);
+		while (!m.hitEnd() && m.find()) {// replace each instance until end
+			String replaceString = m.group();
+			//get index between the brackets ${indexNumber}
+			int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
+			if (index < objects.length) {// do nothing if index is invalid
+				messageStr = messageStr.replace(replaceString, objects[index].toString());
+			}
+		}
+		return messageStr;
+	}
+	
+	public String evalMessageArray(Patient patient, Object[] objects) {
+		String literal = "\\$\\{\\d{1,2}\\}";
+		String message = getMessage();
+		
+		if (!message.matches(".*(" + literal + ")+.*")) {
+			return message;
+		}
+		
+		try {
+			if (objects != null && objects.length > 0) {// empty resultset means no data returned
+				// each item in array must be array of objects
+				for (Object object : objects) {
+					Object[] items = (Object[]) object;
+					Matcher m = Pattern.compile(literal).matcher(message);
+					while (!m.hitEnd() && m.find()) {// replace each instance until end
+						String replaceString = m.group();
+						//get index between the brackets ${indexNumber}
+						int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
+						if (index < items.length) {// do nothing if index is invalid
+							message = message.replace(replaceString, items[index].toString());
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
 	}
 	
 	/**

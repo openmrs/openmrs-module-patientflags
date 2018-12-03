@@ -20,7 +20,8 @@ import org.openmrs.module.patientflags.Flag;
 /**
  * Compares Flags based on the Name (alphabetized)
  */
-public class FlagAlphaComparator implements Comparator<Flag>{
+public class FlagAlphaComparator implements Comparator<Flag> {
+	
 	public int compare(Flag o1, Flag o2) {
 		
 		return o1.getName().compareTo(o2.getName());

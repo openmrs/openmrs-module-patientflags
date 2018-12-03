@@ -13,62 +13,18 @@
  */
 package org.openmrs.module.patientflags;
 
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Vector;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import org.openmrs.GlobalProperty;
-import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
-import org.openmrs.module.Extension;
-import org.openmrs.module.Module;
-import org.openmrs.module.ModuleFactory;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
 public class PatientFlagsModuleActivator extends BaseModuleActivator {
-
-	private Log log = LogFactory.getLog(this.getClass());
-
+	
+	//private Log log = LogFactory.getLog(this.getClass());
+	
 	public void started() {
-		
-		// create necessary global properties if they have not been created
-		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientHeaderDisplay")) == null) {
-			Context
-			        .getAdministrationService()
-			        .saveGlobalProperty(
-			            new GlobalProperty(
-			                    "patientflags.patientHeaderDisplay",
-			                    "true",
-			                    "DO NOT MODIFY HERE: use \"manage flag global properties\" to modify; true/false whether or not to display flags in the Patient Dashboard overview"));
-		}
-		
-		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientOverviewDisplay")) == null) {
-			Context
-			        .getAdministrationService()
-			        .saveGlobalProperty(
-			            new GlobalProperty(
-			                    "patientflags.patientOverviewDisplay",
-			                    "true",
-			                    "DO NOT MODIFY HERE: use \"manage flag global properties\" to modify; true/false whether or not to display flags in the Patient Dashboard header"));
-		}
-		
-		// if no username has been defined, as a default use the username used by the scheduler
-		if ((Context.getAdministrationService().getGlobalProperty("patientflags.username")) == null) {
-			Context
-			        .getAdministrationService()
-			        .saveGlobalProperty(
-			            new GlobalProperty("patientflags.username", Context.getAdministrationService().getGlobalProperty(
-			                "scheduler.username"),
-			                    "DO NOT MODIFY HERE: user \"manage flag global properties\" to modify; Username for the OpenMRS user that will evaluate Groovy flags"));
-		}
-		
 		// configure extension points based on global properties
-		Module thisModule = ModuleFactory.getModuleByPackage("org.openmrs.module.patientflags");
+		/*Module thisModule = ModuleFactory.getModuleByPackage("org.openmrs.module.patientflags");
 		
 		IdentityHashMap<String, String> extensionPoints = new IdentityHashMap<String, String>();
 		
@@ -101,18 +57,18 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator {
 			
 			tmpExtensions.add(ext);
 			ModuleFactory.getExtensionMap().put(extId, tmpExtensions);
-		}
+		}*/
 		
-		log.info("Starting Patient Flags Module");
+		//log.info("Starting Patient Flags Module");
 	}
 	
 	public void shutdown() {
 		
 		// need to delete the configured extensions here to assure that they aren't double-loaded on next startup
-		Module thisModule = ModuleFactory.getModuleByPackage("org.openmrs.module.patientflags");
+		/*Module thisModule = ModuleFactory.getModuleByPackage("org.openmrs.module.patientflags");
 		thisModule.setExtensionNames(new IdentityHashMap<String, String>());
-		thisModule.setExtensions(new Vector<Extension>());
+		thisModule.setExtensions(new Vector<Extension>());*/
 		
-		log.info("Shutting down Patient Flags Module");
+		//log.info("Shutting down Patient Flags Module");
 	}
 }

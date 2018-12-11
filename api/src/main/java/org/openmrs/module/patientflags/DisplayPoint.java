@@ -53,10 +53,6 @@ public class DisplayPoint extends BaseOpenmrsMetadata {
 		return getDisplayPointId().hashCode();
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
-	
 	public void setDisplayPointId(Integer displayPointId) {
 		this.displayPointId = displayPointId;
 	}

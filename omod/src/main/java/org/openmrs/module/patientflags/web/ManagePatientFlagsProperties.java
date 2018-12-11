@@ -31,12 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/module/patientflags/managePatientFlagsProperties.form")
 public class ManagePatientFlagsProperties {
 	
-	/** Validator for this controller */
 	private PatientFlagsPropertiesValidator validator;
 	
-	/**
-	 * Constructors
-	 */
 	public ManagePatientFlagsProperties() {
 	}
 	
@@ -45,12 +41,6 @@ public class ManagePatientFlagsProperties {
 		this.validator = validator;
 	}
 	
-	/**
-	 * Displays the form to manage the display of patient flags
-	 * 
-	 * @param model
-	 * @return new ModelAndView
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(ModelMap model) {
 		// initialize the command object

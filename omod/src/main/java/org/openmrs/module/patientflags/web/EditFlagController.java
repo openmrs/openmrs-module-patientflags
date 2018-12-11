@@ -54,19 +54,15 @@ public class EditFlagController {
 	
 	//private Log log = LogFactory.getLog(this.getClass());
 	
-	/** Validator for this controller */
 	private FlagValidator validator;
 	
-	/**
-	 * Generic Constructor
-	 */
 	public EditFlagController() {
 	}
 	
 	/**
 	 * Constructor that registers validator
 	 * 
-	 * @param validator
+	 * @param validator flag validator
 	 */
 	@Autowired
 	public EditFlagController(FlagValidator validator) {
@@ -123,14 +119,6 @@ public class EditFlagController {
 		return Context.getService(FlagService.class).getAllPriorities();
 	}
 	
-	/**
-	 * Displays the form to edit (or add) a Flag
-	 * 
-	 * @param request
-	 * @param model
-	 * @return new ModelAndView
-	 * @throws ServletRequestBindingException
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(HttpServletRequest request, ModelMap model) throws ServletRequestBindingException {
 		Flag flag;
@@ -151,14 +139,6 @@ public class EditFlagController {
 		return new ModelAndView("/module/patientflags/editFlag", model);
 	}
 	
-	/**
-	 * Processes the form to edit (or add) a Flag
-	 * 
-	 * @param flag the flag to add/update
-	 * @param result
-	 * @param status
-	 * @return new ModelAndView
-	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("flag") Flag flag, BindingResult result, SessionStatus status) {
 		

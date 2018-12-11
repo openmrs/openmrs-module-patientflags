@@ -26,10 +26,6 @@ public class FlagValidationResult {
 	// error message associated with the test
 	private String message;
 	
-	/**
-	 * Constructors
-	 */
-	
 	public FlagValidationResult() {
 	}
 	
@@ -43,9 +39,6 @@ public class FlagValidationResult {
 		this.message = message;
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
 	public void setResult(Boolean result) {
 		this.result = result;
 	}
@@ -62,9 +55,6 @@ public class FlagValidationResult {
 		return message;
 	}
 	
-	/**
-	 * Return the localized message by utilizing the MessageSource Service
-	 */
 	public String getLocalizedMessage() {
 		return Context.getMessageSourceService().getMessage(message);
 	}

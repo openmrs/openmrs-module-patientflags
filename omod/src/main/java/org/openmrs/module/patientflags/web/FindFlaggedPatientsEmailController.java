@@ -37,15 +37,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/module/patientflags/findFlaggedPatientsEmail.form")
 public class FindFlaggedPatientsEmailController {
 	
-	/**
-	 * Generic constructor
-	 */
 	public FindFlaggedPatientsEmailController() {
 	}
-	
-	/**
-	 * Handle the request to create an flag email
-	 */
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView processRequest(@ModelAttribute("flag") Flag flag, BindingResult result, SessionStatus status) {

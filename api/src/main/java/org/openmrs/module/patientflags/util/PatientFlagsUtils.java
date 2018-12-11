@@ -25,6 +25,9 @@ public class PatientFlagsUtils {
 	/**
 	 * Utility function that, given an list of tag names, creates a set of the tags references by
 	 * those names. The tag names are case insensitive.
+	 * 
+	 * @param names tag names to associate with set members
+	 * @return tag set
 	 */
 	public static Set<Tag> createTagSet(String[] names) {
 		

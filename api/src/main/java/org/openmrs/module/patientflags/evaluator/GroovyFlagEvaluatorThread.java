@@ -46,10 +46,6 @@ public class GroovyFlagEvaluatorThread implements Runnable {
 	/* stores any exception throw during execution */
 	private Exception exception;
 	
-	/**
-	 * Constructors
-	 */
-	
 	public GroovyFlagEvaluatorThread() {
 	}
 	
@@ -58,10 +54,6 @@ public class GroovyFlagEvaluatorThread implements Runnable {
 		this.testCohort = cohort;
 		this.user = user;
 	}
-	
-	/**
-	 * Getters and Setters
-	 */
 	
 	public void setTestCohort(Cohort testCohort) {
 		this.testCohort = testCohort;
@@ -102,10 +94,6 @@ public class GroovyFlagEvaluatorThread implements Runnable {
 	public Exception getException() {
 		return exception;
 	}
-	
-	/**
-	 * Public Methods
-	 */
 	
 	public synchronized Cohort fetchResultCohort() throws Exception {
 		// wait for the evaluator thread to alert notify that it's done evaluating

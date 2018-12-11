@@ -62,24 +62,12 @@ public class Flag extends BaseOpenmrsMetadata {
 		enabled = true;
 	}
 	
-	/**
-	 * Constructor with name criteria, and message
-	 * 
-	 * @param name
-	 * @param criteria
-	 * @param message
-	 */
-	
 	public Flag(String name, String criteria, String message) {
 		this.name = name;
 		this.criteria = criteria;
 		this.message = message;
 		this.enabled = true;
 	}
-	
-	/**
-	 * Custom Equals and HashCode methods
-	 */
 	
 	public boolean equals(Object obj) {
 		if (obj instanceof Flag) {
@@ -100,20 +88,10 @@ public class Flag extends BaseOpenmrsMetadata {
 		return getFlagId().hashCode();
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
-	
-	/**
-	 * @param flagId
-	 */
 	public void setFlagId(Integer flagId) {
 		this.flagId = flagId;
 	}
 	
-	/**
-	 * @return flagId
-	 */
 	public Integer getFlagId() {
 		return flagId;
 	}
@@ -126,52 +104,30 @@ public class Flag extends BaseOpenmrsMetadata {
 		return getFlagId();
 	}
 	
-	/**
-	 * @param name
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	/**
-	 * @return name
-	 */
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * @param criteria
-	 */
 	public void setCriteria(String criteria) {
 		this.criteria = criteria;
 	}
 	
-	/**
-	 * @return criteria
-	 */
 	public String getCriteria() {
 		return criteria;
 	}
 	
-	/**
-	 * @param evaluator
-	 * @throws APIException
-	 */
 	public void setEvaluator(String evaluator) {
 		this.evaluator = evaluator;
 	}
 	
-	/**
-	 * @return evaluatorType
-	 */
 	public String getEvaluator() {
 		return evaluator;
 	}
 	
-	/**
-	 * @param message
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
@@ -183,55 +139,30 @@ public class Flag extends BaseOpenmrsMetadata {
 		return message;
 	}
 	
-	/**
-	 * @param priority
-	 */
 	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 	
-	/**
-	 * @return priority
-	 */
 	public Priority getPriority() {
 		return priority;
 	}
 	
-	/**
-	 * @param enabled
-	 */
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 	
-	/**
-	 * @return enabled
-	 */
 	public Boolean getEnabled() {
 		return enabled;
 	}
 	
-	/**
-	 * @param tags
-	 */
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 	
-	/**
-	 * @return tags
-	 */
 	public Set<Tag> getTags() {
 		return tags;
 	}
 	
-	/**
-	 * Public Methods
-	 */
-	
-	/**
-	 * Return the localized message by utilizing the MessageSource Service
-	 */
 	public String getLocalizedMessage() {
 		return Context.getMessageSourceService().getMessage(message);
 	}
@@ -256,6 +187,8 @@ public class Flag extends BaseOpenmrsMetadata {
 	
 	/**
 	 * Instantiates the evaluator
+	 * 
+	 * @return FlagEvaluator the class used to evaluate the given flag
 	 */
 	public FlagEvaluator instantiateEvaluator() {
 		if (evaluator != null) {

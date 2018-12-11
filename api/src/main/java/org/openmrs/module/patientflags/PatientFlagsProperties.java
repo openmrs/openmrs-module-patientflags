@@ -27,15 +27,9 @@ public class PatientFlagsProperties {
 	/* Username for the OpenMRS user that will evaluate Groovy flags */
 	private String username;
 	
-	/**
-	 * Constructor
-	 */
 	public PatientFlagsProperties() {
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
 	public Boolean getPatientHeaderDisplay() {
 		return patientHeaderDisplay;
 	}

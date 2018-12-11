@@ -70,7 +70,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	/**
 	 * Method for spring to set the database access object for this service
 	 * 
-	 * @param dao
+	 * @param dao flag dao
 	 */
 	public void setFlagDAO(FlagDAO dao) {
 		this.dao = dao;
@@ -107,8 +107,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
-	 *      Set<Role>, DisplayPoint)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set,
+	 *      DisplayPoint)
 	 */
 	public List<EvaluatedFlag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
 		// we can get rid of this once onStartup is implemented
@@ -141,8 +141,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
-	 *      Set<Role>, String)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Set,
+	 *      String)
 	 */
 	public List<EvaluatedFlag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
 		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName));
@@ -160,7 +160,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List)
 	 */
 	public Cohort getFlaggedPatients(List<Flag> flags) {
 		Cohort resultCohort = new Cohort();

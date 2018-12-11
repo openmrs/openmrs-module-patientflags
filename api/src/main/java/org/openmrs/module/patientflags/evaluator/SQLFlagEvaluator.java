@@ -75,7 +75,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#evalCohort(Flag, Cohort)
 	 */
 	public Cohort evalCohort(Flag flag, Cohort cohort) {
 		

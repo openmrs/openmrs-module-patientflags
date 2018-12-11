@@ -42,7 +42,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	/**
 	 * Set session factory
 	 * 
-	 * @param sessionFactory
+	 * @param sessionFactory sessionFactory
 	 */
 	public void setSessionFactory(DbSessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
@@ -104,8 +104,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.db.FlagDAO#searchFlags(String, String, Boolean,
-	 *      List<String>)
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#searchFlags(String, String, Boolean, List)
 	 */
 	@SuppressWarnings("unchecked")
 	public List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) throws DAOException {

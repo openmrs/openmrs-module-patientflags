@@ -79,9 +79,9 @@ public interface FlagService extends OpenmrsService {
 	
 	/**
 	 * Generates a list of Flags that are triggers for the specified Patient, filtered by Flags
-	 * Tagged for a specified location and role (This method is identical to
-	 * generateFlagsForPatient(Patient,Set<Role>,DisplayPoint) except that it takes a display point
-	 * name as a string, instead of an actual DisplayPoint object)
+	 * Tagged for a specified location and role (This method is identical to generateFlagsForPatient
+	 * except that it takes a display point name as a string, instead of an actual DisplayPoint
+	 * object)
 	 * 
 	 * @param patient the patient to test
 	 * @param roles to filter tagged flags by
@@ -164,12 +164,11 @@ public interface FlagService extends OpenmrsService {
 	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped.
 	 * Any parameter can be null to skip the filter
 	 * 
-	 * @param name
-	 * @param evaluator
-	 * @param enabled
-	 * @param tags
+	 * @param name name of flag
+	 * @param evaluator type of evaluator
+	 * @param enabled active/enabled flags only
+	 * @param tags associated tags
 	 * @return the list of flags matching specified criteria
-	 * @throws DAOException
 	 */
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
@@ -401,7 +400,6 @@ public interface FlagService extends OpenmrsService {
 	 * Returns the current Patient Flags properties in a PatientFlagsProperties object
 	 * 
 	 * @return patientFlagProperties current Patient Flag properties
-	 * @throws APIException
 	 */
 	@Transactional(readOnly = true)
 	@Authorized({ PatientFlagsConstants.PRIV_MANAGE_FLAGS })
@@ -411,7 +409,6 @@ public interface FlagService extends OpenmrsService {
 	 * Saves Patient Flags properties to Global Properties
 	 * 
 	 * @param properties current Patient Flag properties
-	 * @throws APIException
 	 */
 	@Authorized(value = { "Manage Flags", "Manage Global Properties" }, requireAll = true)
 	public void savePatientFlagsProperties(PatientFlagsProperties properties);

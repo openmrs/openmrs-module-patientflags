@@ -36,6 +36,8 @@ public class FlagValidator implements Validator {
 		
 		// name cannot be empty
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noName");
+		// Message cannot be empty
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "message", "patientflags.errors.noMessage");
 		
 		// criteria is no longer required, because of custom cases
 		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "criteria", "patientflags.errors.noCriteria");

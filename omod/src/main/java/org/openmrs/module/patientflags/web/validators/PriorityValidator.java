@@ -30,10 +30,11 @@ public class PriorityValidator {
 	public void validate(Object target, Errors errors) {
 		Priority priorityToValidate = (Priority) target;
 		
-		// name and rank cannot be empty
+		// name , message and rank cannot be empty
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noPriorityName");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rank", "patientflags.errors.noRank");
-		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "message", "patientflags.errors.noMessage");
+
 		// make sure that the name field isn't too large
 		if(priorityToValidate.getName().length() > 255)
 			errors.rejectValue("name", "patientflags.errors.priorityNameTooLong");

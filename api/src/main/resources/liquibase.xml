@@ -210,18 +210,9 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-    </changeSet>
-
-    <changeSet author="slubwama" id="patientflags-1554735240623-11">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <indexExists indexName="displaypoint_id"/>
-            </not>
-        </preConditions>
-        <comment>Add a unique constraint displaypoint_id to table patientflags_tag_displaypoint on column displaypoint_id</comment>
-        <createIndex indexName="displaypoint_id" tableName="patientflags_tag_displaypoint">
-            <column name="displaypoint_id"/>
-        </createIndex>
+        <modifySql dbms="mysql">
+            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
+        </modifySql>
     </changeSet>
 
     <changeSet author="slubwama" id="patientflags-1554735240623-12">

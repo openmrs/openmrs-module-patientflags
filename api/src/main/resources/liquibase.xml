@@ -221,7 +221,7 @@
                 <indexExists indexName="flag_id"/>
             </not>
         </preConditions>
-        <comment>Add a unique constraint flag_id to table patientflags_flag_tag on column flag_id</comment>
+        <comment>Add an index constraint flag_id to table patientflags_flag_tag on column flag_id</comment>
         <createIndex indexName="flag_id" tableName="patientflags_flag_tag">
             <column name="flag_id"/>
         </createIndex>
@@ -233,7 +233,7 @@
                 <indexExists indexName="role"/>
             </not>
         </preConditions>
-        <comment>Add a unique constraint role to table patientflags_tag_role on column role</comment>
+        <comment>Add an index constraint role to table patientflags_tag_role on column role</comment>
         <createIndex indexName="role" tableName="patientflags_tag_role">
             <column name="role"/>
         </createIndex>
@@ -245,7 +245,7 @@
                 <indexExists indexName="tag_id"/>
             </not>
         </preConditions>
-        <comment>Add a unique constraint tag_id to table patientflags_flag_tag on column tag_id</comment>
+        <comment>Add an index constraint tag_id to table patientflags_flag_tag on column tag_id</comment>
         <createIndex indexName="tag_id" tableName="patientflags_flag_tag">
             <column name="tag_id"/>
         </createIndex>
@@ -257,7 +257,7 @@
                 <indexExists indexName="tag_displaypoint_id"/>
             </not>
         </preConditions>
-        <comment>Add a unique constraint tag_displaypoint_id to table patientflags_tag_displaypoint on column tag_id</comment>
+        <comment>Add an index constraint tag_displaypoint_id to table patientflags_tag_displaypoint on column tag_id</comment>
         <createIndex indexName="tag_displaypoint_id" tableName="patientflags_tag_displaypoint">
             <column name="tag_id"/>
         </createIndex>
@@ -269,7 +269,7 @@
                 <indexExists indexName="tag_id"/>
             </not>
         </preConditions>
-        <comment>Add a unique constraint tag_id to table patientflags_tag_role on column tag_id</comment>
+        <comment>Add an index  tag_id to table patientflags_tag_role on column tag_id</comment>
         <createIndex indexName="tag_id" tableName="patientflags_tag_role">
             <column name="tag_id"/>
         </createIndex>

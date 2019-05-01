@@ -207,12 +207,9 @@
                 <constraints nullable="false"/>
             </column>
             <column name="role" type="VARCHAR(50)">
-                <constraints nullable="false"/>
+                <constraints nullable="false" foreignKeyName="patientflags_tag_role_ibfk_2" references="role(role)"/>
             </column>
         </createTable>
-        <modifySql dbms="mysql">
-            <append value="ENGINE=INNODB CHARSET=UTF8 COLLATE utf8_unicode_ci"/>
-        </modifySql>
     </changeSet>
 
     <changeSet author="slubwama" id="patientflags-1554735240623-12">
@@ -266,11 +263,11 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-16">
         <preConditions onFail="MARK_RAN">
             <not>
-                <indexExists indexName="tag_id"/>
+                <indexExists indexName="tag_role_id"/>
             </not>
         </preConditions>
         <comment>Add an index  tag_id to table patientflags_tag_role on column tag_id</comment>
-        <createIndex indexName="tag_id" tableName="patientflags_tag_role">
+        <createIndex indexName="tag_role_id" tableName="patientflags_tag_role">
             <column name="tag_id"/>
         </createIndex>
     </changeSet>
@@ -323,16 +320,6 @@
         </preConditions>
         <comment>Add a foreign key constraint patientflags_tag_role_ibfk_1 to table patientflags_tag_role on column tag_id</comment>
         <addForeignKeyConstraint baseColumnNames="tag_id" baseTableName="patientflags_tag_role" constraintName="patientflags_tag_role_ibfk_1" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="tag_id" referencedTableName="patientflags_tag"/>
-    </changeSet>
-
-    <changeSet author="slubwama" id="patientflags-1554735240623-22">
-        <preConditions onFail="MARK_RAN">
-            <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_tag_role_ibfk_2" />
-            </not>
-        </preConditions>
-        <comment>Add a foreign key constraint patientflags_tag_role_ibfk_2 to table patientflags_tag_role on column role</comment>
-        <addForeignKeyConstraint baseColumnNames="role" baseTableName="patientflags_tag_role" constraintName="patientflags_tag_role_ibfk_2" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role" referencedTableName="role"/>
     </changeSet>
 
     <changeSet id="patientflags-unique-flagname-20171115-1600" author="ssmusoke">

@@ -20,9 +20,10 @@ import org.openmrs.module.patientflags.Priority;
 /**
  * Compares Flags based on the Rank of their associated Priorities
  */
-public class PriorityComparator implements Comparator<Priority>{
+public class PriorityComparator implements Comparator<Priority> {
+	
 	public int compare(Priority o1, Priority o2) {
-	    
+		
 		if (o1 == null) {
 			return -1;
 		}
@@ -34,13 +35,11 @@ public class PriorityComparator implements Comparator<Priority>{
 		Integer rank1 = o1.getRank();
 		Integer rank2 = o2.getRank();
 		
-		if(rank1 < rank2){
+		if (rank1 < rank2) {
 			return -1;
-		}
-		else if(rank1 > rank2){
+		} else if (rank1 > rank2) {
 			return 1;
-		}
-		else{
+		} else {
 			return 0;
 		}
 	}

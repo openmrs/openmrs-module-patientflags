@@ -41,33 +41,16 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("priority")
 public class EditPriorityController {
 	
-	/** Validator for this controller */
 	private PriorityValidator validator;
 	
-	/**
-	 * Generic Constructor
-	 */
 	public EditPriorityController() {
 	}
 	
-	/**
-	 * Constructor that registers validator
-	 * 
-	 * @param validator
-	 */
 	@Autowired
 	public EditPriorityController(PriorityValidator validator) {
 		this.validator = validator;
 	}
 	
-	/**
-	 * Displays the form to edit (or add) a Priority
-	 * 
-	 * @param request
-	 * @param model
-	 * @return new ModelAndView
-	 * @throws ServletRequestBindingException
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(HttpServletRequest request, ModelMap model) throws ServletRequestBindingException {
 		Priority priority;
@@ -83,16 +66,9 @@ public class EditPriorityController {
 		return new ModelAndView("/module/patientflags/editPriority", model);
 	}
 	
-	/**
-	 * Processes the form to edit (or add) a Priority
-	 * 
-	 * @param priority the priority to add/update
-	 * @param result
-	 * @param status
-	 * @return new ModelAndView
-	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView processSubmit(@ModelAttribute("priority") Priority priority, BindingResult result, SessionStatus status) {
+	public ModelAndView processSubmit(@ModelAttribute("priority") Priority priority, BindingResult result,
+	        SessionStatus status) {
 		
 		// validate form entries
 		validator.validate(priority, result);

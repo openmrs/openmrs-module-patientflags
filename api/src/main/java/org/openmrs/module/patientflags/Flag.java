@@ -14,6 +14,8 @@
 package org.openmrs.module.patientflags;
 
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.openmrs.BaseOpenmrsMetadata;
 import org.openmrs.Cohort;
@@ -60,24 +62,12 @@ public class Flag extends BaseOpenmrsMetadata {
 		enabled = true;
 	}
 	
-	/**
-	 * Constructor with name criteria, and message
-	 * 
-	 * @param name
-	 * @param criteria
-	 * @param message
-	 */
-	
 	public Flag(String name, String criteria, String message) {
 		this.name = name;
 		this.criteria = criteria;
 		this.message = message;
 		this.enabled = true;
 	}
-	
-	/**
-	 * Custom Equals and HashCode methods
-	 */
 	
 	public boolean equals(Object obj) {
 		if (obj instanceof Flag) {
@@ -98,20 +88,10 @@ public class Flag extends BaseOpenmrsMetadata {
 		return getFlagId().hashCode();
 	}
 	
-	/**
-	 * Getters and Setters
-	 */
-	
-	/**
-	 * @param flagId
-	 */
 	public void setFlagId(Integer flagId) {
 		this.flagId = flagId;
 	}
 	
-	/**
-	 * @return flagId
-	 */
 	public Integer getFlagId() {
 		return flagId;
 	}
@@ -124,52 +104,30 @@ public class Flag extends BaseOpenmrsMetadata {
 		return getFlagId();
 	}
 	
-	/**
-	 * @param name
-	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
-	/**
-	 * @return name
-	 */
 	public String getName() {
 		return name;
 	}
 	
-	/**
-	 * @param criteria
-	 */
 	public void setCriteria(String criteria) {
 		this.criteria = criteria;
 	}
 	
-	/**
-	 * @return criteria
-	 */
 	public String getCriteria() {
 		return criteria;
 	}
 	
-	/**
-	 * @param evaluator
-	 * @throws APIException
-	 */
 	public void setEvaluator(String evaluator) {
 		this.evaluator = evaluator;
 	}
 	
-	/**
-	 * @return evaluatorType
-	 */
 	public String getEvaluator() {
 		return evaluator;
 	}
 	
-	/**
-	 * @param message
-	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
@@ -181,55 +139,30 @@ public class Flag extends BaseOpenmrsMetadata {
 		return message;
 	}
 	
-	/**
-	 * @param priority
-	 */
 	public void setPriority(Priority priority) {
 		this.priority = priority;
 	}
 	
-	/**
-	 * @return priority
-	 */
 	public Priority getPriority() {
 		return priority;
 	}
 	
-	/**
-	 * @param enabled
-	 */
 	public void setEnabled(Boolean enabled) {
 		this.enabled = enabled;
 	}
 	
-	/**
-	 * @return enabled
-	 */
 	public Boolean getEnabled() {
 		return enabled;
 	}
 	
-	/**
-	 * @param tags
-	 */
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
 	}
 	
-	/**
-	 * @return tags
-	 */
 	public Set<Tag> getTags() {
 		return tags;
 	}
 	
-	/**
-	 * Public Methods
-	 */
-	
-	/**
-	 * Return the localized message by utilizing the MessageSource Service
-	 */
 	public String getLocalizedMessage() {
 		return Context.getMessageSourceService().getMessage(message);
 	}
@@ -254,6 +187,8 @@ public class Flag extends BaseOpenmrsMetadata {
 	
 	/**
 	 * Instantiates the evaluator
+	 * 
+	 * @return FlagEvaluator the class used to evaluate the given flag
 	 */
 	public FlagEvaluator instantiateEvaluator() {
 		if (evaluator != null) {
@@ -263,8 +198,7 @@ public class Flag extends BaseOpenmrsMetadata {
 			catch (Exception e) {
 				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);
 			}
-		}
-		else {
+		} else {
 			throw new APIException("FlagEvaluator is null");
 		}
 	}
@@ -276,7 +210,7 @@ public class Flag extends BaseOpenmrsMetadata {
 	 * @return true/false
 	 */
 	
-	public Boolean eval(Patient patient) {
+	public EvaluatedFlag eval(Patient patient) {
 		if (evaluator != null && patient != null) {
 			return instantiateEvaluator().eval(this, patient);
 		} else {
@@ -284,12 +218,88 @@ public class Flag extends BaseOpenmrsMetadata {
 		}
 	}
 	
-	public String evalMessage(Integer patientId){
+	public String evalMessage(Integer patientId) {
 		if (evaluator != null && patientId != null) {
 			return instantiateEvaluator().evalMessage(this, patientId);
 		} else {
 			return getLocalizedMessage();
 		}
+	}
+	
+	public String evalMessage(Patient patient, Object[] objects) {
+		String literal = "\\$\\{\\d{1,2}\\}";
+		String message = getMessage();
+		
+		if (!message.matches(".*(" + literal + ")+.*")) {
+			return message;
+		}
+		
+		try {
+			if (objects != null && objects.length > 0) {// empty resultset means no data returned
+			
+				if (objects[0] instanceof Object[]) {
+					String finalMessage = "";
+					for (Object itemObject : objects) {
+						Object[] items = (Object[]) itemObject;
+						finalMessage += extractMessage(literal, message, items) + " ";
+					}
+					
+					return finalMessage;
+				} else {
+					return extractMessage(literal, message, objects);
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
+	}
+	
+	private String extractMessage(String literal, String messageStr, Object[] objects) {
+		Matcher m = Pattern.compile(literal).matcher(messageStr);
+		while (!m.hitEnd() && m.find()) {// replace each instance until end
+			String replaceString = m.group();
+			//get index between the brackets ${indexNumber}
+			int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
+			if (index < objects.length) {// do nothing if index is invalid
+				messageStr = messageStr.replace(replaceString, objects[index].toString());
+			}
+		}
+		return messageStr;
+	}
+	
+	public String evalMessageArray(Patient patient, Object[] objects) {
+		String literal = "\\$\\{\\d{1,2}\\}";
+		String message = getMessage();
+		
+		if (!message.matches(".*(" + literal + ")+.*")) {
+			return message;
+		}
+		
+		try {
+			if (objects != null && objects.length > 0) {// empty resultset means no data returned
+				// each item in array must be array of objects
+				for (Object object : objects) {
+					Object[] items = (Object[]) object;
+					Matcher m = Pattern.compile(literal).matcher(message);
+					while (!m.hitEnd() && m.find()) {// replace each instance until end
+						String replaceString = m.group();
+						//get index between the brackets ${indexNumber}
+						int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
+						if (index < items.length) {// do nothing if index is invalid
+							message = message.replace(replaceString, items[index].toString());
+						}
+					}
+				}
+			}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return message;
 	}
 	
 	/**

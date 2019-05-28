@@ -3,23 +3,19 @@ package org.openmrs.module.patientflags;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.Flag;
-import org.openmrs.module.patientflags.Priority;
-import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
+import junit.framework.Assert;
 
 /**
  * This tests the {@link FlagService}
  */
 public class FlagServiceTest extends BaseModuleContextSensitiveTest {
-
+	
 	// TODO: create some actual methods that test the flagging of patients?
 	
 	/**
@@ -46,7 +42,6 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		Context.getService(FlagService.class).getFlaggedPatients(new ArrayList<Flag>());
 	}
 	
-	
 	/**
 	 * Tests of methods the save and retrieve flag prioritiess
 	 */
@@ -62,13 +57,13 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	/**
-	 *  Tests of methods that save and retrieve flags
+	 * Tests of methods that save and retrieve flags
 	 */
 	@Test
-	public void saveFlag_shouldSaveNewFlag() throws Exception{
+	public void saveFlag_shouldSaveNewFlag() throws Exception {
 		// insert a "test" flag
 		Context.getService(FlagService.class).saveFlag(createTestFlag());
-
+		
 		// get all flags
 		List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
 		// since there is no test data loaded, the first (and only) flag should be the "test" one we just added
@@ -97,10 +92,10 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
-	public void getFlag_shouldGetFlag() throws Exception{
+	public void getFlag_shouldGetFlag() throws Exception {
 		// create our test flag again
 		Context.getService(FlagService.class).saveFlag(createTestFlag());
-
+		
 		// fetch it again
 		List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
 		
@@ -108,12 +103,12 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		Flag flag = Context.getService(FlagService.class).getFlag(flags.get(0).getFlagId());
 		Assert.assertEquals("test", flag.getName());
 	}
-
+	
 	@Test
-	public void removeFlag_shouldRemoveFlag() throws Exception{
+	public void removeFlag_shouldRemoveFlag() throws Exception {
 		// create our test flag again
 		Context.getService(FlagService.class).saveFlag(createTestFlag());
-
+		
 		// fetch it
 		List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
 		
@@ -128,24 +123,24 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	/**
-	 *  Tests of methods that save and retrieve tags
+	 * Tests of methods that save and retrieve tags
 	 */
 	@Test
-	public void addOrUpdateTag_shouldSaveNewTag() throws Exception{
+	public void addOrUpdateTag_shouldSaveNewTag() throws Exception {
 		// insert a "test" tag
 		Context.getService(FlagService.class).saveTag(new Tag("test"));
-
+		
 		// get all tags
 		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
 		// since there is no test data loaded, the first (and only) tag should be the "test" one we just added
-		Assert.assertEquals("test",tags.get(0).getName());
+		Assert.assertEquals("test", tags.get(0).getName());
 	}
 	
 	@Test
-	public void addOrUpdateTag_shouldUpdateTag() throws Exception{
+	public void addOrUpdateTag_shouldUpdateTag() throws Exception {
 		// insert a "test" tag
 		Context.getService(FlagService.class).saveTag(new Tag("test"));
-
+		
 		// get all tags
 		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
 		
@@ -163,10 +158,10 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	}
 	
 	@Test
-	public void getTag_shouldGetTag() throws Exception{
+	public void getTag_shouldGetTag() throws Exception {
 		// insert a "test" tag
 		Context.getService(FlagService.class).saveTag(new Tag("test"));
-
+		
 		// get all tags
 		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
 		
@@ -174,12 +169,12 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		Tag tag = Context.getService(FlagService.class).getTag(tags.get(0).getTagId());
 		Assert.assertEquals("test", tag.getName());
 	}
-
+	
 	@Test
-	public void removeTag_shouldRemoveTag() throws Exception{
+	public void removeTag_shouldRemoveTag() throws Exception {
 		// insert a "test" tag
 		Context.getService(FlagService.class).saveTag(new Tag("test"));
-
+		
 		// get all tags
 		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
 		
@@ -200,10 +195,9 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	// TODO: add tests of actual filters here
 	
 	@Test
-	public void getFlagsByFilter_shouldAcceptNullParameter() throws Exception{
+	public void getFlagsByFilter_shouldAcceptNullParameter() throws Exception {
 		Context.getService(FlagService.class).getFlagsByFilter(null);
 	}
-	
 	
 	/**
 	 * Utility methods

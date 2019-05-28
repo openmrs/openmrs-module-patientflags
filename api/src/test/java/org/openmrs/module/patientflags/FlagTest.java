@@ -13,8 +13,6 @@
  */
 package org.openmrs.module.patientflags;
 
-import junit.framework.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
@@ -22,12 +20,14 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
+import junit.framework.Assert;
+
 public class FlagTest extends BaseModuleContextSensitiveTest {
-
+	
 	protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
-
+	
 	private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "flagtest-dataset.xml";
-
+	
 	/**
 	 * Tests of the Flag class
 	 */
@@ -110,14 +110,14 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	public void eval_sqlShouldReturnFalseForTestPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
-		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
+		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)).getIsFlagged());
 	}
 	
 	@Test
 	public void eval_groovyShouldReturnFalseForTestPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
-		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
+		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)).getIsFlagged());
 	}
 	
 	/**

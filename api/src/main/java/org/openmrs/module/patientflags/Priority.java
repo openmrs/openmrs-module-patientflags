@@ -18,7 +18,7 @@ import org.openmrs.BaseOpenmrsMetadata;
 /**
  * Class for Priority type
  */
-public class Priority extends BaseOpenmrsMetadata{
+public class Priority extends BaseOpenmrsMetadata {
 	
 	private Integer priorityId;
 	
@@ -40,7 +40,7 @@ public class Priority extends BaseOpenmrsMetadata{
 		this.rank = rank;
 	}
 	
-	/** 
+	/**
 	 * Custom Equals and HashCode methods
 	 */
 	

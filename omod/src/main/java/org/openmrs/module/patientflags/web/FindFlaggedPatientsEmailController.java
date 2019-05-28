@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.patientflags.web;
 
+import java.util.List;
+
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -28,24 +30,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
-
 /**
  * Controller that handles retrieving Patients that match a Flag criteria for email output
  */
 @Controller
 @RequestMapping("/module/patientflags/findFlaggedPatientsEmail.form")
 public class FindFlaggedPatientsEmailController {
-
-	/**
-	 * Generic constructor
-	 */
+	
 	public FindFlaggedPatientsEmailController() {
 	}
-	
-	/**
-	 *  Handle the request to create an flag email
-	 */
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView processRequest(@ModelAttribute("flag") Flag flag, BindingResult result, SessionStatus status) {
@@ -68,10 +61,9 @@ public class FindFlaggedPatientsEmailController {
 		ModelMap model = new ModelMap();
 		model.addAttribute("flag", flag);
 		model.addAttribute("allPatients", allPatients);
-		if(flaggedPatients != null){
+		if (flaggedPatients != null) {
 			model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
-		}
-		else{
+		} else {
 			model.addAttribute("flaggedPatients", null);
 		}
 		

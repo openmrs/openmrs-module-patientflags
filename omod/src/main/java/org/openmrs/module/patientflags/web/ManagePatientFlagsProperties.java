@@ -17,7 +17,6 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.PatientFlagsProperties;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.patientflags.web.validators.PatientFlagsPropertiesValidator;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,12 +31,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/module/patientflags/managePatientFlagsProperties.form")
 public class ManagePatientFlagsProperties {
 	
-	/** Validator for this controller */
 	private PatientFlagsPropertiesValidator validator;
 	
-	/**
-	 * Constructors
-	 */
 	public ManagePatientFlagsProperties() {
 	}
 	
@@ -46,12 +41,6 @@ public class ManagePatientFlagsProperties {
 		this.validator = validator;
 	}
 	
-	/**
-	 * Displays the form to manage the display of patient flags
-	 * 
-	 * @param model
-	 * @return new ModelAndView
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(ModelMap model) {
 		// initialize the command object
@@ -63,7 +52,7 @@ public class ManagePatientFlagsProperties {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("properties") PatientFlagsProperties properties, BindingResult result,
-	                                  SessionStatus status) {
+	        SessionStatus status) {
 		
 		// validate form entries
 		validator.validate(properties, result);
@@ -80,4 +69,3 @@ public class ManagePatientFlagsProperties {
 		return new ModelAndView("/module/patientflags/managePatientFlagsPropertiesSuccess");
 	}
 }
-

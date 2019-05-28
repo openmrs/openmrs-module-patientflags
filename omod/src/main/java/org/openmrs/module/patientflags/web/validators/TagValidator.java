@@ -27,7 +27,7 @@ import org.springframework.validation.ValidationUtils;
 public class TagValidator {
 	
 	@SuppressWarnings("rawtypes")
-    public boolean supports(Class clazz) {
+	public boolean supports(Class clazz) {
 		return Tag.class.isAssignableFrom(clazz);
 	}
 	
@@ -39,16 +39,16 @@ public class TagValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noTag");
 		
 		// make sure that the tag field isn't too large
-		if(targetTag.getName().length() > 255)
+		if (targetTag.getName().length() > 255)
 			errors.rejectValue("name", "patientflags.errors.tagTooLong");
 		
 		// if this is a new tag, make sure that a tag with the same name doesn't already exist
 		// TODO this doesn't stop you from changing the name of tag to the identical name of another tag
-		if(targetTag.getId() == null){
+		if (targetTag.getId() == null) {
 			List<Tag> tags = flagService.getAllTags();
-			if (tags != null){
-				for(Tag tag:tags){
-					if(tag.getName().equalsIgnoreCase(targetTag.getName())){
+			if (tags != null) {
+				for (Tag tag : tags) {
+					if (tag.getName().equalsIgnoreCase(targetTag.getName())) {
 						errors.rejectValue("tag", "patientflags.errors.tagNameExists");
 						break;
 					}

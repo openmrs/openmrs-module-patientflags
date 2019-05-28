@@ -49,20 +49,11 @@ import org.springframework.web.servlet.ModelAndView;
 @SessionAttributes("tag")
 public class EditTagController {
 	
-	/** Validator for this controller */
 	private TagValidator validator;
 	
-	/**
-	 * Generic Constructor
-	 */
 	public EditTagController() {
 	}
 	
-	/**
-	 * Constructor that registers validator
-	 * 
-	 * @param validator
-	 */
 	@Autowired
 	public EditTagController(TagValidator validator) {
 		this.validator = validator;
@@ -101,14 +92,6 @@ public class EditTagController {
 		return Context.getService(FlagService.class).getAllDisplayPoints();
 	}
 	
-	/**
-	 * Displays the form to edit (or add) a Tag
-	 * 
-	 * @param request
-	 * @param model
-	 * @return new ModelAndView
-	 * @throws ServletRequestBindingException
-	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showForm(HttpServletRequest request, ModelMap model) throws ServletRequestBindingException {
 		Tag tag;
@@ -124,14 +107,6 @@ public class EditTagController {
 		return new ModelAndView("/module/patientflags/editTag", model);
 	}
 	
-	/**
-	 * Processes the form to edit (or add) a Flag
-	 * 
-	 * @param flag the flag to add/update
-	 * @param result
-	 * @param status
-	 * @return new ModelAndView
-	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("tag") Tag tag, BindingResult result, SessionStatus status) {
 		

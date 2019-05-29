@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.EvaluatedFlag;
+import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.web.controller.PortletController;
 
@@ -44,18 +44,17 @@ public class FlagPatientOverviewPortletController extends PortletController {
 		Integer patientID = (Integer) model.get("patientId");
 		Patient patient = Context.getPatientService().getPatient(patientID);
 		
-		List<EvaluatedFlag> results = new ArrayList<>();
+		List<Flag> results = new ArrayList<Flag>();
 		FlagService flagService = Context.getService(FlagService.class);
 		
-		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(),
-		    "Patient Dashboard Overview");
+		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
 		
 		List<Map<String, Object>> fgl = new ArrayList<Map<String, Object>>();
-		for (EvaluatedFlag flag : results) {
+		for (Flag flag : results) {
 			Map<String, Object> mapFp = new HashMap<String, Object>();
-			
+
 			mapFp.put("flag", flag);
-			mapFp.put("flagMessage", flag.getFlagMessage());
+			mapFp.put("flagMessage", flag.evalMessage(patientID));
 			
 			fgl.add(mapFp);
 		}

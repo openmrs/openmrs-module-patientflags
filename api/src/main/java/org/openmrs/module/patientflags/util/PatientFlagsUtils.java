@@ -20,23 +20,21 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 
+
 public class PatientFlagsUtils {
 	
 	/**
-	 * Utility function that, given an list of tag names, creates a set of the tags references by
-	 * those names. The tag names are case insensitive.
-	 * 
-	 * @param names tag names to associate with set members
-	 * @return tag set
+	 * Utility function that, given an list of tag names, creates a set of the tags references by those names.
+	 * The tag names are case insensitive.
 	 */
-	public static Set<Tag> createTagSet(String[] names) {
+	public static Set<Tag> createTagSet(String [] names){
 		
 		FlagService flagService = Context.getService(FlagService.class);
 		Set<Tag> results = new HashSet<Tag>();
 		
-		for (String name : names) {
+		for(String name:names){
 			Tag tag = flagService.getTag(name);
-			if (tag != null) {
+			if(tag != null){
 				results.add(tag);
 			}
 		}

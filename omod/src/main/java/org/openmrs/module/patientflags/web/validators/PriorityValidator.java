@@ -23,7 +23,7 @@ import org.springframework.validation.ValidationUtils;
 public class PriorityValidator {
 	
 	@SuppressWarnings("rawtypes")
-	public boolean supports(Class clazz) {
+    public boolean supports(Class clazz) {
 		return Priority.class.isAssignableFrom(clazz);
 	}
 	
@@ -35,11 +35,11 @@ public class PriorityValidator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rank", "patientflags.errors.noRank");
 		
 		// make sure that the name field isn't too large
-		if (priorityToValidate.getName().length() > 255)
+		if(priorityToValidate.getName().length() > 255)
 			errors.rejectValue("name", "patientflags.errors.priorityNameTooLong");
 		
 		// make sure that the style field isn't too large
-		if (priorityToValidate.getStyle().length() > 255)
+		if(priorityToValidate.getStyle().length() > 255)
 			errors.rejectValue("style", "patientflags.errors.styleTooLong");
 	}
 }

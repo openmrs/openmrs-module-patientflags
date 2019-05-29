@@ -26,7 +26,7 @@ public class DisplayPoint extends BaseOpenmrsMetadata {
 	public DisplayPoint() {
 	}
 	
-	public DisplayPoint(String name) {
+	public DisplayPoint(String name){
 		setName(name);
 	}
 	
@@ -52,6 +52,10 @@ public class DisplayPoint extends BaseOpenmrsMetadata {
 			return super.hashCode();
 		return getDisplayPointId().hashCode();
 	}
+	
+	/**
+	 * Getters and Setters
+	 */
 	
 	public void setDisplayPointId(Integer displayPointId) {
 		this.displayPointId = displayPointId;

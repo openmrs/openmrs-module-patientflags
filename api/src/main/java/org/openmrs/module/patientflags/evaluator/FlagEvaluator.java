@@ -15,7 +15,6 @@ package org.openmrs.module.patientflags.evaluator;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
-import org.openmrs.module.patientflags.EvaluatedFlag;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
@@ -32,7 +31,7 @@ public interface FlagEvaluator {
 	 * @param patient the patient to evaluate
 	 * @return true/false
 	 */
-	public EvaluatedFlag eval(Flag flag, Patient patient);
+	public Boolean eval(Flag flag, Patient patient);
 	
 	/**
 	 * Evaluates the given cohort against the given flag

@@ -19,8 +19,7 @@ import java.util.List;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.Extension;
-import org.openmrs.module.patientflags.EvaluatedFlag;
-import org.openmrs.module.patientflags.Priority;
+import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
 
 public class FlagPatientDashboardHeaderExt extends Extension {
@@ -38,17 +37,14 @@ public class FlagPatientDashboardHeaderExt extends Extension {
 		
 		Patient patient = Context.getPatientService().getPatient(patientID);
 		
-		List<EvaluatedFlag> results = new ArrayList<>();
+		List<Flag> results = new ArrayList<Flag>();
 		
-		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(),
-		    "Patient Dashboard Header");
+		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Header");
 		
 		if (!results.isEmpty()) {
 			String content = "<TABLE><TR><TD>";
-			for (EvaluatedFlag flag : results) {
-				Priority priority = flag.getFlag().getPriority();
-				content = content + "<SPAN " + (priority != null ? priority.getStyle() : "") + ">"
-				        + flag.getFlag().getName() + "</SPAN>, ";
+			for (Flag flag : results) {
+				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">" + flag.getName() + "</SPAN>, ";
 			}
 			// cut off the trailing delimiter
 			content = content.substring(0, content.length() - 2);

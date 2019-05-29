@@ -29,13 +29,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class ManagePrioritiesController {
-	
+
 	/**
 	 * Displays a list of Priorities, and allows for editing of ranks
 	 * 
 	 * @return new ModelAndView
 	 */
-	
+
 	@RequestMapping("/module/patientflags/managePriorities.list")
 	public ModelAndView showPriorities() {
 		ModelMap model = new ModelMap();

@@ -20,8 +20,7 @@ import org.openmrs.module.patientflags.Tag;
 /**
  * Compares Flags based on the Name (alphabetized)
  */
-public class TagAlphaComparator implements Comparator<Tag> {
-	
+public class TagAlphaComparator implements Comparator<Tag>{
 	public int compare(Tag o1, Tag o2) {
 		
 		return o1.getName().compareTo(o2.getName());

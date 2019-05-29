@@ -2,15 +2,17 @@
 <module configVersion="1.0">
 	
 	<!-- Patient Flags Module Properties -->
-	<id>${project.parent.artifactId}</id>
-	<name>${project.parent.name}</name>
-	<version>${project.parent.version}</version>
-	<package>org.openmrs.module.patientflags</package>
+	<id>@MODULE_ID@</id>
+	<name>@MODULE_NAME@</name>
+	<version>@MODULE_VERSION@</version>
+	<package>@MODULE_PACKAGE@</package>
 	<author>Mark Goodrich</author>
 	<description>Adds the ability to flag patient records</description>
-	<activator>org.openmrs.module.patientflags.PatientFlagsModuleActivator</activator>
+	<activator>@MODULE_PACKAGE@.PatientFlagsModuleActivator</activator>
 
-	<require_version>${openmrsPlatformVersion}</require_version>
+	<require_version>1.11.4, 1.10.2 - 1.10.*, 1.9.9 - 1.9.*</require_version>
+
+	<!-- /Patient Flags Module Properties -->
 	
 	<!-- Required Modules -->
 
@@ -21,10 +23,10 @@
 	</require_modules>
 
 	<!-- Aware of Modules-->
-	<!-- <aware_of_modules>
+	<aware_of_modules>
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 		<aware_of_module>org.openmrs.module.owa</aware_of_module>
-	</aware_of_modules> -->
+	</aware_of_modules>
 
 	<!-- Internationalization -->
 	<messages>
@@ -38,10 +40,7 @@
 	
 	<!-- Mapping File for the Flag Table -->
 	<mappingFiles>
-		DisplayPoint.hbm.xml 
-		Flag.hbm.xml 
-		Priority.hbm.xml 
-		Tag.hbm.xml
+		DisplayPoint.hbm.xml Flag.hbm.xml Priority.hbm.xml Tag.hbm.xml
 	</mappingFiles>
 	
 	<!--  Extension Points -->
@@ -81,16 +80,4 @@
 		<lang>en</lang>
 		<file>messages.properties</file>
 	</messages>
-	
-	<globalProperty>
-		<property>patientflags.patientHeaderDisplay</property>
-		<defaultValue>true</defaultValue>
-		<description>DO NOT MODIFY HERE: use manage flag global properties to modify; true/false whether or not to display flags in the Patient Dashboard header</description>
-	</globalProperty>
-	
-	<globalProperty>
-		<property>patientflags.patientOverviewDisplay</property>
-		<defaultValue>true</defaultValue>
-		<description>DO NOT MODIFY HERE: use manage flag global properties to modify; true/false whether or not to display flags in the Patient Dashboard overview</description>
-	</globalProperty>
 </module>

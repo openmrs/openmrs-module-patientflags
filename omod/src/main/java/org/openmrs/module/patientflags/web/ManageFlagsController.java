@@ -62,6 +62,12 @@ public class ManageFlagsController {
 		});
 	}
 	
+	/**
+	 * Displays a list of all Patient Flags
+	 * 
+	 * @return new ModelAndView
+	 */
+	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView showFlags() {
 		ModelMap model = new ModelMap();
@@ -75,6 +81,14 @@ public class ManageFlagsController {
 		return new ModelAndView("/module/patientflags/manageFlags", model);
 	}
 	
+	/**
+	 * Handles a request to filter the results
+	 * 
+	 * @param filterTags
+	 * @param result
+	 * @param status
+	 * @return
+	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processFilter(@ModelAttribute("filter") Filter filter, BindingResult result, SessionStatus status) {
 		ModelMap model = new ModelMap();

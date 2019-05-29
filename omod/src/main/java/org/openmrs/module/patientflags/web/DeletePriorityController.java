@@ -35,15 +35,15 @@ public class DeletePriorityController {
 		
 		Integer priorityId = ServletRequestUtils.getIntParameter(request, "priorityId");
 		//try{
-		Context.getService(FlagService.class).purgePriority(priorityId);
+			Context.getService(FlagService.class).purgePriority(priorityId);
 		//}
-		//	catch(APIException e){
-		// if there's an exception, it's probably because tried to delete an "in-use" flag
+	//	catch(APIException e){
+			// if there's an exception, it's probably because tried to delete an "in-use" flag
 		//	ModelMap map = new ModelMap();
-		//String error = "Can't delete";
-		//map.addAttribute("error",error);
-		
-		//return new ModelAndView("redirect:/module/patientflags/managePriorities.list", map);
+			//String error = "Can't delete";
+			//map.addAttribute("error",error);
+			
+			//return new ModelAndView("redirect:/module/patientflags/managePriorities.list", map);
 		//}
 		
 		return new ModelAndView("redirect:/module/patientflags/managePriorities.list");

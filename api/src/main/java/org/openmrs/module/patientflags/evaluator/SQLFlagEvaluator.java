@@ -23,7 +23,6 @@ import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.EvaluatedFlag;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
@@ -35,11 +34,15 @@ import org.openmrs.module.patientflags.FlagValidationResult;
 public class SQLFlagEvaluator implements FlagEvaluator {
 	
 	private Log log = LogFactory.getLog(this.getClass());
-	
+
 	/**
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
-	public EvaluatedFlag eval(Flag flag, Patient patient) {
+	public Boolean eval(Flag flag, Patient patient) {
+		
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate SQL flag " + flag.getName() + " against voided patient");
+		
 		String criteria = flag.getCriteria();
 		
 		// pull out the "*.patient_id" clause
@@ -47,35 +50,31 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		Matcher matcher = Pattern.compile("(\\w+\\.patient_id)").matcher(criteria);
 		matcher.find(); // just check for the first occurrence of the pattern... is this enough?
 		String patientIdColumn = matcher.group();
-		
+			
 		// since we are going to append a where/and to the end of this sql statement, we need to trim off trailing ";" and any trailing whitespace
 		matcher = Pattern.compile(";?\\s*$").matcher(criteria);
-		
-		// split query by filter to allow adding patient id as first arg for performance improvement of filters
-		String[] query = criteria.split(" where ");
-		
-		// create the criteria for a single patient by appending a "where" or "and" remaining clause
-		String toEval = query[0] + " WHERE " + patientIdColumn + " = " + patient.getPatientId()
-		        + (query.length == 2 ? (" AND " + query[1]) : "");
+		criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
+			
+		// create the criteria for a single patient by appending a "where" or "and" clause
+		String toEval = criteria + (criteria.matches("(?i)(?s).*where.*") ? " and " : " where ") + patientIdColumn + " = "
+			+ patient.getPatientId();
 		
 		try {
 			Context.addProxyPrivilege("SQL Level Access");
 			List<List<Object>> resultSet = Context.getAdministrationService().executeSQL(toEval, true);
 			// if the list is empty, return false, otherwise, return true
-			return resultSet.isEmpty() ? new EvaluatedFlag(false, patient, flag, "", null) // not evaluated
-			        : new EvaluatedFlag(true, patient, flag, flag.evalMessage(patient, resultSet.get(0).toArray()),
-			                resultSet.get(0));
+			return !resultSet.isEmpty();
 		}
 		catch (Exception e) {
 			throw new APIException("Unable to evaluate SQL Flag " + flag.getName() + ", " + e.getLocalizedMessage(), e);
 		}
-		finally {
+		finally{
 			Context.removeProxyPrivilege("SQL Level Access");
 		}
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#evalCohort(Flag, Cohort)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort)
 	 */
 	public Cohort evalCohort(Flag flag, Cohort cohort) {
 		
@@ -88,7 +87,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		catch (Exception e) {
 			throw new APIException("Unable to evaluate SQL Flag " + flag.getName() + ", " + e.getLocalizedMessage(), e);
 		}
-		finally {
+		finally{
 			Context.removeProxyPrivilege("SQL Level Access");
 		}
 		
@@ -98,7 +97,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 			Integer patient_id = (Integer) row.get(0);
 			
 			// only add patients that haven't been voided
-			if (!Context.getPatientService().getPatient(patient_id).isVoided())
+			if(!Context.getPatientService().getPatient(patient_id).isVoided())
 				resultCohort.addMember((Integer) row.get(0));
 		}
 		
@@ -134,22 +133,21 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		// if we've gotten this far, mark the criteria as valid
 		return new FlagValidationResult(true);
 	}
-	
 	/**
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#evalMessage(Flag, int)
 	 */
 	public String evalMessage(Flag flag, int patientId) {
 		String literal = "\\$\\{\\d{1,2}\\}";
 		String message = flag.getMessage();
-		
-		if (!message.matches(".*(" + literal + ")+.*")) {
+
+		if(!message.matches(".*("+literal+")+.*")){
 			return message;
 		}
 		
-		log.info("Replacing values in " + message);
+		log.info("Replacing values in "+message);
 		
 		Patient p = Context.getPatientService().getPatient(patientId);
-		if (p.isVoided())
+		if(p.isVoided())
 			throw new APIException("VOIDED PATIENT");
 		
 		String criteria = flag.getCriteria();
@@ -159,44 +157,44 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		Matcher matcher = Pattern.compile("(\\w+\\.patient_id)").matcher(criteria);
 		matcher.find(); // just check for the first occurrence of the pattern... is this enough?
 		String patientIdColumn = matcher.group();
-		
+			
 		// since we are going to append a where/and to the end of this sql statement, we need to trim off trailing ";" and any trailing whitespace
 		matcher = Pattern.compile(";?\\s*$").matcher(criteria);
 		criteria = matcher.replaceFirst(""); // replace first, because there should only be one occurrence
-		
+			
 		// create the criteria for a single patient by appending a "where" or "and" clause
 		String toEval = criteria + (criteria.matches("(?i)(?s).*where.*") ? " and " : " where ") + patientIdColumn + " = "
-		        + p.getPatientId();
+			+ p.getPatientId();
 		
 		try {
 			Context.addProxyPrivilege("SQL Level Access");
 			List<List<Object>> resultSet = Context.getAdministrationService().executeSQL(toEval, true);
 			// list would for sure contain one only one patient
-			if (!resultSet.isEmpty()) {// empty resultset means no one matched the criteria
+			if(!resultSet.isEmpty()){// empty resultset means no one matched the criteria
 				Matcher m = Pattern.compile(literal).matcher(message);
 				while (!m.hitEnd() && m.find()) {// replace each instance until end
 					String replaceString = m.group();
-					try {
+					try{
 						//get index between the brackets ${indexNumber}
 						int index = Integer.parseInt(replaceString.replace("${", "").replace("}", ""));
-						if (index < resultSet.get(0).size()) {// do nothing if index is invalid
+						if(index < resultSet.get(0).size()){// do nothing if index is invalid
 							message = message.replace(replaceString, resultSet.get(0).get(index).toString());
-							log.info("Replaced " + replaceString + " ON " + index);
+							log.info("Replaced "+replaceString +" ON "+index);
 						}
 					}
-					catch (Exception e) {
+					catch(Exception e){
 						//do nothing. text would remain unreplaced
 					}
 				}
-			} else {
+			}
+			else {
 				log.info("result set empty");
 			}
 		}
 		catch (Exception e) {
-			throw new APIException("Unable to evaluate SQL Flag Message" + flag.getName() + ", " + e.getLocalizedMessage(),
-			        e);
+			throw new APIException("Unable to evaluate SQL Flag Message" + flag.getName() + ", " + e.getLocalizedMessage(), e);
 		}
-		finally {
+		finally{
 			Context.removeProxyPrivilege("SQL Level Access");
 		}
 		

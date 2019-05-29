@@ -1,15 +1,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<parent>
-        <groupId>org.openmrs.maven.parents</groupId>
-        <artifactId>maven-parent-openmrs-module</artifactId>
-        <version>1.1.0</version>
-    </parent>
-    
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
-	<version>2.1.0</version>
+	<version>3.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Patient Flags Module</name>
 	<description>Parent project for Patient Flags Module</description>
@@ -20,15 +14,9 @@
 		<connection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</developerConnection>
 		<url>https://github.com/openmrs/openmrs-module-patientflags/</url>
-	  	<tag>2.1.0</tag>
-  	</scm>
+	  <tag>HEAD</tag>
+  </scm>
 
-	<modules>
-		<module>api</module>
-		<module>omod</module>
-		<module>owa</module>
-	</modules>
-	
 	<distributionManagement>
 		<repository>
 			<id>openmrs-repo-modules</id>
@@ -42,26 +30,49 @@
 		</snapshotRepository>
 	</distributionManagement>
 
+	<modules>
+		<module>api</module>
+		<module>omod</module>
+		<module>owa</module>
+	</modules>
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-                <groupId>org.openmrs.distro</groupId>
-                <artifactId>referenceapplication</artifactId>
-                <version>${referenceApplicationVersion}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-			<dependency>
-			    <groupId>org.openmrs.module</groupId>
-			    <artifactId>legacyui-omod</artifactId>
-			    <version>${legacyuiVersion}</version>
-			    <scope>provided</scope>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>jar</type>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
-			    <groupId>org.openmrs.module</groupId>
-			    <artifactId>legacyui-api</artifactId>
-			    <version>${legacyuiVersion}</version>
-			    <scope>provided</scope>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>jar</type>
+				<scope>provided</scope>
+			</dependency>
+
+			<dependency>
+				<groupId>org.openmrs.api</groupId>
+				<artifactId>openmrs-api</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.web</groupId>
+				<artifactId>openmrs-web</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.test</groupId>
+				<artifactId>openmrs-test</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>pom</type>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
@@ -69,13 +80,14 @@
 				<version>${webservices.rest-omod.version}</version>
 				<scope>provided</scope>
 			</dependency>
-			<!-- <dependency>
+
+			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>webservices.rest-omod-common</artifactId>
 				<version>${webservices.rest-omod.version}</version>
 				<classifier>tests</classifier>
 				<scope>test</scope>
-			</dependency> -->
+			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>uiframework-api</artifactId>
@@ -88,30 +100,24 @@
 				<version>${metadatadeployVersion}</version>
 				<scope>provided</scope>
 			</dependency>
-			<!-- <dependency>
+			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>metadatasharing-api</artifactId>
 				<version>${metadatasharingVersion}</version>
 				<scope>test</scope>
-			</dependency> -->
-			<dependency>
-			  <groupId>joda-time</groupId>
-			  <artifactId>joda-time</artifactId>
-			  <version>2.10.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openmrsPlatformVersion>2.1.3</openmrsPlatformVersion>
-		<referenceApplicationVersion>2.8.0</referenceApplicationVersion>
-		<legacyuiVersion>1.4.0</legacyuiVersion>
-		<uiframeworkVersion>3.13.0</uiframeworkVersion>
-		<metadatadeployVersion>1.10.0</metadatadeployVersion>
-		<metadatasharingVersion>1.5.0</metadatasharingVersion>
-		<webservices.rest-omod.version>2.21.0</webservices.rest-omod.version>
+		<openMRSVersion>1.9.9</openMRSVersion>
+		<openMRSMinorVersion>1.9</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<uiframeworkVersion>3.11.0</uiframeworkVersion>
+		<metadatadeployVersion>1.8.1</metadatadeployVersion>
+		<metadatasharingVersion>1.2.2</metadatasharingVersion>
+		<webservices.rest-omod.version>2.13</webservices.rest-omod.version>
 	</properties>
 
 	<build>
@@ -121,15 +127,15 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>1.8</target>
-						<source>1.8</source>
+						<target>1.5</target>
+						<source>1.5</source>
 					</configuration>
 				</plugin>
-		<!-- 		<plugin>
+				<plugin>
 					<groupId>org.openmrs.maven.plugins</groupId>
 					<artifactId>maven-openmrs-plugin</artifactId>
 					<version>1.0.1</version>
-				</plugin> -->
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -139,12 +145,6 @@
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
 			<url>http://mavenrepo.openmrs.org/nexus/content/repositories/public</url>
-		</repository>
-		<repository>
-			<id>central</id>
-			<name>Maven Repository Switchboard</name>
-			<layout>default</layout>
-			<url>http://repo1.maven.org/maven2</url>
 		</repository>
 	</repositories>
 
@@ -158,4 +158,71 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
+
+	<!-- different profiles for building/testing against different version of openmrs -->
+	<profiles>
+
+		<profile>
+			<id>openmrs-1.9</id>
+
+		    <properties>
+				<openMRSVersion>1.9.9</openMRSVersion>
+				<openMRSMinorVersion>1.9</openMRSMinorVersion>
+
+			</properties>
+		</profile>
+
+		<profile>
+			<id>openmrs-1.10</id>
+
+		    <properties>
+				<openMRSVersion>1.10.2</openMRSVersion>
+				<openMRSMinorVersion>1.10</openMRSMinorVersion>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>openmrs-1.11</id>
+
+		    <properties>
+				<openMRSVersion>1.11.7</openMRSVersion>
+				<openMRSMinorVersion>1.11</openMRSMinorVersion>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>openmrs-2.0</id>
+
+			<properties>
+				<openMRSVersion>2.0.4</openMRSVersion>
+				<openMRSMinorVersion>2.0</openMRSMinorVersion>
+				<legacyuiVersion>1.2.3</legacyuiVersion>
+				<omodHbmConfig>
+					DisplayPoint.hbm.xml
+					Flag.hbm.xml
+					Priority.hbm.xml
+					Tag.hbm.xml
+				</omodHbmConfig>
+			</properties>
+
+			<dependencyManagement>
+				<dependencies>
+					<dependency>
+					    <groupId>org.openmrs.module</groupId>
+					    <artifactId>legacyui-omod</artifactId>
+					    <version>${legacyuiVersion}</version>
+					    <scope>provided</scope>
+					</dependency>
+					<dependency>
+					    <groupId>org.openmrs.module</groupId>
+					    <artifactId>legacyui-api</artifactId>
+					    <version>${legacyuiVersion}</version>
+					    <scope>provided</scope>
+					</dependency>
+				</dependencies>
+			</dependencyManagement>
+      </profile>
+
+
+	</profiles>
 </project>                  

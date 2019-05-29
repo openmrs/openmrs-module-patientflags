@@ -45,13 +45,13 @@ public class FlagAdminExt extends AdministrationSectionExt {
 		
 		User currentUser = Context.getAuthenticatedUser();
 		
-		if (currentUser.isSuperUser() || currentUser.hasPrivilege(PatientFlagsConstants.PRIV_MANAGE_FLAGS)) {
+		if (currentUser.hasPrivilege(PatientFlagsConstants.PRIV_MANAGE_FLAGS)) {
 			map.put("module/patientflags/manageFlags.form", "patientflags.manageFlags");
 			map.put("module/patientflags/manageTags.list", "patientflags.manageTags");
 			map.put("module/patientflags/managePriorities.list", "patientflags.managePriorities");
 			map.put("module/patientflags/managePatientFlagsProperties.form", "patientflags.managePatientFlagsProperties");
 		}
-		if (currentUser.isSuperUser() || currentUser.hasPrivilege(PatientFlagsConstants.PRIV_TEST_FLAGS)) {
+		if (currentUser.hasPrivilege(PatientFlagsConstants.PRIV_TEST_FLAGS)) {
 			map.put("module/patientflags/findFlaggedPatients.form", "patientflags.findFlaggedPatients");
 		}
 		

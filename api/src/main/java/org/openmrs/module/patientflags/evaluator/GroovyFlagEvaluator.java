@@ -17,7 +17,6 @@ import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.patientflags.EvaluatedFlag;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
@@ -29,18 +28,21 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 	/**
 	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
 	 */
-	public EvaluatedFlag eval(Flag flag, Patient patient) {
+	public Boolean eval(Flag flag, Patient patient) {
+		
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate Groovy flag " + flag.getName() + " against voided patient");
+		
 		// create a Cohort that contains just the patient to test, and then evaluate that Cohort
 		Cohort cohort = new Cohort();
 		cohort.addMember(patient.getId());
 		
 		Cohort resultCohort = evalCohort(flag, cohort);
-		return resultCohort.isEmpty() ? new EvaluatedFlag(false, patient, flag, "", null) : new EvaluatedFlag(true, patient,
-		        flag, flag.getMessage(), null);
+		return !resultCohort.isEmpty();
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#evalCohort(Flag, Cohort)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort)
 	 */
 	public Cohort evalCohort(Flag flag, Cohort cohort) {
 		
@@ -88,8 +90,7 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 			// (note that in this case we pass the current user to the thread, because we want to restrict flag validation based on the user-
 			//  a user can evaluate a flag even if she doesn't have all the required privileges, but shouldn't be able to create/update a flag
 			//  the does something she doesn't have privileges to do herself)
-			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, new Cohort(),
-			        Context.getAuthenticatedUser());
+			GroovyFlagEvaluatorThread evaluatorThread = new GroovyFlagEvaluatorThread(flag, new Cohort(), Context.getAuthenticatedUser());
 			new Thread(evaluatorThread).start();
 			
 			// attempt to fetch result
@@ -111,7 +112,7 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 			}
 		}
 	}
-	
+
 	@Override
 	public String evalMessage(Flag flag, int patientId) {
 		return flag.getMessage();

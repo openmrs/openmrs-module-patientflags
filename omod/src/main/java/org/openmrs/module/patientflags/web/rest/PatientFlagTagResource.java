@@ -42,6 +42,11 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> 
 	}
 	
 	@Override
+	public void delete(Tag delegate, String reason, RequestContext context) throws ResponseException {
+		getService().retireTag(delegate, reason);
+	}
+	
+	@Override
 	public void purge(Tag tag, RequestContext arg1) throws ResponseException {
 		getService().purgeTag(tag.getTagId());
 	}
@@ -77,16 +82,19 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> 
 			// metadata
 			description.addProperty("tagId");
 			description.addProperty("name");
-			description.addProperty("roles");
-			description.addProperty("displayPoints");
 			
 			// links
 			description.addSelfLink();
 			if (rep instanceof DefaultRepresentation) {
 				description.addLink("full", ".?v=" + RestConstants.REPRESENTATION_FULL);
+				description.addProperty("roles", Representation.REF);
+				description.addProperty("displayPoints", Representation.REF);
+				description.addProperty("auditInfo", Representation.REF);
 			} else {
 				// Relies on a getter method annotated with @PropertyGetter
 				description.addProperty("auditInfo");
+				description.addProperty("roles");
+				description.addProperty("displayPoints");
 			}
 		}
 		

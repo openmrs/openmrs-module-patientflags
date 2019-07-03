@@ -69,4 +69,30 @@ header .logo img {
 .instructions {
     align-self: center;
 }
+.tabs{
+    list-style-type: none;
+    border-bottom: 1px solid grey;
+    padding-bottom:10px;
+}
+.tabs li{
+    display:inline;
+    margin:10px;
+    padding:5px;
+}
+.tabs li.active{
+    background-color: #363463;
+    color:white;
+}
+.selectionContainer{
+    border:2px solid #ccc; 
+    width:300px; 
+    height: 100px; 
+    overflow-y: scroll;
+
+}
+.stylePriority{
+    background-color:#efefef;
+    border-radius: 5px;
+    padding:10px;
+}
 

@@ -1,19 +1,26 @@
 {
   "version": "0.1.0",
-  "name": "patientflags",
-  "description": "GUI for OpenMRS Patient Flags Module",
+  "name": "Patient Flags",
+  "description": "OWA for Patient Flags Module",
   "launch_path": "index.html",
   "icons": {
     "48": "/img/omrs-button.png"
   },
   "developer": {
-    "name": "openmrs",
-    "url": "https://github.com/openmrs/openmrs-module-patientflags"
+    "name": "rishavr",
+    "url": "https://github.com/rishavr/openmrs-owa-patientflags"
   },
   "default_locale": "en",
     "activities": {
       "openmrs": {
         "href": "*"
-      }
+      },
+    "folderName":"patientflags",
+	  "baseUrl":null,
+	  "launchUrl":null,
+	  "launch_path":"index.html",
+	  "installs_allowed_from":null,
+	  "default_locale":"en",
+	  "deployed.owa.name":null
     }
 }

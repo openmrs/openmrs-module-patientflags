@@ -4,16 +4,27 @@
 
 This repository contains the patientflags OpenMRS Open Web App.
 
-> Add a description of what your app does here.
+## Pending Tasks
 
-For further documentation about OpenMRS Open Web Apps see
-[the wiki page](https://wiki.openmrs.org/display/docs/Open+Web+Apps+Module).
+1. Usage of Providers to implement Services. 
+2. Store to implement DTOs. 
+3. Routes for dynamic rendering of tabs. 
+4. Splitting REST Calls in each component into Services. 
+
+## Dependencies List 
+
+*Please see package.json file. 
+
+*Modals are rendered using popup.js 
+*Table is rendered using react-table
+
+*We also use the Font-Awesome React library to render icons. 
 
 ## Development
 
 ### Production Build
 
-You will need NodeJS 4+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
+You will need NodeJS 6+ installed to do this. See the install instructions [here](https://nodejs.org/en/download/package-manager/).
 
 Once you have NodeJS installed, install the dependencies (first time only):
 
@@ -38,14 +49,14 @@ To deploy directly to your local Open Web Apps directory, run:
 npm run build:deploy
 ````
 
-This will build and deploy the app to the `/home/yassin/openmrs/openmrs-platform/owa`
+This will build and deploy the app to the `C:/Users/Rishav/openmrs/openmrs-platform/owa`
 directory. To change the deploy directory, edit the `LOCAL_OWA_FOLDER` entry in
 `config.json`. If this file does not exists, create one in the root directory
 that looks like:
 
 ```js
 {
-  "LOCAL_OWA_FOLDER": "/home/yassin/openmrs/openmrs-platform/owa"
+  "LOCAL_OWA_FOLDER": "C:/Users/Rishav/openmrs/openmrs-platform/owa"
 }
 ```
 
@@ -57,7 +68,7 @@ will need the `APP_ENTRY_POINT` entry in your `config.json` file:
 
 ```js
 {
-  "LOCAL_OWA_FOLDER": "/home/yassin/openmrs/openmrs-platform/owa",
+  "LOCAL_OWA_FOLDER": "C:/Users/Rishav/openmrs/openmrs-platform/owa",
   "APP_ENTRY_POINT": "http://localhost:8080/openmrs/owa/patientflags/index.html"
 }
 ```

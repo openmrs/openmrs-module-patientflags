@@ -6,7 +6,19 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-import angular from 'angular'
-import Main from './main/main'
+import React from 'react';
+import {render} from 'react-dom';
+import {Router, Route, hashHistory} from 'react-router'
+import {Provider} from 'react-redux'
+import createStore from './redux-store'
+import routes from './routes'
 
-export default angular.module('main', [ Main.name ])
+let store = createStore();
+
+render((
+         <Provider store={store}>
+           <Router history={hashHistory}>
+             {routes(store)}
+           </Router>
+         </Provider>
+       ), document.getElementById('app'));

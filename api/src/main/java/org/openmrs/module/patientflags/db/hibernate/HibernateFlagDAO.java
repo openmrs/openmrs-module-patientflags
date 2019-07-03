@@ -155,6 +155,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	@SuppressWarnings("unchecked")
 	public List<Tag> getAllTags() throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
+		criteria.add(Restrictions.eq("retired", false));
 		return (List<Tag>) criteria.list();
 	}
 	
@@ -233,6 +234,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	@SuppressWarnings("unchecked")
 	public List<Priority> getAllPriorities() throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Priority.class);
+		criteria.add(Restrictions.eq("retired", false));
 		return (List<Priority>) criteria.list();
 	}
 	

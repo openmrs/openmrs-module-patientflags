@@ -3,90 +3,54 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Popup from 'reactjs-popup';
 import EditPriorities from './Modals/EditPriorities';
-// FontAwesome Icon Import - Import for Icon Rendering
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
-import { faExclamation } from '@fortawesome/free-solid-svg-icons';
-import { faWheelchair } from '@fortawesome/free-solid-svg-icons';
+import {connect} from 'react-redux';
+import {getPriorities,updateTableData} from '../actions/priorityActions';
+
 class Priority extends Component{
-    cols=[{Header:'Name',accessor:'name',Cell: row => <div style={{ 'text-align':'center' }}><Popup trigger={<button className="btn btn-success"> {row.value} </button>} modal closeOnDocumentClick><a className="close">x</a><EditPriorities dataFromChild={this.state.tableDataList[row.index]} callBackFromParent={this.editCallback.bind(this)} index={row.index}/></Popup></div>},{Header:'Indicator',accessor:'style',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Rank',accessor:'rank',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Action',accessor:'deleteTag',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
+    cols=[{Header:'Name',accessor:'name',Cell: row => <div style={{ 'text-align':'center' }}>{row.value}</div>},{Header:'Indicator',accessor:'style',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Rank',accessor:'rank',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Actions',accessor:'deletePriority',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
     
     state={
         testVar:'test',
-        tableData:[
-        ],
-        tableDataList:[],
-        isLoading: true,
+        tableData:[],
         message:'',
+        tableDataList:[]
     };
 
     componentDidMount(){
-        // Get Tag Details Service 
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/priority/?v=full'; // TODO: pick up base URL from {Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'GET',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
+        this.props.dispatch(getPriorities());
+        if(this.props.tableDataList.length!==0){
+            var index=0;
+            for (var property in this.props.tableDataList){
+                this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                this.props.tableDataList[property]['deletePriority']=this.buttonGenerator(++index,this.props.tableDataList[property]);
             }
-        }).then(res => res.json())
-        .then((data) => {
-            var resultData = data['results'];
-            for (var property in resultData){
-                if(resultData.hasOwnProperty(property)){          
-                    resultData[property]['style']=this.colorIndicator(resultData[property].style);
-                    resultData[property]["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length);
-                    this.setState({
-                        tableDataList: [...this.state.tableDataList, resultData[property]]
-                      })
-                }     
-            }
-            console.log(resultData['0']);
-            console.log(Object.keys(resultData['0']));
-            
-            console.log(this.state.tableDataList);
-        })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
-        console.log(this.state.message);
-        // End of Service 
+            this.setState({
+                tableDataList:this.props.tableDataList
+            })
+        }
     }
-    
+    componentDidUpdate(prevProps){
+        if(prevProps.tableDataList!== this.props.tableDataList){
+            var index=0;
+            for (var property in this.props.tableDataList){
+                this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                this.props.tableDataList[property]['deletePriority']=this.buttonGenerator(++index,this.props.tableDataList[property]);
+            }
+            this.setState({
+                tableDataList:this.props.tableDataList
+            })
+        }
+    }
+
     getData(){
-        return this.tableDataList;
+        return this.props.tableDataList;
     }
-    deleteTag(rowIndex){
+    deletePriority(rowIndex){
         console.log(rowIndex);
         let tableData=this.state.tableDataList;
-        console.log(tableData[rowIndex].uuid);
-        //Delete Tag Service 
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/priority/'+tableData[rowIndex].uuid; // TODO: pick up base URL from - Dynamic Path ${Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'DELETE',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .then((data) => {
-            console.log(JSON.stringify(data));
-        })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
-        console.log(this.state.message);
-        //End of Service 
+        let uuid=tableData[rowIndex].uuid;
+        console.log(uuid);
+        this.props.dispatch(deletePriority(uuid));
         tableData.splice(rowIndex,1);
         this.setState({
             tableDataList: [...this.state.tableDataList, tableData]
@@ -109,36 +73,57 @@ class Priority extends Component{
             }
         return(<div className="coloredBox" style={inlineStyle}></div>);
     }
-    buttonGenerator(index){
-        return (<button onClick={()=>this.deleteTag(index)}>Delete</button>);
+    buttonGenerator(index,passedData){
+        return (
+        <div>
+            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick><a className="close">x</a><EditPriorities dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index}/></Popup>
+            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action"><i class="icon-remove"></i></button>
+        </div>
+        );
     }
 
+    updateState(){
+        console.log(this.state.tableDataList);
+        this.props.dispatch(updateTableData(this.state.tableDataList));
+        console.log(this.props.tableDataList);
+        this.setState({
+            tableDataList:this.props.tableDataList
+        })
+    }
     
     editCallback= (dataFromChild,index) => {
+        console.log(index,dataFromChild);
         dataFromChild['style']=this.colorIndicator(dataFromChild.style);
         if(index!=null){
             this.setState({
                 tableDataList: this.state.tableDataList.map(el => (el.name === dataFromChild.name ? Object.assign({}, el,  dataFromChild ) : el))
-              });
+              },()=> this.updateState());
         }
         else {
-            dataFromChild["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length);
+            console.log("Previous Table Data",dataFromChild,this.state.tableDataList);
+            dataFromChild["deletePriority"]=this.buttonGenerator(this.state.tableDataList.length,dataFromChild);
             this.setState({
                 tableDataList: [...this.state.tableDataList, dataFromChild]
-              })    
+              }, ()=> this.updateState());    
         }
     }
         render(){
             return (
             <div>
                 <h2>Manage Priorities</h2>
-                <Popup trigger={<button className="btn btn-success"> Add Priority </button>} modal closeOnDocumentClick>
+                <Popup trigger={<button className="button confirm"> Add Priority </button>} modal closeOnDocumentClick>
                     <a className="close">x</a>
                     <EditPriorities callBackFromParent={this.editCallback.bind(this)} index={null}/>
                 </Popup>
-                <ReactTable columns={this.cols} data={this.state.tableDataList} defaultPageSize='5'/>
+                <ReactTable className="displayTable" columns={this.cols} style={{'margin-top':'5px'}} data={this.state.tableDataList} defaultPageSize='5'/>
             </div>
             );
         }
     }
-export default Priority;
+    const mapStateToProps = state => ({
+        tableDataList: state.priorities.tableDataList,
+        loading: state.priorities.loading,
+        error: state.priorities.error
+      });
+      
+      export default connect(mapStateToProps)(Priority);

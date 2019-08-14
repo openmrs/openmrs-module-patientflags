@@ -12,7 +12,7 @@ import {Router, Route, hashHistory} from 'react-router'
 import {Provider} from 'react-redux'
 import createStore from './redux-store'
 import routes from './routes'
-
+import {Header} from '@openmrs/react-components'
 let store = createStore();
 
 render((
@@ -22,3 +22,7 @@ render((
            </Router>
          </Provider>
        ), document.getElementById('app'));
+
+       render((
+        <Header store={store}/>
+      ), document.getElementById('nav'));

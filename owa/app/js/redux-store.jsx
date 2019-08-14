@@ -6,17 +6,22 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-
+import 'regenerator-runtime/runtime'
 import {createStore, applyMiddleware, combineReducers} from 'redux'
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
-import * as reducers from './reducers'
+import sagaMiddleware from 'redux-saga';
+import rootReducer from './reducers'
+import { sagas as openmrsSagas} from '@openmrs/react-components';
+import createSagaMiddleware from 'redux-saga';
 
 export default function () {
-  const reducer = combineReducers(reducers);
-  const store = createStore(reducer, {}, applyMiddleware(
+  const sagaMiddleware= createSagaMiddleware();
+  const store = createStore(rootReducer, {}, applyMiddleware(
     thunkMiddleware,
+    sagaMiddleware,
     promiseMiddleware()
   ));
+  sagaMiddleware.run(openmrsSagas);
   return store;
 }

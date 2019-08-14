@@ -12,26 +12,29 @@ import Tag from './Tag';
 import Flag from './Flag';
 import Priority from './Priority';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import {Tabs as OpenMRSTabs} from "@openmrs/react-components";
+
 
 export default class App extends React.Component {
   render() {
     return (
-      <Tabs>
-          <TabList className="tabs">
-          <Tab className="tabItem">Manage Flags</Tab>
-            <Tab className="tabItem">Manage Tags</Tab>
-            <Tab className="tabItem">Manage Priorities</Tab>
-          </TabList>
-          <TabPanel>
+      <div>
+        <h1>Patient Flags</h1>
+        <OpenMRSTabs>
+          <div label="Manage Flags">
             <Flag/>
-       </TabPanel>
-       <TabPanel>
+          </div>
+          <div label="Manage Tags">
             <Tag/>
-       </TabPanel>
-       <TabPanel>
+          </div>
+          <div label="Manage Priorities">
             <Priority/>
-       </TabPanel>
-     </Tabs> 
+          </div>
+          <div label="Find Flagged Patients">
+            <p>Coming Soon</p>
+          </div>
+        </OpenMRSTabs>
+      </div>
     )
   }
 }

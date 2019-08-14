@@ -158,6 +158,7 @@ var webpackConfig = {
   entry: {
 	  app : `${__dirname}/app/js/patientflags`,
 	  css: `${__dirname}/app/css/patientflags.css`,
+	  css: `${__dirname}/app/css/referenceapplication.css`,
 	  vendor : [
 	        	
 	        	
@@ -181,7 +182,7 @@ var webpackConfig = {
 	    loader: 'babel-loader',
 	    exclude: /node_modules/,
 	    query: {
-					presets: [ 'es2015', 'react' ],
+					presets: [ 'es2015', 'react','stage-0' ],
 					plugins: ["transform-class-properties"],
 					cacheDirectory : true
 	    }
@@ -194,7 +195,11 @@ var webpackConfig = {
 	}, {
 	    test: /\.html$/,
 	    loader: 'html'
-	}],
+	},
+		{
+        test: /\.json$/,
+        loader: 'json-loader'
+    }],
   },
   resolve: {
     root: path.resolve('./src'),

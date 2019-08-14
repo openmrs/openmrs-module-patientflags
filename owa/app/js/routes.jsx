@@ -11,6 +11,7 @@ import {Route, Router} from 'react-router';
 //import App from './components/App';
 import Tag from './components/Tag';
 import EditTags from './components/Modals/EditTags';
+import Priority from './components/Priority';
 import EditPriorities from './components/Modals/EditPriorities';
 import App from './components/App'
 
@@ -23,6 +24,7 @@ export default (store) => {
      <Router>
        <Route path="/" component={App}></Route>
         <Route path="/Tags" component={Tag}></Route>
+        <Route path="/Priority" component= {Priority}></Route>
         <Route path='/EditTags' component={EditTags}></Route>
         <Route path='/EditPriorities' component={EditPriorities}></Route>
       </Router>  

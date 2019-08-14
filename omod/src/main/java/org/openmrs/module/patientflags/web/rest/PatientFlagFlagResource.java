@@ -34,18 +34,24 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
 			description = new DelegatingResourceDescription();
 			description.addProperty("name");
-			description.addProperty("criteria");
-			description.addProperty("evaluator");
-			description.addProperty("message");
-			description.addProperty("priority");
-			description.addProperty("enabled");
-			description.addProperty("tags");
 			
 			if (rep instanceof DefaultRepresentation) {
+				description.addProperty("criteria", Representation.FULL);
+				description.addProperty("evaluator", Representation.FULL);
+				description.addProperty("message", Representation.FULL);
+				description.addProperty("priority", Representation.FULL);
+				description.addProperty("enabled", Representation.FULL);
+				description.addProperty("tags", Representation.FULL);
 				description.addSelfLink();
 				description.addLink("full", ".?v=" + RestConstants.REPRESENTATION_FULL);
 			} else if (rep instanceof FullRepresentation) {
-				description.addProperty("auditInfo");
+				description.addProperty("flagId");
+				description.addProperty("criteria", Representation.FULL);
+				description.addProperty("evaluator", Representation.FULL);
+				description.addProperty("message", Representation.FULL);
+				description.addProperty("priority", Representation.FULL);
+				description.addProperty("enabled", Representation.FULL);
+				description.addProperty("tags", Representation.REF);
 				description.addSelfLink();
 				return description;
 			}
@@ -73,6 +79,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		cp.addProperty("priority");
 		cp.addProperty("enabled");
 		cp.addProperty("tags");
+		cp.addProperty("flagId");
 		
 		return cp;
 	}
@@ -87,6 +94,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		cp.addProperty("priority");
 		cp.addProperty("enabled");
 		cp.addProperty("tags");
+		cp.addProperty("flagId");
 		
 		return cp;
 	}

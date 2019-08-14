@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import {updateTag} from '../../actions/tagActions';
+import {API_CONTEXT_PATH} from '../../apiContext';
+
 
 class EditTags extends Component {  
     constructor(props) {
@@ -25,7 +29,7 @@ class EditTags extends Component {
       }
       componentDidMount(){
         /// REST Call for getting list of roles 
-        var url='http://localhost:8081/openmrs/ws/rest/v1/role'; // TODO: pick up base URL from {Origin}
+        var url=API_CONTEXT_PATH+'/role'; // TODO: pick up base URL from {Origin}
         var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
         console.log("Successful Entry");
         fetch(url, {
@@ -57,7 +61,7 @@ class EditTags extends Component {
             message: 'Something bad happened ' + error
         }));
         /// REST Call for getting list of displayPoints
-         url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/displaypoint'; // TODO: pick up base URL from {Origin}
+         url=API_CONTEXT_PATH+'/patientflags/displaypoint'; // TODO: pick up base URL from {Origin}
          auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
         console.log("Successful Entry API Call 2");
         fetch(url, {
@@ -95,7 +99,7 @@ class EditTags extends Component {
           console.log("Entered");
           var str = this.state.urlSuffix=this.props.dataFromChild.display;
           //REST Call 
-          var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/tag/'+encodeURI(str); // TODO: pick up base URL from {Origin}
+          var url=API_CONTEXT_PATH+'/patientflags/tag/'+encodeURI(str); // TODO: pick up base URL from {Origin}
           var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
           console.log("Successful Entry");
           fetch(url, {
@@ -156,28 +160,7 @@ class EditTags extends Component {
         }
       }
       postTag(){
-        console.log(JSON.stringify(this.state.editData));
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/tag/'+encodeURI(this.state.urlSuffix); // TODO: pick up base URL from {Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'POST',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify(this.state.editData)
-        }).then(res => res.json())
-        .then((data) => {
-            console.log(data);
-            console.log(data['results']['uuid']);
-        })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
+        this.props.dispatch(updateTag(this.state.urlSuffix,this.state.editData));
       }
 
       handleChange(name, event) {
@@ -287,12 +270,17 @@ class EditTags extends Component {
                 </select>
              </div>
              <br/><br/>
-                <input type="submit" value="Save" className="btn btn-primary"/>
-                &nbsp;<input type="reset" value="Reset" className="btn btn"/>
+                <input type="submit" value="Save" className="button confirm"/>
+                &nbsp;<input type="reset" value="Reset" className="button"/>
               </form>
              </div>
             );
       }
 }
 
-export default EditTags;
+const mapStateToProps = state => ({
+  loading: state.priorities.loading,
+  error: state.priorities.error
+});
+
+export default connect(mapStateToProps)(EditTags);

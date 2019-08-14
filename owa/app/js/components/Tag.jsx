@@ -3,13 +3,11 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import Popup from 'reactjs-popup';
 import EditTags from './Modals/EditTags';
-//Font Awesome Icons- Import only if required
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeartbeat } from '@fortawesome/free-solid-svg-icons';
-import { faExclamation } from '@fortawesome/free-solid-svg-icons';
-import { faWheelchair } from '@fortawesome/free-solid-svg-icons';
+import {connect} from 'react-redux';
+import {getTags,updateTableData,deleteTag,updateTag} from '../actions/tagActions';
+
 class Tag extends Component{
-    cols=[{Header:'Tag Name',accessor:'display',Cell: row => <div style={{ 'text-align':'center' }}><Popup trigger={<button className="btn btn-success"> {row.value} </button>} modal closeOnDocumentClick><a className="close">x</a><EditTags dataFromChild={this.state.tableDataList[row.index]} callBackFromParent={this.editCallback.bind(this)} index={row.index}/></Popup></div>},{Header:'Action',accessor:'deleteTag',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
+    cols=[{Header:'Tag Name',accessor:'display',Cell: row => <div style={{ 'text-align':'center' }}>{row.value}</div>},{Header:'Actions',accessor:'deleteTag',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
     
     state={
         testVar:'test',
@@ -21,40 +19,29 @@ class Tag extends Component{
     };
 
     componentDidMount(){
-        // Get Tag Details Service 
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/tag'; // TODO: pick up base URL from {Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'GET',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .then((data) => {
-            var resultData = data['results'];
-            for (var property in resultData){
-                if(resultData.hasOwnProperty(property)){
-                    resultData[property]["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length);
-                    this.setState({
-                        tableDataList: [...this.state.tableDataList, resultData[property]]
-                      })
-                }     
-            }
-            console.log(resultData['0']);
-            console.log(Object.keys(resultData['0']));
-            
-            console.log(this.state.tableDataList);
+        this.props.dispatch(getTags());
+        this.setState({
+            tableDataList:this.props.tableDataList
         })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
-        console.log(this.state.message);
-        // End of Service 
+    }
+    componentDidUpdate(prevProps){
+        if(prevProps.tableDataList!== this.props.tableDataList){
+            var index=0;
+            for (var property in this.props.tableDataList){
+                this.props.tableDataList[property]['deleteTag']=this.buttonGenerator(++index,this.props.tableDataList[property]);
+            }
+            this.setState({
+                tableDataList:this.props.tableDataList
+            })
+        }
+    }
+    updateState(){
+        console.log(this.state.tableDataList);
+        this.props.dispatch(updateTableData(this.state.tableDataList));
+        console.log(this.props.tableDataList);
+        this.setState({
+            tableDataList:this.props.tableDataList
+        })
     }
     
     getData(){
@@ -65,62 +52,54 @@ class Tag extends Component{
         let tableData=this.state.tableDataList;
         console.log(tableData[rowIndex].uuid);
         //Delete Tag Service 
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/tag/'+tableData[rowIndex].uuid; // TODO: pick up base URL from - Dynamic Path ${Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'DELETE',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json())
-        .then((data) => {
-            console.log(JSON.stringify(data));
-        })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
-        console.log(this.state.message);
+        this.props.dispatch(deleteTag(tableData[rowIndex].uuid));
         //End of Service 
         tableData.splice(rowIndex,1);
         this.setState({
             tableDataList: [...this.state.tableDataList, tableData]
           })
+          this.updateState();
     }
-    buttonGenerator(index){
-        return (<button onClick={()=>this.deleteTag(index)}>Delete</button>);
+    buttonGenerator(index,passedData){
+        return (
+        <div>
+            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick><a className="close">x</a><EditTags dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index}/></Popup>
+            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action"><i class="icon-remove"></i></button>
+        </div>
+        );
     }
 
-    
     editCallback= (dataFromChild,index) => {
         dataFromChild['display']=dataFromChild['name'];
         if(index!=null){
             this.setState({
                 tableDataList: this.state.tableDataList.map(el => (el.display === dataFromChild.display ? Object.assign({}, el,  dataFromChild ) : el))
-              });
+              },()=>this.updateState());
         }
         else {
-            dataFromChild["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length);
+            dataFromChild["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length,dataFromChild);
             this.setState({
                 tableDataList: [...this.state.tableDataList, dataFromChild]
-              })    
+              },()=>this.updateState());    
         }
     }
         render(){
             return (
             <div>
                 <h2>Manage Tags</h2>
-                <Popup trigger={<button className="btn btn-success"> Add a Tag </button>} modal closeOnDocumentClick>
+                <Popup trigger={<button className="button confirm"> Add a Tag </button>} modal closeOnDocumentClick>
                     <a className="close">x</a>
                     <EditTags callBackFromParent={this.editCallback.bind(this)} index={null}/>
                 </Popup>
-                <ReactTable columns={this.cols} data={this.state.tableDataList} defaultPageSize='5'/>
+                <ReactTable className="displayTable" style={{'margin-top':'5px'}} columns={this.cols} data={this.state.tableDataList} defaultPageSize='5'/>
             </div>
             );
         }
     }
-export default Tag;
+    const mapStateToProps = state => ({
+        tableDataList: state.tags.tableDataList,
+        loading: state.tags.loading,
+        error: state.tags.error
+      });
+      
+      export default connect(mapStateToProps)(Tag);

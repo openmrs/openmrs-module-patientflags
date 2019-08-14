@@ -95,4 +95,19 @@ header .logo img {
     border-radius: 5px;
     padding:10px;
 }
+.displayTable{
+    margin: 10%;
+}
+.Modal{
+    overflow-y: scroll
+}
+.form-control{
+    border: 1px solid grey;
+}
+.iconButton{
+    background:none;
+    background-color:none;
+    border:none;
+}
+
 

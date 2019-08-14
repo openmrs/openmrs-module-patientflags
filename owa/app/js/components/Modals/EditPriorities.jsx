@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {CirclePicker} from 'react-color';
+import {connect} from 'react-redux';
+import {updatePriorities} from '../../actions/priorityActions';
+import {API_CONTEXT_PATH} from '../../apiContext';
 
 class EditPriorities extends Component {  
     constructor(props) {
@@ -26,7 +29,7 @@ class EditPriorities extends Component {
           var str = this.state.urlSuffix=this.props.dataFromChild.name;
           console.log(str);
           //REST Call 
-          var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/priority/'+encodeURI(str)+'?v=full'; // TODO: pick up base URL from {Origin}
+          var url=API_CONTEXT_PATH+'/patientflags/priority/'+encodeURI(str)+'?v=full'; // TODO: pick up base URL from {Origin}
           var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
           console.log("Successful Entry");
           fetch(url, {
@@ -58,28 +61,8 @@ class EditPriorities extends Component {
         }
       }
       postPriority(){
-        console.log(JSON.stringify(this.state.editData));
-        var url='http://localhost:8081/openmrs/ws/rest/v1/patientflags/priority/'+encodeURI(this.state.urlSuffix); // TODO: pick up base URL from {Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
-        fetch(url, {
-            method: 'POST',
-            withCredentials: true,
-            credentials: 'include',
-            headers: {
-                'Authorization': auth,
-                'Content-Type': 'application/json'
-            },
-            body:JSON.stringify(this.state.editData)
-        }).then(res => res.json())
-        .then((data) => {
-            console.log(data);
-            console.log(data['results']['uuid']);
-        })
-        .catch(error => this.setState({
-            isLoading: false,
-            message: 'Something bad happened ' + error
-        }));
+        //Simple API call with no effect on state change. State change reflected in callBack from Parent
+        this.props.dispatch(updatePriorities(this.state.urlSuffix,this.state.editData));
       }
 
       handleChange(name, event) {
@@ -142,12 +125,16 @@ class EditPriorities extends Component {
                     <CirclePicker className="stylePriority" color={this.state.editData.style} onChangeComplete={this.handleColorChange}/>
                 </div>
              <br/><br/>
-                <input type="submit" value="Save" className="btn btn-primary"/>
-                &nbsp;<input type="reset" value="Reset" className="btn btn"/>
+                <input type="submit" value="Save" className="button confirm"/>
+                &nbsp;<input type="reset" value="Reset" className="button"/>
               </form>
              </div>
             );
       }
 }
+const mapStateToProps = state => ({
+        loading: state.priorities.loading,
+        error: state.priorities.error
+});
 
-export default EditPriorities;
+export default connect(mapStateToProps)(EditPriorities);

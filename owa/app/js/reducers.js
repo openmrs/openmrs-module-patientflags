@@ -10,6 +10,16 @@
 // Because of the "import *" in redux-store each exported function will control a its own field in the global state
 
 // For example this placeholder function will set your redux state to be { replaceThis: {} } upon the first action
-export function replaceThis(state = {}, action) {
-  return state;
-}
+import 'regenerator-runtime/runtime'
+import { combineReducers } from "redux";
+import priorities from "./reducers/priorityReducer";
+import tags from "./reducers/tagReducer";
+import flags from "./reducers/flagReducer";
+import {reducers as openmrsReducers} from "@openmrs/react-components";
+import {reducer as reduxFormReducer} from 'redux-form';
+
+export default combineReducers({
+  priorities, tags,flags,
+  openmrs:openmrsReducers,
+  form:reduxFormReducer
+});

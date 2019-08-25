@@ -13,7 +13,8 @@ import Tag from './components/Tag';
 import EditTags from './components/Modals/EditTags';
 import Priority from './components/Priority';
 import EditPriorities from './components/Modals/EditPriorities';
-import App from './components/App'
+import FindFlaggedPatients from './components/FindFlaggedPatients';
+import App from './components/App';
 
 
 export default (store) => {
@@ -27,6 +28,7 @@ export default (store) => {
         <Route path="/Priority" component= {Priority}></Route>
         <Route path='/EditTags' component={EditTags}></Route>
         <Route path='/EditPriorities' component={EditPriorities}></Route>
+        <Route path='/FindFlaggedPatients' component={FindFlaggedPatients}></Route>
       </Router>  
   );
 }

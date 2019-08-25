@@ -13,8 +13,9 @@ import {Provider} from 'react-redux'
 import createStore from './redux-store'
 import routes from './routes'
 import {Header} from '@openmrs/react-components'
-let store = createStore();
 
+let store = createStore();
+console.log(store.getState());
 render((
          <Provider store={store}>
            <Router history={hashHistory}>
@@ -24,5 +25,7 @@ render((
        ), document.getElementById('app'));
 
        render((
-        <Header store={store}/>
+          <Provider store ={store}>
+            <Header store={store}/>
+          </Provider>
       ), document.getElementById('nav'));

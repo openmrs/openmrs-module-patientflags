@@ -26,24 +26,26 @@ import {
         return {
           ...state,
           loading: false,
+          error:null,
           tableDataList: action.payload.tableDataList
         };
   
       case GET_FLAGS_FAILURE:
         // The request failed. It's done. So set loading to "false".
         // Since it failed, we don't have tableData to display anymore, so set `tableDatalist` to empty.
+        console.log(action.payload.error);
         return {
           ...state,
           loading: false,
           error: action.payload.error,
-          tableDataList: []
+          tableDataList: action.payload.tableDataList
         };
 
         case UPDATE_FLAGS:
         return{
             ...state,
             loading: false,
-            error:action.payload.error, 
+            error:null, 
             tableDataList: action.payload.tableDataList
         };
   

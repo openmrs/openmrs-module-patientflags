@@ -26,6 +26,7 @@ import {
         return {
           ...state,
           loading: false,
+          error:null,
           tableDataList: action.payload.tableDataList
         };
   
@@ -36,13 +37,14 @@ import {
           ...state,
           loading: false,
           error: action.payload.error,
-          tableDataList: []
+          tableDataList: action.payload.tableDataList
         };
 
         case UPDATE_TAGS:
         return{
             ...state,
             loading: false,
+            error:null,
             tableDataList: action.payload.tableDataList
         };
   

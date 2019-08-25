@@ -340,13 +340,10 @@ table {
   border-spacing: 0;
 }
 
-@font-face{
-  font-family:"OpenSans";
-  src: url('https://fonts.gstatic.com/s/opensans/v16/mem8YaGs126MiZpBA-UFWJ0bbck.woff2');
-}
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
 
 body {
-  font-family: OpenSans, Arial, sans-serif;
+  font-family: 'Open Sans';
   -webkit-font-smoothing: subpixel-antialiased;
   max-width: 1000px;
   margin: 10px auto;
@@ -999,7 +996,7 @@ header #session-location li {
 }
 
 .toast-item {
-  font-family: "OpenSans", Arial, sans-serif;
+  font-family: "Open Sans", Arial, sans-serif;
   font-size: 16px;
   background-color: transparent;
   background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.88));
@@ -1070,12 +1067,13 @@ header #session-location li {
   -o-box-shadow: 2px 2px 15px #999999, -2px -2px 15px #999999;
   box-shadow: 2px 2px 15px #999999, -2px -2px 15px #999999;
 }
-.dialog .dialog-header, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header {
+ .dialog-header {
   background: #00463f;
   color: white;
   padding: 0 20px;
   padding-top: 5px;
   border-bottom: black 1px solid;
+  margin-bottom:5px;
   -moz-border-radius-topleft: 3px;
   -webkit-border-top-left-radius: 3px;
   -o-border-top-left-radius: 3px;
@@ -1089,14 +1087,14 @@ header #session-location li {
   -khtml-border-top-right-radius: 3px;
   border-top-right-radius: 3px;
 }
-.dialog .dialog-header i, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header i {
+.dialog-header i {
   font-size: 1.5em;
   color: white;
   vertical-align: middle;
   display: inline-block;
   margin-bottom: 4px;
 }
-.dialog .dialog-header h3, .ngdialog.ngdialog-theme-default .ngdialog-content .dialog-header h3 {
+.dialog-header h3 {
   display: inline-block;
   color: white;
   margin: 5px 0;
@@ -1307,7 +1305,7 @@ header #session-location li {
   background: -ms-linear-gradient(top, #5b57a6, #5b57a6);
   background: linear-gradient(top, #5b57a6, #5b57a6);
   background-color: #5b57a6;
-  border: #5b57a6 1px solid;
+  /*border: #5b57a6 1px solid;*/
   padding: 8px 20px;
   display: inline-block;
   line-height: 1.2em;
@@ -1322,11 +1320,11 @@ header #session-location li {
 }
 .button.task:hover, button.task:hover, input[type="submit"].task:hover, input[type="button"].task:hover, input[type="submit"].task:hover, a.button.task:hover {
   background: #615daa;
-  border-color: #524e95;
+  /*border-color: #524e95;*/
 }
 .button.task.active, button.task.active, input[type="submit"].task.active, input[type="button"].task.active, input[type="submit"].task.active, a.button.task.active {
   background: #57539f;
-  border-color: #524e95;
+  /*border-color: #524e95;*/
 }
 .button.task i, button.task i, input[type="submit"].task i, input[type="button"].task i, input[type="submit"].task i, a.button.task i {
   font-size: 1.2em;
@@ -2197,7 +2195,7 @@ ul#formBreadcrumb li.doing ul li span {
   padding-left: 27px;
   padding-right: 0;
   font-weight: normal;
-  font-family: "OpenSans";
+  font-family: "Open Sans";
 }
 ul#formBreadcrumb li.doing ul li.focused {
   color: #FFF;
@@ -8198,4 +8196,14 @@ input[type='text']{
 .delete-action:hover {
   color: #ff6666;
   background:none;
+}
+.tab-div{
+  border: 0.5px solid #D3D3D3;
+  padding:10px;
+}
+
+.ReactTable .rt-thead{
+  color:#363463;
+  background-color:#f3f3f3;
+  font-weight: bolder;
 }

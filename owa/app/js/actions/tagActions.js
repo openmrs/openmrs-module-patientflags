@@ -31,18 +31,14 @@ export function getTags(){
         if(dataLoaded)
             return dispatch(getTagsSuccess(tableDataList));
         dataLoaded=true;
-        console.log("API CALLED");
+        
         tableDataList=[]
         dispatch(getTagsBegin());
-        var url=API_CONTEXT_PATH+'/patientflags/tag'; // TODO: pick up base URL from {Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+        var url=API_CONTEXT_PATH+'/patientflags/tag'; 
+        
         return fetch(url, {
             method: 'GET',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
@@ -62,22 +58,18 @@ export function getTags(){
 }
 
 export function updateTableData(newtableDataList){
-    console.log('Sent Data',newtableDataList);
+    
     tableDataList= newtableDataList;
     return dispatch => {
         dispatch(getTagsSuccess(tableDataList));
     };
 }
 export function deleteTag(uuid){
-    var url=API_CONTEXT_PATH+'/patientflags/tag/'+uuid; // TODO: pick up base URL from - Dynamic Path ${Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+    var url=API_CONTEXT_PATH+'/patientflags/tag/'+uuid; 
+        
         fetch(url, {
             method: 'DELETE',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
@@ -91,27 +83,26 @@ export function deleteTag(uuid){
 }
 export function updateTag(destString,updateData){
     return dispatch =>{
-        console.log(updateData);
+        
         var url='';
         if(destString==='')
             url = API_CONTEXT_PATH+'/patientflags/tag/';
         else 
-            url=API_CONTEXT_PATH+'/patientflags/tag/'+encodeURI(destString); // TODO: pick up base URL from {Origin}
-        console.log(url);
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+            url=API_CONTEXT_PATH+'/patientflags/tag/'+encodeURI(destString);
+        
         fetch(url, {
             method: 'POST',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             },
             body:JSON.stringify(updateData)
         }).then(res => res.json())
         .then((data) => {
-            console.log(data);
+            
+            if(data.hasOwnProperty('error')){
+                dispatch(getFlagsFailure('Something Went Wrong',tableDataList));
+                return;
+            }
         });
             dispatch(updateTagsSuccess(tableDataList));
         }

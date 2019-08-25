@@ -15,11 +15,15 @@ import { combineReducers } from "redux";
 import priorities from "./reducers/priorityReducer";
 import tags from "./reducers/tagReducer";
 import flags from "./reducers/flagReducer";
-import {reducers as openmrsReducers} from "@openmrs/react-components";
+import search from "./reducers/searchReducer";
+import session from "./reducers/sessionReducer";
+import  {reducers as openmrsReducer} from '@openmrs/react-components';
 import {reducer as reduxFormReducer} from 'redux-form';
 
-export default combineReducers({
-  priorities, tags,flags,
-  openmrs:openmrsReducers,
+const rootReducer = combineReducers({
+  priorities, tags,flags,search,session,
+  openmrs:openmrsReducer,
   form:reduxFormReducer
 });
+
+export default rootReducer;

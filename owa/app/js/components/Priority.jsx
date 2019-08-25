@@ -5,6 +5,7 @@ import Popup from 'reactjs-popup';
 import EditPriorities from './Modals/EditPriorities';
 import {connect} from 'react-redux';
 import {getPriorities,updateTableData} from '../actions/priorityActions';
+import { timingSafeEqual } from 'crypto';
 
 class Priority extends Component{
     cols=[{Header:'Name',accessor:'name',Cell: row => <div style={{ 'text-align':'center' }}>{row.value}</div>},{Header:'Indicator',accessor:'style',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Rank',accessor:'rank',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>},{Header:'Actions',accessor:'deletePriority',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
@@ -18,10 +19,15 @@ class Priority extends Component{
 
     componentDidMount(){
         this.props.dispatch(getPriorities());
+        
         if(this.props.tableDataList.length!==0){
             var index=0;
+            
             for (var property in this.props.tableDataList){
-                this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                if(typeof this.props.tableDataList[property]['style']!== 'object'){
+                    this.props.tableDataList[property]['hexcode']=this.props.tableDataList[property]['style'];
+                    this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                }
                 this.props.tableDataList[property]['deletePriority']=this.buttonGenerator(++index,this.props.tableDataList[property]);
             }
             this.setState({
@@ -33,7 +39,10 @@ class Priority extends Component{
         if(prevProps.tableDataList!== this.props.tableDataList){
             var index=0;
             for (var property in this.props.tableDataList){
-                this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                if(typeof this.props.tableDataList[property]['style'] !== 'object'){
+                    this.props.tableDataList[property]['hexcode']=this.props.tableDataList[property]['style'];
+                    this.props.tableDataList[property]['style']= this.colorIndicator(this.props.tableDataList[property].style);
+                }
                 this.props.tableDataList[property]['deletePriority']=this.buttonGenerator(++index,this.props.tableDataList[property]);
             }
             this.setState({
@@ -46,10 +55,10 @@ class Priority extends Component{
         return this.props.tableDataList;
     }
     deletePriority(rowIndex){
-        console.log(rowIndex);
+        
         let tableData=this.state.tableDataList;
         let uuid=tableData[rowIndex].uuid;
-        console.log(uuid);
+        
         this.props.dispatch(deletePriority(uuid));
         tableData.splice(rowIndex,1);
         this.setState({
@@ -76,23 +85,22 @@ class Priority extends Component{
     buttonGenerator(index,passedData){
         return (
         <div>
-            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick><a className="close">x</a><EditPriorities dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index}/></Popup>
-            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action"><i class="icon-remove"></i></button>
+            <Popup trigger={<button className="iconButton edit-action" title="Edit"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick>{close =>(<EditPriorities dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index} closeButton={close}/>)}</Popup>
+            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action" title="Delete"><i class="icon-remove"></i></button>
         </div>
         );
     }
 
     updateState(){
-        console.log(this.state.tableDataList);
-        this.props.dispatch(updateTableData(this.state.tableDataList));
-        console.log(this.props.tableDataList);
-        this.setState({
+        this.props.dispatch(updateTableData(this.state.tableDataList), ()=>this.setState({
             tableDataList:this.props.tableDataList
-        })
+        }));
+        
     }
     
     editCallback= (dataFromChild,index) => {
-        console.log(index,dataFromChild);
+        
+        dataFromChild['hexcode']=dataFromChild['style'];
         dataFromChild['style']=this.colorIndicator(dataFromChild.style);
         if(index!=null){
             this.setState({
@@ -100,7 +108,7 @@ class Priority extends Component{
               },()=> this.updateState());
         }
         else {
-            console.log("Previous Table Data",dataFromChild,this.state.tableDataList);
+            
             dataFromChild["deletePriority"]=this.buttonGenerator(this.state.tableDataList.length,dataFromChild);
             this.setState({
                 tableDataList: [...this.state.tableDataList, dataFromChild]
@@ -109,11 +117,12 @@ class Priority extends Component{
     }
         render(){
             return (
-            <div>
+            <div className="tab-div">
                 <h2>Manage Priorities</h2>
                 <Popup trigger={<button className="button confirm"> Add Priority </button>} modal closeOnDocumentClick>
-                    <a className="close">x</a>
-                    <EditPriorities callBackFromParent={this.editCallback.bind(this)} index={null}/>
+                 {close=>(   
+                    <EditPriorities callBackFromParent={this.editCallback.bind(this)} index={null} closeButton={close}/>
+                 )}
                 </Popup>
                 <ReactTable className="displayTable" columns={this.cols} style={{'margin-top':'5px'}} data={this.state.tableDataList} defaultPageSize='5'/>
             </div>

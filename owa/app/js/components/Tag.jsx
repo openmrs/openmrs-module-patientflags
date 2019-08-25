@@ -20,25 +20,31 @@ class Tag extends Component{
 
     componentDidMount(){
         this.props.dispatch(getTags());
-        this.setState({
-            tableDataList:this.props.tableDataList
-        })
+        if(this.props.tableDataList.length!==0){
+            var index=0;
+            var tempObj= this.props.tableDataList;
+            for (var property in tempObj)
+                tempObj[property]['deleteTag']=this.buttonGenerator(++index,tempObj[property]);
+            this.setState({
+                tableDataList:tempObj
+            })
+        }
     }
     componentDidUpdate(prevProps){
         if(prevProps.tableDataList!== this.props.tableDataList){
             var index=0;
-            for (var property in this.props.tableDataList){
-                this.props.tableDataList[property]['deleteTag']=this.buttonGenerator(++index,this.props.tableDataList[property]);
+            var tempObj = this.props.tableDataList;
+            for (var property in tempObj){
+                tempObj[property]['deleteTag']=this.buttonGenerator(++index,tempObj[property]);
             }
             this.setState({
-                tableDataList:this.props.tableDataList
+                tableDataList:tempObj
             })
         }
     }
     updateState(){
-        console.log(this.state.tableDataList);
         this.props.dispatch(updateTableData(this.state.tableDataList));
-        console.log(this.props.tableDataList);
+        
         this.setState({
             tableDataList:this.props.tableDataList
         })
@@ -48,9 +54,9 @@ class Tag extends Component{
         return this.tableDataList;
     }
     deleteTag(rowIndex){
-        console.log(rowIndex);
+        
         let tableData=this.state.tableDataList;
-        console.log(tableData[rowIndex].uuid);
+        
         //Delete Tag Service 
         this.props.dispatch(deleteTag(tableData[rowIndex].uuid));
         //End of Service 
@@ -63,8 +69,8 @@ class Tag extends Component{
     buttonGenerator(index,passedData){
         return (
         <div>
-            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick><a className="close">x</a><EditTags dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index}/></Popup>
-            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action"><i class="icon-remove"></i></button>
+            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil" title="Edit"></i></button>} modal closeOnDocumentClick>{close=>(<EditTags dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index} closeButton={close}/>)}</Popup>
+            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action" title="Delete"><i class="icon-remove"></i></button>
         </div>
         );
     }
@@ -77,7 +83,6 @@ class Tag extends Component{
               },()=>this.updateState());
         }
         else {
-            dataFromChild["deleteTag"]=this.buttonGenerator(this.state.tableDataList.length,dataFromChild);
             this.setState({
                 tableDataList: [...this.state.tableDataList, dataFromChild]
               },()=>this.updateState());    
@@ -85,11 +90,12 @@ class Tag extends Component{
     }
         render(){
             return (
-            <div>
+            <div className="tab-div">
                 <h2>Manage Tags</h2>
                 <Popup trigger={<button className="button confirm"> Add a Tag </button>} modal closeOnDocumentClick>
-                    <a className="close">x</a>
-                    <EditTags callBackFromParent={this.editCallback.bind(this)} index={null}/>
+                   {close=>( 
+                    <EditTags callBackFromParent={this.editCallback.bind(this)} index={null} closeButton={close}/>
+                   )}
                 </Popup>
                 <ReactTable className="displayTable" style={{'margin-top':'5px'}} columns={this.cols} data={this.state.tableDataList} defaultPageSize='5'/>
             </div>

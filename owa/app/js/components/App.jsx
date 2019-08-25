@@ -11,6 +11,7 @@ import {Switch, Route, Link,BrowserRouter} from 'react-router-dom';
 import Tag from './Tag';
 import Flag from './Flag';
 import Priority from './Priority';
+import FindFlaggedPatients from './FindFlaggedPatients';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import {Tabs as OpenMRSTabs} from "@openmrs/react-components";
 
@@ -31,7 +32,7 @@ export default class App extends React.Component {
             <Priority/>
           </div>
           <div label="Find Flagged Patients">
-            <p>Coming Soon</p>
+            <FindFlaggedPatients/>
           </div>
         </OpenMRSTabs>
       </div>

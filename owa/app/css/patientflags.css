@@ -6,6 +6,9 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
+
+ @import url(//fonts.googleapis.com/css?family=Open+Sans);
+ 
 body {
     font-family: "OpenSans", Arial, sans-serif;
     -webkit-font-smoothing: subpixel-antialiased;

@@ -36,7 +36,7 @@ class EditFlags extends Component {
         this.handleReset= this.handleReset.bind(this);
       }
       componentDidMount(){
-          console.log('Mouting Component');
+          
         /// REST Call for getting list of tag 
         this.props.dispatch(getTags());
         this.setState({
@@ -49,23 +49,19 @@ class EditFlags extends Component {
          });
         /// REST Call for Flag data if UUID is available 
         if((this.props.dataFromChild)!= null){
-          console.log("Entered");
+          
           var str = this.state.urlSuffix=this.props.dataFromChild.name;
           //REST Call 
-          var url=API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(str); // TODO: pick up base URL from {Origin}
-          var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-          console.log("Successful Entry");
+          var url=API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(str); 
+          
           fetch(url, {
               method: 'GET',
-              withCredentials: true,
-              credentials: 'include',
               headers: {
-                  'Authorization': auth,
                   'Content-Type': 'application/json'
               }
           }).then(res => res.json())
           .then((data) => {
-              console.log('URI Data',data.name);
+              
               this.selectionMapping(data);
               for (var property in data){
                 if(data.hasOwnProperty(property)){
@@ -85,7 +81,7 @@ class EditFlags extends Component {
         }
       }
       componentDidUpdate(prevProps){
-          console.log('Priorities',this.props.priorityList);
+          
         if(!this.listLoaded || prevProps.tagList!==this.props.tagList || prevProps.priorityList!== this.props.priorityList){
             this.setState({
                 tags:this.props.tagList,
@@ -95,13 +91,13 @@ class EditFlags extends Component {
         }
     }
       selectionMapping(data){
-        console.log('Got Data',data);
+        
         for(var property in data.tags){
           this.setState({
             selectedTags: [...this.state.selectedTags, data.tags[property]['name']]
           });
         }
-        console.log('Selected Roles',this.state.selectedTags);
+        
         for(var property in data.priority){
           this.setState({
             selectedPriority: data.priority['name']
@@ -109,15 +105,16 @@ class EditFlags extends Component {
         }
       }
       postFlag(){
+        
         this.props.dispatch(updateFlag(this.state.urlSuffix,this.state.editData));
       }
 
       handleChange(name, event) {
-        console.log("Event Called");
+        
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         //const name = target.name;
-        console.log(name+" "+value);
+        
         this.setState((prevState) =>({
             editData: Object.assign({}, prevState.editData, {
               [name]: value
@@ -125,17 +122,17 @@ class EditFlags extends Component {
             }));
       }
       handleOptionChangeTags(name, event) {
-        console.log("Event Called", name);
+        
         var options = event.target.options;
         var result=[];
         for (var i = 0, l = options.length; i < l; i++) {
             if (options[i].selected) {
                 var value= options[i].value;
-                console.log(value);
+                
                 result.push(this.state.tags[value]);
               }
-              console.log("EditData Log",this.state.editData); 
           }
+          
           this.setState((prevState) =>({
             editData: Object.assign({}, prevState.editData, {
               [name]: result
@@ -143,7 +140,7 @@ class EditFlags extends Component {
             }));
       }
       handleOptionChangePriority(name, event) {
-       console.log("Entered Priority Handle Change",name,event,event.target.value);
+       
         var value=event.target.value;
         this.setState((prevState) =>({
             editData: Object.assign({}, prevState.editData, {
@@ -169,9 +166,15 @@ class EditFlags extends Component {
       }
     
       handleSubmit(event) {
+        
         this.postFlag();
-        this.props.callBackFromParent(this.state.editData,this.props.index);
-        alert('A Flag name was submitted: ' + this.state.editData.name);
+        if(this.props.error==null){
+              this.props.callBackFromParent(this.state.editData,this.props.index);
+              alert("Flag Saved Successfully!");
+        }
+        else{
+              alert(this.props.error);
+        }
         event.preventDefault();
       }
       render() {
@@ -182,22 +185,28 @@ class EditFlags extends Component {
                 else 
                  return  <option key={d.uuid} value={index}>{d.display}</option>
         });
-        const optionItemsPriorities = this.state.priorities.map((d) => {
+        const optionItemsPriorities = this.state.priorities.map((d,index) => {
           if(this.state.selectedPriority === d.name)
                return <option selected key={d.uuid} value={d.name}>{d.name}</option>
           else 
                return <option key={d.uuid} value={d.name}>{d.name}</option>
         });
 
+        var nameField= null;
+          if(this.props.dataFromChild!=null)
+              nameField = <input readOnly type="text" className="form-control" id="flg" value={this.state.editData.name}/>
+          else  
+              nameField = <input type="text" className="form-control" id="flg" onChange = {this.handleChange.bind(this,'name')} value={this.state.editData.name}/>
+
         return (
             <div className="Modal">
-                <div className="dialog-header">
-                    <h3>Edit Flag</h3>
+               <div className="dialog-header">
+                      <i class="icon-folder-open"></i>&nbsp;<h3>Edit Flag</h3>
                 </div>
-              <form className="container" onSubmit={this.handleSubmit} onReset={this.handleReset}> 
+              <form className="container" onSubmit={this.handleSubmit}>
                 <div className="form-group">
                     <label htmlFor="flg">Name:</label>
-                        <input type="text" className="form-control" id="flg" onChange = {this.handleChange.bind(this,'name')} value={this.state.editData.name}/>
+                    {nameField}
                 </div>
                 <div className="form-group">
                     <label htmlFor="flg">Type:</label><br/>
@@ -238,7 +247,7 @@ class EditFlags extends Component {
 
              <br/><br/>
                 <input type="submit" value="Save" className="button confirm"/>
-                &nbsp;<input type="reset" value="Reset" className="button"/>
+                &nbsp;<input type="reset" value="Cancel" className="button cancel" onClick={this.props.closeButton}/>
               </form>
              </div>
             );
@@ -247,7 +256,7 @@ class EditFlags extends Component {
 
 const mapStateToProps = state => ({
     loading: state.priorities.loading,
-    error: state.priorities.error,
+    error: state.flags.error,
     tagList: state.tags.tableDataList,
     priorityList:state.priorities.tableDataList
 });

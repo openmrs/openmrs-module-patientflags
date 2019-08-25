@@ -17,9 +17,9 @@ export const getFlagsSuccess = tableDataList => ({
   payload: { tableDataList }
 });
 
-export const getFlagsFailure = error => ({
+export const getFlagsFailure = (error, tableDataList) => ({
   type: GET_FLAGS_FAILURE,
-  payload: { error }
+  payload: { error, tableDataList }
 });
 export const updateFlagsSuccess = tableDataList => ({
     type: UPDATE_FLAGS,
@@ -29,27 +29,26 @@ export const updateFlagsSuccess = tableDataList => ({
 export function getFlags(){
     return dispatch => {
         if(dataLoaded)
-            return;
+           return;
         dataLoaded=true;
         var url= API_CONTEXT_PATH+'/patientflags/flag?v=full';
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+        
         dispatch(getFlagsBegin());
         fetch(url, {
             method: 'GET',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
         .then((data) => {
+            if(data.hasOwnProperty('error')){
+                dispatch(getFlagsFailure('Something Went Wrong'));
+                return;
+            }
             var resultData = data['results'];
             for (var property in resultData){
                 if(resultData.hasOwnProperty(property)){
-                    console.log('Property',resultData[property]);
-                    //Write Tags logic here - > tags -> 0,1,2 ... -> display 
+                    
                     var priority= resultData[property].priority;
                     if(priority!==null)
                         resultData[property]["priority"]=resultData[property]["priority"]["name"];
@@ -60,7 +59,6 @@ export function getFlags(){
                         resultData[property]["enabled"]='Enabled';
                     else 
                         resultData[property]["enabled"]= 'Disabled';
-                        //resultData[property]["tags"]=resultData[property]["tags"]["display"];
                     tableDataList.push(resultData[property]);
                 }     
             }
@@ -71,22 +69,18 @@ export function getFlags(){
 }
 
 export function updateTableData(newtableDataList){
-    console.log('Sent Data',newtableDataList);
+    
     tableDataList= newtableDataList;
     return dispatch => {
         dispatch(getFlagsSuccess(tableDataList));
     };
 }
 export function deleteFlag(uuid){
-    var url= API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(uuid); // TODO: pick up base URL from - Dynamic Path ${Origin}
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+    var url= API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(uuid); 
+        
         fetch(url, {
             method: 'DELETE',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             }
         }).then(res => res.json())
@@ -100,28 +94,34 @@ export function deleteFlag(uuid){
 }
 export function updateFlag(destString,updateData){
     return dispatch =>{
-        console.log(updateData);
+        
+        var localData= updateData;
+        for (var property in localData['tags'])
+            delete localData['tags'][property]['deleteTag'];
+    
+        
         var url='';
         if(destString==='')
             url = API_CONTEXT_PATH+'/patientflags/flag/';
         else 
-            url = API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(destString); // TODO: pick up base URL from {Origin}
-        console.log(url);
-        var auth='Basic YWRtaW46QWRtaW4xMjM='; // TODO: pick up from user login credentials 
-        console.log("Successful Entry");
+            url = API_CONTEXT_PATH+'/patientflags/flag/'+encodeURI(destString); 
+        
         fetch(url, {
             method: 'POST',
-            withCredentials: true,
-            credentials: 'include',
             headers: {
-                'Authorization': auth,
                 'Content-Type': 'application/json'
             },
-            body:JSON.stringify(updateData)
+            body:JSON.stringify(localData)
         }).then(res => res.json())
         .then((data) => {
-            console.log(data);
+            
+            if(data.hasOwnProperty('error')){
+                
+                dispatch(getFlagsFailure('Something Went Wrong',tableDataList));
+                return;
+            }
         });
+            
             dispatch(updateFlagsSuccess(tableDataList));
         }
 }

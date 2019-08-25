@@ -6,10 +6,11 @@ import EditFlags from './Modals/EditFlags';
 import {connect} from 'react-redux';
 import {getTags} from '../actions/tagActions';
 import {getFlags,updateTableData} from '../actions/flagActions';
+import {getSession} from '../actions/sessionActions';
 
 class Flag extends Component{
     listLoaded=false;
-    cols=[{Header:'Name',accessor:'name',Cell: row => <div style={{ 'text-align':'center' }}>{row.value}</div>},{Header:'Tags', accessor:'tags'},{Header:'Priority', accessor:'priority'},{Header:'Status', accessor:'enabled'},{Header:'Actions',accessor:'deleteFlag',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
+    cols=[{Header:'Name',accessor:'name',Cell: row => <div style={{ 'text-align':'center' }}>{row.value}</div>},{Header:'Tags', accessor:'tagList',Cell: row => <div>{row.value.toString()}</div>},{Header:'Priority', accessor:'priority'},{Header:'Status', accessor:'enabled'},{Header:'Actions',accessor:'deleteFlag',Cell: row => <div style={{ 'margin': "0 auto", 'padding': "10px" }}>{row.value}</div>}]
     
     state={
         testVar:'test',
@@ -20,10 +21,15 @@ class Flag extends Component{
         filterData:[],
         tableDataList:[],
         isLoading: true,
-        message:''
+        message:'',
+        evaluator:'showall',
+        visibilityModal:{
+            display:'none'
+        }
     };
 
     componentDidMount(){
+        this.props.dispatch(getSession());
         this.props.dispatch(getFlags());
         this.setState({
             tableDataList:this.props.tableDataList,
@@ -32,18 +38,22 @@ class Flag extends Component{
         this.props.dispatch(getTags());
         this.setState({
             tags:[...this.state.tags,this.props.tagList]
-        },()=> console.log(this.state.tags));
+        })
     }
     componentDidUpdate(prevProps){
         if(prevProps.tableDataList!== this.props.tableDataList){
+            
             var index=0;
-            for (var property in this.props.tableDataList){
-                this.props.tableDataList[property]['deleteFlag']=this.buttonGenerator(++index,this.props.tableDataList[property]);
-                this.props.tableDataList[property]['tags'] = this.tagListGenerator(this.props.tableDataList[property].tags);
+            this.setState({
+                tableDataList:this.props.tableDataList
+            })
+            var localProp = Object.create(this.props.tableDataList);
+            for (var property in localProp){
+                localProp[property]['deleteFlag']=this.buttonGenerator(++index,localProp[property]);
+                localProp[property]['tagList'] = this.tagListGenerator(localProp[property].tags);
             }
             this.setState({
-                tableDataList:this.props.tableDataList,
-                filterData: this.props.tableDataList
+                filterData: localProp
             });
         }
         if(!this.listLoaded || prevProps.tagList!==this.props.tagList){
@@ -55,12 +65,12 @@ class Flag extends Component{
     }
     
     getData(){
-        return this.state.tableDataList;
+        
     }
     deleteFlag(rowIndex){
-        console.log(rowIndex);
+        
         let tableData=this.state.tableDataList;
-        console.log(tableData[rowIndex].name);
+        
         //Delete Flag Service 
         this.props.dispatch(deleteTag(tableData[rowIndex].name));
         //End of Service 
@@ -72,15 +82,16 @@ class Flag extends Component{
     buttonGenerator(index,passedData){
         return (
         <div>
-            <Popup trigger={<button className="iconButton edit-action"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick><a className="close">x</a><EditFlags dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index}/></Popup>
-            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action"><i class="icon-remove "></i></button>
+            <Popup trigger={<button className="iconButton edit-action" title="Edit"><i class="icon-pencil"></i></button>} modal closeOnDocumentClick>{close=>(<EditFlags dataFromChild={passedData} callBackFromParent={this.editCallback.bind(this)} index={index} closeButton={close}/>)}</Popup>
+            <button onClick={()=>this.deleteTag(index)} className="iconButton delete-action" title="Delete"><i class="icon-remove "></i></button>
         </div>
         );
     }
     tagListGenerator(passedData){
+        
         var tagList=[];
         for(var property in passedData){
-            console.log('Tag Property',passedData[property]);
+            
              tagList.push(passedData[property].display)
         }
         return tagList
@@ -88,22 +99,21 @@ class Flag extends Component{
 
     
     updateState(){
-        console.log(this.state.tableDataList);
+        
         this.props.dispatch(updateTableData(this.state.tableDataList));
-        console.log(this.props.tableDataList);
+        
         this.setState({
             tableDataList:this.props.tableDataList
         })
     }
 
     handleOptionChangeTags(name, event) {
-        console.log("Event Called", name);
         var options = event.target.options;
         var result=[];
         for (var i = 0, l = options.length; i < l; i++) {
             if (options[i].selected) {
                 var value= options[i].value;
-                console.log(value);
+                
                 result.push(value);
               }
           }
@@ -111,43 +121,68 @@ class Flag extends Component{
                 selectedOptions:result
           })
       }
+      handleEvaluatorChange(event){
+        
+        this.setState({
+            evaluator:event.target.value
+        })
+      }
       handleSubmit(event){
         var filterData=[];
+        var evaluatorCheck= this.state.evaluator;
         var matchArr=this.state.selectedOptions;
-        console.log(matchArr);
         var tableData= this.state.tableDataList;
-        var trigger=true;
+        if(evaluatorCheck === 'showall'){
+            this.setState({
+                filterData:tableData
+            })
+            return;
+        }
+        matchArr.sort();
+        var trigger=false;
         for(var property in tableData){
-            trigger=true;
+            trigger=false;
             var tempArr = tableData[property]['tags'];
-            console.log(tempArr);
-            for(var i=0;i<tempArr.length; i++){
-                if(matchArr[i]!== tempArr[i]){
-                    trigger=false;
-                    break;
-                }
+            tempArr.sort();
+            
+            if(evaluatorCheck==='true'){
+                if(_.isEqual(matchArr,tempArr))
+                    trigger=true;
             }
+            else{
+                trigger = matchArr.map((d) => {
+                    
+                    if(tempArr.indexOf(d)!== -1){
+                    
+                        return true;
+                    }
+                    else 
+                        return false;
+                })
+                trigger=trigger[0];
+            }
+            
             if(trigger)
                 filterData.push(tableData[property]);
 
         }
-        if(filterData.length!==0){
+        
             this.setState({
                 filterData:filterData
             })
-        }
+        
             event.preventDefault();
       }
 
     onFilteredChangeCustom = (value, accessor) => {
         if(accessor === 'tags')
             value=value[0]
-        console.log('value accessor pair',value,accessor);
+        
         let filtered = this.state.filtered;
         let insertNewFilter = 1;
     
         if (filtered.length) {
-            console.log("Entered");
+            
           filtered.forEach((filter, i) => {
             if (filter["id"] === accessor) {
               if (value === "" || !value.length) filtered.splice(i, 1);
@@ -161,21 +196,23 @@ class Flag extends Component{
         if (insertNewFilter) {
           filtered.push({ id: accessor, value: value });
         }
-        console.log('Filter Data',filtered);
+        
         this.setState({ filtered: filtered });
       };
     
     editCallback= (dataFromChild,index) => {
+        
+        var localData= Object.create(dataFromChild);
+        localData['enabled'] = localData.enabled ? 'Enabled' : 'Disabled';
         if(index!=null){
             this.setState({
-                tableDataList: this.state.tableDataList.map(el => (el.name === dataFromChild.name ? Object.assign({}, el,  dataFromChild ) : el))
+                tableDataList: this.state.tableDataList.map(el => (el.name === localData.name ? Object.assign({}, el,  localData ) : el))
               },()=> this.updateState());
         }
         else {
-            dataFromChild["deleteFlag"]=this.buttonGenerator(this.state.tableDataList.length,dataFromChild);
-            dataFromChild['tags']=this.tagListGenerator(dataFromChild['tags']);
+            localData["deleteFlag"]=this.buttonGenerator(this.state.tableDataList.length,localData);
             this.setState({
-                tableDataList: [...this.state.tableDataList, dataFromChild]
+                tableDataList: [...this.state.tableDataList, localData]
               }, ()=> this.updateState());    
         }
     }
@@ -184,26 +221,32 @@ class Flag extends Component{
                  return  <option key={d.uuid} value={d.display}>{d.display}</option>
         });
             return (
-            <div>
+            <div className="tab-div">
                 <h2>Manage Flags</h2>
-                <Popup trigger={<button className="button confirm"> Add a Flag </button>} modal closeOnDocumentClick>
-                    <a className="close">x</a>
-                    <EditFlags callBackFromParent={this.editCallback.bind(this)} index={null}/>
+                <Popup trigger={<button className="button confirm"> Add a Flag </button>} modal closeOnDocumentClick className="dialog">
+                    {close => (
+                    <div>
+                        <EditFlags callBackFromParent={this.editCallback.bind(this)} index={null} closeButton={close}/>
+                    </div>
+                    )}
                 </Popup>
                 
-            <form className="container" onSubmit={this.handleSubmit.bind(this)} style={{'overflow-y':'hidden', 'height':'auto'}}> 
-                <div className="form-group">
-                    <label htmlFor="uuid">Associated Tags:</label>
+            <form className="container" onSubmit={this.handleSubmit.bind(this)} style={{'overflow-y':'hidden', 'height':'auto','border':'0.5px solid #D3D3D3','display':'flex','flex-flow':'row wrap','align-items':'center','margin-top':'10px','margin-bottom':'10px','padding':'10px'}}> 
+                <h4><i className="icon-search"></i>&nbsp;Filter By Tags</h4>
+                <div className="form-group" style={{'margin-left':'10%'}}>
                     <select multiple className="form-control"  onChange = {this.handleOptionChangeTags.bind(this,'tags')} >
                         {optionItemsTags}
                     </select>
                 </div>
-                <input type="submit" value="Filter" className="button confirm"/>
+                <div className="form-group">
+                <input type="radio" className="form-control" id="flg" onChange = {this.handleEvaluatorChange.bind(this)} value={'showall'} checked={this.state.evaluator === 'showall'} /> show all flags<br/>
+                        <input type="radio" className="form-control" id="flg" onChange = {this.handleEvaluatorChange.bind(this)} value={false} checked={this.state.evaluator === 'false'} /> flags that contain any selected tags <br/>
+                        <input type="radio" className="form-control" id="flg" onChange = {this.handleEvaluatorChange.bind(this)} value={true} checked={this.state.evaluator === 'true'}/> flags that contain all selected tags <br/>
+                </div>
+                <input type="submit" value="Filter" className="button" style={{'margin-left':'10%'}}/>
               </form>
 
-                <ReactTable  className="displayTable" style={{'margin-top':'5px'}} columns={this.cols} data={this.state.filterData} filterable filtered={this.state.filtered} 
-                onFilteredChange={filtered => {this.setState({ filtered });}}
-                   defaultPageSize='5'/>
+                <ReactTable  className="displayTable" style={{'margin-top':'5px'}} columns={this.cols} data={this.state.filterData} defaultPageSize='5'/>
             </div>
             );
         }
@@ -213,6 +256,7 @@ class Flag extends Component{
         loading: state.flags.loading,
         error: state.flags.error,
         tagList: state.tags.tableDataList,
+        session: state.openmrs.session
       });
       
       export default connect(mapStateToProps)(Flag);

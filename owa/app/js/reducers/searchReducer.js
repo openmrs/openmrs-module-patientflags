@@ -1,19 +1,19 @@
 import {
-    GET_PRIORITIES_BEGIN,
-    GET_PRIORITIES_SUCCESS,
-    GET_PRIORITIES_FAILURE,
-    UPDATE_PRIORITIES,
-  } from '../actions/priorityActions';
+    GET_FLAGGEDPATIENTS_BEGIN,
+    GET_FLAGGEDPATIENTS_SUCCESS,
+    GET_FLAGGEDPATIENTS_FAILURE,
+    UPDATE_FLAGGEDPATIENTS,
+  } from '../actions/searchActions';
   
   const initialState = {
-    tableDataList:[],
+    session:'',
     loading: false,
     error: null
   };
   
-  export default function priorityReducer(state = initialState, action) {
+  export default function searchReducer(state = initialState, action) {
     switch(action.type) {
-      case GET_PRIORITIES_BEGIN:
+      case GET_FLAGGEDPATIENTS_BEGIN:
         // Mark the state as "loading" so we can show a spinner
         return {
           ...state,
@@ -21,31 +21,30 @@ import {
           error: null
         };
   
-      case GET_PRIORITIES_SUCCESS:
+      case GET_FLAGGEDPATIENTS_SUCCESS:
         // All done: set loading "false".
         return {
           ...state,
           loading: false,
-          error:null,
-          tableDataList: action.payload.tableDataList
+          session: action.payload.session
         };
   
-      case GET_PRIORITIES_FAILURE:
+      case GET_FLAGGEDPATIENTS_FAILURE:
         // The request failed. It's done. So set loading to "false".
-        // Since it failed, we don't have tableData to display anymore, so set `tableDatalist` to empty.
+        // Since it failed, we don't have tableData to display anymore, so set `session` to empty.
         return {
           ...state,
           loading: false,
           error: action.payload.error,
-          tableDataList: action.payload.tableDataList
+          session: []
         };
 
-        case UPDATE_PRIORITIES:
+        case UPDATE_FLAGGEDPATIENTS:
         return{
             ...state,
             loading: false,
-            error:null, 
-            tableDataList: action.payload.tableDataList
+            error:action.payload.error, 
+            session: action.payload.session
         };
   
       default:

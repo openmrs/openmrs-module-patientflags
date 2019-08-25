@@ -7,10 +7,9 @@
  * graphic logo is a trademark of OpenMRS Inc.
  */
 import 'regenerator-runtime/runtime'
-import {createStore, applyMiddleware, combineReducers} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
 import promiseMiddleware from 'redux-promise-middleware';
 import thunkMiddleware from 'redux-thunk';
-import sagaMiddleware from 'redux-saga';
 import rootReducer from './reducers'
 import { sagas as openmrsSagas} from '@openmrs/react-components';
 import createSagaMiddleware from 'redux-saga';

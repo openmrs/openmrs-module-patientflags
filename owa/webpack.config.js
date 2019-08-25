@@ -6,7 +6,7 @@
  * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
  * graphic logo is a trademark of OpenMRS Inc.
  */
-// generated on 2017-12-15 using generator-openmrs-owa 0.6.0
+// generated on 2019-05-29 using @openmrs/generator-openmrs-owa 0.7.1
 'use strict';
 const webpack = require('webpack');
 const path = require('path');
@@ -23,7 +23,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WebpackOnBuildPlugin = require('on-build-webpack');
- const ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
+
 
 const nodeModulesDir = path.resolve(__dirname, '../node_modules');
 
@@ -51,8 +51,8 @@ var getConfig = function () {
 	  } catch (err) {
 	    // create file with defaults if not found
 	    config = {
-	      'LOCAL_OWA_FOLDER': '/home/yassin/openmrs/openmrs-platform/owa/',
-	      'APP_ENTRY_POINT': 'http://localhost:8080/openmrs/owa/patientflags/index.html'
+	      'LOCAL_OWA_FOLDER': '/Users/Rishav/openmrs/server4\\owa/',
+	      'APP_ENTRY_POINT': 'http://localhost:8081/openmrs/owa/patientflags/index.html'
 	    };
 
 	    fs.writeFile('config.json', JSON.stringify(config));
@@ -77,7 +77,7 @@ var browserSyncTarget = resolveBrowserSyncTarget();
 
 /** Minify for production */
 if (env === 'production') {
- plugins.push(new ngAnnotatePlugin());
+
 	  plugins.push(new UglifyPlugin({
 	    output: {
 	      comments: false,
@@ -116,7 +116,7 @@ if (env === 'production') {
 } else if (env === 'deploy') {
 	  outputFile = `${outputFile}.js`;
 	  vendorOutputFile = "vendor.bundle.js";
-	  outputPath = `${config.LOCAL_OWA_FOLDER}${THIS_APP_ID}`;
+	  outputPath = `${config.LOCAL_OWA_FOLDER}${config.LOCAL_OWA_FOLDER.slice(-1) != '/' ? '/' : ''}${THIS_APP_ID}`;
 	  devtool = 'source-map';
 
 } else if (env === 'dev') {
@@ -133,7 +133,7 @@ plugins.push(new BrowserSyncPlugin({
 }));
 
 plugins.push(new CommonsChunkPlugin({
-    name: 'vendor', 
+    name: 'vendor',
     filename: vendorOutputFile
 }));
 
@@ -151,26 +151,29 @@ plugins.push(new CopyWebpackPlugin([{
     to: 'img/omrs-button.png'
 }]));
 
- plugins.push(new ngAnnotatePlugin({
-  add: true,
-  map: false
-}));
+
 
 var webpackConfig = {
   quiet: false,
   entry: {
 	  app : `${__dirname}/app/js/patientflags`,
 	  css: `${__dirname}/app/css/patientflags.css`,
+	  css: `${__dirname}/app/css/referenceapplication.css`,
 	  vendor : [
 	        	
-	        	 'angular', 'openmrs-contrib-uicommons', 'angular-animate' 
+	        	
+                
+                    'react', 'react-router'
+                    
+                        , 'redux', 'redux-promise-middleware', 'redux-thunk', 'react-redux'
+                    
                 
 	            ]
   },
   devtool: devtool,
   target,
   output: {
-    path: outputPath,
+		path: outputPath,
     filename: '[name]'+outputFile,
   },
   module: {
@@ -179,8 +182,9 @@ var webpackConfig = {
 	    loader: 'babel-loader',
 	    exclude: /node_modules/,
 	    query: {
-	        presets: [ 'es2015' ],
-	        cacheDirectory : true
+					presets: [ 'es2015', 'react','stage-0' ],
+					plugins: ["transform-class-properties"],
+					cacheDirectory : true
 	    }
     },{
 	    test: /\.css$/,
@@ -191,11 +195,15 @@ var webpackConfig = {
 	}, {
 	    test: /\.html$/,
 	    loader: 'html'
-	}],
+	},
+		{
+        test: /\.json$/,
+        loader: 'json-loader'
+    }],
   },
   resolve: {
     root: path.resolve('./src'),
-    extensions: ['', '.js'],
+    extensions: ['', '.js', '.jsx'],
   },
   plugins,
   externals: nodeModules,

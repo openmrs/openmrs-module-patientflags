@@ -31,14 +31,19 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
 			description = new DelegatingResourceDescription();
 			description.addProperty("name");
-			description.addProperty("style");
-			description.addProperty("rank");
 			
 			if (rep instanceof DefaultRepresentation) {
+				description.addProperty("style", RestConstants.REPRESENTATION_FULL);
+				description.addProperty("rank", RestConstants.REPRESENTATION_FULL);
+				
+				description.addProperty("style", RestConstants.REPRESENTATION_REF);
+				description.addProperty("rank", RestConstants.REPRESENTATION_REF);
 				description.addSelfLink();
 				description.addLink("full", ".?v=" + RestConstants.REPRESENTATION_FULL);
 			} else if (rep instanceof FullRepresentation) {
 				description.addProperty("auditInfo");
+				description.addProperty("style");
+				description.addProperty("rank");
 				description.addSelfLink();
 				return description;
 			}

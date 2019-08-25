@@ -1,6 +1,6 @@
 addons:
   chrome: stable
 language: java
+dist: trusty 
 jdk:
  - oraclejdk8
- dist:  trusty 

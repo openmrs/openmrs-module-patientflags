@@ -13,19 +13,20 @@
  */
 package org.openmrs.module.patientflags;
 
-import java.util.IdentityHashMap;
-import java.util.List;
-import java.util.Vector;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+
+import java.lang.reflect.Method;
+import java.util.IdentityHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
@@ -85,7 +86,19 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator {
 		}
 		
 		// set the new names
-		thisModule.setExtensionNames(extensionPoints);
+		try {
+			thisModule.setExtensionNames(extensionPoints);
+		}
+		catch (NoSuchMethodError ex) {
+			try {
+				Map<String, String> extensionPointsMap = extensionPoints;
+				Method method = thisModule.getClass().getMethod("setExtensionNames", Map.class);
+				method.invoke(thisModule, extensionPointsMap);
+			}
+			catch (Exception e) {
+				log.error("Failed to setExtensionNames", e);
+			}
+		}
 		
 		// this code is copied from  ModuleFactory.startModule();
 		// unfortunately it needs to be executed twice since extensions are added to module before activator is executed 

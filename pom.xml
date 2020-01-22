@@ -3,7 +3,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
-	<version>3.0.2-SNAPSHOT</version>
+	<version>3.0.2</version>
 	<packaging>pom</packaging>
 	<name>Patient Flags Module</name>
 	<description>Parent project for Patient Flags Module</description>
@@ -14,7 +14,7 @@
 		<connection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</developerConnection>
 		<url>https://github.com/openmrs/openmrs-module-patientflags/</url>
-	  <tag>HEAD</tag>
+	  <tag>patientflags-3.0.2</tag>
   </scm>
 
 	<distributionManagement>

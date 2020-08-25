@@ -20,7 +20,7 @@
 		<property name="moduleService">
 			<list>
 				<value>org.openmrs.module.patientflags.api.FlagService</value>
-				<ref local="flagService"/>
+				<ref bean="flagService"/>
 			</list>
 		</property>
 	</bean>

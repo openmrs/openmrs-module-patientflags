@@ -225,13 +225,15 @@
     </changeSet>
 
     <changeSet author="slubwama" id="patientflags-1554735240623-13">
+    	<validCheckSum>3:3da6a06d3efc63e8a2d74e3897a486a4</validCheckSum> <!-- old checksum before changing role to patientflags_role -->
+    	<validCheckSum>3:7b9b1c32b280d38e7db301a93991962c</validCheckSum> <!-- new checksum after changing role to patientflags_role -->
         <preConditions onFail="MARK_RAN">
             <not>
-                <indexExists indexName="role"/>
+                <indexExists indexName="patientflags_role"/>
             </not>
         </preConditions>
         <comment>Add an index constraint role to table patientflags_tag_role on column role</comment>
-        <createIndex indexName="role" tableName="patientflags_tag_role">
+        <createIndex indexName="patientflags_role" tableName="patientflags_tag_role">
             <column name="role"/>
         </createIndex>
     </changeSet>

@@ -8,7 +8,9 @@
 	<class name="Tag" table="patientflags_tag" lazy="false">
 
 		<id name="tagId" type="int" column="tag_id" unsaved-value="null">
-			<generator class="native" />
+			<generator class="native">
+				<param name="sequence">patientflags_flag_flag_id_seq</param>
+			</generator>
 		</id>
 
 		<property name="name" type="java.lang.String" column="name"

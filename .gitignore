@@ -62,7 +62,7 @@ nb-configuration.xml
 
 ### Linux ###
 .*
-!.travis.yml
+!.github
 !.gitignore
 !.gitattributes
 !.tx

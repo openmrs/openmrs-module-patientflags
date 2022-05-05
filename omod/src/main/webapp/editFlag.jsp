@@ -46,7 +46,7 @@
 <div><b class="boxHeader"><spring:message
 	code="patientflags.editFlag" /></b>
 <div class="box"><springform:form modelAttribute="flag">
-	<springform:errors path="*" cssClass="error" />
+	<springform:errors path="evaluator" cssClass="error" />
 	<br />
 	<table>
 		<tr>

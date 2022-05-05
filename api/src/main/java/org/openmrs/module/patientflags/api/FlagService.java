@@ -407,4 +407,12 @@ public interface FlagService extends OpenmrsService {
 	 * @return privileges the privileges allowed
 	 */
 	public Collection<Privilege> getPrivileges();
+
+	/**
+	 * Checks if given flag's name is duplicated
+	 *
+	 * @param flag object to verify uniqueness of flag name
+	 * @return true or false depending on flag's name is duplicated or not
+	 */
+	 boolean isFlagNameDuplicated(Flag flag);
 }

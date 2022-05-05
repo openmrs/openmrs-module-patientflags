@@ -532,7 +532,11 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 		return privilegeCache;
 	}
-	
+
+	public boolean isFlagNameDuplicated(Flag flag) {
+		return dao.isFlagNameDuplicated(flag);
+	}
+
 	public void onStartup() {
 		//implement this once OpenMRS "onStartup" functionality has been implemented
 		// then can rid of the "isInitialized" hack

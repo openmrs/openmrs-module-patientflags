@@ -16,6 +16,7 @@ package org.openmrs.module.patientflags.web.validators;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
+import org.openmrs.module.patientflags.api.FlagService;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
@@ -36,13 +37,16 @@ public class FlagValidator implements Validator {
 		
 		// name cannot be empty
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noName");
-		
-		// criteria is no longer required, because of custom cases
-		//ValidationUtils.rejectIfEmptyOrWhitespace(errors, "criteria", "patientflags.errors.noCriteria");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "criteria", "patientflags.errors.noCriteria");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "message", "patientflags.errors.noMessage");
 		
 		// make sure that the string fields aren't too large
 		if (flagToValidate.getName().length() > 255)
 			errors.rejectValue("name", "patientflags.errors.nameTooLong");
+
+		if (isFlagNameDuplicated(flagToValidate)) {
+			errors.rejectValue("name", "patientflags.errors.noUniqueName");
+		}
 		
 		if (flagToValidate.getCriteria().length() > 5000)
 			errors.rejectValue("criteria", "patientflags.errors.criteriaTooLong");
@@ -58,9 +62,13 @@ public class FlagValidator implements Validator {
 			
 			if (!result.getResult()) {
 				String message = result.getLocalizedMessage();
-				errors.reject(null, Context.getMessageSourceService().getMessage("patientflags.errors.invalidCriteria")
-				        + (message != null ? ": " + message : ""));
+				errors.rejectValue("criteria", Context.getMessageSourceService()
+						.getMessage("patientflags.errors.invalidCriteria") + (message != null ? ": " + message : ""));
 			}
 		}
+	}
+
+	private boolean isFlagNameDuplicated(Flag flagToValidate) {
+		return Context.getService(FlagService.class).isFlagNameDuplicated(flagToValidate);
 	}
 }

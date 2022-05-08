@@ -407,4 +407,13 @@ public interface FlagService extends OpenmrsService {
 	 * @return privileges the privileges allowed
 	 */
 	public Collection<Privilege> getPrivileges();
+
+	/**
+	 * Checks if given priority's name is duplicated
+	 *
+	 * @param priority object to verify uniqueness of priority name
+	 * @return true or false depending on priority's name is duplicated or not
+	 */
+	@Authorized(value = { "Manage Flags" })
+	boolean isPriorityNameDuplicated(Priority priority);
 }

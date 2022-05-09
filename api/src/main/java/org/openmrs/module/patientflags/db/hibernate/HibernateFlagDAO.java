@@ -15,6 +15,7 @@ package org.openmrs.module.patientflags.db.hibernate;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
@@ -313,6 +314,15 @@ public class HibernateFlagDAO implements FlagDAO {
 	public void purgeDisplayPoint(Integer displayPointId) throws DAOException {
 		DisplayPoint displayPoint = getDisplayPoint(displayPointId);
 		sessionFactory.getCurrentSession().delete(displayPoint);
+	}
+
+	public boolean isPriorityNameDuplicated(Priority priority) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Priority.class);
+		addEqualsRestriction(criteria, "name", priority.getName());
+		addNotEqualsRestriction(criteria, "priorityId", priority.getPriorityId());
+		addEqualsRestriction(criteria, "retired", false);
+
+		return criteria.uniqueResult() != null;
 	}
 
 	public boolean isFlagNameDuplicated(Flag flag) {

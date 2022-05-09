@@ -42,7 +42,6 @@ import org.openmrs.module.patientflags.filter.FilterType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -373,7 +372,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		Priority priority = getPriority(priorityId);
 		List<Flag> flags = getAllFlags();
 		for (Flag flag : flags) {
-			if (flag.getPriority().equals(priority)) {
+			Priority flagPriority = flag.getPriority();
+			if (flagPriority != null && flagPriority.equals(priority)) {
 				throw (new APIException("Cannot delete priority, because it's referenced by an existing flag."));
 			}
 		}
@@ -542,8 +542,15 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then can rid of the "isInitialized" hack
 		//refreshCache();
 	}
-	
+
 	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#isPriorityNameDuplicated(Priority) 
+	 */
+	public boolean isPriorityNameDuplicated(Priority priority) {
+		return dao.isPriorityNameDuplicated(priority);
+	}
+
+/**
 	 * Private Utility Methods
 	 */
 	

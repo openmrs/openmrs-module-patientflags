@@ -52,6 +52,7 @@
 		<th><spring:message code="patientflags.tags" /></th>
 		<th><spring:message code="patientflags.priority" /></th>
 		<th><spring:message code="patientflags.status" /></th>
+		<th><spring:message code="patientflags.actions" /></th>
 		<th>&nbsp;</th>
 	</tr>
 	<c:set var="i" value="0" />

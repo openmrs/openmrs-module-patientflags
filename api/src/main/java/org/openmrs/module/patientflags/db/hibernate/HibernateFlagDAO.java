@@ -325,6 +325,15 @@ public class HibernateFlagDAO implements FlagDAO {
 		return criteria.uniqueResult() != null;
 	}
 
+	public boolean isFlagNameDuplicated(Flag flag) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Flag.class);
+		addEqualsRestriction(criteria, "name", flag.getName());
+		addNotEqualsRestriction(criteria, "flagId", flag.getFlagId());
+		addEqualsRestriction(criteria, "retired", false);
+
+		return criteria.uniqueResult() != null;
+	}
+
 	private void addEqualsRestriction(Criteria criteria, String propertyName, Object value) {
 		if (value != null) {
 			criteria.add(Restrictions.eq(propertyName, value));

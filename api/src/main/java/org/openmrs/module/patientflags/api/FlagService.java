@@ -308,7 +308,21 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Authorized( { PatientFlagsConstants.PRIV_MANAGE_FLAGS })
 	public void savePriority(Priority priority);
-	
+
+	/**
+	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped.
+	 * Any parameter can be null to skip the filter
+	 *
+	 * @param name name of flag
+	 * @param evaluator type of evaluator
+	 * @param enabled active/enabled flags only
+	 * @param tags associated tags
+	 * @return the list of flags matching specified criteria
+	 */
+	@Transactional(readOnly = true)
+	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
+	List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags);
+
 	/**
 	 * Removes a specific priority from the database
 	 * 

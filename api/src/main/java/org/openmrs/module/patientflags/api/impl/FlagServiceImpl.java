@@ -298,7 +298,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then refresh the cache
 		refreshCache();
 	}
-	
+
+	/**
+	 * @see FlagService#searchFlags(String, String, Boolean, List)
+	 */
+	public List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) {
+		return dao.searchFlags(name, evaluator, enabled, tags);
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#purgeTag(Integer)
 	 */

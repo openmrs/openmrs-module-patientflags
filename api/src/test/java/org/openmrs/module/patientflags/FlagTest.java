@@ -130,7 +130,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	@Test
 	public void evalCohort_sqlShouldReturnEmptyCohort() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
-		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
+		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("Sql"));
 		Cohort cohort = flag.evalCohort(new Cohort());
 		Assert.assertTrue(cohort.isEmpty());
 	}

@@ -380,6 +380,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	public List<Flag> getFlagsForPatient(Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
 		criteria.add(Restrictions.eq("patient", patient));
+		criteria.setProjection(Projections.property("flag"));
 		return criteria.list();
 	}
 	
@@ -388,5 +389,35 @@ public class HibernateFlagDAO implements FlagDAO {
 	 */
 	public void savePatientFlag(PatientFlag patientFlag) throws DAOException {
 		sessionFactory.getCurrentSession().saveOrUpdate(patientFlag);
+	}
+
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#deletePatientFlagsForPatient(Patient)
+	 */
+	@Override
+	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		
+		@SuppressWarnings("unchecked")
+		List<PatientFlag> flags = criteria.list();
+		for (PatientFlag patientFlag : flags) {
+			sessionFactory.getCurrentSession().delete(patientFlag);
+		}
+	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#deletePatientFlagsForFlag(Flag)
+	 */
+	@Override
+	public void deletePatientFlagsForFlag(Flag flag) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		criteria.add(Restrictions.eq("flag", flag));
+		
+		@SuppressWarnings("unchecked")
+		List<PatientFlag> flags = criteria.list();
+		for (PatientFlag patientFlag : flags) {
+			sessionFactory.getCurrentSession().delete(patientFlag);
+		}
 	}
 }

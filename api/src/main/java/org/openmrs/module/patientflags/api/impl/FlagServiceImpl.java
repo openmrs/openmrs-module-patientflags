@@ -40,6 +40,7 @@ import org.openmrs.module.patientflags.comparator.TagAlphaComparator;
 import org.openmrs.module.patientflags.db.FlagDAO;
 import org.openmrs.module.patientflags.filter.Filter;
 import org.openmrs.module.patientflags.filter.FilterType;
+import org.openmrs.module.patientflags.task.PatientFlagTask;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -230,6 +231,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		dao.saveFlag(flag);
 		// then refresh the cache
 		refreshCache();
+		
+		new PatientFlagTask().generatePatientFlags(flag);
 	}
 	
 	/**
@@ -240,6 +243,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		dao.purgeFlag(flagId);
 		// then refresh the cache
 		refreshCache();
+		
+		dao.deletePatientFlagsForFlag(new Flag(flagId));
 	}
 
 	public void retireFlag(Flag flag, String retiredReason) {
@@ -247,6 +252,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			flag.setRetired(true);
 			flag.setRetireReason(retiredReason);
 			Context.getService(FlagService.class).saveFlag(flag);
+			
+			dao.deletePatientFlagsForFlag(flag);
 		} else {
 			throw new APIException("A reason is required when retiring a patient flag");
 		}
@@ -614,5 +621,10 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	@Override
 	public void savePatientFlag(PatientFlag patientFlag) throws DAOException {
 		dao.savePatientFlag(patientFlag);
+	}
+
+	@Override
+	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
+		dao.deletePatientFlagsForPatient(patient);
 	}
 }

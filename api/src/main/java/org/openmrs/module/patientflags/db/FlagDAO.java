@@ -275,4 +275,20 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	List<Flag> getFlagsForPatient(Patient patient) throws DAOException;
+	
+	/**
+	 * Deletes all flags for a given patient
+	 * 
+	 * @param patient the patient whose flags to delete
+	 * @throws DAOException
+	 */
+	void deletePatientFlagsForPatient(Patient patient) throws DAOException;
+	
+	/**
+	 * Deletes all patient flags for a given flag
+	 * 
+	 * @param flag the flag
+	 * @throws DAOException
+	 */
+	void deletePatientFlagsForFlag(Flag flag) throws DAOException;
 }

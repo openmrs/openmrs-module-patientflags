@@ -458,4 +458,12 @@ public interface FlagService extends OpenmrsService {
 	 * @throws DAOException
 	 */
 	public void savePatientFlag(PatientFlag patientFlag) throws DAOException;
+	
+	/**
+	 * Deletes all flags for a given patient
+	 * 
+	 * @param patient the patient whose flags to delete
+	 * @throws DAOException
+	 */
+	public void deletePatientFlagsForPatient(Patient patient) throws DAOException;
 }

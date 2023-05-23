@@ -18,9 +18,12 @@ import org.apache.commons.logging.LogFactory;
 import org.openmrs.GlobalProperty;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.BaseModuleActivator;
+import org.openmrs.module.DaemonToken;
+import org.openmrs.module.DaemonTokenAware;
 import org.openmrs.module.Extension;
 import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
+import org.openmrs.module.patientflags.task.PatientFlagTask;
 
 import java.lang.reflect.Method;
 import java.util.IdentityHashMap;
@@ -31,7 +34,7 @@ import java.util.Vector;
 /**
  * This class contains the logic that is run every time this module is either started or shutdown
  */
-public class PatientFlagsModuleActivator extends BaseModuleActivator {
+public class PatientFlagsModuleActivator extends BaseModuleActivator implements DaemonTokenAware {
 
 	private Log log = LogFactory.getLog(this.getClass());
 
@@ -127,5 +130,10 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator {
 		thisModule.setExtensions(new Vector<Extension>());
 		
 		log.info("Shutting down Patient Flags Module");
+	}
+
+	@Override
+	public void setDaemonToken(DaemonToken token) {
+		PatientFlagTask.setDaemonToken(token);
 	}
 }

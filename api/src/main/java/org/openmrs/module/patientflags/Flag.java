@@ -60,6 +60,10 @@ public class Flag extends BaseOpenmrsMetadata {
 		enabled = true;
 	}
 	
+	public Flag(Integer flagId) {
+		this.flagId = flagId;
+	}
+	
 	/**
 	 * Constructor with name criteria, and message
 	 * 

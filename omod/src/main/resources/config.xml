@@ -28,6 +28,11 @@
 		<aware_of_module>org.openmrs.module.owa</aware_of_module>
 		<aware_of_module>org.openmrs.module.cql</aware_of_module>
 	</aware_of_modules>
+	
+	<advice>
+		<point>org.openmrs.api.EncounterService</point>
+		<class>org.openmrs.module.patientflags.aop.EncounterServiceAdvice</class>
+	</advice>
 
 	<!-- Internationalization -->
 	<messages>

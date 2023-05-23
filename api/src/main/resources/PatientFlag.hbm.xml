@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="org.openmrs.module.patientflags">
+
+	<class name="PatientFlag" table="patientflags_patient_flag" lazy="false">
+
+		<id name="patientFlagId" type="int" column="patient_flag_id" unsaved-value="0">
+			<generator class="native">
+				<param name="sequence">patientflags_patient_flag_id_seq</param>
+			</generator>
+		</id>
+
+		<many-to-one name="patient" class="org.openmrs.Patient" not-null="true" />
+			
+		<many-to-one name="flag" class="Flag" not-null="true" />
+		
+		<property name="uuid" type="string" length="38" not-null="true" />
+
+	</class>
+
+</hibernate-mapping>
+

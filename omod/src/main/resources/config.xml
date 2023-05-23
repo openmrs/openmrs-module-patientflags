@@ -40,7 +40,7 @@
 	
 	<!-- Mapping File for the Flag Table -->
 	<mappingFiles>
-		DisplayPoint.hbm.xml Flag.hbm.xml Priority.hbm.xml Tag.hbm.xml
+		DisplayPoint.hbm.xml Flag.hbm.xml Priority.hbm.xml Tag.hbm.xml PatientFlag.hbm.xml
 	</mappingFiles>
 	
 	<!--  Extension Points -->

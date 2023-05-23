@@ -353,5 +353,30 @@
         <comment>Add a unique constraint to the name of the tag</comment>
         <addUniqueConstraint tableName="patientflags_tag" columnNames="name"  constraintName="patientflags_tag_name_unique"></addUniqueConstraint>
     </changeSet>
+    
+    <changeSet author="dkayiwa" id="patientflags_patient_flag">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="patientflags_patient_flag"/>
+            </not>
+        </preConditions>
+        <comment>Create table patientflags_patient_flag</comment>
+        <createTable tableName="patientflags_patient_flag">
+            <column autoIncrement="true" name="patient_flag_id" type="int">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="patient_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="flag_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="uuid" type="CHAR(38)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="flag_id" baseTableName="patientflags_patient_flag" constraintName="patientflags_patient_flag_flag_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="flag_id" referencedTableName="patientflags_flag"/> 
+        <addForeignKeyConstraint baseColumnNames="patient_id" baseTableName="patientflags_patient_flag" constraintName="patientflags_patient_flag_patient_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="patient_id" referencedTableName="patient"/> 
+    </changeSet>
 
 </databaseChangeLog>

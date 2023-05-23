@@ -24,6 +24,14 @@ public class PatientFlag extends BaseOpenmrsObject{
 	
 	private Flag flag;
 	
+	public PatientFlag() {
+		
+	}
+	
+	public PatientFlag(Patient patient, Flag flag) {
+		setPatient(patient);
+		setFlag(flag);
+	}
 	
 	public Integer getPatientFlagId() {
 		return patientFlagId;

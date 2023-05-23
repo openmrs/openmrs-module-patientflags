@@ -24,8 +24,10 @@ import org.openmrs.Role;
 import org.openmrs.annotation.Authorized;
 import org.openmrs.api.APIException;
 import org.openmrs.api.OpenmrsService;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.PatientFlagsConstants;
 import org.openmrs.module.patientflags.PatientFlagsProperties;
 import org.openmrs.module.patientflags.Priority;
@@ -439,4 +441,21 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Authorized(value = { "Manage Flags" })
 	boolean isFlagNameDuplicated(Flag flag);
+	
+	/**
+	 * Gets a list of all Flags for the specified Patient
+	 * 
+	 * @param patient the patient
+	 * @return the list of Flags for the Patient
+	 */
+	@Transactional(readOnly = true)
+	public List<Flag> getFlagsForPatient(Patient patient);
+	
+	/**
+	 * Saves a Patient Flag in the Patient Flag table
+	 * 
+	 * @param patientFlag the patient flag to save
+	 * @throws DAOException
+	 */
+	public void savePatientFlag(PatientFlag patientFlag) throws DAOException;
 }

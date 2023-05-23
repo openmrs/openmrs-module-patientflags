@@ -18,12 +18,14 @@ import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.openmrs.Patient;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.api.db.hibernate.DbSessionFactory;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.db.FlagDAO;
@@ -371,5 +373,20 @@ public class HibernateFlagDAO implements FlagDAO {
 		if (value != null) {
 			criteria.add(Restrictions.not(Restrictions.eq(propertyName, value)));
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Flag> getFlagsForPatient(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return criteria.list();
+	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#savePatientFlag(PatientFlag)
+	 */
+	public void savePatientFlag(PatientFlag patientFlag) throws DAOException {
+		sessionFactory.getCurrentSession().saveOrUpdate(patientFlag);
 	}
 }

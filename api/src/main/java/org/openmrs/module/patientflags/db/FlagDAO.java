@@ -15,9 +15,11 @@ package org.openmrs.module.patientflags.db;
 
 import java.util.List;
 
+import org.openmrs.Patient;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.Tag;
 
@@ -76,6 +78,14 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	public void saveFlag(Flag flag) throws DAOException;
+	
+	/**
+	 * Saves a Patient Flag in the Patient Flag table
+	 * 
+	 * @param patientFlag the patient flag to save
+	 * @throws DAOException
+	 */
+	public void savePatientFlag(PatientFlag patientFlag) throws DAOException;
 
 	/**
 	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped.
@@ -257,4 +267,12 @@ public interface FlagDAO {
 	 * @return true or false depending on flag's name is duplicated or not
 	 */
 	boolean isFlagNameDuplicated(Flag flag);
+	
+	/**
+	 * Gets all Flags for a patient
+	 * 
+	 * @return a list of all Patient Flags
+	 * @throws DAOException
+	 */
+	List<Flag> getFlagsForPatient(Patient patient) throws DAOException;
 }

@@ -24,9 +24,11 @@ import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.context.Context;
+import org.openmrs.api.db.DAOException;
 import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.PatientFlagsProperties;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.Tag;
@@ -602,5 +604,15 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			
 		// set the initialized flag to true
 		isInitialized = true;
+	}
+
+	@Override
+	public List<Flag> getFlagsForPatient(Patient patient) {
+		return dao.getFlagsForPatient(patient);
+	}
+
+	@Override
+	public void savePatientFlag(PatientFlag patientFlag) throws DAOException {
+		dao.savePatientFlag(patientFlag);
 	}
 }

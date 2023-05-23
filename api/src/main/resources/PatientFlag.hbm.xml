@@ -13,9 +13,9 @@
 			</generator>
 		</id>
 
-		<many-to-one name="patient" class="org.openmrs.Patient" not-null="true" />
+		<many-to-one name="patient" class="org.openmrs.Patient" column="patient_id" not-null="true" />
 			
-		<many-to-one name="flag" class="Flag" not-null="true" />
+		<many-to-one name="flag" class="Flag" column="flag_id" not-null="true" />
 		
 		<property name="uuid" type="string" length="38" not-null="true" />
 

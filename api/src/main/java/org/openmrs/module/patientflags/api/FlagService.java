@@ -16,6 +16,7 @@ package org.openmrs.module.patientflags.api;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
@@ -504,4 +505,15 @@ public interface FlagService extends OpenmrsService {
 	 * @throws DAOException
 	 */
 	public void deletePatientFlagsForPatient(Patient patient) throws DAOException;
+	
+	/**
+	 * Evaluates all flags. It is an asynchronous operation.
+	 * <p>
+	 * There is no need to call this method in normal usage since flags are automatically
+	 * re-evaluated whenever a flag or encounter is saved.
+	 * <p>
+	 *
+	 * @return object representing the result of the started asynchronous operation
+	 */
+	public Future<?> evaluateAllFlags();
 }

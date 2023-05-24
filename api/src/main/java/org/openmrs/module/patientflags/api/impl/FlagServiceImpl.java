@@ -48,6 +48,9 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Implementation of the {@link FlagService}
@@ -66,6 +69,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	
 	/* Data access object for Flags */
 	private FlagDAO dao;
+	
+	private ExecutorService executor;
 	
 	private boolean isInitialized = false; // a hack to overcome the fact that calling "onStartup" has yet to implemented in OpenMRS core
 	
@@ -652,5 +657,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
 		return getFlagsForPatient(patient, getFilter(roles, getDisplayPoint(displayPointName)));
+	}
+
+	@Override
+	public Future<?> evaluateAllFlags() {
+		if (executor == null) {
+			executor = Executors.newSingleThreadExecutor();
+		}
+		
+		return executor.submit(new PatientFlagTask());
 	}
 }

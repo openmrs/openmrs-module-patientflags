@@ -30,6 +30,13 @@
 			href="${pageContext.request.contextPath}/module/patientflags/managePatientFlagsProperties.form"><spring:message
 			code="patientflags.managePatientFlagsProperties" /></a></li>
 	</openmrs:hasPrivilege>
+	<openmrs:hasPrivilege privilege="Manage Flags">
+		<li
+			<c:if test='<%= request.getRequestURI().contains("evaluateAllFlags") %>'>class="active"</c:if>>
+		<a
+			href="${pageContext.request.contextPath}/module/patientflags/evaluateAllFlags.htm"><spring:message
+			code="patientflags.evaluateAllFlags" /></a></li>
+	</openmrs:hasPrivilege>
 	<openmrs:hasPrivilege privilege="Test Flags">
 		<li
 			<c:if test='<%= request.getRequestURI().contains("findFlaggedPatients") %>'>class="active"</c:if>>

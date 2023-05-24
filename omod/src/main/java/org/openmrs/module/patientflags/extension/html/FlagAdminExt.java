@@ -50,6 +50,7 @@ public class FlagAdminExt extends AdministrationSectionExt {
 			map.put("module/patientflags/manageTags.list", "patientflags.manageTags");
 			map.put("module/patientflags/managePriorities.list", "patientflags.managePriorities");
 			map.put("module/patientflags/managePatientFlagsProperties.form", "patientflags.managePatientFlagsProperties");
+			map.put("module/patientflags/evaluateAllFlags.htm", "patientflags.evaluateAllFlags");
 		}
 		if (currentUser.hasPrivilege(PatientFlagsConstants.PRIV_TEST_FLAGS)) {
 			map.put("module/patientflags/findFlaggedPatients.form", "patientflags.findFlaggedPatients");

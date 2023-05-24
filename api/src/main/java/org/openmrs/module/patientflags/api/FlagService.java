@@ -452,6 +452,44 @@ public interface FlagService extends OpenmrsService {
 	public List<Flag> getFlagsForPatient(Patient patient);
 	
 	/**
+	 * Gets a list of Flags that are triggers for the specified Patient, filtering the Flags by
+	 * the specified filter
+	 * 
+	 * @param patient the patient
+	 * @param filter the filter to filter the Flags by
+	 * @return the list of Flags the Patient triggers
+	 */
+	@Transactional(readOnly = true)
+	public List<Flag> getFlagsForPatient(Patient patient, Filter filter);
+	
+	/**
+	 * Gets a list of Flags that are triggers for the specified Patient, filtered by Flags 
+	 * Tagged for a specified location and role
+	 * 
+	 * @param patient the patient to test
+	 * @param roles to filter tagged flags by
+	 * @param displayPoint displayPoint to filter tagged flags by
+	 * @return the list of Flags the Patient triggers
+	 */
+	@Transactional(readOnly = true)
+	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint);
+	
+	/**
+	 * Gets a list of Flags that are triggers for the specified Patient, filtered by Flags 
+	 * Tagged for a specified location and role
+	 * 
+	 * (This method is identical to generateFlagsForPatient(Patient,Set<Role>,DisplayPoint) except that
+	 * it takes a display point name as a string, instead of an actual DisplayPoint object)
+	 * 
+	 * @param patient the patient to test
+	 * @param roles to filter tagged flags by
+	 * @param displayPointName name of the displayPoint (as a String) to filter tagged flags by
+	 * @return the list of Flags the Patient triggers
+	 */
+	@Transactional(readOnly = true)
+	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName);
+	
+	/**
 	 * Saves a Patient Flag in the Patient Flag table
 	 * 
 	 * @param patientFlag the patient flag to save

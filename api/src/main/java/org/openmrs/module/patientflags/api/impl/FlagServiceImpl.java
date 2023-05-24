@@ -114,6 +114,10 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 *      Set<Role>, DisplayPoint)
 	 */
 	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
+		return generateFlagsForPatient(patient, getFilter(roles, displayPoint));
+	}
+	
+	private Filter getFilter(Set<Role> roles, DisplayPoint displayPoint) {
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
@@ -140,7 +144,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// set the filter to pass-through any untagged flags
 		filter.setType(FilterType.ANYTAG_OR_NOTAG);
 		
-		return generateFlagsForPatient(patient, filter);
+		return filter;
 	}
 	
 	/**
@@ -626,5 +630,26 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	@Override
 	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
 		dao.deletePatientFlagsForPatient(patient);
+	}
+
+	@Override
+	public List<Flag> getFlagsForPatient(Patient patient, Filter filter) {
+		List<Flag> flags = getFlagsForPatient(patient);
+		
+		for (Flag flag : filter.filter(flags)) {
+			flags.add(flag);
+		}
+		
+		return flags;
+	}
+
+	@Override
+	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
+		return getFlagsForPatient(patient, getFilter(roles, displayPoint));
+	}
+
+	@Override
+	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
+		return getFlagsForPatient(patient, getFilter(roles, getDisplayPoint(displayPointName)));
 	}
 }

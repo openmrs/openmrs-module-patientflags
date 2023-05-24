@@ -20,7 +20,7 @@
 		<property name="style" type="java.lang.String" column="style"
 			not-null="true" length="255" />
 
-		<property name="rank" type="int" column="rank" not-null="true"/>
+		<property name="rank" type="int" column="p_rank" not-null="true"/>
 
 		<!--  standard OpenmrsMetaData -->
 		<property name="uuid" type="string" length="38" not-null="true" />

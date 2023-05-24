@@ -47,7 +47,7 @@ public class FlagPatientOverviewPortletController extends PortletController {
 		List<Flag> results = new ArrayList<Flag>();
 		FlagService flagService = Context.getService(FlagService.class);
 		
-		results = flagService.generateFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
+		results = flagService.getFlagsForPatient(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
 		
 		List<Map<String, Object>> fgl = new ArrayList<Map<String, Object>>();
 		for (Flag flag : results) {

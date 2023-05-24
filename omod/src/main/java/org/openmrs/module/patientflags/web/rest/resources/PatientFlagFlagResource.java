@@ -114,7 +114,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		if (StringUtils.isNotBlank(patientUuid)) {
 			Patient patient = Context.getPatientService().getPatientByUuid(patientUuid);
 			if( patient != null) {
-				return new NeedsPaging<Flag>(Context.getService(FlagService.class).generateFlagsForPatient(patient), context);
+				return new NeedsPaging<Flag>(Context.getService(FlagService.class).getFlagsForPatient(patient), context);
 			}
 			return new EmptySearchResult();
 		} else {

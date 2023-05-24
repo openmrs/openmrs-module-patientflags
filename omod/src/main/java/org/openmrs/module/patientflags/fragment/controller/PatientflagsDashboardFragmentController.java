@@ -30,7 +30,7 @@ public class PatientflagsDashboardFragmentController {
         FlagService flagService = Context.getService(FlagService.class);
         User user = Context.getAuthenticatedUser();
         Set<Role> userRoles = user.getRoles();
-        List<Flag> listAllFlags = flagService.generateFlagsForPatient(patient);
+        List<Flag> listAllFlags = flagService.getFlagsForPatient(patient);
         StringBuilder flagsString = new StringBuilder();
 
         for (Flag flag : listAllFlags) {

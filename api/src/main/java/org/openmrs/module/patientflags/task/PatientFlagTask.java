@@ -85,7 +85,9 @@ public class PatientFlagTask implements Runnable {
 			
 			service.deletePatientFlagsForPatient(pt);
 			
-			service.savePatientFlag(new PatientFlag(pt, flag));
+			if (flag.getEnabled() && !flag.isRetired()) {
+				service.savePatientFlag(new PatientFlag(pt, flag));
+			}
 		}
 	}
 }

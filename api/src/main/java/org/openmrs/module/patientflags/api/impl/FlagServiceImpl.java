@@ -634,13 +634,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient, Filter filter) {
-		List<Flag> flags = getFlagsForPatient(patient);
+		List<Flag> filteredFlags = new ArrayList<Flag>();
 		
+		List<Flag> flags = getFlagsForPatient(patient);
 		for (Flag flag : filter.filter(flags)) {
-			flags.add(flag);
+			filteredFlags.add(flag);
 		}
 		
-		return flags;
+		return filteredFlags;
 	}
 
 	@Override

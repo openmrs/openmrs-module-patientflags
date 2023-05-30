@@ -17,6 +17,8 @@
 			
 		<many-to-one name="flag" class="Flag" column="flag_id" not-null="true" />
 		
+		<property name="message" type="java.lang.String" column="message" length="255" />
+		
 		<property name="uuid" type="string" length="38" not-null="true" />
 
 	</class>

@@ -24,6 +24,8 @@ public class PatientFlag extends BaseOpenmrsObject{
 	
 	private Flag flag;
 	
+	private String message;
+	
 	public PatientFlag() {
 		
 	}
@@ -65,5 +67,13 @@ public class PatientFlag extends BaseOpenmrsObject{
 	@Override
 	public void setId(Integer id) {
 		setPatientFlagId(id);
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
 }

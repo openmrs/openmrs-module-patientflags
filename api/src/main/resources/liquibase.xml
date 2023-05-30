@@ -392,5 +392,17 @@
 		              oldColumnName="rank"
 		              tableName="patientflags_priority" />
 	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_message_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="message"/>
+			</not>
+		</preConditions>
+		<comment>Adding 'message' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="message" type="VARCHAR(255)"/>
+		</addColumn>
+	</changeSet>
 
 </databaseChangeLog>

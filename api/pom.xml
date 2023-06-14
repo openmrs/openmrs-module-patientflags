@@ -37,16 +37,6 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
 		</dependency>
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>metadatadeploy-api</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.openmrs.module</groupId>
-			<artifactId>metadatasharing-api</artifactId>
-		</dependency>
 		
 		<!--  include groovy, but mark as provided since it is included with openmrs-core v1.10+-->
 		<dependency>
@@ -55,15 +45,6 @@
   			<version>1.7.6</version>
   			<type>jar</type>
   			<scope>provided</scope>
-		</dependency>
-
-		<!-- dependencies required for testing -->
-		<dependency>
-			<groupId>cglib</groupId>
-			<artifactId>cglib</artifactId>
-			<type>jar</type>
-			<version>2.2.2</version>
-			<scope>test</scope>
 		</dependency>
 
 	</dependencies>

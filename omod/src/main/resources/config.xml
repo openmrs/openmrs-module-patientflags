@@ -86,4 +86,17 @@
 		<lang>en</lang>
 		<file>messages.properties</file>
 	</messages>
+	
+	<conditionalResources>
+	    <conditionalResource>
+	        <path>/lib/patientflags-api-metadata.*</path>
+	        <modules>
+	            <module>
+	                <moduleId>metadatadeploy</moduleId>
+	                <version>1.*</version>
+	            </module>
+	        </modules>
+	    </conditionalResource>
+	</conditionalResources>
+
 </module>

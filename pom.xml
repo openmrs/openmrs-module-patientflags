@@ -35,7 +35,6 @@
 		<module>api</module>
 		<module>api-metadata</module>
 		<module>omod</module>
-		<module>owa</module>
 	</modules>
 
 	<dependencyManagement>

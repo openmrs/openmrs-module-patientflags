@@ -164,7 +164,7 @@
                                 <artifactItem>
                                     <groupId>${project.parent.groupId}</groupId>
                                     <artifactId>${project.parent.artifactId}-owa</artifactId>
-                                    <version>${project.parent.version}</version>
+                                    <version>3.0.3</version>
                                     <type>zip</type>
                                     <destFileName>patientflags.owa</destFileName>
                                 </artifactItem>

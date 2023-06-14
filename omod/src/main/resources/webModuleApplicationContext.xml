@@ -41,7 +41,5 @@
 	<!-- configure the Patient Flags Properties Validator -->
 	<bean id="patientFlagsPropertiesValidator" class="org.openmrs.module.patientflags.web.validators.PatientFlagsPropertiesValidator" />
 
-	<bean class="org.openmrs.ui.framework.StandardModuleUiConfiguration">
-		<property name="moduleId" value="${project.parent.artifactId}"/>
-	</bean>
+	<bean class="org.openmrs.module.patientflags.web.RefAppConfiguration" />
 </beans>

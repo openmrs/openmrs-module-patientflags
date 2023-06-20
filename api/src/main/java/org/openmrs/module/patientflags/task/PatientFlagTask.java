@@ -67,6 +67,13 @@ public class PatientFlagTask implements Runnable {
 	}
 
 	private void generatePatientFlags(Flag flag, FlagService service) {
+		
+		service.deletePatientFlagsForFlag(flag);
+		
+		if (!flag.getEnabled() || flag.isRetired()) {
+			return;
+		}
+		
 		org.openmrs.Cohort cohort = service.getFlaggedPatients(flag);
 		if (cohort == null) {
 			return;
@@ -74,13 +81,7 @@ public class PatientFlagTask implements Runnable {
 		
 		java.util.Set<Integer> members =  cohort.getMemberIds();
 		for (Integer patientId : members) {
-			Patient pt = new Patient(patientId);
-			
-			service.deletePatientFlagsForPatient(pt);
-			
-			if (flag.getEnabled() && !flag.isRetired()) {
-				service.savePatientFlag(new PatientFlag(pt, flag));
-			}
+			service.savePatientFlag(new PatientFlag(new Patient(patientId), flag));
 		}
 	}
 	

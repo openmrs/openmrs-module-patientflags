@@ -407,6 +407,22 @@ public class HibernateFlagDAO implements FlagDAO {
 	}
 	
 	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#deletePatientFlagForPatient(Patient, Flag)
+	 */
+	@Override
+	public void deletePatientFlagForPatient(Patient patient, Flag flag) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		criteria.add(Restrictions.eq("flag", flag));
+		
+		@SuppressWarnings("unchecked")
+		List<PatientFlag> flags = criteria.list(); //Should return a maximum of one flag
+		for (PatientFlag patientFlag : flags) {
+			sessionFactory.getCurrentSession().delete(patientFlag);
+		}
+	}
+	
+	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#deletePatientFlagsForFlag(Flag)
 	 */
 	@Override

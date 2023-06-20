@@ -285,6 +285,15 @@ public interface FlagDAO {
 	void deletePatientFlagsForPatient(Patient patient) throws DAOException;
 	
 	/**
+	 * Deletes a flag for a given patient
+	 * 
+	 * @param patient the patient whose flag to delete
+	 * @param flag the flag to delete for the given patient
+	 * @throws DAOException
+	 */
+	void deletePatientFlagForPatient(Patient patient, Flag flag) throws DAOException;
+	
+	/**
 	 * Deletes all patient flags for a given flag
 	 * 
 	 * @param flag the flag

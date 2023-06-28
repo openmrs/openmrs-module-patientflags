@@ -35,6 +35,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
 			description = new DelegatingResourceDescription();
+			description.addProperty("uuid");
 			description.addProperty("name");
 			description.addProperty("criteria");
 			description.addProperty("evaluator");

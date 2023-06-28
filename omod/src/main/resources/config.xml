@@ -17,7 +17,7 @@
 	<!-- Required Modules -->
 
 	<require_modules>
-		<require_module version="${webservices.rest-omod.version}">org.openmrs.module.webservices.rest</require_module>
+		<require_module>org.openmrs.module.webservices.rest</require_module>
 	</require_modules>
 
 	<!-- Aware of Modules-->

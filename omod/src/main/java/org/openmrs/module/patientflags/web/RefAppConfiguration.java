@@ -27,8 +27,8 @@ public class RefAppConfiguration implements BeanFactoryPostProcessor {
 			//http://stackoverflow.com/questions/11606504/registering-beansprototype-at-runtime-in-spring
 			Class cls = Context.loadClass("org.openmrs.ui.framework.StandardModuleUiConfiguration");
 			BeanDefinitionBuilder builder = BeanDefinitionBuilder.rootBeanDefinition(cls);
-			builder.addPropertyValue("moduleId", "xforms"); // set property value
-			((DefaultListableBeanFactory) beanFactory).registerBeanDefinition("xformsStandardModuleUiConfiguration",
+			builder.addPropertyValue("moduleId", "patientflags"); // set property value
+			((DefaultListableBeanFactory) beanFactory).registerBeanDefinition("patientflagsStandardModuleUiConfiguration",
 			    builder.getBeanDefinition());
 		}
 		catch (ClassNotFoundException ex) {

@@ -13,10 +13,10 @@
  */
 package org.openmrs.module.patientflags;
 
-import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 
-public class PatientFlag extends BaseOpenmrsObject{
+public class PatientFlag extends BaseOpenmrsData {
 
 	private Integer patientFlagId;
 	
@@ -30,9 +30,10 @@ public class PatientFlag extends BaseOpenmrsObject{
 		
 	}
 	
-	public PatientFlag(Patient patient, Flag flag) {
+	public PatientFlag(Patient patient, Flag flag, String message) {
 		setPatient(patient);
 		setFlag(flag);
+		setMessage(message);
 	}
 	
 	public Integer getPatientFlagId() {

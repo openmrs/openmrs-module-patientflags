@@ -25,6 +25,12 @@ public class PatientFlagsConstants {
 	/*  Flag Module Privileges */
 	public static final String PRIV_MANAGE_FLAGS = "Manage Flags";
 	
+	public static final String PRIV_MANAGE_PATIENT_FLAGS = "Manage Patient Flags";
+	
+	public static final String PRIV_VIEW_FLAGS = "View Flags";
+	
+	public static final String PRIV_VIEW_PATIENT_FLAGS = "View Patient Flags";
+	
 	public static final String PRIV_TEST_FLAGS = "Test Flags";
 	
 	/* FlagEvaluator mapping */

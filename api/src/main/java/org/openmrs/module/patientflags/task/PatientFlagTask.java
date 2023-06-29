@@ -81,7 +81,7 @@ public class PatientFlagTask implements Runnable {
 		
 		java.util.Set<Integer> members =  cohort.getMemberIds();
 		for (Integer patientId : members) {
-			service.savePatientFlag(new PatientFlag(new Patient(patientId), flag));
+			service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.getMessage()));
 		}
 	}
 	
@@ -90,7 +90,7 @@ public class PatientFlagTask implements Runnable {
 		
 		List<Flag> flags = service.generateFlagsForPatient(patient);
 		for (Flag flag : flags) {
-			service.savePatientFlag(new PatientFlag(patient, flag));
+			service.savePatientFlag(new PatientFlag(patient, flag, flag.getMessage()));
 		}
 	}
 	

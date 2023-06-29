@@ -151,6 +151,16 @@ public interface FlagService extends OpenmrsService {
 	@Transactional(readOnly = true)
 	@Authorized(value = { "Manage Flags", "Test Flags" }, requireAll = false)
 	public Flag getFlagByUuid(String uuid);
+	
+	/**
+	 * Retrieve a specific PatientFlag based on its uuid
+	 *
+	 * @param uuid The uuid of the patient flag  to retrieve
+	 * @return the patient flag which matches the specific uuid
+	 */
+	@Transactional(readOnly = true)
+	@Authorized( { PatientFlagsConstants.PRIV_VIEW_PATIENT_FLAGS })
+	public PatientFlag getPatientFlagByUuid(String uuid);
 
 	/**
 	 * Retrieve a specific Flag based on its name
@@ -533,4 +543,32 @@ public interface FlagService extends OpenmrsService {
 	 * @return object representing the result of the started asynchronous operation
 	 */
 	public Future<?> evaluateAllFlags();
+	
+	/**
+	 * Equivalent to deleting a patient flag
+	 * 
+	 * @param patientFlag PatientFlag to void
+	 * @param reason String reason it's being voided
+	 * @throws APIException
+	 */
+	@Authorized(PatientFlagsConstants.PRIV_MANAGE_PATIENT_FLAGS)
+	public void voidPatientFlag(PatientFlag patientFlag, String reason) throws APIException;
+	
+	/**
+	 * Revive a patient flag (pull a Lazarus)
+	 * 
+	 * @param patientFlag PatientFlag to unvoid
+	 * @throws APIException
+	 */
+	@Authorized(PatientFlagsConstants.PRIV_MANAGE_PATIENT_FLAGS)
+	public void unvoidPatientFlag(PatientFlag patientFlag) throws APIException;
+	
+	/**
+	 * Gets a list of all PatientFlags for the specified Patient
+	 * 
+	 * @param patient the patient
+	 * @return the list of PatientFlags for the Patient
+	 */
+	@Transactional(readOnly = true)
+	public List<PatientFlag> getPatientFlags(Patient patient);
 }

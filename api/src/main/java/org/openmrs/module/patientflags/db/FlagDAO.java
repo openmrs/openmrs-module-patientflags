@@ -61,6 +61,15 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	public Flag getFlagByUuid(String uuid) throws DAOException;
+	
+	/**
+	 * Gets a PatientFlag from the PatientFlag table by its uuid
+	 *
+	 * @param uuid the uuid of the patient flag to retrieve
+	 * @return the specified PatientFlag
+	 * @throws DAOException
+	 */
+	public PatientFlag getPatientFlagByUuid(String uuid) throws DAOException;
 
 	/**
 	 * Gets a Flag from the Flag table by its name
@@ -275,6 +284,14 @@ public interface FlagDAO {
 	 * @throws DAOException
 	 */
 	List<Flag> getFlagsForPatient(Patient patient) throws DAOException;
+	
+	/**
+	 * Gets all PatientFlags for a patient
+	 * 
+	 * @return a list of all Patient Flags
+	 * @throws DAOException
+	 */
+	List<PatientFlag> getPatientFlags(Patient patient) throws DAOException;
 	
 	/**
 	 * Deletes all flags for a given patient

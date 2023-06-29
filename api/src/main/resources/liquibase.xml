@@ -404,5 +404,112 @@
 			<column name="message" type="VARCHAR(255)"/>
 		</addColumn>
 	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_voided_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="voided"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'voided' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column defaultValueBoolean="false" name="voided" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_voided_by_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="voided_by"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'voided_by' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="voided_by" type="int"/>
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="voided_by" baseTableName="patientflags_patient_flag" constraintName="patientflags_patient_flag_voided_by_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="user_id" referencedTableName="users"/> 
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_date_voided_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="date_voided"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'date_voided' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="date_voided" type="datetime"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_void_reason_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="void_reason"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'void_reason' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="void_reason" type="varchar(255)"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_creator_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="creator"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'creator' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="creator" type="int"> 
+		        <constraints nullable="false"/> 
+		      </column> 
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="creator" baseTableName="patientflags_patient_flag" constraintName="patientflags_patient_flag_creator_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="user_id" referencedTableName="users"/> 
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_date_created_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="date_created"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'date_created' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="date_created" type="datetime"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_changed_by_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="changed_by"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'changed_by' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="changed_by" type="int"/>
+		</addColumn>
+		<addForeignKeyConstraint baseColumnNames="changed_by" baseTableName="patientflags_patient_flag" constraintName="patientflags_patient_flag_changed_by_fk" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="user_id" referencedTableName="users"/> 
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_date_changed_column" author="dkayiwa">
+		<preConditions onFail="MARK_RAN">
+			<not>
+				<columnExists tableName="patientflags_patient_flag" columnName="date_changed"/>
+			</not>
+		</preConditions>
+		<comment>Adding the 'date_changed' column to 'patientflags_patient_flag' table</comment>
+		<addColumn tableName="patientflags_patient_flag">
+			<column name="date_changed" type="datetime"/>
+		</addColumn>
+	</changeSet>
+	
+	<changeSet id="patientflags_patient_flag_clean_up_for_schema_change" author="dkayiwa">
+		<sql>delete from patientflags_patient_flag</sql>
+    </changeSet>
 
 </databaseChangeLog>

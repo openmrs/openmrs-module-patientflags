@@ -224,6 +224,13 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Flag getFlagByUuid(String uuid) {
 		return dao.getFlagByUuid(uuid);
 	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#getPatientFlagByUuid(String)
+	 */
+	public PatientFlag getPatientFlagByUuid(String uuid) {
+		return dao.getPatientFlagByUuid(uuid);
+	}
 
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagByName(String)
@@ -676,5 +683,32 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		}
 		
 		return executor.submit(new PatientFlagTask());
+	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#voidPatientFlag(PatientFlag, java.lang.String)
+	 * @param patientFlag the PatientFlag to void
+	 * @param reason the void reason
+	 * @throws APIException
+	 */
+	@Override
+	public void voidPatientFlag(PatientFlag patientFlag, String reason) throws APIException {
+		dao.savePatientFlag(patientFlag);
+	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.api.FlagService#unvoidPatientFlag(PatientFlag)
+	 * @param patientFlag the PatientFlag to unvoid
+	 * @return the unvoided PatientFlag
+	 * @throws APIException
+	 */
+	@Override
+	public void unvoidPatientFlag(PatientFlag patientFlag) throws APIException {
+		Context.getService(FlagService.class).savePatientFlag(patientFlag);
+	}
+	
+	@Override
+	public List<PatientFlag> getPatientFlags(Patient patient) {
+		return dao.getPatientFlags(patient);
 	}
 }

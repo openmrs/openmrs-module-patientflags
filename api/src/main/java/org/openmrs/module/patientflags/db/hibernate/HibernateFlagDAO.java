@@ -82,6 +82,13 @@ public class HibernateFlagDAO implements FlagDAO {
 	public Flag getFlagByUuid(String uuid) throws DAOException {
 		return (Flag)this.sessionFactory.getCurrentSession().createQuery("from Flag f where f.uuid = :uuid").setString("uuid", uuid).uniqueResult();
 	}
+	
+	/**
+	 * @see org.openmrs.module.patientflags.db.FlagDAO#getPatientFlagByUuid(String)
+	 */
+	public PatientFlag getPatientFlagByUuid(String uuid) throws DAOException {
+		return (PatientFlag)this.sessionFactory.getCurrentSession().createQuery("from PatientFlag f where f.uuid = :uuid").setString("uuid", uuid).uniqueResult();
+	}
 
 	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#getFlagByName(String)
@@ -435,5 +442,13 @@ public class HibernateFlagDAO implements FlagDAO {
 		for (PatientFlag patientFlag : flags) {
 			sessionFactory.getCurrentSession().delete(patientFlag);
 		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<PatientFlag> getPatientFlags(Patient patient) throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		criteria.add(Restrictions.eq("patient", patient));
+		return criteria.list();
 	}
 }

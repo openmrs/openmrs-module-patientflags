@@ -405,6 +405,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
 		criteria.add(Restrictions.eq("patient", patient));
+		criteria.add(Restrictions.eq("voided", false));
 		
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list();
@@ -421,6 +422,7 @@ public class HibernateFlagDAO implements FlagDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
 		criteria.add(Restrictions.eq("patient", patient));
 		criteria.add(Restrictions.eq("flag", flag));
+		criteria.add(Restrictions.eq("voided", false));
 		
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list(); //Should return a maximum of one flag
@@ -436,6 +438,7 @@ public class HibernateFlagDAO implements FlagDAO {
 	public void deletePatientFlagsForFlag(Flag flag) throws DAOException {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
 		criteria.add(Restrictions.eq("flag", flag));
+		criteria.add(Restrictions.eq("voided", false));
 		
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list();

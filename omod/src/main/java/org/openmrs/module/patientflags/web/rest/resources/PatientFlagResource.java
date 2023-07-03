@@ -34,6 +34,7 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 			description.addProperty("message");
 			description.addProperty("patient", Representation.REF);
 			description.addProperty("flag", Representation.REF);
+			description.addProperty("tags", Representation.REF);
 			description.addProperty("voided");
 			
 			if (rep instanceof DefaultRepresentation) {

@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.patientflags;
 
+import java.util.Set;
+
 import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 
@@ -76,5 +78,9 @@ public class PatientFlag extends BaseOpenmrsData {
 
 	public void setMessage(String message) {
 		this.message = message;
+	}
+	
+	public Set<Tag> getTags() {
+		return flag.getTags();
 	}
 }

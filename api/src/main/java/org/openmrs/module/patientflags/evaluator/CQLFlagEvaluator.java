@@ -13,8 +13,10 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
@@ -22,7 +24,15 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 
 	@Override
 	public Boolean eval(Flag flag, Patient patient) {
-		return false;
+		if(patient.isVoided())
+			throw new APIException("Unable to evaluate CQL flag " + flag.getName() + " against voided patient");
+		
+		// create a Cohort that contains just the patient, and then evaluate that Cohort
+		Cohort cohort = new Cohort();
+		cohort.addMember(patient.getId());
+		
+		Cohort resultCohort = evalCohort(flag, cohort);
+		return !resultCohort.isEmpty();
 	}
 
 	@Override
@@ -32,6 +42,11 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 
 	@Override
 	public FlagValidationResult validate(Flag flag) {
+		if (StringUtils.isBlank(flag.getCriteria())) {
+			return new FlagValidationResult(false, "Criteria should be the ID of an existing plan definition. e.g ANCDT17");
+		}
+		
+		//return new FlagValidationResult(false, flag.getCriteria() + " should be the ID of an existing plan definition. e.g ANCDT17");
 		return new FlagValidationResult(true);
 	}
 

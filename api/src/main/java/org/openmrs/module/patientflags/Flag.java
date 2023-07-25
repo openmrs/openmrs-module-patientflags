@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.patientflags;
 
+import java.util.Map;
 import java.util.Set;
 
 import org.openmrs.BaseOpenmrsMetadata;
@@ -277,12 +278,13 @@ public class Flag extends BaseOpenmrsMetadata {
 	 * Evaluates a given Patient against the flag's criteria by calling the flag's evaluator
 	 * 
 	 * @param patient
+	 * @param context
 	 * @return true/false
 	 */
 	
-	public Boolean eval(Patient patient) {
+	public Boolean eval(Patient patient, Map<Object, Object> context) {
 		if (evaluator != null && patient != null) {
-			return instantiateEvaluator().eval(this, patient);
+			return instantiateEvaluator().eval(this, patient, context);
 		} else {
 			return null;
 		}
@@ -300,11 +302,12 @@ public class Flag extends BaseOpenmrsMetadata {
 	 * Evaluates a given Cohort against the flag's criteria by calling the flag's evaluator
 	 * 
 	 * @param cohort
+	 * @param context
 	 * @return cohort the subset of patients that evaluate true for the given flag
 	 */
-	public Cohort evalCohort(Cohort cohort) {
+	public Cohort evalCohort(Cohort cohort, Map<Object, Object> context) {
 		if (evaluator != null) {
-			return instantiateEvaluator().evalCohort(this, cohort);
+			return instantiateEvaluator().evalCohort(this, cohort, context);
 		} else {
 			return null;
 		}

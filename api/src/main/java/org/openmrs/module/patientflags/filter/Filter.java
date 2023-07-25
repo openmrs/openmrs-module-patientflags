@@ -110,4 +110,38 @@ public class Filter {
 		
 		return results;
 	}
+	
+	//TODO need to refactor this method such that it is reused by the one before.
+	public boolean filter(Flag flag) {
+		// if the filter is empty, just return true
+		if (this.tags == null) {
+			return true;
+		}
+		
+		if (this.type == FilterType.ANYTAG || this.type == FilterType.ANYTAG_OR_NOTAG) {
+			Set<Tag> flagTags = flag.getTags();
+			if(flagTags != null && !flagTags.isEmpty()){
+				for (Tag tag : this.tags) {
+					if (flagTags.contains(tag)) {
+						return true;
+					}
+				}
+			}
+			else{
+				// if the flag has no tags associated it it and this is an ANYTAG_OR_NOTAG filter, add the flag to the result list
+				if (this.type == FilterType.ANYTAG_OR_NOTAG){
+					return true;
+				}
+			}
+		}
+		else if (this.type == FilterType.ALLTAGS) {
+			if (flag.getTags() != null && flag.getTags().containsAll(this.tags)) {
+				return true;
+			}
+		} else {
+			// add an exception here?
+		}
+		
+		return false;
+	}
 }

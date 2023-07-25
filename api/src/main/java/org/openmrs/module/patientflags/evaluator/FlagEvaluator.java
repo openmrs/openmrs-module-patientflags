@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
+import java.util.Map;
+
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.module.patientflags.Flag;
@@ -29,9 +31,10 @@ public interface FlagEvaluator {
 	 * 
 	 * @param flag the flag to evaluate
 	 * @param patient the patient to evaluate
+	 * @param context the evaluation context
 	 * @return true/false
 	 */
-	public Boolean eval(Flag flag, Patient patient);
+	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context);
 	
 	/**
 	 * Evaluates the given cohort against the given flag
@@ -39,9 +42,10 @@ public interface FlagEvaluator {
 	 * @param flag the flag to evaluate
 	 * @param cohort the cohort to evaluate; evaluators should be implemented so that passing a null
 	 *            results in testing against all patients in the database
+	 * @param context the evaluation context
 	 * @return the subset of patients who evaluate true for the given flag
 	 */
-	public Cohort evalCohort(Flag flag, Cohort cohort);
+	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context);
 	
 	/**
 	 * Validates that the Flag's criteria is valid for this FlagEvaluator

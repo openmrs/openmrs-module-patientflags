@@ -47,6 +47,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -84,16 +85,16 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient) {
-		return generateFlagsForPatient(patient, new Filter());
+	public List<Flag> generateFlagsForPatient(Patient patient, Map<Object, Object> context) {
+		return generateFlagsForPatient(patient, new Filter(), context);
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter, Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter) {
+	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context) {
 		List<Flag> results = new ArrayList<Flag>();
 		
 		// we can get rid of this once onStartup is implemented
@@ -104,7 +105,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		for (Flag flag : filter.filter(flagCache)) {
 			// trap bad flags so that they don't hang the system
 			try {
-				if (flag.eval(patient))
+				if (flag.eval(patient, context))
 					results.add(flag);
 			}
 			catch (Exception e) {
@@ -118,8 +119,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
 	 *      Set<Role>, DisplayPoint)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
-		return generateFlagsForPatient(patient, getFilter(roles, displayPoint));
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint, Map<Object, Object> context) {
+		return generateFlagsForPatient(patient, getFilter(roles, displayPoint), context);
 	}
 	
 	private Filter getFilter(Set<Role> roles, DisplayPoint displayPoint) {
@@ -154,32 +155,32 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
-	 *      Set<Role>, String)
+	 *      Set<Role>, String, , Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
-		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName));
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName, Map<Object, Object> context) {
+		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName), context);
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag, Map<Object, Object>)
 	 */
-	public Cohort getFlaggedPatients(Flag flag) {
+	public Cohort getFlaggedPatients(Flag flag, Map<Object, Object> context) {
 		if (flag != null) {
-			return flag.evalCohort(null);
+			return flag.evalCohort(null, context);
 		} else {
 			return new Cohort();
 		}
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>, Map<Object, Object>)
 	 */
-	public Cohort getFlaggedPatients(List<Flag> flags) {
+	public Cohort getFlaggedPatients(List<Flag> flags, Map<Object, Object> context) {
 		Cohort resultCohort = new Cohort();
 		
 		// test each Flag
 		for (Flag flag : flags) {
-			resultCohort = Cohort.union(resultCohort, flag.evalCohort(null));
+			resultCohort = Cohort.union(resultCohort, flag.evalCohort(null, context));
 		}
 		return resultCohort;
 	}
@@ -675,6 +676,27 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
 		return getFlagsForPatient(patient, getFilter(roles, getDisplayPoint(displayPointName)));
 	}
+	
+	public List<PatientFlag> getPatientFlags(Patient patient, Filter filter) {
+		List<PatientFlag> filteredFlags = new ArrayList<PatientFlag>();  
+		
+		List<PatientFlag> patientFlags = getPatientFlags(patient);
+		for (PatientFlag patientFlag : patientFlags) {
+			if (filter.filter(patientFlag.getFlag())) {
+				filteredFlags.add(patientFlag);
+			}
+		}
+		
+		return filteredFlags;
+	}
+	
+	private List<Flag> getFlags(List<PatientFlag> patientFlags) {
+		List<Flag> flags = new ArrayList<Flag>();
+		for (PatientFlag patientFlag : patientFlags) {
+			flags.add(patientFlag.getFlag());
+		}
+		return flags;
+	}
 
 	@Override
 	public Future<?> evaluateAllFlags() {
@@ -682,7 +704,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			executor = Executors.newSingleThreadExecutor();
 		}
 		
-		return executor.submit(new PatientFlagTask());
+		return executor.submit(PatientFlagTask.evaluateAllFlags());
 	}
 	
 	/**
@@ -710,5 +732,10 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	@Override
 	public List<PatientFlag> getPatientFlags(Patient patient) {
 		return dao.getPatientFlags(patient);
+	}
+
+	@Override
+	public List<PatientFlag> getPatientFlags(Patient patient, Set<Role> roles, String displayPointName) {
+		return getPatientFlags(patient, getFilter(roles, getDisplayPoint(displayPointName)));
 	}
 }

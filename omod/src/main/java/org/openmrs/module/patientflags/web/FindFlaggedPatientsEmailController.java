@@ -57,7 +57,7 @@ public class FindFlaggedPatientsEmailController {
 		// get all Patients that trigger the selected Flag
 		FlagService flagService = Context.getService(FlagService.class);
 		flag = flagService.getFlag(flag.getFlagId());
-		Cohort flaggedPatients = flagService.getFlaggedPatients(flag);
+		Cohort flaggedPatients = flagService.getFlaggedPatients(flag, null);
 		Cohort allPatients = new Cohort();
 		List<Patient> patients = Context.getPatientService().getAllPatients();
 		for (Patient i : patients) {

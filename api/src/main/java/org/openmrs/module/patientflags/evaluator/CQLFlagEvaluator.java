@@ -13,17 +13,24 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
+import org.openmrs.api.PatientService;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.cql.api.CQLService;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
 public class CQLFlagEvaluator implements FlagEvaluator {
 
 	@Override
-	public Boolean eval(Flag flag, Patient patient) {
+	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
 		if(patient.isVoided())
 			throw new APIException("Unable to evaluate CQL flag " + flag.getName() + " against voided patient");
 		
@@ -31,13 +38,48 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 		Cohort cohort = new Cohort();
 		cohort.addMember(patient.getId());
 		
-		Cohort resultCohort = evalCohort(flag, cohort);
+		Cohort resultCohort = evalCohort(flag, cohort, context);
 		return !resultCohort.isEmpty();
 	}
 
 	@Override
-	public Cohort evalCohort(Flag flag, Cohort cohort) {
-		return cohort;
+	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context) {
+		
+		CQLService cqlService = Context.getService(CQLService.class);
+		
+		Cohort resultCohort = new Cohort();
+		
+		List<Patient> patients = getPatients(cohort);
+		for (Patient patient : patients ) {		
+			List<String> flags = cqlService.applyPlanDefinition(patient, flag.getCriteria());
+			if (!flags.isEmpty()) {
+				resultCohort.addMember(patient.getPatientId());
+				context.put(patient.getPatientId(), flags);
+			}
+		}
+		
+		if (cohort != null) {
+			resultCohort = Cohort.intersect(resultCohort, cohort);
+		}
+		
+		return resultCohort;
+	}
+	
+	private List<Patient> getPatients(Cohort cohort) {
+		
+		PatientService patientService = Context.getPatientService();
+		
+		List<Patient> patients = new ArrayList<Patient>();
+		if (cohort != null) {
+			for (Integer patientId : cohort.getMemberIds()) {
+				patients.add(patientService.getPatient(patientId));
+			}
+		}
+		else {
+			patients = patientService.getAllPatients();
+		}
+		
+		return patients;
 	}
 
 	@Override

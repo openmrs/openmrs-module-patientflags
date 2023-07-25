@@ -14,6 +14,7 @@
 package org.openmrs.module.patientflags.evaluator;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,9 +37,9 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	private Log log = LogFactory.getLog(this.getClass());
 
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient, Map<Object, Object>)
 	 */
-	public Boolean eval(Flag flag, Patient patient) {
+	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
 		
 		if(patient.isVoided())
 			throw new APIException("Unable to evaluate SQL flag " + flag.getName() + " against voided patient");
@@ -74,9 +75,9 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort, Map<Object, Object>)
 	 */
-	public Cohort evalCohort(Flag flag, Cohort cohort) {
+	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context) {
 		
 		List<List<Object>> resultSet;
 		

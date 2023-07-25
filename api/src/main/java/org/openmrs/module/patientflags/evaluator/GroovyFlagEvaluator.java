@@ -13,6 +13,8 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
+import java.util.Map;
+
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -26,9 +28,9 @@ import org.openmrs.module.patientflags.FlagValidationResult;
 public class GroovyFlagEvaluator implements FlagEvaluator {
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Patient, Map<Object, Object>)
 	 */
-	public Boolean eval(Flag flag, Patient patient) {
+	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
 		
 		if(patient.isVoided())
 			throw new APIException("Unable to evaluate Groovy flag " + flag.getName() + " against voided patient");
@@ -37,14 +39,14 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 		Cohort cohort = new Cohort();
 		cohort.addMember(patient.getId());
 		
-		Cohort resultCohort = evalCohort(flag, cohort);
+		Cohort resultCohort = evalCohort(flag, cohort, context);
 		return !resultCohort.isEmpty();
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort)
+	 * @see org.openmrs.module.patientflags.evaluator.FlagEvaluator#eval(Flag, Cohort, Map<Object, Object>)
 	 */
-	public Cohort evalCohort(Flag flag, Cohort cohort) {
+	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context) {
 		
 		// if the Cohort is null, use a Cohort that contains the entire patient set
 		if (cohort == null) {

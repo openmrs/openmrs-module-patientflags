@@ -96,28 +96,28 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	public void eval_sqlShouldReturnNullIfNoPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
-		Assert.assertNull(flag.eval(null));
+		Assert.assertNull(flag.eval(null, null));
 	}
 	
 	@Test
 	public void eval_groovyShouldReturnNullIfNoPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
-		Assert.assertNull(flag.eval(null));
+		Assert.assertNull(flag.eval(null, null));
 	}
 	
 	@Test
 	public void eval_sqlShouldReturnFalseForTestPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
-		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
+		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2), null));
 	}
 	
 	@Test
 	public void eval_groovyShouldReturnFalseForTestPatient() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(3);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("groovy"));
-		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2)));
+		Assert.assertFalse(flag.eval(Context.getPatientService().getPatient(2), null));
 	}
 	
 	/**
@@ -131,7 +131,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	public void evalCohort_sqlShouldReturnEmptyCohort() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
-		Cohort cohort = flag.evalCohort(new Cohort());
+		Cohort cohort = flag.evalCohort(new Cohort(), null);
 		Assert.assertTrue(cohort.isEmpty());
 	}
 	
@@ -139,7 +139,7 @@ public class FlagTest extends BaseModuleContextSensitiveTest {
 	public void evalCohort_sqlNullShouldReturnCohort() throws Exception {
 		Flag flag = Context.getService(FlagService.class).getFlag(1);
 		flag.setEvaluator(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get("sql"));
-		Cohort cohort = flag.evalCohort(null);
+		Cohort cohort = flag.evalCohort(null, null);
 		Assert.assertTrue(cohort.isEmpty());
 	}
 }

@@ -46,7 +46,7 @@ public class EvaluateAllFlagsController {
 	 */
 	@RequestMapping(method = RequestMethod.POST, value = "module/patientflags/revaluateAllFlags.htm")
 	public @ResponseBody
-	Map<String, Object> rebuildSearchIndex() {
+	Map<String, Object> rebuilAllFlags() {
 		boolean success = true;
 		Map<String, Object> results = new HashMap<String, Object>();
 		log.debug("evaluating all patient flags");

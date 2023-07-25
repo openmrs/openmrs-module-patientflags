@@ -27,7 +27,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void generateFlagsForPatient_shouldAcceptNullParameter() throws Exception {
-		Context.getService(FlagService.class).generateFlagsForPatient(new Patient());
+		Context.getService(FlagService.class).generateFlagsForPatient(new Patient(), null);
 	}
 	
 	/**
@@ -35,7 +35,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void getFlaggedPatients_shouldAcceptNullFlagParameter() throws Exception {
-		Context.getService(FlagService.class).getFlaggedPatients(new Flag());
+		Context.getService(FlagService.class).getFlaggedPatients(new Flag(), null);
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	 */
 	@Test
 	public void getFlaggedPatients_shouldAcceptNullFlagListParameter() throws Exception {
-		Context.getService(FlagService.class).getFlaggedPatients(new ArrayList<Flag>());
+		Context.getService(FlagService.class).getFlaggedPatients(new ArrayList<Flag>(), null);
 	}
 	
 	

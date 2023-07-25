@@ -7,6 +7,7 @@ import org.openmrs.Role;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.ui.framework.SimpleObject;
@@ -30,14 +31,17 @@ public class PatientflagsDashboardFragmentController {
         FlagService flagService = Context.getService(FlagService.class);
         User user = Context.getAuthenticatedUser();
         Set<Role> userRoles = user.getRoles();
-        List<Flag> listAllFlags = flagService.getFlagsForPatient(patient);
         StringBuilder flagsString = new StringBuilder();
-
-        for (Flag flag : listAllFlags) {
+        
+        List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+        
+        for (PatientFlag patientFlag : patientFlags) {
+        	Flag flag = patientFlag.getFlag();
             for (Tag tag : flag.getTags()) {
                 Set<Role> intersection = new HashSet<Role>(tag.getRoles());
                 intersection.retainAll(userRoles);
                 if (intersection.size() > 0) {
+                	flag.setMessage(patientFlag.getMessage());
                     flagsString.append("<li><span style='").append(flag.getPriority().getStyle()).append("'>").append(flag.evalMessage(patient.getPatientId())).append("</span></li>");
                     continue;
                 }

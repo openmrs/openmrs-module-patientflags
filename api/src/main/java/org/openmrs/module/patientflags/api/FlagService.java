@@ -15,6 +15,7 @@ package org.openmrs.module.patientflags.api;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Future;
 
@@ -50,10 +51,11 @@ public interface FlagService extends OpenmrsService {
 	 * Generates a list of all Flags that are triggers for the specified Patient
 	 * 
 	 * @param patient the patient to test
+	 * @param context the evaluation context
 	 * @return the list of Flags the Patient triggers
 	 */
 	@Transactional(readOnly = true)
-	public List<Flag> generateFlagsForPatient(Patient patient);
+	public List<Flag> generateFlagsForPatient(Patient patient, Map<Object, Object> context);
 	
 	/**
 	 * Generates a list of Flags that are triggers for the specified Patient, filtering the Flags by
@@ -61,10 +63,11 @@ public interface FlagService extends OpenmrsService {
 	 * 
 	 * @param patient the patient to test
 	 * @param filter the filter to filter the Flags by
+	 * @param context the evaluation context
 	 * @return the list of Flags the Patient triggers
 	 */
 	@Transactional(readOnly = true)
-	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter);
+	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context);
 	
 	/**
 	 * Generates a list of Flags that are triggers for the specified Patient, filtered by Flags 
@@ -73,10 +76,11 @@ public interface FlagService extends OpenmrsService {
 	 * @param patient the patient to test
 	 * @param roles to filter tagged flags by
 	 * @param displayPoint displayPoint to filter tagged flags by
+	 * @param context the evaluation context
 	 * @return the list of Flags the Patient triggers
 	 */
 	@Transactional(readOnly = true)
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint);
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint, Map<Object, Object> context);
 	
 	/**
 	 * Generates a list of Flags that are triggers for the specified Patient, filtered by Flags 
@@ -88,30 +92,33 @@ public interface FlagService extends OpenmrsService {
 	 * @param patient the patient to test
 	 * @param roles to filter tagged flags by
 	 * @param displayPointName name of the displayPoint (as a String) to filter tagged flags by
+	 * @param context the evaluation context
 	 * @return the list of Flags the Patient triggers
 	 */
 	@Transactional(readOnly = true)
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName);
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName, Map<Object, Object> context);
 	
 	/**
 	 * Generates a list of all Patients that match the criteria of the specified Flag
 	 * 
 	 * @param flag the flag to test
+	 * @param context the evaluation context
 	 * @return the list of Patients who match the criteria of the Flag
 	 */
 	@Transactional(readOnly = true)
 	@Authorized( { PatientFlagsConstants.PRIV_TEST_FLAGS })
-	public Cohort getFlaggedPatients(Flag flag);
+	public Cohort getFlaggedPatients(Flag flag, Map<Object, Object> context);
 	
 	/**
 	 * Generate a map of all Patients that match the criteria of the specific Flags
 	 * 
 	 * @param flags The flags for which patients are to be retrieved
+	 * @param context the evaluation context
 	 * @return a map of Patients and there corresponding flags
 	 */
 	@Transactional(readOnly = true)
 	@Authorized( { PatientFlagsConstants.PRIV_TEST_FLAGS })
-	public Cohort getFlaggedPatients(List<Flag> flags);
+	public Cohort getFlaggedPatients(List<Flag> flags, Map<Object, Object> context);
 	
 	/**
 	 * Generates a list of all Patient Flags in the database
@@ -571,4 +578,7 @@ public interface FlagService extends OpenmrsService {
 	 */
 	@Transactional(readOnly = true)
 	public List<PatientFlag> getPatientFlags(Patient patient);
+	
+	@Transactional(readOnly = true)
+	public List<PatientFlag> getPatientFlags(Patient patient, Set<Role> roles, String displayPointName);
 }

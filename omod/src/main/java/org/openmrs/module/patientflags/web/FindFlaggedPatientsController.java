@@ -96,10 +96,12 @@ public class FindFlaggedPatientsController {
 			return new ModelAndView("/module/patientflags/findFlaggedPatients");
 		}
 		
+		HashMap<Object, Object> context = new HashMap<Object, Object>();
+		
 		// get all Patients that trigger the selected Flag
 		FlagService flagService = Context.getService(FlagService.class);
 		flag = flagService.getFlag(flag.getFlagId());
-		Cohort flaggedPatients = flagService.getFlaggedPatients(flag);
+		Cohort flaggedPatients = flagService.getFlaggedPatients(flag, context);
 		Cohort allPatients = new Cohort();
 		List<Patient> patients = Context.getPatientService().getAllPatients();
 		for (Patient i : patients) {
@@ -148,7 +150,7 @@ public class FindFlaggedPatientsController {
 		List<Flag> flags = flagService.getFlagsByFilter(filter);
 		
 		// returns a map of flagged Patients and the respective flags
-		Cohort flaggedPatients = flagService.getFlaggedPatients(flags);
+		Cohort flaggedPatients = flagService.getFlaggedPatients(flags, null);
 		Cohort allPatients = new Cohort();
 		List<Patient> patients = Context.getPatientService().getAllPatients();
 		for (Patient i : patients) {

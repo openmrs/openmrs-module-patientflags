@@ -106,7 +106,7 @@ public class PatientFlagTask implements Runnable {
 		List<Flag> flags = service.generateFlagsForPatient(patient, context);
 		for (Flag flag : flags) {
 			List<String> flgs = (List<String>)context.get(patient.getPatientId());
-			if (flags != null) {
+			if (flgs != null) {
 				for (String flg : flgs) {
 					service.savePatientFlag(new PatientFlag(patient, flag, flg));
 				}

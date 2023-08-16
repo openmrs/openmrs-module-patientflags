@@ -72,7 +72,7 @@ public class Filter {
 	 */
 	public List<Flag> filter(List<Flag> flags) {
 		// if the filter is empty, just return everything
-		if (this.tags == null) {
+		if (this.tags == null || tags.size() == 0) {
 			return flags;
 		}
 		

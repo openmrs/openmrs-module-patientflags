@@ -114,7 +114,7 @@ public class Filter {
 	//TODO need to refactor this method such that it is reused by the one before.
 	public boolean filter(Flag flag) {
 		// if the filter is empty, just return true
-		if (this.tags == null) {
+		if (this.tags == null || tags.size() == 0) {
 			return true;
 		}
 		

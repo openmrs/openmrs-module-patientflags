@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
-                  http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+<databaseChangeLog
+		xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
     <changeSet author="slubwama" id="patientflags-1554735240623-1">
         <preConditions onFail="MARK_RAN">
             <not>
@@ -277,7 +278,7 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-17">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_flag_tag_ibfk_1" />
+                <foreignKeyConstraintExists foreignKeyTableName="patientflags_flag_tag" foreignKeyName="patientflags_flag_tag_ibfk_1" />
             </not>
         </preConditions>
         <comment>Add a foreign key constraint patientflags_flag_tag_ibfk_1 to table patientflags_flag_tag on column flag_id</comment>
@@ -287,7 +288,7 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-18">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_flag_tag_ibfk_2" />
+                <foreignKeyConstraintExists foreignKeyTableName="patientflags_flag_tag" foreignKeyName="patientflags_flag_tag_ibfk_2" />
             </not>
         </preConditions>
         <comment>Add a foreign key constraint patientflags_flag_tag_ibfk_2 to table patientflags_flag_tag on column tag_id</comment>
@@ -297,7 +298,7 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-19">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_tag_displaypoint_ibfk_1" />
+                <foreignKeyConstraintExists foreignKeyTableName="patientflags_tag_displaypoint" foreignKeyName="patientflags_tag_displaypoint_ibfk_1" />
             </not>
         </preConditions>
         <comment>Add a foreign key constraint patientflags_tag_displaypoint_ibfk_1 to table patientflags_tag_displaypoint on column tag_id</comment>
@@ -307,7 +308,7 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-20">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_tag_displaypoint_ibfk_2" />
+                <foreignKeyConstraintExists foreignKeyTableName="patientflags_tag_displaypoint" foreignKeyName="patientflags_tag_displaypoint_ibfk_2" />
             </not>
         </preConditions>
         <comment>Add a foreign key constraint patientflags_tag_displaypoint_ibfk_2 to table patientflags_tag_displaypoint on column displaypoint_id</comment>
@@ -317,7 +318,7 @@
     <changeSet author="slubwama" id="patientflags-1554735240623-21">
         <preConditions onFail="MARK_RAN">
             <not>
-                <foreignKeyConstraintExists foreignKeyName="patientflags_tag_role_ibfk_1" />
+                <foreignKeyConstraintExists foreignKeyTableName="patientflags_tag_role" foreignKeyName="patientflags_tag_role_ibfk_1" />
             </not>
         </preConditions>
         <comment>Add a foreign key constraint patientflags_tag_role_ibfk_1 to table patientflags_tag_role on column tag_id</comment>

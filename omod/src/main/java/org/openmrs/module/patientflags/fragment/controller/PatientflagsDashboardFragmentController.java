@@ -50,7 +50,7 @@ public class PatientflagsDashboardFragmentController {
 
         SimpleObject simpleObject = new SimpleObject();
 
-        simpleObject.put("", flagsString);
+        simpleObject.put("patientflags", flagsString);
 
         return simpleObject;
     }

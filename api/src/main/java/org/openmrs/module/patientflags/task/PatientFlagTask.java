@@ -94,7 +94,7 @@ public class PatientFlagTask implements Runnable {
 				}
 			}
 			else {
-				service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.getMessage()));
+				service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.evalMessage(patientId)));
 			}
 		}
 	}
@@ -112,7 +112,7 @@ public class PatientFlagTask implements Runnable {
 				}
 			}
 			else {
-				service.savePatientFlag(new PatientFlag(patient, flag, flag.getMessage()));
+				service.savePatientFlag(new PatientFlag(patient, flag, flag.evalMessage(patient.getPatientId())));
 			}
 		}
 	}

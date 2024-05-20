@@ -52,6 +52,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Implementation of the {@link FlagService}
@@ -94,23 +95,41 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter, Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context) {
-		List<Flag> results = new ArrayList<Flag>();
-		
+	public List<Flag> generateFlagsForPatient(final Patient patient, Filter filter, final Map<Object, Object> context) {
+		final List<Flag> results = new ArrayList<Flag>();
+
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
-		
+
+		executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		// test each Flag in the cache against the specific Patient
-		for (Flag flag : filter.filter(flagCache)) {
+		for (final Flag flag : filter.filter(flagCache)) {
 			// trap bad flags so that they don't hang the system
-			try {
-				if (flag.eval(patient, context))
-					results.add(flag);
+			executor.submit(() -> {
+				try {
+					Context.openSession();
+					if (flag.eval(patient, context)) {
+						synchronized (results) {
+							results.add(flag);
+						}
+					}
+				} catch (Exception e) {
+					log.error("Unable to test flag " + flag.getName() + " on patient #" + patient.getId(), e);
+				} finally {
+					Context.closeSession();
+				}
+			});
+		}
+
+		executor.shutdown();
+		try {
+			if (!executor.awaitTermination(Integer.MAX_VALUE, TimeUnit.NANOSECONDS)) {
+				log.error("Executor service did not terminate");
 			}
-			catch (Exception e) {
-				log.error("Unable to test flag " + flag.getName() + " on patient #" + patient.getId(), e);
-			}
+		} catch (InterruptedException e) {
+			log.error("Thread pool was interrupted while waiting for flag evaluation tasks to complete", e);
+			Thread.currentThread().interrupt();
 		}
 		return results;
 	}
@@ -703,7 +722,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		if (executor == null) {
 			executor = Executors.newSingleThreadExecutor();
 		}
-		
+
 		return executor.submit(PatientFlagTask.evaluateAllFlags());
 	}
 	

@@ -25,7 +25,7 @@
 	<c:forEach items="${tags}" var="tag">
 		<tr class="${i % 2 == 0 ? 'evenRow' : 'oddRow'}">
 			<td><a
-				href="${pageContext.request.contextPath}/module/patientflags/editTag.form?tagId=${tag.tagId}">${tag.name}</a></td>
+				href="${pageContext.request.contextPath}/module/patientflags/editTag.form?tagId=${tag.tagId}"><c:out value="${tag.name}"/></a></td>
 			<td><a
 				href="${pageContext.request.contextPath}/module/patientflags/deleteTag.form?tagId=${tag.tagId}"
 				onclick="return confirm('<spring:message code="patientflags.manageTags.deleteTagConfirm"/>');"><spring:message

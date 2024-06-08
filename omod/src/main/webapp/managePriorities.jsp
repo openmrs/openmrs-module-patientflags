@@ -28,8 +28,8 @@
 	<c:forEach items="${priorities}" var="priority">
 		<tr class="${i % 2 == 0 ? 'evenRow' : 'oddRow'}">
 			<td><a
-				href="${pageContext.request.contextPath}/module/patientflags/editPriority.form?priorityId=${priority.priorityId}">${priority.name}</a></td>
-			<td>${priority.style}</td>
+				href="${pageContext.request.contextPath}/module/patientflags/editPriority.form?priorityId=${priority.priorityId}"><c:out value="${priority.name}"/></a></td>
+			<td><c:out value="${priority.style}"/></td>
 			<td>${priority.rank}</td>
 			<td>
 				<a href="${pageContext.request.contextPath}/module/patientflags/deletePriority.form?priorityId=${priority.priorityId}"

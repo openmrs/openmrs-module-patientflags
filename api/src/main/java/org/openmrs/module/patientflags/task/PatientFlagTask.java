@@ -15,6 +15,7 @@ package org.openmrs.module.patientflags.task;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -40,7 +41,7 @@ public class PatientFlagTask implements Runnable {
 			generatePatientFlags(patient, flagService);
 		}
 		else if (flag != null) {
-			generatePatientFlags(flag, flagService);
+			generatePatientFlags(flag);
 		}
 		else {
 			evaluateAllFlags();
@@ -64,39 +65,7 @@ public class PatientFlagTask implements Runnable {
 	}
 	
 	public void generatePatientFlags(Flag flag) {
-		this.flag = flag;
-		
-		if (daemonToken != null) {
-			Daemon.runInDaemonThread(this, daemonToken);
-		}
-	}
-
-	private static void generatePatientFlags(Flag flag, FlagService service) {
-		
-		service.deletePatientFlagsForFlag(flag);
-		
-		if (!flag.getEnabled() || flag.isRetired()) {
-			return;
-		}
-		
-		HashMap<Object, Object> context = new HashMap<Object, Object>();
-		org.openmrs.Cohort cohort = service.getFlaggedPatients(flag, context);
-		if (cohort == null) {
-			return;
-		}
-		
-		java.util.Set<Integer> members =  cohort.getMemberIds();
-		for (Integer patientId : members) {
-			List<String> flgs = (List<String>)context.get(patientId);
-			if (flgs != null) {
-				for (String flg : flgs) {
-					service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flg));
-				}
-			}
-			else {
-				service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.evalMessage(patientId)));
-			}
-		}
+		Daemon.runInDaemonThread(new PatientFlagGenerator(flag), daemonToken);
 	}
 	
 	private void generatePatientFlags(Patient patient, FlagService service) {
@@ -126,7 +95,45 @@ public class PatientFlagTask implements Runnable {
 			FlagService flagService = Context.getService(FlagService.class);
 			
 			for (Flag flag : flagService.getAllFlags()) {
-				generatePatientFlags(flag, flagService);
+				Daemon.runInNewDaemonThread(new PatientFlagGenerator(flag));
+			}
+		}
+	}
+
+	private static class PatientFlagGenerator implements  Runnable {
+		private final Flag flag;
+
+		PatientFlagGenerator(Flag flag){
+			this.flag = flag;
+		}
+
+		@Override
+		public void run() {
+			FlagService service = Context.getService(FlagService.class);
+
+			service.deletePatientFlagsForFlag(flag);
+
+			if (!flag.getEnabled() || flag.isRetired()) {
+				return;
+			}
+
+			HashMap<Object, Object> context = new HashMap<Object, Object>();
+			org.openmrs.Cohort cohort = service.getFlaggedPatients(flag, context);
+			if (cohort == null) {
+				return;
+			}
+
+			Set<Integer> members =  cohort.getMemberIds();
+			for (Integer patientId : members) {
+				List<String> flgs = (List<String>)context.get(patientId);
+				if (flgs != null) {
+					for (String flg : flgs) {
+						service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flg));
+					}
+				}
+				else {
+					service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.evalMessage(patientId)));
+				}
 			}
 		}
 	}

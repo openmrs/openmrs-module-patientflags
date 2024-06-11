@@ -222,8 +222,28 @@
 					</dependency>
 				</dependencies>
 			</dependencyManagement>
-      </profile>
+        </profile>
 
-
+		<profile>
+			<id>Java 17</id>
+			<activation>
+				<jdk>17</jdk>
+			</activation>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-compiler-plugin</artifactId>
+							<configuration>
+								<target>17</target>
+								<source>17</source>
+							</configuration>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
+		</profile>
 	</profiles>
+
 </project>

@@ -52,6 +52,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the {@link FlagService}
@@ -691,11 +692,9 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	private List<Flag> getFlags(List<PatientFlag> patientFlags) {
-		List<Flag> flags = new ArrayList<Flag>();
-		for (PatientFlag patientFlag : patientFlags) {
-			flags.add(patientFlag.getFlag());
-		}
-		return flags;
+		return patientFlags.stream()
+				.map(PatientFlag::getFlag)
+				.collect(Collectors.toList());
 	}
 
 	@Override

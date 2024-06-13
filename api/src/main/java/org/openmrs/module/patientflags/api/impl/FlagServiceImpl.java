@@ -403,13 +403,13 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public void purgePriority(Integer priorityId) {
 		// first we need to make sure that this priority is not currently referenced by a flag
 		Priority priority = getPriority(priorityId);
-		List<Flag> flags = getAllFlags();
-		for (Flag flag : flags) {
+
+		getAllFlags().forEach(flag-> {
 			Priority flagPriority = flag.getPriority();
 			if (flagPriority != null && flagPriority.equals(priority)) {
 				throw (new APIException("Cannot delete priority, because it's referenced by an existing flag."));
 			}
-		}
+		});
 		
 		// remove the flag from the DB table
 		dao.purgePriority(priorityId);

@@ -226,10 +226,10 @@ public class HibernateFlagDAO implements FlagDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Flag.class).createCriteria("tags");
 		criteria.add(Restrictions.eq("tagId", tagId));
 		List<Flag> flags = criteria.list();
-		for (Flag flag : flags) {
+		flags.forEach(flag -> {
 			flag.removeTag(tag);
 			sessionFactory.getCurrentSession().saveOrUpdate(flag);
-		}
+		});
 		
 		// then we can delete the tag itself
 		sessionFactory.getCurrentSession().delete(tag);
@@ -409,9 +409,9 @@ public class HibernateFlagDAO implements FlagDAO {
 		
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list();
-		for (PatientFlag patientFlag : flags) {
+		flags.forEach(patientFlag -> {
 			sessionFactory.getCurrentSession().delete(patientFlag);
-		}
+		});
 	}
 	
 	/**
@@ -426,9 +426,9 @@ public class HibernateFlagDAO implements FlagDAO {
 		
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list(); //Should return a maximum of one flag
-		for (PatientFlag patientFlag : flags) {
+		flags.forEach(patientFlag -> {
 			sessionFactory.getCurrentSession().delete(patientFlag);
-		}
+		});
 	}
 	
 	/**
@@ -439,12 +439,12 @@ public class HibernateFlagDAO implements FlagDAO {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
 		criteria.add(Restrictions.eq("flag", flag));
 		criteria.add(Restrictions.eq("voided", false));
-		
+
 		@SuppressWarnings("unchecked")
 		List<PatientFlag> flags = criteria.list();
-		for (PatientFlag patientFlag : flags) {
+		flags.forEach(patientFlag -> {
 			sessionFactory.getCurrentSession().delete(patientFlag);
-		}
+		});
 	}
 	
 	@SuppressWarnings("unchecked")

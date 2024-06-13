@@ -52,6 +52,7 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the {@link FlagService}
@@ -129,21 +130,10 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			refreshCache();
 		
 		// generate the set of tags to filter by
-		Set<Tag> tags = new HashSet<Tag>();
-		for (Tag tag : tagCache) {
-			if (displayPoint == null || tag.getDisplayPoints().contains(displayPoint)) {
-				if (roles == null) {
-					tags.add(tag);
-				} else {
-					for (Role role : roles) {
-						if (tag.getRoles().contains(role)) {
-							tags.add(tag);
-							break;
-						}
-					}
-				}
-			}
-		}
+		Set<Tag> tags = tagCache.stream()
+				.filter(tag -> displayPoint == null || tag.getDisplayPoints().contains(displayPoint))
+				.filter(tag -> roles == null || roles.stream().anyMatch(role -> tag.getRoles().contains(role)))
+				.collect(Collectors.toSet());
 		
 		// create the filter
 		Filter filter = new Filter(tags);

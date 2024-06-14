@@ -398,6 +398,13 @@ public class HibernateFlagDAO implements FlagDAO {
 		sessionFactory.getCurrentSession().saveOrUpdate(patientFlag);
 	}
 
+	@Override
+	public void savePatientFlags(List<PatientFlag> patientFlags) throws DAOException {
+		patientFlags.forEach(patientFlag -> {
+			sessionFactory.getCurrentSession().saveOrUpdate(patientFlag);
+		});
+	}
+
 	/**
 	 * @see org.openmrs.module.patientflags.db.FlagDAO#deletePatientFlagsForPatient(Patient)
 	 */

@@ -107,18 +107,31 @@
 				<version>${metadatasharingVersion}</version>
 				<scope>test</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-omod</artifactId>
+				<version>${legacyuiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>legacyui-api</artifactId>
+				<version>${legacyuiVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openMRSVersion>1.9.9</openMRSVersion>
-		<openMRSMinorVersion>1.9</openMRSMinorVersion>
+		<openMRSVersion>2.0.0</openMRSVersion>
+		<openMRSMinorVersion>2.0</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
 		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
+		<legacyuiVersion>1.16.0</legacyuiVersion>
 	</properties>
 
 	<build>
@@ -190,40 +203,6 @@
 				<openMRSMinorVersion>1.11</openMRSMinorVersion>
 			</properties>
 		</profile>
-
-		<profile>
-			<id>openmrs-2.0</id>
-
-			<properties>
-				<openMRSVersion>2.0.4</openMRSVersion>
-				<openMRSMinorVersion>2.0</openMRSMinorVersion>
-				<legacyuiVersion>1.2.3</legacyuiVersion>
-				<omodHbmConfig>
-					DisplayPoint.hbm.xml
-					Flag.hbm.xml
-					Priority.hbm.xml
-					Tag.hbm.xml
-				</omodHbmConfig>
-			</properties>
-
-			<dependencyManagement>
-				<dependencies>
-					<dependency>
-					    <groupId>org.openmrs.module</groupId>
-					    <artifactId>legacyui-omod</artifactId>
-					    <version>${legacyuiVersion}</version>
-					    <scope>provided</scope>
-					</dependency>
-					<dependency>
-					    <groupId>org.openmrs.module</groupId>
-					    <artifactId>legacyui-api</artifactId>
-					    <version>${legacyuiVersion}</version>
-					    <scope>provided</scope>
-					</dependency>
-				</dependencies>
-			</dependencyManagement>
-      </profile>
-
 
 	</profiles>
 </project>

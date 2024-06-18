@@ -176,13 +176,9 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>, Map<Object, Object>)
 	 */
 	public Cohort getFlaggedPatients(List<Flag> flags, Map<Object, Object> context) {
-		Cohort resultCohort = new Cohort();
-		
-		// test each Flag
-		for (Flag flag : flags) {
-			resultCohort = Cohort.union(resultCohort, flag.evalCohort(null, context));
-		}
-		return resultCohort;
+		return flags.stream()
+				.map(flag -> flag.evalCohort(null, context))
+				.reduce(new Cohort(), Cohort::union);
 	}
 	
 	/**

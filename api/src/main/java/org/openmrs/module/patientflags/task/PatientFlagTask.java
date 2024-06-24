@@ -124,10 +124,22 @@ public class PatientFlagTask implements Runnable {
 		@Override
 		public void run() {
 			FlagService flagService = Context.getService(FlagService.class);
-			
-			for (Flag flag : flagService.getAllFlags()) {
-				generatePatientFlags(flag, flagService);
-			}
+
+			flagService.getAllFlags().forEach(flag -> Daemon.runInNewDaemonThread(new PatientFlagGenerator(flag)));
 		}
 	}
+
+	private static class PatientFlagGenerator implements  Runnable {
+		private final Flag flag;
+
+		PatientFlagGenerator(Flag flag){
+			this.flag = flag;
+		}
+
+        @Override
+        public void run() {
+            FlagService service = Context.getService(FlagService.class);
+            generatePatientFlags(flag, service);
+        }
+    }
 }

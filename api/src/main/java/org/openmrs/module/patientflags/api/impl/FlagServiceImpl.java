@@ -708,6 +708,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	@Override
 	public Future<?> evaluateAllFlags() {
 		executor = Executors.newSingleThreadExecutor();
+
 		return executor.submit(PatientFlagTask.evaluateAllFlags());
 	}
 	

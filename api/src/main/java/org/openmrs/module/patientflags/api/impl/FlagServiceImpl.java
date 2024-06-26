@@ -105,7 +105,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 
 		executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 		// test each Flag in the cache against the specific Patient
-		for (final Flag flag : filter.filter(flagCache)) {
+		filter.filter(flagCache).forEach(flag -> {
 			// trap bad flags so that they don't hang the system
 			executor.submit(() -> {
 				try {
@@ -121,7 +121,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 					Context.closeSession();
 				}
 			});
-		}
+		});
 
 		executor.shutdown();
 		try {

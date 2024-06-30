@@ -42,7 +42,7 @@ public class PatientflagsDashboardFragmentController {
                 intersection.retainAll(userRoles);
                 if (intersection.size() > 0) {
                 	flag.setMessage(patientFlag.getMessage());
-                    flagsString.append("<li><span style='").append(flag.getPriority().getStyle()).append("'>").append(flag.evalMessage(patient.getPatientId())).append("</span></li>");
+                    flagsString.append("<li><span ").append(flag.getPriority().getStyle()).append(">").append(flag.evalMessage(patient.getPatientId())).append("</span></li>");
                     continue;
                 }
             }
@@ -50,7 +50,7 @@ public class PatientflagsDashboardFragmentController {
 
         SimpleObject simpleObject = new SimpleObject();
 
-        simpleObject.put("", flagsString);
+        simpleObject.put("patientflags", flagsString);
 
         return simpleObject;
     }

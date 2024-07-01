@@ -14,8 +14,10 @@
             }, function (response) {
                 if (!response) {
                     ${ ui.message("coreapps.none ") }
-                } else {
-                    jq("#flags").html(response.replace("{=", "").replace("}", ""));
+                } else if(response.substring(1,14)==="patientflags="){
+                    jq("#flags").html(response.replace("{patientflags=\"", "").replace("\"}", ""));
+                }else{
+                    jq("#flags").html(response.patientflags);
                 }
             });
         </script>

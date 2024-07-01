@@ -13,6 +13,7 @@
  */
 package org.openmrs.module.patientflags.task;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -84,19 +85,21 @@ public class PatientFlagTask implements Runnable {
 		if (cohort == null) {
 			return;
 		}
-		
+
 		java.util.Set<Integer> members =  cohort.getMemberIds();
+		List<PatientFlag> patientFlags = new ArrayList<>();
 		for (Integer patientId : members) {
 			List<String> flgs = (List<String>)context.get(patientId);
 			if (flgs != null) {
 				for (String flg : flgs) {
-					service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flg));
+					patientFlags.add(new PatientFlag(new Patient(patientId), flag, flg));
 				}
 			}
 			else {
-				service.savePatientFlag(new PatientFlag(new Patient(patientId), flag, flag.evalMessage(patientId)));
+				patientFlags.add(new PatientFlag(new Patient(patientId), flag, flag.evalMessage(patientId)));
 			}
 		}
+		service.savePatientFlags(patientFlags);
 	}
 	
 	private void generatePatientFlags(Patient patient, FlagService service) {
@@ -104,17 +107,19 @@ public class PatientFlagTask implements Runnable {
 		
 		HashMap<Object, Object> context = new HashMap<Object, Object>();
 		List<Flag> flags = service.generateFlagsForPatient(patient, context);
+		List<PatientFlag> patientFlags = new ArrayList<>();
 		for (Flag flag : flags) {
 			List<String> flgs = (List<String>)context.get(patient.getPatientId());
 			if (flgs != null) {
 				for (String flg : flgs) {
-					service.savePatientFlag(new PatientFlag(patient, flag, flg));
+					patientFlags.add(new PatientFlag(patient, flag, flg));
 				}
 			}
 			else {
-				service.savePatientFlag(new PatientFlag(patient, flag, flag.evalMessage(patient.getPatientId())));
+				patientFlags.add(new PatientFlag(patient, flag, flag.evalMessage(patient.getPatientId())));
 			}
 		}
+		service.savePatientFlags(patientFlags);
 	}
 	
 	//The only reason why we have this class is to be able to run in

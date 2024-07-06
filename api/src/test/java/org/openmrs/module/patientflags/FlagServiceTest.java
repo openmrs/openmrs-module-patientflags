@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -192,68 +193,71 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	 *  Tests of methods that save and retrieve tags
 	 */
 	@Test
-	public void addOrUpdateTag_shouldSaveNewTag() {
-		// insert a "test" tag
-		Context.getService(FlagService.class).saveTag(new Tag("test"));
+	public void getAllTags_shouldReturnAllTags() {
+		List<Tag> tags = flagService.getAllTags();
+		assertFalse(tags.isEmpty());
+	}
 
-		// get all tags
-		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
-		// since there is no test data loaded, the first (and only) tag should be the "test" one we just added
-		assertEquals("test",tags.get(0).getName());
+	@Test
+	public void getTag_shouldGetTagById() {
+		Integer id = 1;
+		Tag tag = flagService.getTag(id);
+		assertNotNull(tag);
+		assertEquals(id, tag.getTagId());
+	}
+
+	@Test
+	public void getTagByUuid_shouldGetTagByUuid() {
+		String uuid = "da7f524f-27ce-4bb2-86d6-6d1d05312bd5";
+		Tag tag = flagService.getTagByUuid(uuid);
+		assertNotNull(tag);
+		assertEquals(uuid, tag.getUuid());
+	}
+
+	@Test
+	public void getTag_shouldGetTagByName() {
+		String tagName = "high";
+		Tag tag = flagService.getTag(tagName);
+		assertNotNull(tag);
+		assertEquals(tagName, tag.getName());
+	}
+
+	@Test
+	public void addOrUpdateTag_shouldSaveNewTag() {
+		Tag tag = createTag();
+		flagService.saveTag(tag);
+
+		Tag savedTag = flagService.getTag("allergy");
+		assertNotNull(savedTag);
 	}
 	
 	@Test
 	public void addOrUpdateTag_shouldUpdateTag() {
-		// insert a "test" tag
-		Context.getService(FlagService.class).saveTag(new Tag("test"));
+		Tag tag = flagService.getTag(1);
+		tag.setName("high tag");
+		flagService.saveTag(tag);
 
-		// get all tags
-		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
-		
-		// since there is no test data loaded, the first (and only) tag should be the "test" one we just added
-		// lets try changing the name of this flag
-		tags.get(0).setName("testagain");
-		
-		// save this updated tag
-		Context.getService(FlagService.class).saveTag(tags.get(0));
-		
-		// get all tags
-		tags = Context.getService(FlagService.class).getAllTags();
-		// confirm that the name has been changed again
-		assertEquals("testagain", tags.get(0).getName());
-	}
-	
-	@Test
-	public void getTag_shouldGetTag() {
-		// insert a "test" tag
-		Context.getService(FlagService.class).saveTag(new Tag("test"));
-
-		// get all tags
-		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
-		
-		// now, see if we can fetch the same tag by it's id
-		Tag tag = Context.getService(FlagService.class).getTag(tags.get(0).getTagId());
-		assertEquals("test", tag.getName());
+		Tag savedTag = flagService.getTag("high tag");
+		assertNotNull(savedTag);
 	}
 
 	@Test
 	public void removeTag_shouldRemoveTag() {
-		// insert a "test" tag
-		Context.getService(FlagService.class).saveTag(new Tag("test"));
+		flagService.purgeTag(1);
 
-		// get all tags
-		List<Tag> tags = Context.getService(FlagService.class).getAllTags();
-		
-		// now, lets try to remove the tag we just created
-		Context.getService(FlagService.class).purgeTag(tags.get(0).getTagId());
-		
-		// get all tags again
-		tags = Context.getService(FlagService.class).getAllTags();
-		
-		// the list should be empty, as we have deleted the only flag we created
-		assertEquals(0, tags.size());
+		Tag tag = flagService.getTag(1);
+		assertNull(tag);
 	}
-	
+
+	@Test
+	public void retireTag_shouldRetireTag() {
+		Tag tag = flagService.getTag(1);
+		flagService.retireTag(tag,"retire reason");
+
+		Tag retiredTag = flagService.getTag(1);
+		assertTrue(retiredTag.getRetired());
+	}
+
 	/*
 	 * Tests of flag filtering
 	 */
@@ -279,5 +283,11 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		flag.setPriority(priority);
 		flag.setEvaluator("org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		return flag;
+	}
+
+	private Tag createTag() {
+		Tag tag = new Tag();
+		tag.setName("allergy");
+		return tag;
 	}
 }

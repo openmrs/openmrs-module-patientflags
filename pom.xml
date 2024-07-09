@@ -35,6 +35,7 @@
 		<module>api</module>
 		<module>api-metadata</module>
 		<module>omod</module>
+		<module>fhir</module>
 	</modules>
 
 	<dependencyManagement>
@@ -119,6 +120,17 @@
 				<version>${legacyuiVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>fhir2-api</artifactId>
+				<version>${fhirversion}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.projectlombok</groupId>
+				<artifactId>lombok</artifactId>
+				<version>${lombokVersion}</version>
+				<scope>provided</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -132,6 +144,8 @@
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
 		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
 		<legacyuiVersion>1.16.0</legacyuiVersion>
+		<fhirversion>2.0.0</fhirversion>
+		<lombokVersion>1.18.26</lombokVersion>
 	</properties>
 
 	<build>

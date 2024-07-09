@@ -27,6 +27,7 @@
 		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
 		<aware_of_module>org.openmrs.module.owa</aware_of_module>
 		<aware_of_module>org.openmrs.module.cql</aware_of_module>
+		<aware_of_module>org.openmrs.module.fhir2</aware_of_module>
 	</aware_of_modules>
 	
 	<advice>

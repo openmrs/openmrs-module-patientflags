@@ -15,7 +15,7 @@
                 if (!response) {
                     ${ ui.message("coreapps.none ") }
                 } else {
-                    jq("#flags").html(response.replace("{=", "").replace("}", ""));
+                    jq("#flags").html(response.patientflags);
                 }
             });
         </script>

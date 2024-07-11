@@ -31,7 +31,7 @@ public class FlagFhirResourceProvider implements IResourceProvider {
     }
 
     @Read
-    public Flag getPatientById(@IdParam @Nonnull IdType id) {
+    public Flag getFlagById(@IdParam @Nonnull IdType id) {
         Flag flag = flagService.get(id.getIdPart());
         if (flag == null) {
             throw new ResourceNotFoundException("Could not find Flag with Id " + id.getIdPart());

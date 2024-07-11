@@ -124,6 +124,7 @@
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>fhir2-api</artifactId>
 				<version>${fhirversion}</version>
+				<scope>provided</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.projectlombok</groupId>

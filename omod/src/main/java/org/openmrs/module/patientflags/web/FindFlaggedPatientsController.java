@@ -161,7 +161,21 @@ public class FindFlaggedPatientsController {
 		ModelMap model = new ModelMap();
 		model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
 		model.addAttribute("allPatients", allPatients);
-		
+		List<Map<String, Object>> fpl = new ArrayList<>();
+
+		Set<Integer> idsFp = flaggedPatients.getMemberIds();
+		for (Integer patientId : idsFp) {
+			Map<String, Object> mapFp = new HashMap<>();
+
+			mapFp.put("patientId", patientId);
+
+			fpl.add(mapFp);
+		}
+
+		model.addAttribute("flaggedPatients", fpl);
+
+		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
+
 		// clears the command object from the session
 		status.setComplete();
 		

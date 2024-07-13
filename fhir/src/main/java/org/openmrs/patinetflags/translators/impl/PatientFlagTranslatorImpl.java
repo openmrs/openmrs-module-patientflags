@@ -20,7 +20,6 @@ import org.openmrs.patinetflags.translators.PriorityTranslator;
 import org.openmrs.patinetflags.translators.TagTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import sun.nio.cs.ext.COMPOUND_TEXT_Encoder;
 
 @Component
 public class PatientFlagTranslatorImpl implements PatientFlagTranslator {

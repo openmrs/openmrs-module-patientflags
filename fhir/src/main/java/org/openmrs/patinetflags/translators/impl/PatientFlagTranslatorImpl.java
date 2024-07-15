@@ -15,6 +15,7 @@ import org.hl7.fhir.r4.model.Period;
 import org.hl7.fhir.utilities.xhtml.XhtmlNode;
 import org.openmrs.module.fhir2.api.translators.PatientReferenceTranslator;
 import org.openmrs.module.patientflags.PatientFlag;
+import org.openmrs.patinetflags.translators.FlagTranslator;
 import org.openmrs.patinetflags.translators.PatientFlagTranslator;
 import org.openmrs.patinetflags.translators.PriorityTranslator;
 import org.openmrs.patinetflags.translators.TagTranslator;
@@ -31,7 +32,7 @@ public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
     private TagTranslator tagTranslator;
 
     @Autowired
-    private PriorityTranslator priorityTranslator;
+    private FlagTranslator flagTranslator;
 
     @Override
     public Flag toFhirResource(@Nonnull PatientFlag patientFlag) {
@@ -65,7 +66,7 @@ public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
             flag.addCategory(codeableConcept);
         });
 
-        flag.setCode(priorityTranslator.toFhirResource(patientFlag.getFlag().getPriority()));
+        flag.setCode(flagTranslator.toFhirResource(patientFlag.getFlag()));
 
         flag.setSubject(patientReferenceTranslator.toFhirResource(patientFlag.getPatient()));
 

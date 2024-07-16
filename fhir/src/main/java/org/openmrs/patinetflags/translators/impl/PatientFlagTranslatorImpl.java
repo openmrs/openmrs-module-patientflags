@@ -9,15 +9,11 @@ import java.util.Collections;
 
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Flag;
-import org.hl7.fhir.r4.model.Identifier;
-import org.hl7.fhir.r4.model.Narrative;
 import org.hl7.fhir.r4.model.Period;
-import org.hl7.fhir.utilities.xhtml.XhtmlNode;
 import org.openmrs.module.fhir2.api.translators.PatientReferenceTranslator;
 import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.patinetflags.translators.FlagTranslator;
 import org.openmrs.patinetflags.translators.PatientFlagTranslator;
-import org.openmrs.patinetflags.translators.PriorityTranslator;
 import org.openmrs.patinetflags.translators.TagTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,10 +37,6 @@ public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
         Flag flag = new Flag();
 
         flag.setId(patientFlag.getUuid());
-
-        Identifier identifier = new Identifier();
-        identifier.setValue(String.valueOf(patientFlag.getUuid()));
-        flag.setIdentifier(Collections.singletonList(identifier));
 
         if (patientFlag.getVoided()) {
             flag.setStatus(Flag.FlagStatus.INACTIVE);

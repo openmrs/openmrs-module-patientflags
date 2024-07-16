@@ -21,7 +21,7 @@ public class FlagTranslatorImpl implements FlagTranslator {
         }
 
         CodeableConcept codeableConcept = new CodeableConcept();
-        addConceptCoding(codeableConcept.addCoding(),null, flag.getName(), flag);
+        addConceptCoding(codeableConcept.addCoding(),null, flag.getMessage(), flag);
         return codeableConcept;
     }
 
@@ -30,7 +30,7 @@ public class FlagTranslatorImpl implements FlagTranslator {
         coding.setCode(code);
 
         if (system == null) {
-            coding.setDisplay(flag.getMessage());
+            coding.setDisplay(flag.getName());
         }
     }
 }

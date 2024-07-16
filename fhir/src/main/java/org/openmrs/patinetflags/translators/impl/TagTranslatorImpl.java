@@ -24,7 +24,7 @@ public class TagTranslatorImpl implements TagTranslator {
 
         CodeableConcept codeableConcept = new CodeableConcept();
         codeableConcept.setText(tag.getName());
-        addConceptCoding(codeableConcept.addCoding(),null,tag.getUuid(),tag);
+        addConceptCoding(codeableConcept.addCoding(),null,tag.getName(),tag);
         return codeableConcept;
     }
 

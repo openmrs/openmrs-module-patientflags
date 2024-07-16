@@ -42,17 +42,8 @@ public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
 
         flag.setId(patientFlag.getUuid());
 
-        Narrative narrative = new Narrative();
-        narrative.setStatus(Narrative.NarrativeStatus.GENERATED);
-
-        XhtmlNode xhtmlNode = new XhtmlNode();
-        xhtmlNode.setName(patientFlag.getMessage());
-        narrative.setDiv(xhtmlNode);
-        flag.setText(narrative);
-
-
         Identifier identifier = new Identifier();
-        identifier.setValue(String.valueOf(patientFlag.getPatientFlagId()));
+        identifier.setValue(String.valueOf(patientFlag.getUuid()));
         flag.setIdentifier(Collections.singletonList(identifier));
 
         if (patientFlag.getVoided()) {

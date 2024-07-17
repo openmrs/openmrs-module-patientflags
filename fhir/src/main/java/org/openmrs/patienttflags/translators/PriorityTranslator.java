@@ -1,4 +1,4 @@
-package org.openmrs.patinetflags.translators;
+package org.openmrs.patienttflags.translators;
 
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.openmrs.module.fhir2.api.translators.ToFhirTranslator;

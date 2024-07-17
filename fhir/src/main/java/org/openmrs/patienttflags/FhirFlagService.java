@@ -1,4 +1,4 @@
-package org.openmrs.patinetflags;
+package org.openmrs.patienttflags;
 
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;

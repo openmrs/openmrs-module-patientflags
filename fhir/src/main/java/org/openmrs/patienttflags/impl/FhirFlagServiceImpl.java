@@ -1,4 +1,4 @@
-package org.openmrs.patinetflags.impl;
+package org.openmrs.patienttflags.impl;
 
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
@@ -7,14 +7,15 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hl7.fhir.r4.model.Flag;
 
+import org.openmrs.module.fhir2.FhirConstants;
 import org.openmrs.module.fhir2.api.impl.BaseFhirService;
 import org.openmrs.module.fhir2.api.search.SearchQuery;
 import org.openmrs.module.fhir2.api.search.SearchQueryInclude;
 import org.openmrs.module.fhir2.api.search.param.SearchParameterMap;
 import org.openmrs.module.patientflags.PatientFlag;
-import org.openmrs.patinetflags.FhirFlagService;
-import org.openmrs.patinetflags.dao.FhirFlagDao;
-import org.openmrs.patinetflags.translators.PatientFlagTranslator;
+import org.openmrs.patienttflags.FhirFlagService;
+import org.openmrs.patienttflags.dao.FhirFlagDao;
+import org.openmrs.patienttflags.translators.PatientFlagTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +42,7 @@ public class FhirFlagServiceImpl extends BaseFhirService<Flag, PatientFlag> impl
     public IBundleProvider searchFlags(ReferenceAndListParam patient) {
         SearchParameterMap theParams = new SearchParameterMap();
         if(patient != null ){
-            theParams.addParameter("aa",patient);
+            theParams.addParameter(FhirConstants.PATIENT_REFERENCE_SEARCH_HANDLER, patient);
         }
         return searchQuery.getQueryResults(theParams, dao, translator, searchQueryInclude);
     }

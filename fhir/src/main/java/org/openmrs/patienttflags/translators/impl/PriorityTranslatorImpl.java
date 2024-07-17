@@ -1,13 +1,9 @@
-package org.openmrs.patinetflags.translators.impl;
+package org.openmrs.patienttflags.translators.impl;
 
-import lombok.AccessLevel;
-import lombok.Setter;
-import org.checkerframework.checker.units.qual.C;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
-import org.hl7.fhir.r4.model.Extension;
 import org.openmrs.module.patientflags.Priority;
-import org.openmrs.patinetflags.translators.PriorityTranslator;
+import org.openmrs.patienttflags.translators.PriorityTranslator;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;

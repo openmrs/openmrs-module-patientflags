@@ -1,10 +1,8 @@
-package org.openmrs.patinetflags.translators.impl;
+package org.openmrs.patienttflags.translators.impl;
 
 import static org.apache.commons.lang3.Validate.notNull;
 
 import javax.annotation.Nonnull;
-
-import java.util.Collections;
 
 
 import org.hl7.fhir.r4.model.CodeableConcept;
@@ -12,9 +10,9 @@ import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Period;
 import org.openmrs.module.fhir2.api.translators.PatientReferenceTranslator;
 import org.openmrs.module.patientflags.PatientFlag;
-import org.openmrs.patinetflags.translators.FlagTranslator;
-import org.openmrs.patinetflags.translators.PatientFlagTranslator;
-import org.openmrs.patinetflags.translators.TagTranslator;
+import org.openmrs.patienttflags.translators.FlagTranslator;
+import org.openmrs.patienttflags.translators.PatientFlagTranslator;
+import org.openmrs.patienttflags.translators.TagTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

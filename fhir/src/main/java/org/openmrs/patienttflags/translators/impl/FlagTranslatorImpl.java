@@ -1,9 +1,9 @@
-package org.openmrs.patinetflags.translators.impl;
+package org.openmrs.patienttflags.translators.impl;
 
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
 import org.openmrs.module.patientflags.Flag;
-import org.openmrs.patinetflags.translators.FlagTranslator;
+import org.openmrs.patienttflags.translators.FlagTranslator;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;

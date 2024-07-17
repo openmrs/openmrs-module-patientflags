@@ -1,4 +1,4 @@
-package org.openmrs.patinetflags.dao;
+package org.openmrs.patienttflags.dao;
 
 import org.openmrs.module.fhir2.api.dao.FhirDao;
 import org.openmrs.module.fhir2.api.search.param.SearchParameterMap;

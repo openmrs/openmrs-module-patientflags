@@ -41,7 +41,9 @@ public class FhirFlagServiceImpl extends BaseFhirService<Flag, PatientFlag> impl
     @Override
     public IBundleProvider searchFlags(ReferenceAndListParam patient) {
         SearchParameterMap theParams = new SearchParameterMap();
-        if(patient != null ){
+        if(patient != null){
+            System.out.println("done 1");
+            System.out.println(patient);
             theParams.addParameter(FhirConstants.PATIENT_REFERENCE_SEARCH_HANDLER, patient);
         }
         return searchQuery.getQueryResults(theParams, dao, translator, searchQueryInclude);

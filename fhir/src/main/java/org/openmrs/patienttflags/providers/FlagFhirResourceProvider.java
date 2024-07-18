@@ -5,7 +5,10 @@ import ca.uhn.fhir.rest.annotation.OptionalParam;
 import ca.uhn.fhir.rest.annotation.Read;
 import ca.uhn.fhir.rest.annotation.Search;
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
+import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
+import ca.uhn.fhir.rest.param.StringAndListParam;
+import ca.uhn.fhir.rest.param.TokenAndListParam;
 import ca.uhn.fhir.rest.server.IResourceProvider;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
 import lombok.Setter;
@@ -15,6 +18,7 @@ import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Patient;
 import org.openmrs.module.fhir2.api.annotations.R4Provider;
 import org.openmrs.patienttflags.FhirFlagService;
+import org.openmrs.patienttflags.search.param.FlagSearchParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -45,9 +49,20 @@ public class FlagFhirResourceProvider implements IResourceProvider {
     }
 
     @Search
-    public IBundleProvider searchFlags(@OptionalParam(name = Flag.SP_PATIENT, chainWhitelist = { "", Patient.SP_IDENTIFIER, Patient.SP_GIVEN, Patient.SP_FAMILY,
-            Patient.SP_NAME, Patient.SP_RES_ID }, targetTypes = Patient.class) ReferenceAndListParam patientReference ) {
-        return flagService.searchFlags(patientReference);
+    public IBundleProvider searchFlags(@OptionalParam(name = Flag.SP_PATIENT, chainWhitelist = { "", Patient.SP_IDENTIFIER,
+                                                Patient.SP_GIVEN, Patient.SP_FAMILY, Patient.SP_NAME }, targetTypes = Patient.class) ReferenceAndListParam patientReference,
+                                       @OptionalParam(name = Flag.SP_RES_ID) TokenAndListParam id,
+                                       @OptionalParam(name = "code") StringAndListParam codeParam,
+                                       @OptionalParam(name = "category") ReferenceAndListParam category,
+                                       @OptionalParam(name = Flag.SP_DATE) DateRangeParam dateRangeParam) {
+
+        FlagSearchParams searchParams = new FlagSearchParams();
+        searchParams.setPatient(patientReference);
+        searchParams.setCategory(category);
+        searchParams.setCode(codeParam);
+        searchParams.setDate(dateRangeParam);
+        searchParams.setId(id);
+        return flagService.searchFlags(searchParams);
     }
 
 }

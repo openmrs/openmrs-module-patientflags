@@ -1,6 +1,8 @@
 package org.openmrs.patienttflags.dao.impl;
 
+import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
+import ca.uhn.fhir.rest.param.StringAndListParam;
 import lombok.Setter;
 import lombok.AccessLevel;
 import org.hibernate.Criteria;
@@ -12,38 +14,45 @@ import org.openmrs.patienttflags.dao.FhirFlagDao;
 import org.springframework.stereotype.Component;
 
 
+
 @Component
 @Setter(AccessLevel.PACKAGE)
 public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFlagDao {
 
     /**
-     * @param criteria 
+     * @param criteria
      * @param theParams
      */
     @Override
     protected void setupSearchParams(Criteria criteria, SearchParameterMap theParams) {
-        theParams.getParameters().forEach(entry->{
+        theParams.getParameters().forEach(entry -> {
             switch (entry.getKey()) {
                 case FhirConstants.PATIENT_REFERENCE_SEARCH_HANDLER:
                     entry.getValue().forEach(param -> handlePatientReference(criteria, (ReferenceAndListParam) param.getParam()));
                     break;
-//                case FhirConstants.CATEGORY_SEARCH_HANDLER:
-//
-//                    break;
-//                case FhirConstants.DATE_RANGE_SEARCH_HANDLER:
-//                    break;
-//                case FhirConstants.CODED_SEARCH_HANDLER:
-//                    entry.getValue().forEach(param -> handleCode(criteria, (StringAndListParam) param.getParam()));
-//                    break;
-
+                case FhirConstants.CATEGORY_SEARCH_HANDLER:
+                    entry.getValue().forEach(param -> handleCategory(criteria, (StringAndListParam) param.getParam()));
+                    break;
+                case FhirConstants.DATE_RANGE_SEARCH_HANDLER:
+                    entry.getValue().forEach(param -> handleDateRange("dateCreated", (DateRangeParam) param.getParam()).ifPresent(criteria::add));
+                    break;
+                case FhirConstants.CODED_SEARCH_HANDLER:
+                    entry.getValue().forEach(param -> handleCode(criteria, (StringAndListParam) param.getParam()));
+                    break;
             }
         });
     }
 
-//    private void handleCode(Criteria criteria, StringAndListParam code) {
-//        if (code != null) {
-//
-//        }
-//    }
+    private void handleCode(Criteria criteria, StringAndListParam code) {
+        if (code != null)
+            handleAndListParam(code, (message) -> propertyLike("message", message)).ifPresent(criteria::add);
+    }
 
+    private void handleCategory(Criteria criteria, StringAndListParam category) {
+        if (category != null) {
+            criteria.createAlias("flag", "f");
+            criteria.createAlias("f.tags", "ft");
+            handleAndListParam(category, (tag) -> propertyLike("ft.name", tag.getValue())).ifPresent(criteria::add);
+        }
+    }
 }

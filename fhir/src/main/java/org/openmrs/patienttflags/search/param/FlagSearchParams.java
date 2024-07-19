@@ -25,13 +25,13 @@ public class FlagSearchParams extends BaseResourceSearchParams {
 
     private StringAndListParam code;
 
-    private ReferenceAndListParam category;
+    private StringAndListParam category;
 
     private DateRangeParam date;
 
 
     @Builder
-    public FlagSearchParams(ReferenceAndListParam patient, StringAndListParam code, ReferenceAndListParam category,
+    public FlagSearchParams(ReferenceAndListParam patient, StringAndListParam code, StringAndListParam category,
                             DateRangeParam date, TokenAndListParam id, DateRangeParam lastUpdated,
                             SortSpec sort, HashSet<Include> includes, HashSet<Include> revIncludes) {
         super(id, lastUpdated, sort, includes, revIncludes);

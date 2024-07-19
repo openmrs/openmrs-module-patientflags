@@ -53,7 +53,7 @@ public class FlagFhirResourceProvider implements IResourceProvider {
                                                 Patient.SP_GIVEN, Patient.SP_FAMILY, Patient.SP_NAME }, targetTypes = Patient.class) ReferenceAndListParam patientReference,
                                        @OptionalParam(name = Flag.SP_RES_ID) TokenAndListParam id,
                                        @OptionalParam(name = "code") StringAndListParam codeParam,
-                                       @OptionalParam(name = "category") ReferenceAndListParam category,
+                                       @OptionalParam(name = "category") StringAndListParam category,
                                        @OptionalParam(name = Flag.SP_DATE) DateRangeParam dateRangeParam) {
 
         FlagSearchParams searchParams = new FlagSearchParams();

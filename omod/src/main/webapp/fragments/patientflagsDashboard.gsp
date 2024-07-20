@@ -13,9 +13,18 @@
                 patientId: ${patientId}
             }, function (response) {
                 if (!response) {
-                    ${ ui.message("coreapps.none ") }
+                    ${ ui.message("coreapps.none ") };
                 } else {
-                    jq("#flags").html(response.replace("{=", "").replace("}", ""));
+                    try {
+                         if (typeof response === "string") {
+                            jq("#flags").html(response.replace("{patientflags=", "").replace("}", ""));
+                        } else {
+                            jq("#flags").html(response.patientflags);
+                        }
+                    } catch (error) {
+                        console.error("Error processing flags response: ", error);
+                        jq("#flags").html("Error processing response");
+                    }
                 }
             });
         </script>

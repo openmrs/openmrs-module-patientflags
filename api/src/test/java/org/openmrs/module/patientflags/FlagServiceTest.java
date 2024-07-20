@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 
@@ -113,7 +114,73 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		assertNotNull(savedPriority);
 		assertEquals(priority.getName(), savedPriority.getName());
 	}
-	
+
+	@Test
+	public void getAllPriorities_shouldGetAllPriorities() {
+		List<Priority> priorities = flagService.getAllPriorities();
+		assertFalse(priorities.isEmpty());
+	}
+
+	@Test
+	public void getPriority_shouldGetPriorityById() {
+		Integer priorityId = 1;
+		Priority priority = flagService.getPriority(priorityId);
+		assertNotNull(priority);
+		assertEquals(priorityId, priority.getPriorityId());
+	}
+
+	@Test
+	public void getPriorityByUuid_shouldGetPriorityByUuid() {
+		String priorityUuid = "da7f524f-27ce-4bb2-86d6-6d1d05312bd5";
+		Priority priority = flagService.getPriorityByUuid(priorityUuid);
+		assertNotNull(priority);
+		assertEquals(priorityUuid, priority.getUuid());
+	}
+
+	@Test
+	public void getPriorityByName_shouldGetPriorityByName() {
+		String priorityName = "pr 2";
+		Priority priority = flagService.getPriorityByName(priorityName);
+		assertNotNull(priority);
+		assertEquals(priorityName, priority.getName());
+	}
+
+	@Test
+	public void purgePriority_shouldPurgePriority() {
+		Integer priorityId = 2;
+		flagService.purgePriority(priorityId);
+		Priority priority = flagService.getPriority(priorityId);
+		assertNull(priority);
+	}
+
+	@Test(expected = APIException.class)
+	public void purgePriority_shouldTrowExceptionWhenPriorityAssociatedWithAFlag() {
+		Integer priorityId = 1;
+
+		flagService.purgePriority(priorityId);
+		Priority purgedPriority = flagService.getPriority(priorityId);
+		assertNotNull(purgedPriority);
+	}
+
+	@Test
+	public void retirePriority_shouldRetirePriorityWithReason() {
+		String reason = "reason";
+		Priority priority = flagService.getPriority(2);
+		flagService.retirePriority(priority, reason);
+		Priority retiredpriority = flagService.getPriority(2);
+		assertTrue(retiredpriority.getRetired());
+		assertEquals(reason, retiredpriority.getRetireReason());
+	}
+
+	@Test(expected = APIException.class)
+	public void retirePriority_shouldNotRetirePriorityWithoutReason() {
+		String reason = "";
+		Priority priority = flagService.getPriority(2);
+		flagService.retirePriority(priority, reason);
+		Priority retiredpriority = flagService.getPriority(2);
+		assertFalse(retiredpriority.getRetired());
+	}
+
 	/**
 	 *  Tests of methods that save and retrieve flags
 	 */

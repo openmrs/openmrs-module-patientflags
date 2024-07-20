@@ -332,8 +332,98 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	public void getFlagsByFilter_shouldAcceptNullParameter() {
 		Context.getService(FlagService.class).getFlagsByFilter(null);
 	}
-	
-	
+
+
+	/**
+	 * Test methods of patient flags
+	 */
+
+	@Test
+	public void getFlagsForPatient_shouldReturnFlagList() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+
+		List<Flag> patientFlags = flagService.getFlagsForPatient(patient);
+		assertFalse(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void savePatientFlag_shouldSaveSinglePatientFlag() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		Flag flag = flagService.getFlag(2);
+
+		PatientFlag patientFlag = createPatientFlag(patient,flag);
+		flagService.savePatientFlag(patientFlag);
+		PatientFlag savedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4551-a956-95de80529735");
+		assertNotNull(savedPatientFlag);
+	}
+
+	@Test
+	public void  deletePatientFlagsForPatient_shouldDeletePatientFlagsForPatient() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		flagService.deletePatientFlagsForPatient(patient);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertTrue(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void  deletePatientFlagForPatient_shouldDeletePatientFlagForPatient() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		Flag flag = flagService.getFlag(1);
+		flagService.deletePatientFlagForPatient(patient,flag);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertFalse(patientFlags.contains(patientFlag));
+	}
+
+	@Test
+	public void  deletePatientFlagsForFlag_shouldDeletePatientFlagForFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		Flag flag = flagService.getFlag(1);
+		flagService.deletePatientFlagsForFlag(flag);
+		PatientFlag deletedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNull(deletedPatientFlag);
+	}
+
+	@Test
+	public void voidPatientFlag_shouldVoidPatientFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		String voidReason = "remove form system";
+		flagService.voidPatientFlag(patientFlag,voidReason);
+		PatientFlag voidedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertTrue(voidedPatientFlag.getVoided());
+		assertEquals(voidReason,voidedPatientFlag.getVoidReason());
+	}
+
+	@Test
+	public void unvoidPatientFlag_shouldUnvoidPatientFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4543-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		flagService.unvoidPatientFlag(patientFlag);
+		PatientFlag voidedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4543-a956-95de80529735");
+		assertFalse(voidedPatientFlag.getVoided());
+	}
+
+	@Test
+	public void getPatientFlags_shouldReturnListOfPatientFLags() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertFalse(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void getPatientFlags_shouldAcceptNullParameters() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient,null,"");
+		assertFalse(patientFlags.isEmpty());
+	}
+
 	/**
 	 * Utility methods
 	 */
@@ -347,5 +437,14 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		flag.setPriority(priority);
 		flag.setEvaluator("org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		return flag;
+	}
+
+	private PatientFlag createPatientFlag(Patient patient, Flag flag) {
+			PatientFlag patientFlag = new PatientFlag();
+			patientFlag.setPatient(patient);
+			patientFlag.setFlag(flag);
+			patientFlag.setUuid("7d89924e-e8df-4551-a956-95de80529735");
+			patientFlag.setMessage(flag.getMessage());
+			return patientFlag;
 	}
 }

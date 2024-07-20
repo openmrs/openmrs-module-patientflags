@@ -9,5 +9,6 @@
 		<mapping resource="Flag.hbm.xml" />
 		<mapping resource="Priority.hbm.xml" />
 		<mapping resource="Tag.hbm.xml" />
+		<mapping resource="PatientFlag.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>

@@ -3,6 +3,7 @@ package org.openmrs.module.patientflags;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -321,6 +322,15 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		// the list should be empty, as we have deleted the only flag we created
 		assertEquals(0, tags.size());
 	}
+
+	@Test
+	public void savePatientFLags_shouldAcceptListOfPatientFlag() {
+		Patient patient = Context.getService(PatientService.class).getPatient(2);
+		List<PatientFlag> patientFlags = createPatientFlags(patient.getPatientId());
+		flagService.savePatientFlags(patientFlags);
+		List<PatientFlag> savedPatientFlags = flagService.getPatientFlags(patient);
+		assertFalse(savedPatientFlags.isEmpty());
+	}
 	
 	/*
 	 * Tests of flag filtering
@@ -347,5 +357,16 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		flag.setPriority(priority);
 		flag.setEvaluator("org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator");
 		return flag;
+	}
+
+	private List<PatientFlag> createPatientFlags(Integer patientId) {
+		List<Flag> flags = flagService.getAllFlags();
+		return flags.stream().map(flag -> {
+			PatientFlag patientFlag = new PatientFlag();
+			patientFlag.setPatient(new Patient(patientId));
+			patientFlag.setFlag(flag);
+			patientFlag.setMessage(flag.getMessage());
+			return patientFlag;
+		}).collect(Collectors.toList());
 	}
 }

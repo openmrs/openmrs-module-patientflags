@@ -97,6 +97,14 @@ public interface FlagDAO {
 	public void savePatientFlag(PatientFlag patientFlag) throws DAOException;
 
 	/**
+	 * Saves a Patient Flags in the Patient Flag table
+	 *
+	 * @param patientFlags the patient flag to save
+	 * @throws DAOException
+	 */
+	public void savePatientFlags(List<PatientFlag> patientFlags) throws DAOException;
+
+	/**
 	 * Searches Flags from the Flag table by matching name, evaluator, enabled state or tags mapped.
 	 * Any parameter can be null to skip the filter
 	 *

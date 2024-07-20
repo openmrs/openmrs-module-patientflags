@@ -638,6 +638,11 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 
 	@Override
+	public void savePatientFlags(List<PatientFlag> patientFlags) throws DAOException {
+		dao.savePatientFlags(patientFlags);
+	}
+
+	@Override
 	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
 		dao.deletePatientFlagsForPatient(patient);
 	}

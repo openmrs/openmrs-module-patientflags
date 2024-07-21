@@ -159,7 +159,6 @@ public class FindFlaggedPatientsController {
 		
 		// create the model map
 		ModelMap model = new ModelMap();
-		model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
 		model.addAttribute("allPatients", allPatients);
 		List<Map<String, Object>> fpl = new ArrayList<>();
 
@@ -173,7 +172,6 @@ public class FindFlaggedPatientsController {
 		}
 
 		model.addAttribute("flaggedPatients", fpl);
-
 		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
 
 		// clears the command object from the session

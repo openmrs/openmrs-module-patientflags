@@ -227,7 +227,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		Tag tag = createTag();
 		flagService.saveTag(tag);
 
-		Tag savedTag = flagService.getTag("allergy");
+		Tag savedTag = flagService.getTag(tag.getName());
 		assertNotNull(savedTag);
 	}
 	
@@ -237,7 +237,7 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		tag.setName("high tag");
 		flagService.saveTag(tag);
 
-		Tag savedTag = flagService.getTag("high tag");
+		Tag savedTag = flagService.getTag(tag.getName());
 		assertNotNull(savedTag);
 	}
 

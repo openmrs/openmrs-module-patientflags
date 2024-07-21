@@ -14,6 +14,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
+import org.openmrs.api.APIException;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 
@@ -113,7 +114,73 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		assertNotNull(savedPriority);
 		assertEquals(priority.getName(), savedPriority.getName());
 	}
-	
+
+	@Test
+	public void getAllPriorities_shouldGetAllPriorities() {
+		List<Priority> priorities = flagService.getAllPriorities();
+		assertFalse(priorities.isEmpty());
+	}
+
+	@Test
+	public void getPriority_shouldGetPriorityById() {
+		Integer priorityId = 1;
+		Priority priority = flagService.getPriority(priorityId);
+		assertNotNull(priority);
+		assertEquals(priorityId, priority.getPriorityId());
+	}
+
+	@Test
+	public void getPriorityByUuid_shouldGetPriorityByUuid() {
+		String priorityUuid = "da7f524f-27ce-4bb2-86d6-6d1d05312bd5";
+		Priority priority = flagService.getPriorityByUuid(priorityUuid);
+		assertNotNull(priority);
+		assertEquals(priorityUuid, priority.getUuid());
+	}
+
+	@Test
+	public void getPriorityByName_shouldGetPriorityByName() {
+		String priorityName = "pr 2";
+		Priority priority = flagService.getPriorityByName(priorityName);
+		assertNotNull(priority);
+		assertEquals(priorityName, priority.getName());
+	}
+
+	@Test
+	public void purgePriority_shouldPurgePriority() {
+		Integer priorityId = 2;
+		flagService.purgePriority(priorityId);
+		Priority priority = flagService.getPriority(priorityId);
+		assertNull(priority);
+	}
+
+	@Test(expected = APIException.class)
+	public void purgePriority_shouldTrowExceptionWhenPriorityAssociatedWithAFlag() {
+		Integer priorityId = 1;
+
+		flagService.purgePriority(priorityId);
+		Priority purgedPriority = flagService.getPriority(priorityId);
+		assertNotNull(purgedPriority);
+	}
+
+	@Test
+	public void retirePriority_shouldRetirePriorityWithReason() {
+		String reason = "reason";
+		Priority priority = flagService.getPriority(2);
+		flagService.retirePriority(priority, reason);
+		Priority retiredpriority = flagService.getPriority(2);
+		assertTrue(retiredpriority.getRetired());
+		assertEquals(reason, retiredpriority.getRetireReason());
+	}
+
+	@Test(expected = APIException.class)
+	public void retirePriority_shouldNotRetirePriorityWithoutReason() {
+		String reason = "";
+		Priority priority = flagService.getPriority(2);
+		flagService.retirePriority(priority, reason);
+		Priority retiredpriority = flagService.getPriority(2);
+		assertFalse(retiredpriority.getRetired());
+	}
+
 	/**
 	 *  Tests of methods that save and retrieve flags
 	 */
@@ -268,8 +335,98 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 	public void getFlagsByFilter_shouldAcceptNullParameter() {
 		Context.getService(FlagService.class).getFlagsByFilter(null);
 	}
-	
-	
+
+
+	/**
+	 * Test methods of patient flags
+	 */
+
+	@Test
+	public void getFlagsForPatient_shouldReturnFlagList() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+
+		List<Flag> patientFlags = flagService.getFlagsForPatient(patient);
+		assertFalse(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void savePatientFlag_shouldSaveSinglePatientFlag() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		Flag flag = flagService.getFlag(2);
+
+		PatientFlag patientFlag = createPatientFlag(patient,flag);
+		flagService.savePatientFlag(patientFlag);
+		PatientFlag savedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4551-a956-95de80529735");
+		assertNotNull(savedPatientFlag);
+	}
+
+	@Test
+	public void  deletePatientFlagsForPatient_shouldDeletePatientFlagsForPatient() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		flagService.deletePatientFlagsForPatient(patient);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertTrue(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void  deletePatientFlagForPatient_shouldDeletePatientFlagForPatient() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		Flag flag = flagService.getFlag(1);
+		flagService.deletePatientFlagForPatient(patient,flag);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertFalse(patientFlags.contains(patientFlag));
+	}
+
+	@Test
+	public void  deletePatientFlagsForFlag_shouldDeletePatientFlagForFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		Flag flag = flagService.getFlag(1);
+		flagService.deletePatientFlagsForFlag(flag);
+		PatientFlag deletedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNull(deletedPatientFlag);
+	}
+
+	@Test
+	public void voidPatientFlag_shouldVoidPatientFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		String voidReason = "remove form system";
+		flagService.voidPatientFlag(patientFlag,voidReason);
+		PatientFlag voidedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4553-a956-95de80529735");
+		assertTrue(voidedPatientFlag.getVoided());
+		assertEquals(voidReason,voidedPatientFlag.getVoidReason());
+	}
+
+	@Test
+	public void unvoidPatientFlag_shouldUnvoidPatientFlag() {
+		PatientFlag patientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4543-a956-95de80529735");
+		assertNotNull(patientFlag);
+
+		flagService.unvoidPatientFlag(patientFlag);
+		PatientFlag voidedPatientFlag = flagService.getPatientFlagByUuid("7d89924e-e8df-4543-a956-95de80529735");
+		assertFalse(voidedPatientFlag.getVoided());
+	}
+
+	@Test
+	public void getPatientFlags_shouldReturnListOfPatientFLags() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		assertFalse(patientFlags.isEmpty());
+	}
+
+	@Test
+	public void getPatientFlags_shouldAcceptNullParameters() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient,null,"");
+		assertFalse(patientFlags.isEmpty());
+	}
+
 	/**
 	 * Utility methods
 	 */
@@ -289,5 +446,14 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		Tag tag = new Tag();
 		tag.setName("allergy");
 		return tag;
+  }
+
+	private PatientFlag createPatientFlag(Patient patient, Flag flag) {
+			PatientFlag patientFlag = new PatientFlag();
+			patientFlag.setPatient(patient);
+			patientFlag.setFlag(flag);
+			patientFlag.setUuid("7d89924e-e8df-4551-a956-95de80529735");
+			patientFlag.setMessage(flag.getMessage());
+			return patientFlag;
 	}
 }

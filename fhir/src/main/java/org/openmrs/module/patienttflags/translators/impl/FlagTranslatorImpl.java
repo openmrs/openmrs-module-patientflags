@@ -9,6 +9,8 @@
  */
 package org.openmrs.module.patienttflags.translators.impl;
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
 import org.openmrs.module.patientflags.Flag;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Nonnull;
 
+@Slf4j
 @Component
+@Setter
 public class FlagTranslatorImpl implements FlagTranslator {
     /**
      * @param flag

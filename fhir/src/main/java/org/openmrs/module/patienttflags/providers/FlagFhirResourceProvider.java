@@ -37,7 +37,7 @@ import static lombok.AccessLevel.PACKAGE;
 
 @Component("FlagFhirR4ResourceProvider")
 @R4Provider
-@Setter(PACKAGE)
+@Setter
 public class FlagFhirResourceProvider implements IResourceProvider {
 
     @Autowired

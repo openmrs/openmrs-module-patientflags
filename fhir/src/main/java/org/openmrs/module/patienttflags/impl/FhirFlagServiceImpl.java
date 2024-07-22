@@ -29,8 +29,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @Transactional
-@Setter(AccessLevel.PACKAGE)
-@Getter(AccessLevel.PROTECTED)
+@Setter
+@Getter
 public class FhirFlagServiceImpl extends BaseFhirService<Flag, PatientFlag> implements FhirFlagService {
 
     @Autowired

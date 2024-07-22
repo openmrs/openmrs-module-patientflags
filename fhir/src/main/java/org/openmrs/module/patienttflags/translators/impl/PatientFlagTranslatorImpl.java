@@ -14,6 +14,8 @@ import static org.apache.commons.lang3.Validate.notNull;
 import javax.annotation.Nonnull;
 
 
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Period;
@@ -25,7 +27,9 @@ import org.openmrs.module.patienttflags.translators.TagTranslator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
+@Setter
 public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
 
     @Autowired
@@ -66,4 +70,12 @@ public class PatientFlagTranslatorImpl implements PatientFlagTranslator {
         return flag;
     }
 
+    /**
+     * @param flag 
+     * @return
+     */
+    @Override
+    public PatientFlag toOpenmrsType(@Nonnull Flag flag) {
+        return null;
+    }
 }

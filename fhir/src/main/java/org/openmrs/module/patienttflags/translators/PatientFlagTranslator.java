@@ -16,7 +16,7 @@ import org.openmrs.module.patientflags.PatientFlag;
 
 import javax.annotation.Nonnull;
 
-public interface PatientFlagTranslator extends ToFhirTranslator<PatientFlag, Flag> {
+public interface PatientFlagTranslator extends OpenmrsFhirTranslator<PatientFlag, Flag> {
     /**
      * @param patientFlag 
      * @return

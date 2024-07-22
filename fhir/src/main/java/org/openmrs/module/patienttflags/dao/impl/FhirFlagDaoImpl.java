@@ -25,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 
 @Component
-@Setter(AccessLevel.PACKAGE)
+@Setter
 public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFlagDao {
 
     /**

@@ -82,8 +82,8 @@
             <artifactId>legacyui-omod</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
+            <groupId>org.openmrs.module</groupId>
+            <artifactId>fhir2-omod</artifactId>
         </dependency>
     </dependencies>
 

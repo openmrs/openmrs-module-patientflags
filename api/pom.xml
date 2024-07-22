@@ -37,7 +37,7 @@
 			<artifactId>openmrs-test</artifactId>
 			<type>pom</type>
 		</dependency>
-		
+
 		<!--  include groovy, but mark as provided since it is included with openmrs-core v1.10+-->
 		<dependency>
   			<groupId>org.codehaus.groovy</groupId>
@@ -45,10 +45,6 @@
   			<version>1.7.6</version>
   			<type>jar</type>
   			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
 		</dependency>
 	</dependencies>
 

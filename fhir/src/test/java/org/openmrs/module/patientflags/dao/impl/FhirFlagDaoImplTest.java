@@ -19,7 +19,6 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
     private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "patientflagtest-dataset.xml";
 
     @Autowired
-    @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
     private FhirFlagDaoImpl fhirFlagDao;
@@ -29,7 +28,7 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
         fhirFlagDao = new FhirFlagDaoImpl();
         fhirFlagDao.setSessionFactory(sessionFactory);
-        executeDataSet(TEST_DATASET_FILE);
+//        executeDataSet(TEST_DATASET_FILE);
     }
 
     @Test

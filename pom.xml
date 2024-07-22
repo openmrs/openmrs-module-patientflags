@@ -145,12 +145,18 @@
 				<version>${lombokVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>2.17.2</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openMRSVersion>2.0.0</openMRSVersion>
+		<openMRSVersion>2.2.0</openMRSVersion>
 		<openMRSMinorVersion>2.0</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
@@ -158,7 +164,7 @@
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
 		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
 		<legacyuiVersion>1.16.0</legacyuiVersion>
-		<fhirversion>2.0.0</fhirversion>
+		<fhirversion>2.1.0</fhirversion>
 		<lombokVersion>1.18.26</lombokVersion>
 	</properties>
 

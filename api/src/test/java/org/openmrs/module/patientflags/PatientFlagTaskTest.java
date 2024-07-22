@@ -16,7 +16,6 @@ import java.lang.reflect.Method;
 import java.util.List;
 
 import static junit.framework.TestCase.assertFalse;
-import static org.junit.Assert.assertNotNull;
 
 public class PatientFlagTaskTest extends BaseModuleContextSensitiveTest {
 
@@ -51,13 +50,27 @@ public class PatientFlagTaskTest extends BaseModuleContextSensitiveTest {
     }
  
     @Test
-    public void generatePatientFlags() {
+    public void generatePatientFlags_shouldGeneratePatientFlagsForPatient() {
         Patient patient = Context.getService(PatientService.class).getPatient(1);
         patientFlagTask.generatePatientFlags(patient);
         List<PatientFlag> patientFlags = Context.getService(FlagService.class).getPatientFlags(patient);
-//        assertFalse(patientFlags.isEmpty());
+        assertFalse(patientFlags.isEmpty());
     }
 
+    @Test
+    public void generatePatientFlags_shouldGeneratePatientFlagsForFlag() {
+        Patient patient = Context.getService(PatientService.class).getPatient(1);
+        Flag flag = Context.getService(FlagService.class).getFlag(1);
+        patientFlagTask.generatePatientFlags(flag);
+        List<PatientFlag> patientFlags = Context.getService(FlagService.class).getPatientFlags(patient);
+        assertFalse(patientFlags.isEmpty());
+    }
 
-
+    @Test
+    public void evaluateAllFlags_shouldEvaluateAllFlagsAndAllPatients() {
+        Patient patient = Context.getService(PatientService.class).getPatient(1);
+        patientFlagTask.run();
+        List<PatientFlag> patientFlags = Context.getService(FlagService.class).getPatientFlags(patient);
+        assertFalse(patientFlags.isEmpty());
+    }
 }

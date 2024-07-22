@@ -59,12 +59,11 @@
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>fhir2-api</artifactId>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>org.openmrs.module</groupId>-->
-<!--			<artifactId>fhir2-api</artifactId>-->
-<!--			<type>test-jar</type>-->
-<!--			<scope>test</scope>-->
-<!--		</dependency>-->
+		<dependency>
+			<groupId>org.openmrs.module</groupId>
+			<artifactId>fhir2-api</artifactId>
+			<type>test-jar</type>
+		</dependency>
 		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>fhir2-omod</artifactId>

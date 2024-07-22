@@ -126,13 +126,13 @@
 				<version>${fhirversion}</version>
 				<scope>provided</scope>
 			</dependency>
-<!--			<dependency>-->
-<!--				<groupId>org.openmrs.module</groupId>-->
-<!--				<artifactId>fhir2-api</artifactId>-->
-<!--				<version>${fhirversion}</version>-->
-<!--				<type>test-jar</type>-->
-<!--				<scope>test</scope>-->
-<!--			</dependency>-->
+			<dependency>
+				<groupId>org.openmrs.module</groupId>
+				<artifactId>fhir2-api</artifactId>
+				<version>${fhirversion}</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>fhir2-omod</artifactId>

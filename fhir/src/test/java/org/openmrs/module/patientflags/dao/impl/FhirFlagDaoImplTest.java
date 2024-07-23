@@ -1,3 +1,12 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public License,
+ * v. 2.0. If a copy of the MPL was not distributed with this file, You can
+ * obtain one at http://mozilla.org/MPL/2.0/. OpenMRS is also distributed under
+ * the terms of the Healthcare Disclaimer located at http://openmrs.org/license.
+ *
+ * Copyright (C) OpenMRS Inc. OpenMRS is a registered trademark and the OpenMRS
+ * graphic logo is a trademark of OpenMRS Inc.
+ */
 package org.openmrs.module.patientflags.dao.impl;
 
 import org.hibernate.SessionFactory;
@@ -5,20 +14,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 import org.openmrs.module.fhir2.TestFhirSpringConfiguration;
+import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patienttflags.dao.impl.FhirFlagDaoImpl;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
+
 @ContextConfiguration(classes = TestFhirSpringConfiguration.class, inheritLocations = false)
 public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
-    protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
+    private static final String TEST_DATASET_FILE = "org.openmrs.module.patinetflags.include/patientflagtest-dataset.xml";
 
-    private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "patientflagtest-dataset.xml";
+    String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
 
     @Autowired
+    @Qualifier("sessionFactory")
     private SessionFactory sessionFactory;
 
     private FhirFlagDaoImpl fhirFlagDao;
@@ -28,11 +43,13 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
         fhirFlagDao = new FhirFlagDaoImpl();
         fhirFlagDao.setSessionFactory(sessionFactory);
-//        executeDataSet(TEST_DATASET_FILE);
+        executeDataSet(TEST_DATASET_FILE);
     }
 
     @Test
-    public void test() {
-
+    public void getByUuid_shouldReturnMatchingPatientFlag() {
+        PatientFlag patientFlag = fhirFlagDao.get(FLAG_UUID);
+        assertThat(patientFlag, notNullValue());
+        assertThat(patientFlag.getUuid(), equalTo(FLAG_UUID));
     }
 }

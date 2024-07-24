@@ -39,7 +39,7 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
     private FhirFlagDaoImpl fhirFlagDao;
 
     @Before
-    public void setup() {
+    public void setup() throws Exception {
 
         fhirFlagDao = new FhirFlagDaoImpl();
         fhirFlagDao.setSessionFactory(sessionFactory);

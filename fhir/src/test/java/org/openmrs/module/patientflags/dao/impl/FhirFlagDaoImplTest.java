@@ -28,7 +28,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @ContextConfiguration(classes = TestFhirSpringConfiguration.class, inheritLocations = false)
 public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
-    private static final String TEST_DATASET_FILE = "patientflagfhirtest-dataset.xml";
+    private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/include/patientflagtest-dataset.xml";
 
     String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
 

@@ -160,18 +160,18 @@ public class FindFlaggedPatientsController {
 		// create the model map
 		ModelMap model = new ModelMap();
 		model.addAttribute("allPatients", allPatients);
-		List<Map<String, Object>> fpl = new ArrayList<>();
+		List<Map<String, Object>> flaggedPatientList = new ArrayList<>();
 
-		Set<Integer> idsFp = flaggedPatients.getMemberIds();
-		for (Integer patientId : idsFp) {
-			Map<String, Object> mapFp = new HashMap<>();
+		Set<Integer> flaggedPatientIds = flaggedPatients.getMemberIds();
+		for (Integer patientId : flaggedPatientIds) {
+			Map<String, Object> mapFlaggerPatient = new HashMap<>();
 
-			mapFp.put("patientId", patientId);
+			mapFlaggerPatient.put("patientId", patientId);
 
-			fpl.add(mapFp);
+			flaggedPatientList.add(mapFlaggerPatient);
 		}
 
-		model.addAttribute("flaggedPatients", fpl);
+		model.addAttribute("flaggedPatients", flaggedPatientList);
 		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
 
 		// clears the command object from the session

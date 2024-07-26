@@ -54,27 +54,17 @@ import static org.mockito.Mockito.when;
 public class FhirFlagServiceImplTest {
 
     private static final int START_INDEX = 0;
+
     private static final int END_INDEX = 10;
-    /**
-     * The Flag uuid.
-     */
+
     String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
 
-    /**
-     * The Flag code.
-     */
     String FLAG_CODE = "FLAG MESSAGE";
-    /**
-     * The Flag category.
-     */
+
     String FLAG_CATEGORY = "FLAG CATEGORY";
-    /**
-     * The Subject display.
-     */
+
     String SUBJECT_DISPLAY = "Patient/ 123xx34-623hh34-22hj89-23hjy5 Patient Name 10000X";
-    /**
-     * The Flag.
-     */
+
     Flag fhirFlag;
 
     PatientFlag patientFlag;
@@ -133,9 +123,9 @@ public class FhirFlagServiceImplTest {
 
         patientFlag = new PatientFlag();
 
-        Tag tag = new Tag(FLAG_CATEGORY,null, null);
+        Tag tag = new Tag(FLAG_CATEGORY, null, null);
         Priority priority = new Priority("priority", "red", 1);
-        org.openmrs.module.patientflags.Flag openmrsFlag = new org.openmrs.module.patientflags.Flag("1","test", FLAG_CODE);
+        org.openmrs.module.patientflags.Flag openmrsFlag = new org.openmrs.module.patientflags.Flag("1", "test", FLAG_CODE);
         openmrsFlag.setTags(Collections.singleton(tag));
         openmrsFlag.setPriority(priority);
 

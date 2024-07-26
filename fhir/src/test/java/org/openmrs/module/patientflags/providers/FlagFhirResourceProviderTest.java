@@ -142,10 +142,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
          patientUuid.addValue(new ReferenceOrListParam()
                  .add(new ReferenceParam().setValue(PATIENT_UUID).setChain(Patient.SP_RES_ID)));
 
-         when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid,null,null,null,null,null,null,null,null)))
+         when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid, null, null, null, null, null, null, null, null)))
                  .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-         IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid,null, null, null, null);
+         IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid, null,  null,  null,  null);
 
          MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 
@@ -163,10 +163,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         patientUuid.addValue(new ReferenceOrListParam()
                 .add(new ReferenceParam().setValue("patient name").setChain(Patient.SP_NAME)));
 
-        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid,null,null,null,null,null,null,null,null)))
+        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid, null, null, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid,null, null, null, null);
+        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid, null, null, null, null);
 
         MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 
@@ -184,10 +184,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         patientUuid.addValue(new ReferenceOrListParam()
                 .add(new ReferenceParam().setValue("patient").setChain(Patient.SP_GIVEN)));
 
-        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid,null,null,null,null,null,null,null,null)))
+        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid, null, null, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid,null, null, null, null);
+        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid, null,  null,  null,  null);
 
         MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 
@@ -205,10 +205,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         patientUuid.addValue(new ReferenceOrListParam()
                 .add(new ReferenceParam().setValue("1000X").setChain(Patient.SP_IDENTIFIER)));
 
-        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid,null,null,null,null,null,null,null,null)))
+        when(fhirFlagService.searchFlags(new FlagSearchParams(patientUuid, null, null, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid,null, null, null, null);
+        IBundleProvider results = flagFhirResourceProvider.searchFlags(patientUuid, null,  null,  null,  null);
 
         MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 
@@ -224,10 +224,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
     public void searchFlags_shouldReturnMatchingFlagsForFlagCode() {
         StringAndListParam codeParam = new StringAndListParam()
                 .addAnd(new StringOrListParam().add(new StringParam(FLAG_CODE)));
-        when(fhirFlagService.searchFlags(new FlagSearchParams(null,codeParam,null,null,null,null,null,null,null)))
+        when(fhirFlagService.searchFlags(new FlagSearchParams(null, codeParam, null, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-        IBundleProvider results = flagFhirResourceProvider.searchFlags(null,null, codeParam, null, null);
+        IBundleProvider results = flagFhirResourceProvider.searchFlags(null, null, codeParam, null, null);
 
         MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 
@@ -243,10 +243,10 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
     public void searchFlags_shouldReturnMatchingFlagsForFlagCategory() {
         StringAndListParam category = new StringAndListParam()
                 .addAnd(new StringOrListParam().add(new StringParam(FLAG_CATEGORY)));
-        when(fhirFlagService.searchFlags(new FlagSearchParams(null, null,category,null,null,null,null,null,null)))
+        when(fhirFlagService.searchFlags(new FlagSearchParams(null, null,category, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
-        IBundleProvider results = flagFhirResourceProvider.searchFlags(null,null, null, category, null);
+        IBundleProvider results = flagFhirResourceProvider.searchFlags(null, null,  null, category, null);
 
         MatcherAssert.assertThat(results, CoreMatchers.notNullValue());
 

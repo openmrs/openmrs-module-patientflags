@@ -29,7 +29,7 @@ import static org.hamcrest.Matchers.nullValue;
 @ContextConfiguration(classes = TestFhirSpringConfiguration.class, inheritLocations = false)
 public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
-    private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/include/patientflagtest-dataset.xml";
+    private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/testdata/fhirPatientflagtest-dataset.xml";
 
     String FLAG_UUID = "7d89924e-e8df-4553-a956-95de80529735";
 
@@ -43,7 +43,6 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
     @Before
     public void setup() throws Exception {
-
         fhirFlagDao = new FhirFlagDaoImpl();
         fhirFlagDao.setSessionFactory(sessionFactory);
         executeDataSet(TEST_DATASET_FILE);

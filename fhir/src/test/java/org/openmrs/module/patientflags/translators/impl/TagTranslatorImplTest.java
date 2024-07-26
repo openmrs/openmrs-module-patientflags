@@ -27,10 +27,13 @@ import static org.hamcrest.Matchers.notNullValue;
 public class TagTranslatorImplTest {
 
     private static final String TAG_UUID = "0f97e14e-cdc2-49ac-9255-b5126f8a5147";
+
     private static final String TAG_NAME = "tag";
+
     TagTranslatorImpl tagTranslator;
 
     CodeableConcept codeableConcept;
+
     Tag tag;
 
     @Before

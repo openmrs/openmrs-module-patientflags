@@ -24,7 +24,7 @@ import static org.hamcrest.Matchers.notNullValue;
 @RunWith(MockitoJUnitRunner.class)
 public class FlagTranslatorImplTest {
 
-    private static final String FLAG_NAME = "flagname";
+    private static final String FLAG_NAME = "flagName";
     private static final String FLAG_MESSAGE = "flag message";
 
     FlagTranslatorImpl flagTranslator;

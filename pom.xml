@@ -158,7 +158,7 @@
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
 		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
 		<legacyuiVersion>1.16.0</legacyuiVersion>
-		<fhirversion>2.1.0</fhirversion>
+		<fhirversion>2.2.0</fhirversion>
 		<lombokVersion>1.18.26</lombokVersion>
 	</properties>
 

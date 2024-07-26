@@ -13,7 +13,6 @@ import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
 import ca.uhn.fhir.rest.param.StringAndListParam;
 import lombok.Setter;
-import lombok.AccessLevel;
 import org.hibernate.Criteria;
 import org.openmrs.module.fhir2.FhirConstants;
 import org.openmrs.module.fhir2.api.dao.impl.BaseFhirDao;
@@ -57,7 +56,7 @@ public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFla
 
     private void handleCode(Criteria criteria, StringAndListParam code) {
         if (code != null)
-            handleAndListParam(code, (message) -> Optional.of(eq("message", message))).ifPresent(criteria::add);
+            handleAndListParam(code, (message) -> Optional.of(eq("message", message.getValue()))).ifPresent(criteria::add);
     }
 
     private void handleCategory(Criteria criteria, StringAndListParam category) {

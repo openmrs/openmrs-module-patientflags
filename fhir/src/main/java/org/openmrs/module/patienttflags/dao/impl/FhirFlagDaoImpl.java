@@ -22,6 +22,9 @@ import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patienttflags.dao.FhirFlagDao;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
+import static org.hibernate.criterion.Restrictions.eq;
 
 
 @Component
@@ -54,14 +57,14 @@ public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFla
 
     private void handleCode(Criteria criteria, StringAndListParam code) {
         if (code != null)
-            handleAndListParam(code, (message) -> propertyLike("message", message)).ifPresent(criteria::add);
+            handleAndListParam(code, (message) -> Optional.of(eq("message", message))).ifPresent(criteria::add);
     }
 
     private void handleCategory(Criteria criteria, StringAndListParam category) {
         if (category != null) {
             criteria.createAlias("flag", "f");
             criteria.createAlias("f.tags", "ft");
-            handleAndListParam(category, (tag) -> propertyLike("ft.name", tag.getValue())).ifPresent(criteria::add);
+            handleAndListParam(category, (tag) -> Optional.of(eq("ft.name", tag.getValue()))).ifPresent(criteria::add);
         }
     }
 }

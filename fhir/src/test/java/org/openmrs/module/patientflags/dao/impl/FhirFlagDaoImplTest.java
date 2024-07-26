@@ -24,13 +24,16 @@ import org.springframework.test.context.ContextConfiguration;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 @ContextConfiguration(classes = TestFhirSpringConfiguration.class, inheritLocations = false)
 public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
     private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/include/patientflagtest-dataset.xml";
 
-    String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
+    String FLAG_UUID = "7d89924e-e8df-4553-a956-95de80529735";
+
+    String WRONG_FLAG_UUID = "7d89924e-e8df-6666-a956-95de80529735";
 
     @Autowired
     @Qualifier("sessionFactory")
@@ -52,4 +55,11 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
         assertThat(patientFlag, notNullValue());
         assertThat(patientFlag.getUuid(), equalTo(FLAG_UUID));
     }
+
+    @Test
+    public void getByWithWrongUuid_shouldReturnNullPatientFlag() {
+        PatientFlag patientFlag = fhirFlagDao.get(WRONG_FLAG_UUID);
+        assertThat(patientFlag, nullValue());
+    }
+
 }

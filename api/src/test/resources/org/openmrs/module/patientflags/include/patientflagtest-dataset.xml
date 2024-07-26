@@ -4,6 +4,8 @@
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
 	<person person_id="2" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 	<person person_id="1" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27cw-4bb2-86d6-6d1d05312bd5"/>
+	<person_name person_name_id="1000" preferred="true" person_id="1" given_name="Azalaïs" middle_name="" family_name="Aygul" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="9fdb167d-2ae9-4a03-be1c-d92e221f292b"/>
+	<person_name person_name_id="1001" preferred="true" person_id="2" given_name="Rahmi" middle_name="" family_name="Valeriu" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="de58be3f-b5c5-4144-9bfb-2c0ef67fca4e"/>
 
 	<!-- concepts taken from LogicBasicTest.concepts.xml -->
 	<concept concept_id="1" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2005-01-01 00:00:00.0" uuid="5c43a33f-82c9-427d-92cd-02b3e0e3e1f9"/>

@@ -124,8 +124,8 @@
 
 	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openMRSVersion>2.0.0</openMRSVersion>
-		<openMRSMinorVersion>2.0</openMRSMinorVersion>
+		<openMRSVersion>2.2.0</openMRSVersion>
+		<openMRSMinorVersion>2.2</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>

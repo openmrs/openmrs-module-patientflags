@@ -33,6 +33,16 @@
 	<patientflags_flag flag_id="1" name="DRUG FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a where a.allergen_type = 'DRUG';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5" priority_id="1"/>
 	<patientflags_flag flag_id="2" name="FOOD FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a where a.allergen_type = 'FOOD';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-28ce-4bb2-86d6-6d1d05312bd5"/>
 
+	<patientflags_tag tag_id="1" name="high" description="description"  creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5" />
+	<patientflags_tag tag_id="2" name="low" description="description"  creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd6" />
+
+	<patientflags_flag_tag  flag_id="1" tag_id="1"/>
+
+	<patientflags_displaypoint displaypoint_id="1" name="header" description="description" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd6" />
+	<patientflags_tag_displaypoint tag_id="1" displaypoint_id="1"/>
+
+	<patientflags_tag_role tag_id="1" role="System Developer"/>
+
 	<patientflags_patient_flag patient_flag_id="1" patient_id="1" flag_id="1" message="Test" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>
 	<patientflags_patient_flag patient_flag_id="2" patient_id="2" flag_id="1" message="Test" creator="1" date_created="2007-05-01 00:00:00.0" voided="true" uuid="7d89924e-e8df-4543-a956-95de80529735"/>
   

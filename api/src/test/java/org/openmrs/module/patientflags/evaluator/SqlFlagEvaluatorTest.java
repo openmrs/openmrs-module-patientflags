@@ -41,6 +41,7 @@ public class SqlFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
     private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "flagtest-dataset.xml";
 
     SQLFlagEvaluator sqlFlagEvaluator;
+
     @Before
     public void setup() throws Exception {
         initializeInMemoryDatabase();

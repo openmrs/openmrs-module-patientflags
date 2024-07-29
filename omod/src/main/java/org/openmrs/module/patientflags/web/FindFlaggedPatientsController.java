@@ -160,11 +160,11 @@ public class FindFlaggedPatientsController {
 		// create the model map
 		ModelMap model = new ModelMap();
 		model.addAttribute("allPatients", allPatients);
-		List<Map<String, Object>> flaggedPatientList = new ArrayList<>();
+		List<Map<String, Integer>> flaggedPatientList = new ArrayList<>();
 
 		Set<Integer> flaggedPatientIds = flaggedPatients.getMemberIds();
 		for (Integer patientId : flaggedPatientIds) {
-			Map<String, Object> mapFlaggerPatient = new HashMap<>();
+			Map<String, Integer> mapFlaggerPatient = new HashMap<>();
 
 			mapFlaggerPatient.put("patientId", patientId);
 

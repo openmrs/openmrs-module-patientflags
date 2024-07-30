@@ -39,7 +39,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void eval_shouldEvaluateFLag() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
         Patient patient = Context.getService(PatientService.class).getPatient(2);
         Map<Object, Object> context = new HashMap<>();
 
@@ -49,7 +49,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test(expected = APIException.class)
     public void eval_shouldThrowApiExceptionWhenPatientIsVoided() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
         Patient patient = Context.getService(PatientService.class).getPatient(1);
         Map<Object, Object> context = new HashMap<>();
         groovyFlagEvaluator.eval(flag, patient, context);
@@ -57,7 +57,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void evalCohort_shouldReturnCohortWithNullCohortParameter() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
         Map<Object, Object> context = new HashMap<>();
 
         Cohort resultCohort = groovyFlagEvaluator.evalCohort(flag, null, context);
@@ -68,7 +68,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void evalCohort_shouldReturnCohortWithCohortParameter() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
         Map<Object, Object> context = new HashMap<>();
 
         Cohort cohort = new Cohort();
@@ -90,7 +90,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void validate_shouldReturnFlagValidationResult() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
 
         FlagValidationResult result = groovyFlagEvaluator.validate(flag);
         assertTrue(result.getResult());
@@ -106,7 +106,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void evalMessage_ShouldReturnMessage() {
-        Flag flag = Context.getService(FlagService.class).getFlag(3);
+        Flag flag = Context.getService(FlagService.class).getFlag(8);
         Patient patient = Context.getService(PatientService.class).getPatient(2);
 
         String message = groovyFlagEvaluator.evalMessage(flag, patient.getPatientId());

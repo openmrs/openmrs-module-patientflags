@@ -52,7 +52,6 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         Flag flag = Context.getService(FlagService.class).getFlag(3);
         Patient patient = Context.getService(PatientService.class).getPatient(1);
         Map<Object, Object> context = new HashMap<>();
-
         groovyFlagEvaluator.eval(flag, patient, context);
     }
 

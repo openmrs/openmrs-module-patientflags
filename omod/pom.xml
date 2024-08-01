@@ -38,7 +38,7 @@
         <dependency>
             <groupId>org.openmrs.module</groupId>
             <artifactId>patientflags-fhir</artifactId>
-            <version>3.0.8-SNAPSHOT</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.openmrs.module</groupId>

@@ -34,14 +34,13 @@ public class FlagTranslatorImpl implements FlagTranslator {
         }
 
         CodeableConcept codeableConcept = new CodeableConcept();
-        addConceptCoding(codeableConcept.addCoding(),null, flag.getMessage(), flag);
+        addConceptCoding(codeableConcept.addCoding(), null, flag);
+        codeableConcept.setText(flag.getMessage());
         return codeableConcept;
     }
 
-    private void addConceptCoding(Coding coding, String system, String code, Flag flag) {
+    private void addConceptCoding(Coding coding, String system, Flag flag) {
         coding.setSystem(system);
-        coding.setCode(code);
-
         if (system == null) {
             coding.setDisplay(flag.getName());
         }

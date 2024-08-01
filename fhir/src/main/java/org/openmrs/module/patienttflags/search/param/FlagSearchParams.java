@@ -13,7 +13,6 @@ import ca.uhn.fhir.model.api.Include;
 import ca.uhn.fhir.rest.api.SortSpec;
 import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
-import ca.uhn.fhir.rest.param.StringAndListParam;
 import ca.uhn.fhir.rest.param.TokenAndListParam;
 import lombok.Builder;
 import lombok.Data;
@@ -32,15 +31,15 @@ public class FlagSearchParams extends BaseResourceSearchParams {
 
     private ReferenceAndListParam patient;
 
-    private StringAndListParam code;
+    private TokenAndListParam code;
 
-    private StringAndListParam category;
+    private TokenAndListParam category;
 
     private DateRangeParam date;
 
 
     @Builder
-    public FlagSearchParams(ReferenceAndListParam patient, StringAndListParam code, StringAndListParam category,
+    public FlagSearchParams(ReferenceAndListParam patient, TokenAndListParam code, TokenAndListParam category,
                             DateRangeParam date, TokenAndListParam id, DateRangeParam lastUpdated,
                             SortSpec sort, HashSet<Include> includes, HashSet<Include> revIncludes) {
         super(id, lastUpdated, sort, includes, revIncludes);

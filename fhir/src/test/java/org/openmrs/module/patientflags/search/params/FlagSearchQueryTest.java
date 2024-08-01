@@ -13,9 +13,9 @@ import ca.uhn.fhir.rest.api.server.IBundleProvider;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
 import ca.uhn.fhir.rest.param.ReferenceOrListParam;
 import ca.uhn.fhir.rest.param.ReferenceParam;
-import ca.uhn.fhir.rest.param.StringAndListParam;
-import ca.uhn.fhir.rest.param.StringOrListParam;
-import ca.uhn.fhir.rest.param.StringParam;
+import ca.uhn.fhir.rest.param.TokenAndListParam;
+import ca.uhn.fhir.rest.param.TokenOrListParam;
+import ca.uhn.fhir.rest.param.TokenParam;
 import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Patient;
@@ -363,8 +363,8 @@ public class FlagSearchQueryTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void searchForFlags_shouldSearchForFlagsByFlagCode() {
-        StringAndListParam flagCodes = new StringAndListParam()
-                .addAnd(new StringOrListParam().add(new StringParam(FLAG_CODE)));
+        TokenAndListParam flagCodes = new TokenAndListParam()
+                .addAnd(new TokenOrListParam().add(new TokenParam(FLAG_CODE)));
 
         SearchParameterMap theParams = new SearchParameterMap()
                 .addParameter("code", flagCodes);
@@ -379,8 +379,8 @@ public class FlagSearchQueryTest extends BaseModuleContextSensitiveTest {
 
     @Test
     public void searchForFlags_shouldReturnEmptyCollectionWhenCalledWithUnknownByFlagCode() {
-        StringAndListParam wrongFlagCodes = new StringAndListParam()
-                .addAnd(new StringOrListParam().add(new StringParam(WRONG_FLAG_CODE)));
+        TokenAndListParam wrongFlagCodes = new TokenAndListParam()
+                .addAnd(new TokenOrListParam().add(new TokenParam(WRONG_FLAG_CODE)));
 
         SearchParameterMap theParams = new SearchParameterMap().addParameter(FhirConstants.CODED_SEARCH_HANDLER, wrongFlagCodes);
         IBundleProvider results = search(theParams);

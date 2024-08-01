@@ -114,7 +114,7 @@ public class FhirFlagServiceImplTest {
         fhirFlag.setSubject(reference);
 
         CodeableConcept code = new CodeableConcept();
-        code.addCoding().setCode(FLAG_CODE);
+        code.setText(FLAG_CODE);
         fhirFlag.setCode(code);
 
         CodeableConcept category = new CodeableConcept();

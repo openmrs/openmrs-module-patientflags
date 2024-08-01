@@ -47,7 +47,7 @@ public class FlagTranslatorImplTest {
         codeableConcept = flagTranslator.toFhirResource(flag);
 
         assertThat(codeableConcept, notNullValue());
-        assertThat(codeableConcept.getCoding().get(0).getCode(), equalTo(FLAG_MESSAGE));
+        assertThat(codeableConcept.getText(), equalTo(FLAG_MESSAGE));
     }
 
 }

@@ -14,9 +14,9 @@ import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
 import ca.uhn.fhir.rest.param.ReferenceOrListParam;
 import ca.uhn.fhir.rest.param.ReferenceParam;
-import ca.uhn.fhir.rest.param.StringAndListParam;
-import ca.uhn.fhir.rest.param.StringOrListParam;
-import ca.uhn.fhir.rest.param.StringParam;
+import ca.uhn.fhir.rest.param.TokenAndListParam;
+import ca.uhn.fhir.rest.param.TokenOrListParam;
+import ca.uhn.fhir.rest.param.TokenParam;
 import ca.uhn.fhir.rest.server.exceptions.ResourceNotFoundException;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
@@ -222,8 +222,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
 
     @Test
     public void searchFlags_shouldReturnMatchingFlagsForFlagCode() {
-        StringAndListParam codeParam = new StringAndListParam()
-                .addAnd(new StringOrListParam().add(new StringParam(FLAG_CODE)));
+        TokenAndListParam codeParam = new TokenAndListParam()
+                .addAnd(new TokenOrListParam().add(new TokenParam(FLAG_CODE)));
         when(fhirFlagService.searchFlags(new FlagSearchParams(null, codeParam, null, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 
@@ -241,8 +241,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
 
     @Test
     public void searchFlags_shouldReturnMatchingFlagsForFlagCategory() {
-        StringAndListParam category = new StringAndListParam()
-                .addAnd(new StringOrListParam().add(new StringParam(FLAG_CATEGORY)));
+        TokenAndListParam category = new TokenAndListParam()
+                .addAnd(new TokenOrListParam().add(new TokenParam(FLAG_CATEGORY)));
         when(fhirFlagService.searchFlags(new FlagSearchParams(null, null,category, null, null, null, null, null, null)))
                 .thenReturn(new MockIBundleProvider<>(Collections.singletonList(flag), PREFERRED_PAGE_SIZE, COUNT));
 

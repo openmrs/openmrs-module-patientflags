@@ -61,8 +61,8 @@ public class FlagFhirResourceProvider implements IResourceProvider {
     public IBundleProvider searchFlags(@OptionalParam(name = Flag.SP_PATIENT, chainWhitelist = { "", Patient.SP_IDENTIFIER,
                                                 Patient.SP_GIVEN, Patient.SP_FAMILY, Patient.SP_NAME }, targetTypes = Patient.class) ReferenceAndListParam patientReference,
                                        @OptionalParam(name = Flag.SP_RES_ID) TokenAndListParam id,
-                                       @OptionalParam(name = "code") StringAndListParam codeParam,
-                                       @OptionalParam(name = "category") StringAndListParam category,
+                                       @OptionalParam(name = "code") TokenAndListParam codeParam,
+                                       @OptionalParam(name = "category") TokenAndListParam category,
                                        @OptionalParam(name = Flag.SP_DATE) DateRangeParam dateRangeParam) {
 
         FlagSearchParams searchParams = new FlagSearchParams();

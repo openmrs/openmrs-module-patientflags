@@ -11,7 +11,7 @@ package org.openmrs.module.patienttflags.dao.impl;
 
 import ca.uhn.fhir.rest.param.DateRangeParam;
 import ca.uhn.fhir.rest.param.ReferenceAndListParam;
-import ca.uhn.fhir.rest.param.StringAndListParam;
+import ca.uhn.fhir.rest.param.TokenAndListParam;
 import lombok.Setter;
 import org.hibernate.Criteria;
 import org.openmrs.module.fhir2.FhirConstants;
@@ -42,24 +42,24 @@ public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFla
                     entry.getValue().forEach(param -> handlePatientReference(criteria, (ReferenceAndListParam) param.getParam()));
                     break;
                 case FhirConstants.CATEGORY_SEARCH_HANDLER:
-                    entry.getValue().forEach(param -> handleCategory(criteria, (StringAndListParam) param.getParam()));
+                    entry.getValue().forEach(param -> handleCategory(criteria, (TokenAndListParam) param.getParam()));
                     break;
                 case FhirConstants.DATE_RANGE_SEARCH_HANDLER:
                     entry.getValue().forEach(param -> handleDateRange("dateCreated", (DateRangeParam) param.getParam()).ifPresent(criteria::add));
                     break;
                 case FhirConstants.CODED_SEARCH_HANDLER:
-                    entry.getValue().forEach(param -> handleCode(criteria, (StringAndListParam) param.getParam()));
+                    entry.getValue().forEach(param -> handleCode(criteria, (TokenAndListParam) param.getParam()));
                     break;
             }
         });
     }
 
-    private void handleCode(Criteria criteria, StringAndListParam code) {
+    private void handleCode(Criteria criteria, TokenAndListParam code) {
         if (code != null)
             handleAndListParam(code, (message) -> Optional.of(eq("message", message.getValue()))).ifPresent(criteria::add);
     }
 
-    private void handleCategory(Criteria criteria, StringAndListParam category) {
+    private void handleCategory(Criteria criteria, TokenAndListParam category) {
         if (category != null) {
             criteria.createAlias("flag", "f");
             criteria.createAlias("f.tags", "ft");

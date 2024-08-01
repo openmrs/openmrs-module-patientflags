@@ -10,7 +10,6 @@
 package org.openmrs.module.patienttflags.impl;
 
 import ca.uhn.fhir.rest.api.server.IBundleProvider;
-import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.hl7.fhir.r4.model.Flag;

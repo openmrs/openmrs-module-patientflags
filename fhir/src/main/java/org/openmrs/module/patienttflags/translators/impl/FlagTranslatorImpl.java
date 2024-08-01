@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
+import org.openmrs.module.fhir2.api.util.FhirUtils;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patienttflags.translators.FlagTranslator;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,7 @@ public class FlagTranslatorImpl implements FlagTranslator {
     private void addConceptCoding(Coding coding, String system, Flag flag) {
         coding.setSystem(system);
         if (system == null) {
-            coding.setDisplay(flag.getName());
+            coding.setDisplay(FhirUtils.getMetadataTranslation(flag));
         }
     }
 }

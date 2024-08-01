@@ -13,6 +13,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Coding;
+import org.openmrs.module.fhir2.api.util.FhirUtils;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patienttflags.translators.TagTranslator;
 import org.springframework.stereotype.Component;
@@ -45,7 +46,7 @@ public class TagTranslatorImpl implements TagTranslator {
         coding.setSystem(system);
         coding.setCode(code);
         if (system == null) {
-            coding.setDisplay(tag.getName());
+            coding.setDisplay(FhirUtils.getMetadataTranslation(tag));
         }
     }
 }

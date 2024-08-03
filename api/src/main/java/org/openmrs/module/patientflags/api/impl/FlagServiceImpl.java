@@ -684,7 +684,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		if (executor == null) {
 			executor = Executors.newSingleThreadExecutor();
 		}
-		
+		dao.deleteAllPatientFlags();
 		return executor.submit(PatientFlagTask.evaluateAllFlags());
 	}
 	

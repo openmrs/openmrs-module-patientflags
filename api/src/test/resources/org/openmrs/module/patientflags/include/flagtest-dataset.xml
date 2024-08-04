@@ -1,10 +1,12 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+	<patient patient_id="1" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="true"/>
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
 	<person person_id="2" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 
 	<patientflags_flag flag_id="1" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 	<patientflags_flag flag_id="2" name="Invalid SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select * from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="3" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null;" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="3" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 	<patientflags_flag flag_id="4" name="Invalid Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="bogus" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="8" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="result = new Cohort(); result.addMember(2); return org.openmrs.Cohort.union(result, testCohort); " message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 </dataset>

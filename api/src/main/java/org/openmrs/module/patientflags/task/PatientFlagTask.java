@@ -13,9 +13,14 @@
  */
 package org.openmrs.module.patientflags.task;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
+import org.openmrs.CohortMembership;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.api.context.Daemon;
@@ -75,7 +80,7 @@ public class PatientFlagTask implements Runnable {
 		
 		service.deletePatientFlagsForFlag(flag);
 		
-		if (!flag.getEnabled() || flag.isRetired()) {
+		if (!flag.getEnabled() || flag.getRetired()) {
 			return;
 		}
 		
@@ -84,8 +89,12 @@ public class PatientFlagTask implements Runnable {
 		if (cohort == null) {
 			return;
 		}
-		
-		java.util.Set<Integer> members =  cohort.getMemberIds();
+
+		Set<Integer> members = cohort.getMemberships()
+				.stream()
+				.map(CohortMembership::getPatientId)
+				.collect(Collectors.toSet());
+
 		for (Integer patientId : members) {
 			List<String> flgs = (List<String>)context.get(patientId);
 			if (flgs != null) {

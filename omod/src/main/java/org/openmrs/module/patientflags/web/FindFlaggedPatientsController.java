@@ -18,10 +18,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.Cohort;
+import org.openmrs.CohortMembership;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
@@ -115,7 +117,12 @@ public class FindFlaggedPatientsController {
 		List<Map<String, Object>> fpl = new ArrayList<Map<String, Object>>();
 		
 		if(flaggedPatients != null){
-			Set<Integer> idsFp = flaggedPatients.getMemberIds();
+
+			Set<Integer> idsFp = flaggedPatients.getMemberships()
+					.stream()
+					.map(CohortMembership::getPatientId)
+					.collect(Collectors.toSet());
+
 			for (Integer patientId : idsFp) {
 				Map<String, Object> mapFp = new HashMap<String, Object>();
 
@@ -150,7 +157,11 @@ public class FindFlaggedPatientsController {
 		List<Flag> flags = flagService.getFlagsByFilter(filter);
 		
 		// returns a map of flagged Patients and the respective flags
-		Cohort flaggedPatients = flagService.getFlaggedPatients(flags, null);
+		Set<Integer> flaggedPatients = flagService.getFlaggedPatients(flags, null).getMemberships()
+				.stream()
+				.map(CohortMembership::getPatientId)
+				.collect(Collectors.toSet());
+
 		Cohort allPatients = new Cohort();
 		List<Patient> patients = Context.getPatientService().getAllPatients();
 		for (Patient i : patients) {
@@ -159,7 +170,7 @@ public class FindFlaggedPatientsController {
 		
 		// create the model map
 		ModelMap model = new ModelMap();
-		model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
+		model.addAttribute("flaggedPatients", flaggedPatients);
 		model.addAttribute("allPatients", allPatients);
 		
 		// clears the command object from the session

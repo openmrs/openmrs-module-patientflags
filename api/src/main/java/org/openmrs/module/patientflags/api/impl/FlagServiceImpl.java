@@ -95,7 +95,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter, Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(final Patient patient, Filter filter, Map<Object, Object> context) {
+	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context) {
 		List<Flag> results = Collections.synchronizedList(new ArrayList<>());
 
 		// we can get rid of this once onStartup is implemented

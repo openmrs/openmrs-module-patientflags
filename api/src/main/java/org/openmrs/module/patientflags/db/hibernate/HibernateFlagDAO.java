@@ -101,6 +101,7 @@ public class HibernateFlagDAO implements FlagDAO {
 			criteria.add(Restrictions.eq("name", name));
 		}
 
+		@SuppressWarnings("unchecked")
 		List<Flag> list = criteria.list();
 
 		if (list.size() == 1) {
@@ -185,6 +186,7 @@ public class HibernateFlagDAO implements FlagDAO {
 			criteria.add(Restrictions.eq("name", name));
 		}
 
+		@SuppressWarnings("unchecked")
 		List<Tag> list = criteria.list();
 
 		if (list.size() == 1) {
@@ -269,6 +271,7 @@ public class HibernateFlagDAO implements FlagDAO {
 			criteria.add(Restrictions.eq("name", name));
 		}
 
+		@SuppressWarnings("unchecked")
 		List<Priority> list = criteria.list();
 
 		if (list.size() == 1) {

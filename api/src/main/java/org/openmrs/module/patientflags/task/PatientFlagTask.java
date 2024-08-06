@@ -13,9 +13,7 @@
  */
 package org.openmrs.module.patientflags.task;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -96,6 +94,8 @@ public class PatientFlagTask implements Runnable {
 				.collect(Collectors.toSet());
 
 		for (Integer patientId : members) {
+
+			@SuppressWarnings("unchecked")
 			List<String> flgs = (List<String>)context.get(patientId);
 			if (flgs != null) {
 				for (String flg : flgs) {
@@ -114,6 +114,8 @@ public class PatientFlagTask implements Runnable {
 		HashMap<Object, Object> context = new HashMap<Object, Object>();
 		List<Flag> flags = service.generateFlagsForPatient(patient, context);
 		for (Flag flag : flags) {
+
+			@SuppressWarnings("unchecked")
 			List<String> flgs = (List<String>)context.get(patient.getPatientId());
 			if (flgs != null) {
 				for (String flg : flgs) {

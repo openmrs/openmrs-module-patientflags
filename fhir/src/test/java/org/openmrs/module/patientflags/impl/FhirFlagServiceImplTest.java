@@ -92,14 +92,7 @@ public class FhirFlagServiceImplTest {
      */
     @Before
     public void setup() {
-        fhirFlagService = new FhirFlagServiceImpl() {
-            /**
-             * @param object 
-             */
-            @Override
-            protected void validateObject(PatientFlag object) {
-            }
-        };
+        fhirFlagService = new FhirFlagServiceImpl();
 
         fhirFlagService.setDao(fhirFlagDao);
         fhirFlagService.setTranslator(patientFlagTranslator);

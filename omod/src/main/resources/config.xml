@@ -103,7 +103,7 @@
 			<modules>
 				<module>
 					<moduleId>fhir2</moduleId>
-					<version>1.9.0</version>
+					<version>${fhirversion}</version>
 				</module>
 			</modules>
 		</conditionalResource>

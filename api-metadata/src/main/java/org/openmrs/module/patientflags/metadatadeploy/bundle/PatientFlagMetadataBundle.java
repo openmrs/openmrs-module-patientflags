@@ -19,6 +19,7 @@ import java.util.Set;
 
 public abstract class PatientFlagMetadataBundle extends AbstractMetadataBundle {
 
+    @SuppressWarnings("unchecked")
     protected void install(TagDescriptor tagDescriptor) {
         Tag tag = new Tag(tagDescriptor.name());
         if (StringUtils.isNotBlank(tagDescriptor.uuid())) {
@@ -48,6 +49,7 @@ public abstract class PatientFlagMetadataBundle extends AbstractMetadataBundle {
         this.install((OpenmrsObject) priority);
     }
 
+    @SuppressWarnings("unchecked")
     protected void install(FlagDescriptor flagDescriptor) {
         Flag flag = new Flag(flagDescriptor.name(), flagDescriptor.criteria(), flagDescriptor.message());
         if (StringUtils.isNotBlank(flagDescriptor.priority())) {

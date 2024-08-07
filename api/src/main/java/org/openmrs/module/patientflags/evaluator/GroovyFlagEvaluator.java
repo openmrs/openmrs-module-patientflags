@@ -32,7 +32,7 @@ public class GroovyFlagEvaluator implements FlagEvaluator {
 	 */
 	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
 		
-		if(patient.isVoided())
+		if(patient.getVoided())
 			throw new APIException("Unable to evaluate Groovy flag " + flag.getName() + " against voided patient");
 		
 		// create a Cohort that contains just the patient to test, and then evaluate that Cohort

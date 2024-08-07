@@ -1,10 +1,20 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
+	<patient patient_id="1" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="true"/>
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
 	<person person_id="2" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 
-	<patientflags_flag flag_id="1" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<concept concept_id="1" retired="false" datatype_id="1" class_id="1" is_set="false" creator="1" date_created="2005-01-01 00:00:00.0" uuid="5c43a33f-82c9-427d-92cd-02b3e0e3e1f9"/>
+
+	<allergy allergy_id="1" patient_id="2" severity_concept_id="1" coded_allergen="1"  allergen_type="DRUG" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d87924e-e8df-4553-a956-95de80529735"/>
+
+	<patientflags_flag flag_id="1" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_id from encounter e where e.encounter_datetime > now()" message="The ${12} and ${34} message" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 	<patientflags_flag flag_id="2" name="Invalid SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select * from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<patientflags_flag flag_id="3" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null;" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="3" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="return null" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
 	<patientflags_flag flag_id="4" name="Invalid Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="bogus" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="5" name="DRUG FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a where a.allergen_type = 'DRUG';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="6" name="Invalid DRUG FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a whe a.allergepe = 'DRUG';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="7" name="SQL Sample" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="select e.patient_Uuid from encounter e where e.encounter_datetime > now()" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+	<patientflags_flag flag_id="8" name="Groovy Sample" evaluator="org.openmrs.module.patientflags.evaluator.GroovyFlagEvaluator" criteria="result = new Cohort(); result.addMember(2); return org.openmrs.Cohort.union(result, testCohort); " message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
+
 </dataset>

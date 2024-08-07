@@ -457,4 +457,21 @@ public class HibernateFlagDAO implements FlagDAO {
 		criteria.add(Restrictions.eq("patient", patient));
 		return criteria.list();
 	}
+
+
+	/**
+	 * Delete all patient flags.
+	 *
+	 * @throws DAOException the dao exception
+	 */
+	@Override
+	public void deleteAllPatientFlags() throws DAOException {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(PatientFlag.class);
+		List<PatientFlag> flags = criteria.list();
+
+		flags.forEach(patientFlag -> {
+			sessionFactory.getCurrentSession().delete(patientFlag);
+		});
+	}
+
 }

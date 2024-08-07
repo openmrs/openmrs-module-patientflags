@@ -146,16 +146,16 @@ public class FindFlaggedPatientsController {
 	
 	@RequestMapping(method = RequestMethod.GET, params = "tags")
 	public ModelAndView processSubmit(@ModelAttribute("filter") Filter filter, BindingResult result, SessionStatus status) {
-		
+
 		if (result.hasErrors()) {
 			return new ModelAndView("/module/patientflags/findFlaggedPatients");
 		}
-		
+
 		FlagService flagService = Context.getService(FlagService.class);
-		
+
 		// get the flags to test on
 		List<Flag> flags = flagService.getFlagsByFilter(filter);
-		
+
 		// returns a map of flagged Patients and the respective flags
 		Set<Integer> flaggedPatients = flagService.getFlaggedPatients(flags, null).getMemberships()
 				.stream()
@@ -163,19 +163,30 @@ public class FindFlaggedPatientsController {
 				.collect(Collectors.toSet());
 
 		Cohort allPatients = new Cohort();
-		List<Patient> patients = Context.getPatientService().getAllPatients();
-		for (Patient i : patients) {
-			allPatients.addMember(i.getPatientId());
-		}
-		
+
+		Context.getPatientService().getAllPatients().forEach( patient ->
+				allPatients.addMember(patient.getPatientId())
+		);
+
 		// create the model map
 		ModelMap model = new ModelMap();
-		model.addAttribute("flaggedPatients", flaggedPatients);
+
 		model.addAttribute("allPatients", allPatients);
-		
+
+		List<Map<String, Integer>> flaggedPatientList = flaggedPatients.stream()
+				.map(patientId -> {
+					Map<String, Integer> mapFlaggerPatient = new HashMap<>();
+					mapFlaggerPatient.put("patientId", patientId);
+					return mapFlaggerPatient;
+				})
+				.collect(Collectors.toList());
+
+		model.addAttribute("flaggedPatients", flaggedPatientList);
+		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
+
 		// clears the command object from the session
 		status.setComplete();
-		
+
 		// displays the query results
 		return new ModelAndView("/module/patientflags/findFlaggedPatientsResults", model);
 	}

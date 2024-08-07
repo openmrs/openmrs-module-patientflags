@@ -75,10 +75,13 @@ public class PatientFlagTask implements Runnable {
 	}
 
 	private static void generatePatientFlags(Flag flag, FlagService service) {
-		
+
 		service.deletePatientFlagsForFlag(flag);
-		
-		if (!flag.getEnabled() || flag.getRetired()) {
+		generatePatientFlagsForFlagAndPatient(flag,service);
+	}
+
+	private static void generatePatientFlagsForFlagAndPatient(Flag flag, FlagService service){
+		if (!flag.getEnabled() || flag.isRetired()) {
 			return;
 		}
 		
@@ -150,7 +153,7 @@ public class PatientFlagTask implements Runnable {
         @Override
         public void run() {
             FlagService service = Context.getService(FlagService.class);
-            generatePatientFlags(flag, service);
+            generatePatientFlagsForFlagAndPatient(flag, service);
         }
     }
 }

@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -152,16 +153,28 @@ public class FindFlaggedPatientsController {
 		// returns a map of flagged Patients and the respective flags
 		Cohort flaggedPatients = flagService.getFlaggedPatients(flags, null);
 		Cohort allPatients = new Cohort();
-		List<Patient> patients = Context.getPatientService().getAllPatients();
-		for (Patient i : patients) {
-			allPatients.addMember(i.getPatientId());
-		}
+
+		Context.getPatientService().getAllPatients().forEach( patient ->
+				allPatients.addMember(patient.getPatientId())
+		);
 		
 		// create the model map
 		ModelMap model = new ModelMap();
-		model.addAttribute("flaggedPatients", flaggedPatients.getMemberIds());
 		model.addAttribute("allPatients", allPatients);
-		
+
+		Set<Integer> flaggedPatientIds = flaggedPatients.getMemberIds();
+
+		List<Map<String, Integer>> flaggedPatientList = flaggedPatientIds.stream()
+				.map(patientId -> {
+					Map<String, Integer> mapFlaggerPatient = new HashMap<>();
+					mapFlaggerPatient.put("patientId", patientId);
+					return mapFlaggerPatient;
+				})
+				.collect(Collectors.toList());
+
+		model.addAttribute("flaggedPatients", flaggedPatientList);
+		model.addAttribute("patientLink", Context.getAdministrationService().getGlobalProperty("patientflags.defaultPatientLink", PatientFlagsConstants.DEFAULT_PATIENT_LINK));
+
 		// clears the command object from the session
 		status.setComplete();
 		

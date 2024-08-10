@@ -72,7 +72,6 @@ public class PatientFlagTask implements Runnable {
 	}
 
 	private static void generatePatientFlags(Flag flag, FlagService service) {
-
 		service.deletePatientFlagsForFlag(flag);
 		generatePatientFlagsForFlagAndPatient(flag,service);
 	}
@@ -127,7 +126,7 @@ public class PatientFlagTask implements Runnable {
 		@Override
 		public void run() {
 			FlagService flagService = Context.getService(FlagService.class);
-
+			flagService.deleteAllPatientFLags();
 			flagService.getAllFlags().forEach(flag -> Daemon.runInNewDaemonThread(new PatientFlagGenerator(flag)));
 		}
 	}

@@ -673,7 +673,6 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		if (executor == null) {
 			executor = Executors.newSingleThreadExecutor();
 		}
-		dao.deleteAllPatientFlags();
 		return executor.submit(PatientFlagTask.evaluateAllFlags());
 	}
 	
@@ -708,4 +707,10 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public List<PatientFlag> getPatientFlags(Patient patient, Set<Role> roles, String displayPointName) {
 		return getPatientFlags(patient, getFilter(roles, getDisplayPoint(displayPointName)));
 	}
+
+	@Override
+	public void deleteAllPatientFLags() {
+		dao.deleteAllPatientFlags();
+	}
+
 }

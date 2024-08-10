@@ -581,4 +581,9 @@ public interface FlagService extends OpenmrsService {
 	
 	@Transactional(readOnly = true)
 	public List<PatientFlag> getPatientFlags(Patient patient, Set<Role> roles, String displayPointName);
+
+	/**
+	 * Delete all patient f lags.
+	 */
+	public void deleteAllPatientFLags();
 }

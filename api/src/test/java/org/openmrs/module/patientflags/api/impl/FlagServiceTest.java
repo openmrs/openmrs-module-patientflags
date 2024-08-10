@@ -431,6 +431,14 @@ public class FlagServiceTest extends BaseModuleContextSensitiveTest {
 		assertFalse(patientFlags.isEmpty());
 	}
 
+	@Test
+	public void deleteAllPatientFags_shouldDeleteAllPatientFlags() {
+		Patient patient = Context.getService(PatientService.class).getPatient(1);
+		flagService.deleteAllPatientFLags();
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient,null,"");
+		assertTrue(patientFlags.isEmpty());
+	}
+
 	/**
 	 * Utility methods
 	 */

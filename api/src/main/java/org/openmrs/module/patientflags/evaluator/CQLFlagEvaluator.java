@@ -56,8 +56,7 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 				resultCohort.addMember(patient.getPatientId());
 				context.put(patient.getPatientId(), flags);
 			}
-		}
-				
+		}	
 		return resultCohort;
 	}
 	

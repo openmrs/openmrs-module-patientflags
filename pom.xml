@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
-	<version>3.0.8-SNAPSHOT</version>
+	<version>3.0.8-cql-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Patient Flags Module</name>
 	<description>Parent project for Patient Flags Module</description>
@@ -159,6 +159,11 @@
 			<id>openmrs-repo</id>
 			<name>OpenMRS Nexus Repository</name>
 			<url>https://mavenrepo.openmrs.org/public</url>
+		</repository>
+		<repository>
+			<id>uwdigi-repo-central</id>
+          	<name>DIGI Public Repository</name>
+          	<url>https://packages.uwdigi.org/artifactory/public</url>
 		</repository>
 	</repositories>
 

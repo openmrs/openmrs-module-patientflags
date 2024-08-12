@@ -25,6 +25,7 @@ import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
+import org.openmrs.module.cql.api.CQLService;
 
 public class CQLFlagEvaluator implements FlagEvaluator {
 
@@ -44,23 +45,18 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 	@Override
 	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context) {
 		
-		//CQLService cqlService = Context.getService(CQLService.class);
+		CQLService cqlService = Context.getService(CQLService.class);
 		
 		Cohort resultCohort = new Cohort();
 		
-		/*List<Patient> patients = getPatients(cohort);
+		List<Patient> patients = getPatients(cohort);
 		for (Patient patient : patients ) {		
 			List<String> flags = cqlService.applyPlanDefinition(patient, flag.getCriteria());
 			if (!flags.isEmpty()) {
 				resultCohort.addMember(patient.getPatientId());
 				context.put(patient.getPatientId(), flags);
 			}
-		}
-		
-		if (cohort != null) {
-			resultCohort = Cohort.intersect(resultCohort, cohort);
-		}*/
-		
+		}	
 		return resultCohort;
 	}
 	

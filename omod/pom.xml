@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.openmrs.module</groupId>
         <artifactId>patientflags</artifactId>
-        <version>3.0.8-SNAPSHOT</version>
+        <version>3.0.8-cql-SNAPSHOT</version>
     </parent>
     <artifactId>patientflags-omod</artifactId>
     <packaging>jar</packaging>

@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
-	<version>3.0.8-SNAPSHOT</version>
+	<version>3.0.8-cql-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Patient Flags Module</name>
 	<description>Parent project for Patient Flags Module</description>

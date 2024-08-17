@@ -1,7 +1,7 @@
 openmrs-module-patientflags
 ==========================
 
-The openMRS Patient Flag Module provides the functionality to generate warning flags /
+The OpenMRS Patient Flag Module provides the functionality to generate warning flags /
 notifications in the patient dashboard. A flag is simply some criteria, and an associated
 message string. Current module computes the flags for a patient (or a group of patients) when
 in form submission. Or do this as AOP for data submitted outside of forms and save the
@@ -43,12 +43,12 @@ Developer Guide
 * Maven
 #### Setup Project
 
-1. clone the project
+1. Clone the project
 
     `git clone https://github.com/<username>/openmrs-module-patientflags.git
 `
 
-2. build the project 
+2. Build the project 
 
    `mvn clean install` in the root module package
 

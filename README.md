@@ -37,21 +37,20 @@ should be a valid attribute that can be used with a HTML <span> tag.
 Developer Guide
 ---------------
 
-#### Setup Project
-
 **Prerequisite**
 
 * Java version ( 8, 11 or 17)
 * Maven
+#### Setup Project
 
-clone the project
+1. clone the project
 
-`git clone https://github.com/<username>/openmrs-module-patientflags.git
+    `git clone https://github.com/<username>/openmrs-module-patientflags.git
 `
 
-build the project 
+2. build the project 
 
-`mvn clean istall` in the root module package
+   `mvn clean install` in the root module package
 
 Components Of The Module
 ------------------------

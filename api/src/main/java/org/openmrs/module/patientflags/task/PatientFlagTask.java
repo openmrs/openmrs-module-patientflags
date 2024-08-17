@@ -81,7 +81,7 @@ public class PatientFlagTask implements Runnable {
 	}
 
 	private static void generatePatientFlagsForFlagAndPatient(Flag flag, FlagService service){
-		if (!flag.getEnabled() || flag.isRetired()) {
+		if (!flag.getEnabled() || flag.getRetired()) {
 			return;
 		}
 		

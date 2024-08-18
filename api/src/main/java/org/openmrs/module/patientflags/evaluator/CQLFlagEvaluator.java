@@ -14,8 +14,10 @@
 package org.openmrs.module.patientflags.evaluator;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Cohort;
@@ -30,7 +32,7 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 
 	@Override
 	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
-		if(patient.isVoided())
+		if(patient.getVoided())
 			throw new APIException("Unable to evaluate CQL flag " + flag.getName() + " against voided patient");
 		
 		// create a Cohort that contains just the patient, and then evaluate that Cohort
@@ -65,12 +67,14 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 	}
 	
 	private List<Patient> getPatients(Cohort cohort) {
-		
+		Set<Integer> memberIds = new HashSet<>();
+		cohort.getMemberships().forEach(member -> memberIds.add(member.getPatientId()));
+
 		PatientService patientService = Context.getPatientService();
 		
 		List<Patient> patients = new ArrayList<Patient>();
 		if (cohort != null) {
-			for (Integer patientId : cohort.getMemberIds()) {
+			for (Integer patientId : memberIds) {
 				patients.add(patientService.getPatient(patientId));
 			}
 		}

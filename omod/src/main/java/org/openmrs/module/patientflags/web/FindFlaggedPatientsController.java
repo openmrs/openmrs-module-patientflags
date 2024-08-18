@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import org.openmrs.Cohort;
+import org.openmrs.CohortMembership;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
@@ -116,7 +117,12 @@ public class FindFlaggedPatientsController {
 		List<Map<String, Object>> fpl = new ArrayList<Map<String, Object>>();
 		
 		if(flaggedPatients != null){
-			Set<Integer> idsFp = flaggedPatients.getMemberIds();
+
+			Set<Integer> idsFp = flaggedPatients.getMemberships()
+					.stream()
+					.map(CohortMembership::getPatientId)
+					.collect(Collectors.toSet());
+
 			for (Integer patientId : idsFp) {
 				Map<String, Object> mapFp = new HashMap<String, Object>();
 
@@ -140,31 +146,34 @@ public class FindFlaggedPatientsController {
 	
 	@RequestMapping(method = RequestMethod.GET, params = "tags")
 	public ModelAndView processSubmit(@ModelAttribute("filter") Filter filter, BindingResult result, SessionStatus status) {
-		
+
 		if (result.hasErrors()) {
 			return new ModelAndView("/module/patientflags/findFlaggedPatients");
 		}
-		
+
 		FlagService flagService = Context.getService(FlagService.class);
-		
+
 		// get the flags to test on
 		List<Flag> flags = flagService.getFlagsByFilter(filter);
-		
+
 		// returns a map of flagged Patients and the respective flags
-		Cohort flaggedPatients = flagService.getFlaggedPatients(flags, null);
+		Set<Integer> flaggedPatients = flagService.getFlaggedPatients(flags, null).getMemberships()
+				.stream()
+				.map(CohortMembership::getPatientId)
+				.collect(Collectors.toSet());
+
 		Cohort allPatients = new Cohort();
 
 		Context.getPatientService().getAllPatients().forEach( patient ->
 				allPatients.addMember(patient.getPatientId())
 		);
-		
+
 		// create the model map
 		ModelMap model = new ModelMap();
+
 		model.addAttribute("allPatients", allPatients);
 
-		Set<Integer> flaggedPatientIds = flaggedPatients.getMemberIds();
-
-		List<Map<String, Integer>> flaggedPatientList = flaggedPatientIds.stream()
+		List<Map<String, Integer>> flaggedPatientList = flaggedPatients.stream()
 				.map(patientId -> {
 					Map<String, Integer> mapFlaggerPatient = new HashMap<>();
 					mapFlaggerPatient.put("patientId", patientId);
@@ -177,7 +186,7 @@ public class FindFlaggedPatientsController {
 
 		// clears the command object from the session
 		status.setComplete();
-		
+
 		// displays the query results
 		return new ModelAndView("/module/patientflags/findFlaggedPatientsResults", model);
 	}

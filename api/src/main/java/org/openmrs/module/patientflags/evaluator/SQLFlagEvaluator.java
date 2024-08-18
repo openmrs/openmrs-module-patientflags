@@ -41,7 +41,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 	 */
 	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
 		
-		if(patient.isVoided())
+		if(patient.getVoided())
 			throw new APIException("Unable to evaluate SQL flag " + flag.getName() + " against voided patient");
 		
 		String criteria = flag.getCriteria();
@@ -98,7 +98,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 			Integer patient_id = (Integer) row.get(0);
 			
 			// only add patients that haven't been voided
-			if(!Context.getPatientService().getPatient(patient_id).isVoided())
+			if(!Context.getPatientService().getPatient(patient_id).getVoided())
 				resultCohort.addMember((Integer) row.get(0));
 		}
 		
@@ -148,7 +148,7 @@ public class SQLFlagEvaluator implements FlagEvaluator {
 		log.info("Replacing values in "+message);
 		
 		Patient p = Context.getPatientService().getPatient(patientId);
-		if(p.isVoided())
+		if(p.getVoided())
 			throw new APIException("VOIDED PATIENT");
 		
 		String criteria = flag.getCriteria();

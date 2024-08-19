@@ -42,13 +42,16 @@ Developer Guide
 * Java version ( 8, 11 or 17)
 * Maven
 #### Setup Project
+1. Fork the repository
+   
+   click on the `Fork` button to create a copy of the repository under your GitHub account
 
-1. Clone the project
+2. Clone the project
 
     `git clone https://github.com/<username>/openmrs-module-patientflags.git
 `
 
-2. Build the project 
+3. Build the project 
 
    `mvn clean install` in the root module package
 

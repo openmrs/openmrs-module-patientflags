@@ -85,7 +85,7 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 	 */
 	@Override
 	protected void delete(PatientFlag delegate, String reason, RequestContext context) throws ResponseException {
-		if (delegate.isVoided()) {
+		if (delegate.getVoided()) {
 			// DELETE is idempotent, so we return success here
 			return;
 		}
@@ -98,7 +98,7 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 	 */
 	@Override
 	protected PatientFlag undelete(PatientFlag delegate, RequestContext context) throws ResponseException {
-		if (delegate.isVoided()) {
+		if (delegate.getVoided()) {
 			Context.getService(FlagService.class).unvoidPatientFlag(delegate);
 		}
 		return delegate;

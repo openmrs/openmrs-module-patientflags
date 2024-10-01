@@ -6,6 +6,11 @@ import static org.openmrs.module.patientflags.web.rest.util.WebUtils.getStringFi
 import java.util.Arrays;
 import java.util.List;
 
+import io.swagger.models.Model;
+import io.swagger.models.ModelImpl;
+import io.swagger.models.properties.BooleanProperty;
+import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -93,7 +98,43 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		
 		return cp;
 	}
-	
+
+	@Override
+	public Model getGETModel(Representation rep) {
+		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
+			model.property("uuid", new StringProperty());
+			model.property("name", new StringProperty());
+			model.property("criteria", new StringProperty());
+			model.property("evaluator", new StringProperty());
+			model.property("message", new StringProperty());
+			model.property("priority", new RefProperty("#/definitions/PatientflagsPriorityGet"));
+			model.property("enabled", new BooleanProperty());
+			model.property("tags", new RefProperty("#/definitions/PatientflagsTagGet"));
+			model.property("auditInfo", new StringProperty());
+		}
+		return model;
+	}
+
+	@Override
+	public Model getCREATEModel(Representation rep) {
+		ModelImpl model = (ModelImpl) super.getCREATEModel(rep);
+		model.property("name", new StringProperty());
+		model.property("criteria", new StringProperty());
+		model.property("evaluator", new StringProperty());
+		model.property("message", new StringProperty());
+		model.property("priority", new RefProperty("#/definitions/PatientflagsPriorityCreate"));
+		model.property("enabled", new BooleanProperty());
+		model.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
+				.required("name").required("criteria").required("evaluator").required("message");
+        return model;
+    }
+
+	@Override
+	public Model getUPDATEModel(Representation rep) {
+		return getCREATEModel(rep);
+	}
+
 	@Override
 	public Flag getByUniqueId(String flagId) {
 		Flag flag = Context.getService(FlagService.class).getFlagByUuid(flagId);

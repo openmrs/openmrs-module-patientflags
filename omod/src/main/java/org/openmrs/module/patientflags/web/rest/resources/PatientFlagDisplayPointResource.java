@@ -3,6 +3,10 @@ package org.openmrs.module.patientflags.web.rest.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.models.Model;
+import io.swagger.models.ModelImpl;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.StringProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.DisplayPoint;
@@ -70,7 +74,17 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 		
 		return description;
 	}
-	
+
+	@Override
+	public Model getGETModel(Representation rep) {
+		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+		return model
+				.property("uuid", new StringProperty())
+				.property("displayPointId", new IntegerProperty())
+				.property("name", new StringProperty())
+				.property("auditInfo", new StringProperty());
+    }
+
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		return new NeedsPaging<DisplayPoint>(getService().getAllDisplayPoints(), context);

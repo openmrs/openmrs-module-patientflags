@@ -49,9 +49,9 @@ public class PatientFlagTask implements Runnable {
 			evaluateAllFlags();
 		}
 	}
-	
-	public static Runnable evaluateAllFlags() {
-		return Daemon.runInDaemonThread(new AllFlagsEvaluator(), daemonToken);
+
+	public void evaluateAllFlags() {
+		Daemon.runInDaemonThread(new AllFlagsEvaluator(), daemonToken);
 	}
 
 	public static void setDaemonToken(DaemonToken token) {
@@ -75,12 +75,8 @@ public class PatientFlagTask implements Runnable {
 	}
 
 	private static void generatePatientFlags(Flag flag, FlagService service) {
-
 		service.deletePatientFlagsForFlag(flag);
-		generatePatientFlagsForFlagAndPatient(flag,service);
-	}
 
-	private static void generatePatientFlagsForFlagAndPatient(Flag flag, FlagService service){
 		if (!flag.getEnabled() || flag.getRetired()) {
 			return;
 		}
@@ -138,7 +134,6 @@ public class PatientFlagTask implements Runnable {
 		@Override
 		public void run() {
 			FlagService flagService = Context.getService(FlagService.class);
-
 			flagService.getAllFlags().forEach(flag -> Daemon.runInNewDaemonThread(new PatientFlagGenerator(flag)));
 		}
 	}
@@ -150,10 +145,10 @@ public class PatientFlagTask implements Runnable {
 			this.flag = flag;
 		}
 
-        @Override
-        public void run() {
-            FlagService service = Context.getService(FlagService.class);
-            generatePatientFlagsForFlagAndPatient(flag, service);
-        }
-    }
+		@Override
+		public void run() {
+			FlagService service = Context.getService(FlagService.class);
+			generatePatientFlags(flag, service);
+		}
+	}
 }

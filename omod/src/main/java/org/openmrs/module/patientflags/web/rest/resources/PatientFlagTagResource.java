@@ -3,6 +3,12 @@ package org.openmrs.module.patientflags.web.rest.resources;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.swagger.models.Model;
+import io.swagger.models.ModelImpl;
+import io.swagger.models.properties.ArrayProperty;
+import io.swagger.models.properties.IntegerProperty;
+import io.swagger.models.properties.RefProperty;
+import io.swagger.models.properties.StringProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Tag;
@@ -65,7 +71,29 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> 
 		
 		return cp;
 	}
-	
+
+	@Override
+	public Model getCREATEModel(Representation rep) {
+		return new ModelImpl()
+				.property("name", new StringProperty())
+				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleCreate")))
+				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointCreate")));
+	}
+
+	@Override
+	public Model getUPDATEModel(Representation rep) {
+		return getCREATEModel(rep);
+	}
+
+	@Override
+	public Model getGETModel(Representation rep) {
+		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+		return model.property("tagId", new IntegerProperty()).property("name", new StringProperty())
+				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleGet")))
+				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointGet")))
+				.property("auditInfo", new StringProperty());
+	}
+
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = null;

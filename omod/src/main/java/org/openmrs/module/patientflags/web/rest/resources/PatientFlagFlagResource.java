@@ -6,15 +6,16 @@ import static org.openmrs.module.patientflags.web.rest.util.WebUtils.getStringFi
 import java.util.Arrays;
 import java.util.List;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.BooleanProperty;
-import io.swagger.models.properties.RefProperty;
-import io.swagger.models.properties.StringProperty;
+import io.swagger.v3.oas.models.media.BooleanSchema;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
+import org.openmrs.module.patientflags.Priority;
+import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.patientflags.web.PatientFlagsRestController;
 import org.openmrs.module.webservices.rest.web.RequestContext;
@@ -100,39 +101,39 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 	}
 
 	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+	public Schema<?> getGETSchema(Representation rep) {
+		Schema<?> model = super.getGETSchema(rep);
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
-			model.property("uuid", new StringProperty());
-			model.property("name", new StringProperty());
-			model.property("criteria", new StringProperty());
-			model.property("evaluator", new StringProperty());
-			model.property("message", new StringProperty());
-			model.property("priority", new RefProperty("#/definitions/PatientflagsPriorityGet"));
-			model.property("enabled", new BooleanProperty());
-			model.property("tags", new RefProperty("#/definitions/PatientflagsTagGet"));
-			model.property("auditInfo", new StringProperty());
+			model.addProperty("uuid", new UUIDSchema());
+			model.addProperty("name", new StringSchema());
+			model.addProperty("criteria", new StringSchema());
+			model.addProperty("evaluator", new StringSchema());
+			model.addProperty("message", new StringSchema());
+			model.addProperty("priority", new Schema<Priority>().$ref("#/components/schemas/PatientflagsPriorityGet"));
+			model.addProperty("enabled", new BooleanSchema());
+			model.addProperty("tags", new Schema<Tag>().$ref("#/components/schemas/PatientflagsTagGet"));
+			model.addProperty("auditInfo", new StringSchema());
 		}
 		return model;
 	}
 
 	@Override
-	public Model getCREATEModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getCREATEModel(rep);
-		model.property("name", new StringProperty());
-		model.property("criteria", new StringProperty());
-		model.property("evaluator", new StringProperty());
-		model.property("message", new StringProperty());
-		model.property("priority", new RefProperty("#/definitions/PatientflagsPriorityCreate"));
-		model.property("enabled", new BooleanProperty());
-		model.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
-				.required("name").required("criteria").required("evaluator").required("message");
+    public Schema<?> getCREATESchema(Representation rep) {
+		Schema<?> model = super.getCREATESchema(rep);
+		model.addProperty("name", new StringSchema());
+		model.addProperty("criteria", new StringSchema());
+		model.addProperty("evaluator", new StringSchema());
+		model.addProperty("message", new StringSchema());
+		model.addProperty("priority", new Schema<Priority>().$ref("#/components/schemas/PatientflagsPriorityCreate"));
+		model.addProperty("enabled", new BooleanSchema());
+		model.addProperty("tags", new Schema<Tag>().$ref("#/components/schemas/PatientflagsTagCreate"));
+		model.setRequired(Arrays.asList("name", "criteria", "evaluator", "message"));
         return model;
     }
 
 	@Override
-	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep);
+	public Schema<?> getUPDATESchema(Representation rep) {
+		return getCREATESchema(rep);
 	}
 
 	@Override

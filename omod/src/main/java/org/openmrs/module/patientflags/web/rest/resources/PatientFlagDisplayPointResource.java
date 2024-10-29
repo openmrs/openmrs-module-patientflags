@@ -6,6 +6,7 @@ import java.util.List;
 import io.swagger.v3.oas.models.media.IntegerSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.DisplayPoint;
@@ -78,7 +79,7 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 	public Schema<?> getGETSchema(Representation rep) {
 		Schema<?> model = super.getGETSchema(rep);
 		return model
-				.addProperty("uuid", new StringSchema())
+				.addProperty("uuid", new UUIDSchema())
 				.addProperty("displayPointId", new IntegerSchema())
 				.addProperty("name", new StringSchema())
 				.addProperty("auditInfo", new StringSchema());

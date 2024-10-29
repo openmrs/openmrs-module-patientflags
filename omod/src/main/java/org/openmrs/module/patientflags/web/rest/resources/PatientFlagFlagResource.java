@@ -9,6 +9,7 @@ import java.util.List;
 import io.swagger.v3.oas.models.media.BooleanSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -103,7 +104,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 	public Schema<?> getGETSchema(Representation rep) {
 		Schema<?> model = super.getGETSchema(rep);
 		if (rep instanceof DefaultRepresentation || rep instanceof FullRepresentation) {
-			model.addProperty("uuid", new StringSchema());
+			model.addProperty("uuid", new UUIDSchema());
 			model.addProperty("name", new StringSchema());
 			model.addProperty("criteria", new StringSchema());
 			model.addProperty("evaluator", new StringSchema());

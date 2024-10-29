@@ -4,6 +4,7 @@ import io.swagger.v3.oas.models.media.BooleanSchema;
 import io.swagger.v3.oas.models.media.ObjectSchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -70,7 +71,7 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 	public Schema<?> getGETSchema(Representation rep) {
 		Schema<?> model = super.getGETSchema(rep);
 		return model
-				.addProperty("uuid", new StringSchema())
+				.addProperty("uuid", new UUIDSchema())
 				.addProperty("message", new StringSchema())
 				.addProperty("patient", new Schema<Patient>().$ref("#/components/schemas/PatientGet"))
 				.addProperty("flag", new Schema<Flag>().$ref("#/components/schemas/PatientflagsFlagGet"))

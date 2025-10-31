@@ -23,7 +23,7 @@ import org.springframework.validation.Errors;
 public class PatientFlagsPropertiesValidator {
 	
 	@SuppressWarnings("rawtypes")
-    public boolean supports(Class clazz) {
+	public boolean supports(Class clazz) {
 		return PatientFlagsProperties.class.isAssignableFrom(clazz);
 	}
 	
@@ -31,7 +31,7 @@ public class PatientFlagsPropertiesValidator {
 		PatientFlagsProperties propertiesToValidate = (PatientFlagsProperties) target;
 		
 		// reject username if no user exists for that name
-		if(Context.getUserService().getUserByUsername(propertiesToValidate.getUsername()) == null)
+		if (Context.getUserService().getUserByUsername(propertiesToValidate.getUsername()) == null)
 			errors.rejectValue("username", "patientflags.errors.invalidUsername");
 	}
 }

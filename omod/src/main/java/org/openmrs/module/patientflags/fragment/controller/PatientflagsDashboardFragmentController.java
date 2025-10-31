@@ -19,39 +19,40 @@ import java.util.List;
 import java.util.Set;
 
 public class PatientflagsDashboardFragmentController {
-
-    protected final Log log = LogFactory.getLog(getClass());
-
-    public void controller(FragmentModel model, @FragmentParam("patientId") Patient patient) {
-
-        model.addAttribute("patientId", patient.getPatientId());
-    }
-
-    public SimpleObject processPatientFlags(@FragmentParam("patientId") Patient patient) {
-        FlagService flagService = Context.getService(FlagService.class);
-        User user = Context.getAuthenticatedUser();
-        Set<Role> userRoles = user.getRoles();
-        StringBuilder flagsString = new StringBuilder();
-        
-        List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
-        
-        for (PatientFlag patientFlag : patientFlags) {
-        	Flag flag = patientFlag.getFlag();
-            for (Tag tag : flag.getTags()) {
-                Set<Role> intersection = new HashSet<Role>(tag.getRoles());
-                intersection.retainAll(userRoles);
-                if (intersection.size() > 0) {
-                	flag.setMessage(patientFlag.getMessage());
-                    flagsString.append("<li><span ").append(flag.getPriority().getStyle()).append(">").append(flag.evalMessage(patient.getPatientId())).append("</span></li>");
-                    continue;
-                }
-            }
-        }
-
-        SimpleObject simpleObject = new SimpleObject();
-
-        simpleObject.put("patientflags", flagsString);
-
-        return simpleObject;
-    }
+	
+	protected final Log log = LogFactory.getLog(getClass());
+	
+	public void controller(FragmentModel model, @FragmentParam("patientId") Patient patient) {
+		
+		model.addAttribute("patientId", patient.getPatientId());
+	}
+	
+	public SimpleObject processPatientFlags(@FragmentParam("patientId") Patient patient) {
+		FlagService flagService = Context.getService(FlagService.class);
+		User user = Context.getAuthenticatedUser();
+		Set<Role> userRoles = user.getRoles();
+		StringBuilder flagsString = new StringBuilder();
+		
+		List<PatientFlag> patientFlags = flagService.getPatientFlags(patient);
+		
+		for (PatientFlag patientFlag : patientFlags) {
+			Flag flag = patientFlag.getFlag();
+			for (Tag tag : flag.getTags()) {
+				Set<Role> intersection = new HashSet<Role>(tag.getRoles());
+				intersection.retainAll(userRoles);
+				if (intersection.size() > 0) {
+					flag.setMessage(patientFlag.getMessage());
+					flagsString.append("<li><span ").append(flag.getPriority().getStyle()).append(">")
+					        .append(flag.evalMessage(patient.getPatientId())).append("</span></li>");
+					continue;
+				}
+			}
+		}
+		
+		SimpleObject simpleObject = new SimpleObject();
+		
+		simpleObject.put("patientflags", flagsString);
+		
+		return simpleObject;
+	}
 }

@@ -33,7 +33,7 @@ public class EvaluateAllFlagsController {
 	private static final Logger log = LoggerFactory.getLogger(EvaluateAllFlagsController.class);
 	
 	private Future<?> evaluateFlagsAsync = null;
-
+	
 	@RequestMapping(method = RequestMethod.GET, value = "module/patientflags/evaluateAllFlags.htm")
 	public String showPage() {
 		return "/module/patientflags/evaluateAllFlags";
@@ -72,18 +72,19 @@ public class EvaluateAllFlagsController {
 	 *         evaluating all patient flags
 	 */
 	@RequestMapping(method = RequestMethod.GET, value = "module/patientflags/evaluateAllFlagsStatus.htm")
-    public @ResponseBody Map<String, String> getStatus() {
-        if (evaluateFlagsAsync == null) {
-            throw new APIException("There was a problem evaluating all patient flags");
-        }
-
-        Map<String, String> results = new HashMap<String, String>();
-        if (evaluateFlagsAsync.isDone()) {
-            results.put("status", evaluateFlagsAsync.isCancelled() ? "error" : "success");
-            evaluateFlagsAsync = null;
-        } else {
-            results.put("status", "inProgress");
-        }
-        return results;
-    }
+	public @ResponseBody
+	Map<String, String> getStatus() {
+		if (evaluateFlagsAsync == null) {
+			throw new APIException("There was a problem evaluating all patient flags");
+		}
+		
+		Map<String, String> results = new HashMap<String, String>();
+		if (evaluateFlagsAsync.isDone()) {
+			results.put("status", evaluateFlagsAsync.isCancelled() ? "error" : "success");
+			evaluateFlagsAsync = null;
+		} else {
+			results.put("status", "inProgress");
+		}
+		return results;
+	}
 }

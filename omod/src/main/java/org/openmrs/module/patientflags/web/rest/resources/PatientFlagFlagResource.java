@@ -33,7 +33,7 @@ import org.openmrs.module.webservices.rest.web.response.ResponseException;
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/flag", supportedClass = Flag.class, supportedOpenmrsVersions = {
         "1.*", "2.*" })
 public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = null;
@@ -98,7 +98,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		
 		return cp;
 	}
-
+	
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getGETModel(rep);
@@ -115,7 +115,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		}
 		return model;
 	}
-
+	
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getCREATEModel(rep);
@@ -125,16 +125,16 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		model.property("message", new StringProperty());
 		model.property("priority", new RefProperty("#/definitions/PatientflagsPriorityCreate"));
 		model.property("enabled", new BooleanProperty());
-		model.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
-				.required("name").required("criteria").required("evaluator").required("message");
-        return model;
-    }
-
+		model.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate")).required("name").required("criteria")
+		        .required("evaluator").required("message");
+		return model;
+	}
+	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
 		return getCREATEModel(rep);
 	}
-
+	
 	@Override
 	public Flag getByUniqueId(String flagId) {
 		Flag flag = Context.getService(FlagService.class).getFlagByUuid(flagId);
@@ -143,7 +143,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		}
 		return flag;
 	}
-
+	
 	@Override
 	public void purge(Flag flag, RequestContext request) throws ResponseException {
 		//TODO test it
@@ -155,7 +155,7 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 		String patientUuid = context.getParameter("patient");
 		if (StringUtils.isNotBlank(patientUuid)) {
 			Patient patient = Context.getPatientService().getPatientByUuid(patientUuid);
-			if( patient != null) {
+			if (patient != null) {
 				return new NeedsPaging<Flag>(Context.getService(FlagService.class).getFlagsForPatient(patient), context);
 			}
 			return new EmptySearchResult();
@@ -164,13 +164,14 @@ public class PatientFlagFlagResource extends MetadataDelegatingCrudResource<Flag
 			String evaluator = getStringFilter("evaluator", context);
 			Boolean enabled = getBooleanFilter("enabled", context);
 			String tagsStr = getStringFilter("tags", context);
-
+			
 			List<String> tags = null;
-
+			
 			if (StringUtils.isNotBlank(tagsStr)) {
 				tags = Arrays.asList(tagsStr.split(","));
 			}
-			return new NeedsPaging<Flag>(Context.getService(FlagService.class).searchFlags(q, evaluator, enabled, tags), context);
+			return new NeedsPaging<Flag>(Context.getService(FlagService.class).searchFlags(q, evaluator, enabled, tags),
+			        context);
 		}
 	}
 	

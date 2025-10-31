@@ -27,9 +27,9 @@ import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.api.FlagService;
 
 /**
- * Underlying thread to handle groovy flag evaluations  (for security reasons)
+ * Underlying thread to handle groovy flag evaluations (for security reasons)
  */
-public class GroovyFlagEvaluatorThread implements Runnable{
+public class GroovyFlagEvaluatorThread implements Runnable {
 	
 	/* the cohort to test */
 	private Cohort testCohort;
@@ -44,16 +44,16 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	private User user;
 	
 	/* stores any exception throw during execution */
-	private Exception exception; 
+	private Exception exception;
 	
 	/**
 	 * Constructors
 	 */
 	
-	public GroovyFlagEvaluatorThread(){
+	public GroovyFlagEvaluatorThread() {
 	}
 	
-	public GroovyFlagEvaluatorThread(Flag flag, Cohort cohort, User user){
+	public GroovyFlagEvaluatorThread(Flag flag, Cohort cohort, User user) {
 		this.flag = flag;
 		this.testCohort = cohort;
 		this.user = user;
@@ -64,82 +64,81 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	 */
 	
 	public void setTestCohort(Cohort testCohort) {
-	    this.testCohort = testCohort;
-    }
-
+		this.testCohort = testCohort;
+	}
+	
 	public Cohort getTestCohort() {
-	    return testCohort;
-    }
-
+		return testCohort;
+	}
+	
 	public void setResultCohort(Cohort resultCohort) {
-	    this.resultCohort = resultCohort;
-    }
-
+		this.resultCohort = resultCohort;
+	}
+	
 	public Cohort getResultCohort() {
-	    return resultCohort;
-    }
-
+		return resultCohort;
+	}
+	
 	public void setFlag(Flag flag) {
-	    this.flag = flag;
-    }
-
+		this.flag = flag;
+	}
+	
 	public Flag getFlag() {
-	    return flag;
-    }
+		return flag;
+	}
 	
 	public void setUser(User user) {
-	    this.user = user;
-    }
-
+		this.user = user;
+	}
+	
 	public User getUser() {
-	    return user;
-    }
-
+		return user;
+	}
+	
 	public void setException(Exception exception) {
-	    this.exception = exception;
-    }
-
+		this.exception = exception;
+	}
+	
 	public Exception getException() {
-	    return exception;
-    }
+		return exception;
+	}
 	
 	/**
 	 * Public Methods
 	 */
 	
-	public synchronized Cohort fetchResultCohort() throws Exception{
+	public synchronized Cohort fetchResultCohort() throws Exception {
 		// wait for the evaluator thread to alert notify that it's done evaluating
-	    wait();
-        
-        // if the evaluator thread created an exception, throw it; otherwise, return resultCohort
-        Exception e = getException();
-        if(e != null){
-        	throw e;
-        }
-        else{
-        	return getResultCohort();
-        }
+		wait();
+		
+		// if the evaluator thread created an exception, throw it; otherwise, return resultCohort
+		Exception e = getException();
+		if (e != null) {
+			throw e;
+		} else {
+			return getResultCohort();
+		}
 	}
-
+	
 	public synchronized void run() {
-		try{
+		try {
 			// open a new session and set the privileges that should be allowed
 			Context.openSession();
 			setPrivileges();
-		
+			
 			// get the script to execute
 			String criteria = flag.getCriteria();
-		
+			
 			// get the set of bindings to use
 			Binding bindings = getBindings();
-		
+			
 			// bind the test Cohort
 			bindings.setVariable("testCohort", getTestCohort());
-		
+			
 			// create a Groovy shell and execute the criteria, storing the result in the resultCohort
 			GroovyShell shell = new GroovyShell(bindings);
 			setResultCohort((Cohort) shell.parse("import org.openmrs.*;" + criteria).run());
-	
+			
 		}
 		catch (Exception e) {
 			// save the exception and set the result to null
@@ -150,14 +149,14 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 			// notify the main thread that execution is complete
 			notify();
 		}
-    }
+	}
 	
 	//TODO: add a better version of this which is driven by a config file.
-    private static Binding getBindings() {
+	private static Binding getBindings() {
 		try {
 			Context.addProxyPrivilege("View Patients");
 			Context.addProxyPrivilege("Get Patients");
-
+			
 			final Binding binding = new Binding();
 			binding.setVariable("admin", Context.getAdministrationService());
 			binding.setVariable("cohort", Context.getCohortService());
@@ -172,38 +171,40 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 			binding.setVariable("person", Context.getPersonService());
 			binding.setVariable("program", Context.getProgramWorkflowService());
 			binding.setVariable("user", Context.getUserService());
-
+			
 			// TODO: add bindings for more dynamic services besides MDR-TB
 			if (ModuleFactory.getStartedModulesMap().containsKey("mdrtb")) {
 				try {
 					Class<?> mdrtbServiceClass = Context.loadClass("org.openmrs.module.mdrtb.service.MdrtbService");
 					binding.setVariable("mdrtb", Context.getService(mdrtbServiceClass));
-				} catch (ClassNotFoundException e) {
+				}
+				catch (ClassNotFoundException e) {
 					// do nothing if the class isn't found
 				}
 			}
-
+			
 			return binding;
-		} finally {
+		}
+		finally {
 			Context.removeProxyPrivilege("View Patients");
 			Context.removeProxyPrivilege("Get Patients");
 		}
 	}
 	
-	private void setPrivileges(){
+	private void setPrivileges() {
 		// fetch the privileges allowed from the privilege cache
 		Collection<Privilege> privileges = Context.getService(FlagService.class).getPrivileges();
 		
-		if(privileges != null){
+		if (privileges != null) {
 			// if a user is specified, further restrict the privileges allowed to the intersection of the cache privileges
 			// and the user privileges
-			if(user != null && !user.isSuperUser()){
+			if (user != null && !user.isSuperUser()) {
 				privileges.retainAll(user.getPrivileges());
 			}
-	
+			
 			// add the privileges by proxy
-			for(Privilege privilege : privileges){
-				Context.addProxyPrivilege(privilege.getPrivilege());	
+			for (Privilege privilege : privileges) {
+				Context.addProxyPrivilege(privilege.getPrivilege());
 			}
 		}
 	}

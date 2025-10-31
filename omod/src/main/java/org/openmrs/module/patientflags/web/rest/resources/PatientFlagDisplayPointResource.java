@@ -25,7 +25,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/displaypoint", supportedClass = DisplayPoint.class, supportedOpenmrsVersions = {
-		"1.*", "2.*" })
+        "1.*", "2.*" })
 public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResource<DisplayPoint> {
 	
 	public DisplayPoint newDelegate() {
@@ -74,17 +74,14 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 		
 		return description;
 	}
-
+	
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getGETModel(rep);
-		return model
-				.property("uuid", new StringProperty())
-				.property("displayPointId", new IntegerProperty())
-				.property("name", new StringProperty())
-				.property("auditInfo", new StringProperty());
-    }
-
+		return model.property("uuid", new StringProperty()).property("displayPointId", new IntegerProperty())
+		        .property("name", new StringProperty()).property("auditInfo", new StringProperty());
+	}
+	
 	@Override
 	protected PageableResult doGetAll(RequestContext context) throws ResponseException {
 		return new NeedsPaging<DisplayPoint>(getService().getAllDisplayPoints(), context);

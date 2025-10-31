@@ -39,39 +39,40 @@ import static lombok.AccessLevel.PACKAGE;
 @R4Provider
 @Setter
 public class FlagFhirResourceProvider implements IResourceProvider {
-
-    @Autowired
-    private FhirFlagService flagService;
-
-    @Override
-    public Class<? extends IBaseResource> getResourceType() {
-        return Flag.class;
-    }
-
-    @Read
-    public Flag getFlagById(@IdParam @Nonnull IdType id) {
-        Flag flag = flagService.get(id.getIdPart());
-        if (flag == null) {
-            throw new ResourceNotFoundException("Could not find Flag with Id " + id.getIdPart());
-        }
-        return flag;
-    }
-
-    @Search
-    public IBundleProvider searchFlags(@OptionalParam(name = Flag.SP_PATIENT, chainWhitelist = { "", Patient.SP_IDENTIFIER,
-                                                Patient.SP_GIVEN, Patient.SP_FAMILY, Patient.SP_NAME }, targetTypes = Patient.class) ReferenceAndListParam patientReference,
-                                       @OptionalParam(name = Flag.SP_RES_ID) TokenAndListParam id,
-                                       @OptionalParam(name = "code") TokenAndListParam codeParam,
-                                       @OptionalParam(name = "category") TokenAndListParam category,
-                                       @OptionalParam(name = Flag.SP_DATE) DateRangeParam dateRangeParam) {
-
-        FlagSearchParams searchParams = new FlagSearchParams();
-        searchParams.setPatient(patientReference);
-        searchParams.setCategory(category);
-        searchParams.setCode(codeParam);
-        searchParams.setDate(dateRangeParam);
-        searchParams.setId(id);
-        return flagService.searchFlags(searchParams);
-    }
-
+	
+	@Autowired
+	private FhirFlagService flagService;
+	
+	@Override
+	public Class<? extends IBaseResource> getResourceType() {
+		return Flag.class;
+	}
+	
+	@Read
+	public Flag getFlagById(@IdParam @Nonnull IdType id) {
+		Flag flag = flagService.get(id.getIdPart());
+		if (flag == null) {
+			throw new ResourceNotFoundException("Could not find Flag with Id " + id.getIdPart());
+		}
+		return flag;
+	}
+	
+	@Search
+	public IBundleProvider searchFlags(
+	        @OptionalParam(name = Flag.SP_PATIENT, chainWhitelist = { "", Patient.SP_IDENTIFIER, Patient.SP_GIVEN,
+	                Patient.SP_FAMILY, Patient.SP_NAME }, targetTypes = Patient.class) ReferenceAndListParam patientReference,
+	        @OptionalParam(name = Flag.SP_RES_ID) TokenAndListParam id,
+	        @OptionalParam(name = "code") TokenAndListParam codeParam,
+	        @OptionalParam(name = "category") TokenAndListParam category,
+	        @OptionalParam(name = Flag.SP_DATE) DateRangeParam dateRangeParam) {
+		
+		FlagSearchParams searchParams = new FlagSearchParams();
+		searchParams.setPatient(patientReference);
+		searchParams.setCategory(category);
+		searchParams.setCode(codeParam);
+		searchParams.setDate(dateRangeParam);
+		searchParams.setId(id);
+		return flagService.searchFlags(searchParams);
+	}
+	
 }

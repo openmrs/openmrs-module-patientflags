@@ -25,16 +25,15 @@ import java.util.Optional;
 
 import static org.hibernate.criterion.Restrictions.eq;
 
-
 @Component
 @Setter
 public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFlagDao {
-
-    /**
-     * @param criteria
-     * @param theParams
-     */
-    @Override
+	
+	/**
+	 * @param criteria
+	 * @param theParams
+	 */
+	@Override
     protected void setupSearchParams(Criteria criteria, SearchParameterMap theParams) {
         theParams.getParameters().forEach(entry -> {
             switch (entry.getKey()) {
@@ -53,13 +52,13 @@ public class FhirFlagDaoImpl extends BaseFhirDao<PatientFlag> implements FhirFla
             }
         });
     }
-
-    private void handleCode(Criteria criteria, TokenAndListParam code) {
+	
+	private void handleCode(Criteria criteria, TokenAndListParam code) {
         if (code != null)
             handleAndListParam(code, (message) -> Optional.of(eq("message", message.getValue()))).ifPresent(criteria::add);
     }
-
-    private void handleCategory(Criteria criteria, TokenAndListParam category) {
+	
+	private void handleCategory(Criteria criteria, TokenAndListParam category) {
         if (category != null) {
             criteria.createAlias("flag", "f");
             criteria.createAlias("f.tags", "ft");

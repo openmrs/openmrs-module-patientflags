@@ -31,21 +31,21 @@ import org.springframework.transaction.annotation.Transactional;
 @Setter
 @Getter
 public class FhirFlagServiceImpl extends BaseFhirService<Flag, PatientFlag> implements FhirFlagService {
-
-    @Autowired
-    private FhirFlagDao dao;
-
-    @Autowired
-    private PatientFlagTranslator translator;
-
-    @Autowired
-    private SearchQueryInclude<Flag> searchQueryInclude;
-
-    @Autowired
-    private SearchQuery<PatientFlag, Flag, FhirFlagDao, PatientFlagTranslator, SearchQueryInclude<Flag>> searchQuery;
-
-    @Override
-    public IBundleProvider searchFlags(FlagSearchParams patient) {
-        return searchQuery.getQueryResults(patient.toSearchParameterMap(), dao, translator, searchQueryInclude);
-    }
+	
+	@Autowired
+	private FhirFlagDao dao;
+	
+	@Autowired
+	private PatientFlagTranslator translator;
+	
+	@Autowired
+	private SearchQueryInclude<Flag> searchQueryInclude;
+	
+	@Autowired
+	private SearchQuery<PatientFlag, Flag, FhirFlagDao, PatientFlagTranslator, SearchQueryInclude<Flag>> searchQuery;
+	
+	@Override
+	public IBundleProvider searchFlags(FlagSearchParams patient) {
+		return searchQuery.getQueryResults(patient.toSearchParameterMap(), dao, translator, searchQueryInclude);
+	}
 }

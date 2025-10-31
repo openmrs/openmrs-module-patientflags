@@ -27,7 +27,7 @@ import org.springframework.validation.Validator;
 public class FlagValidator implements Validator {
 	
 	@SuppressWarnings("rawtypes")
-    public boolean supports(Class clazz) {
+	public boolean supports(Class clazz) {
 		return Flag.class.isAssignableFrom(clazz);
 	}
 	
@@ -43,7 +43,7 @@ public class FlagValidator implements Validator {
 		// make sure that the string fields aren't too large
 		if (flagToValidate.getName().length() > 255)
 			errors.rejectValue("name", "patientflags.errors.nameTooLong");
-
+		
 		if (isFlagNameDuplicated(flagToValidate)) {
 			errors.rejectValue("name", "patientflags.errors.noUniqueName");
 		}
@@ -62,12 +62,13 @@ public class FlagValidator implements Validator {
 			
 			if (!result.getResult()) {
 				String message = result.getLocalizedMessage();
-				errors.rejectValue("criteria", Context.getMessageSourceService()
-						.getMessage("patientflags.errors.invalidCriteria") + (message != null ? ": " + message : ""));
+				errors.rejectValue("criteria",
+				    Context.getMessageSourceService().getMessage("patientflags.errors.invalidCriteria")
+				            + (message != null ? ": " + message : ""));
 			}
 		}
 	}
-
+	
 	private boolean isFlagNameDuplicated(Flag flagToValidate) {
 		return Context.getService(FlagService.class).isFlagNameDuplicated(flagToValidate);
 	}

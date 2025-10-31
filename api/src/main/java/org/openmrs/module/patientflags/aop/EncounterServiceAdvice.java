@@ -20,7 +20,7 @@ import org.openmrs.module.patientflags.task.PatientFlagTask;
 import org.springframework.aop.AfterReturningAdvice;
 
 public class EncounterServiceAdvice implements AfterReturningAdvice {
-
+	
 	@Override
 	public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
 		

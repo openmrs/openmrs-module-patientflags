@@ -92,7 +92,8 @@ public class EditPriorityController {
 	 * @return new ModelAndView
 	 */
 	@RequestMapping(method = RequestMethod.POST)
-	public ModelAndView processSubmit(@ModelAttribute("priority") Priority priority, BindingResult result, SessionStatus status) {
+	public ModelAndView processSubmit(@ModelAttribute("priority") Priority priority, BindingResult result,
+	        SessionStatus status) {
 		
 		// validate form entries
 		validator.validate(priority, result);

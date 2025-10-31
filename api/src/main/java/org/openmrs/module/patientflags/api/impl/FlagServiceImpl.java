@@ -86,14 +86,16 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Map<Object, Object>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
+	 *      Map<Object, Object>)
 	 */
 	public List<Flag> generateFlagsForPatient(Patient patient, Map<Object, Object> context) {
 		return generateFlagsForPatient(patient, new Filter(), context);
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter, Map<Object, Object>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter,
+	 *      Map<Object, Object>)
 	 */
 	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context) {
 		List<Flag> results = new ArrayList<Flag>();
@@ -120,7 +122,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
 	 *      Set<Role>, DisplayPoint)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint, Map<Object, Object> context) {
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint,
+	        Map<Object, Object> context) {
 		return generateFlagsForPatient(patient, getFilter(roles, displayPoint), context);
 	}
 	
@@ -147,12 +150,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient,
 	 *      Set<Role>, String, , Map<Object, Object>)
 	 */
-	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName, Map<Object, Object> context) {
+	public List<Flag> generateFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName,
+	        Map<Object, Object> context) {
 		return generateFlagsForPatient(patient, roles, getDisplayPoint(displayPointName), context);
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag, Map<Object, Object>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(Flag, Map<Object,
+	 *      Object>)
 	 */
 	public Cohort getFlaggedPatients(Flag flag, Map<Object, Object> context) {
 		if (flag != null) {
@@ -163,7 +168,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>, Map<Object, Object>)
+	 * @see org.openmrs.module.patientflags.api.FlagService#getFlaggedPatients(List<Flag>,
+	 *      Map<Object, Object>)
 	 */
 	public Cohort getFlaggedPatients(List<Flag> flags, Map<Object, Object> context) {
 		return flags.stream()
@@ -204,7 +210,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Flag getFlag(Integer flagId) {
 		return dao.getFlag(flagId);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagByUuid(String)
 	 */
@@ -218,14 +224,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public PatientFlag getPatientFlagByUuid(String uuid) {
 		return dao.getPatientFlagByUuid(uuid);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getFlagByName(String)
 	 */
 	public Flag getFlagByName(String name) {
 		return dao.getFlagByName(name);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#saveFlag(Flag)
 	 */
@@ -249,7 +255,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 		dao.deletePatientFlagsForFlag(new Flag(flagId));
 	}
-
+	
 	public void retireFlag(Flag flag, String retiredReason) {
 		if (StringUtils.isNotBlank(retiredReason)) {
 			flag.setRetired(true);
@@ -261,7 +267,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			throw new APIException("A reason is required when retiring a patient flag");
 		}
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllTags()
 	 */
@@ -280,21 +286,21 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Tag getTag(Integer tagId) {
 		return dao.getTag(tagId);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getTagByUuid(String)
 	 */
 	public Tag getTagByUuid(String uuid) {
 		return dao.getTagByUuid(uuid);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getTagByName(String)
 	 */
 	public Tag getTagByName(String name) {
 		return dao.getTag(name);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getTag(String)
 	 */
@@ -310,14 +316,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then refresh the cache
 		refreshCache();
 	}
-
+	
 	/**
 	 * @see FlagService#searchFlags(String, String, Boolean, List)
 	 */
 	public List<Flag> searchFlags(String name, String evaluator, Boolean enabled, List<String> tags) {
 		return dao.searchFlags(name, evaluator, enabled, tags);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#purgeTag(Integer)
 	 */
@@ -326,7 +332,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// then refresh the cache
 		refreshCache();
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#retireFlag(Flag, String)
 	 */
@@ -339,7 +345,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			throw new APIException("A reason is required when retiring a tag for patient flags");
 		}
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllPriorities()
 	 */
@@ -358,21 +364,21 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public Priority getPriority(Integer priorityId) {
 		return dao.getPriority(priorityId);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getPriorityByUuid(String)
 	 */
 	public Priority getPriorityByUuid(String uuid) {
 		return dao.getPriorityByUuid(uuid);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getPriorityByName(String)
 	 */
 	public Priority getPriorityByName(String name) {
 		return dao.getPriorityByName(name);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#savePriority(Priority)
 	 */
@@ -400,9 +406,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		// remove the flag from the DB table
 		dao.purgePriority(priorityId);
 	}
-
+	
 	/**
-	 *
 	 * @see org.openmrs.module.patientflags.api.FlagService#retirePriority(Priority, String)
 	 */
 	public void retirePriority(Priority priority, String retiredReason) {
@@ -414,7 +419,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 			throw new APIException("A reason is required when retiring a priority for patient flags");
 		}
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getAllDisplayPoints()
 	 */
@@ -428,14 +433,14 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public DisplayPoint getDisplayPoint(Integer displayPointId) {
 		return dao.getDisplayPoint(displayPointId);
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getDisplayPointByUuid(String)
 	 */
 	public DisplayPoint getDisplayPointByUuid(String uuid) {
 		return null;
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.patientflags.api.FlagService#getDisplayPoint(String)
 	 */
@@ -468,32 +473,28 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		    "patientflags.patientHeaderDisplay");
 		if (patientHeaderDisplay == null) {
 			properties.setPatientHeaderDisplay(null);
-			log
-			        .error("Unable to initialize patientHeaderDisplay parameter, invalid or missing value in global_properties table.");
+			log.error("Unable to initialize patientHeaderDisplay parameter, invalid or missing value in global_properties table.");
 		} else if (patientHeaderDisplay.equals("true")) {
 			properties.setPatientHeaderDisplay(true);
 		} else if (patientHeaderDisplay.equals("false")) {
 			properties.setPatientHeaderDisplay(false);
 		} else {
 			properties.setPatientHeaderDisplay(null);
-			log
-			        .error("Unable to initialize patientHeaderDisplay parameter, invalid or missing value in global_properties table.");
+			log.error("Unable to initialize patientHeaderDisplay parameter, invalid or missing value in global_properties table.");
 		}
 		
 		String patientOverviewDisplay = Context.getAdministrationService().getGlobalProperty(
 		    "patientflags.patientOverviewDisplay");
 		if (patientOverviewDisplay == null) {
 			properties.setPatientOverviewDisplay(null);
-			log
-			        .error("Unable to initialize patientOverviewDisplay parameter, invalid or missing value in global_properties table.");
+			log.error("Unable to initialize patientOverviewDisplay parameter, invalid or missing value in global_properties table.");
 		} else if (patientOverviewDisplay.equals("true")) {
 			properties.setPatientOverviewDisplay(true);
 		} else if (patientOverviewDisplay.equals("false")) {
 			properties.setPatientOverviewDisplay(false);
 		} else {
 			properties.setPatientOverviewDisplay(null);
-			log
-			        .error("Unable to initialize patientOverviewDisplay parameter, invalid or missing value in global_properties table.");
+			log.error("Unable to initialize patientOverviewDisplay parameter, invalid or missing value in global_properties table.");
 		}
 		
 		String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
@@ -524,10 +525,11 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 				patientOverviewDisplay.setPropertyValue(properties.getPatientOverviewDisplay().toString());
 				Context.getAdministrationService().saveGlobalProperty(patientOverviewDisplay);
 				
-				GlobalProperty username = Context.getAdministrationService().getGlobalPropertyObject("patientflags.username");
+				GlobalProperty username = Context.getAdministrationService()
+				        .getGlobalPropertyObject("patientflags.username");
 				username.setPropertyValue(properties.getUsername());
 				Context.getAdministrationService().saveGlobalProperty(username);
-			
+				
 				// refresh the cache so the privileges are updated if username changed
 				refreshCache();
 			}
@@ -551,32 +553,31 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		
 		return privilegeCache;
 	}
-
+	
 	public boolean isFlagNameDuplicated(Flag flag) {
 		return dao.isFlagNameDuplicated(flag);
 	}
-
+	
 	public void onStartup() {
 		//implement this once OpenMRS "onStartup" functionality has been implemented
 		// then can rid of the "isInitialized" hack
 		//refreshCache();
 	}
-
+	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#isPriorityNameDuplicated(Priority) 
+	 * @see org.openmrs.module.patientflags.api.FlagService#isPriorityNameDuplicated(Priority)
 	 */
 	public boolean isPriorityNameDuplicated(Priority priority) {
 		return dao.isPriorityNameDuplicated(priority);
 	}
-
-/**
+	
+	/**
 	 * Private Utility Methods
 	 */
 	
 	/**
-	 * Refresh the local cache of Flags by loading all enabled Flags from the database 
-	 * Also refresh the privilege cache
-	 * Note that flags and tags must be eagerly loaded for this to work
+	 * Refresh the local cache of Flags by loading all enabled Flags from the database Also refresh
+	 * the privilege cache Note that flags and tags must be eagerly loaded for this to work
 	 */
 	private void refreshCache() {
 		// get the enabled flags and all tags for the flag and tag caches
@@ -588,44 +589,42 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		Collections.sort(flagCache, new FlagPriorityComparator());
 		
 		// get the privileges associate with the patient flags default user for the privileges cache
-		try{
+		try {
 			Context.addProxyPrivilege("Get Users");
 			Context.addProxyPrivilege("View Users");
 			String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
 			User user = Context.getUserService().getUserByUsername(username);
-		
+			
 			if (user != null) {
 				if (user.isSuperUser()) { // need to explicitly get all privileges if user is a super user
 					privilegeCache = Context.getUserService().getAllPrivileges();
-				}
-				else {
+				} else {
 					privilegeCache = user.getPrivileges();
 				}
-			}
-			else {
+			} else {
 				privilegeCache = null;
 			}
 		}
 		
-		finally{
+		finally {
 			Context.removeProxyPrivilege("Get Users");
 			Context.removeProxyPrivilege("View Users");
 		}
-			
+		
 		// set the initialized flag to true
 		isInitialized = true;
 	}
-
+	
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient) {
 		return dao.getFlagsForPatient(patient);
 	}
-
+	
 	@Override
 	public void savePatientFlag(PatientFlag patientFlag) throws DAOException {
 		dao.savePatientFlag(patientFlag);
 	}
-
+	
 	@Override
 	public void deletePatientFlagsForPatient(Patient patient) throws DAOException {
 		dao.deletePatientFlagsForPatient(patient);
@@ -640,17 +639,17 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public void deletePatientFlagsForFlag(Flag flag) throws DAOException {
 		dao.deletePatientFlagsForFlag(flag);
 	}
-
+	
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient, Filter filter) {
-		return 	filter.filter(getFlagsForPatient(patient));
+		return filter.filter(getFlagsForPatient(patient));
 	}
-
+	
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, DisplayPoint displayPoint) {
 		return getFlagsForPatient(patient, getFilter(roles, displayPoint));
 	}
-
+	
 	@Override
 	public List<Flag> getFlagsForPatient(Patient patient, Set<Role> roles, String displayPointName) {
 		return getFlagsForPatient(patient, getFilter(roles, getDisplayPoint(displayPointName)));
@@ -667,7 +666,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 				.map(PatientFlag::getFlag)
 				.collect(Collectors.toList());
 	}
-
+	
 	@Override
 	public Future<?> evaluateAllFlags() {
 		if (executor == null) {
@@ -678,7 +677,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	}
 	
 	/**
-	 * @see org.openmrs.module.patientflags.api.FlagService#voidPatientFlag(PatientFlag, java.lang.String)
+	 * @see org.openmrs.module.patientflags.api.FlagService#voidPatientFlag(PatientFlag,
+	 *      java.lang.String)
 	 * @param patientFlag the PatientFlag to void
 	 * @param reason the void reason
 	 * @throws APIException
@@ -703,7 +703,7 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	public List<PatientFlag> getPatientFlags(Patient patient) {
 		return dao.getPatientFlags(patient);
 	}
-
+	
 	@Override
 	public List<PatientFlag> getPatientFlags(Patient patient, Set<Role> roles, String displayPointName) {
 		return getPatientFlags(patient, getFilter(roles, getDisplayPoint(displayPointName)));

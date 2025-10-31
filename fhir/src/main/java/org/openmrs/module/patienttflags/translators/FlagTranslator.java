@@ -16,11 +16,11 @@ import org.openmrs.module.patientflags.Flag;
 import javax.annotation.Nonnull;
 
 public interface FlagTranslator extends ToFhirTranslator<Flag, CodeableConcept> {
-
-    /**
-     * @param flag
-     * @return
-     */
-    @Override
-    CodeableConcept toFhirResource(@Nonnull Flag flag);
+	
+	/**
+	 * @param flag
+	 * @return
+	 */
+	@Override
+	CodeableConcept toFhirResource(@Nonnull Flag flag);
 }

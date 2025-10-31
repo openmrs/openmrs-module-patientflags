@@ -27,7 +27,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/tag", supportedClass = Tag.class, supportedOpenmrsVersions = {
-		"1.*", "2.*" })
+        "1.*", "2.*" })
 public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> {
 	
 	public Tag newDelegate() {
@@ -71,29 +71,30 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> 
 		
 		return cp;
 	}
-
+	
 	@Override
 	public Model getCREATEModel(Representation rep) {
 		return new ModelImpl()
-				.property("name", new StringProperty())
-				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleCreate")))
-				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointCreate")));
+		        .property("name", new StringProperty())
+		        .property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleCreate")))
+		        .property("displayPoints",
+		            new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointCreate")));
 	}
-
+	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
 		return getCREATEModel(rep);
 	}
-
+	
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getGETModel(rep);
 		return model.property("tagId", new IntegerProperty()).property("name", new StringProperty())
-				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleGet")))
-				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointGet")))
-				.property("auditInfo", new StringProperty());
+		        .property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleGet")))
+		        .property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointGet")))
+		        .property("auditInfo", new StringProperty());
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = null;

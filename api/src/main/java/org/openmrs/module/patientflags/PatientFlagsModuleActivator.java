@@ -35,15 +35,14 @@ import java.util.Vector;
  * This class contains the logic that is run every time this module is either started or shutdown
  */
 public class PatientFlagsModuleActivator extends BaseModuleActivator implements DaemonTokenAware {
-
+	
 	private Log log = LogFactory.getLog(this.getClass());
-
+	
 	public void started() {
 		
 		// create necessary global properties if they have not been created
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientHeaderDisplay")) == null) {
-			Context
-			        .getAdministrationService()
+			Context.getAdministrationService()
 			        .saveGlobalProperty(
 			            new GlobalProperty(
 			                    "patientflags.patientHeaderDisplay",
@@ -52,8 +51,7 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator implements 
 		}
 		
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.patientOverviewDisplay")) == null) {
-			Context
-			        .getAdministrationService()
+			Context.getAdministrationService()
 			        .saveGlobalProperty(
 			            new GlobalProperty(
 			                    "patientflags.patientOverviewDisplay",
@@ -63,11 +61,11 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator implements 
 		
 		// if no username has been defined, as a default use the username used by the scheduler
 		if ((Context.getAdministrationService().getGlobalProperty("patientflags.username")) == null) {
-			Context
-			        .getAdministrationService()
+			Context.getAdministrationService()
 			        .saveGlobalProperty(
-			            new GlobalProperty("patientflags.username", Context.getAdministrationService().getGlobalProperty(
-			                "scheduler.username"),
+			            new GlobalProperty(
+			                    "patientflags.username",
+			                    Context.getAdministrationService().getGlobalProperty("scheduler.username"),
 			                    "DO NOT MODIFY HERE: user \"manage flag global properties\" to modify; Username for the OpenMRS user that will evaluate Groovy flags"));
 		}
 		
@@ -131,7 +129,7 @@ public class PatientFlagsModuleActivator extends BaseModuleActivator implements 
 		
 		log.info("Shutting down Patient Flags Module");
 	}
-
+	
 	@Override
 	public void setDaemonToken(DaemonToken token) {
 		PatientFlagTask.setDaemonToken(token);

@@ -35,52 +35,52 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PatientFlagTranslatorImplTest {
-
-    String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
-
-    @Mock
-    private PatientReferenceTranslator patientReferenceTranslator;
-
-    @Mock
-    private TagTranslator tagTranslator;
-
-    @Mock
-    private FlagTranslator flagTranslator;
-
-    PatientFlagTranslatorImpl patientFlagTranslator;
-
-    PatientFlag patientFlag;
-
-    org.openmrs.module.patientflags.Flag openmrsFlag;
-
-    Tag tag;
-
-    Patient patient;
-
-    @Before
-    public void setup() {
-        patientFlagTranslator = new PatientFlagTranslatorImpl();
-        patientFlagTranslator.setFlagTranslator(flagTranslator);
-        patientFlagTranslator.setPatientReferenceTranslator(patientReferenceTranslator);
-        patientFlagTranslator.setTagTranslator(tagTranslator);
-
-        patient = new Patient();
-        tag = new Tag();
-        openmrsFlag = new org.openmrs.module.patientflags.Flag();
-        openmrsFlag.setTags(Collections.singleton(tag));
-        patientFlag = new PatientFlag();
-        patientFlag.setUuid(FLAG_UUID);
-        patientFlag.setFlag(openmrsFlag);
-    }
-
-    @Test
-    public void shouldTranslatePatientFlagToFhirFlag() {
-        when(tagTranslator.toFhirResource(tag)).thenReturn(new CodeableConcept());
-        when(flagTranslator.toFhirResource(openmrsFlag)).thenReturn(new CodeableConcept());
-        when(patientReferenceTranslator.toFhirResource(patient)).thenReturn(new Reference());
-
-        Flag flag = patientFlagTranslator.toFhirResource(patientFlag);
-        assertThat(flag, notNullValue());
-        assertThat(flag.getId(), equalTo(FLAG_UUID));
-    }
+	
+	String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
+	
+	@Mock
+	private PatientReferenceTranslator patientReferenceTranslator;
+	
+	@Mock
+	private TagTranslator tagTranslator;
+	
+	@Mock
+	private FlagTranslator flagTranslator;
+	
+	PatientFlagTranslatorImpl patientFlagTranslator;
+	
+	PatientFlag patientFlag;
+	
+	org.openmrs.module.patientflags.Flag openmrsFlag;
+	
+	Tag tag;
+	
+	Patient patient;
+	
+	@Before
+	public void setup() {
+		patientFlagTranslator = new PatientFlagTranslatorImpl();
+		patientFlagTranslator.setFlagTranslator(flagTranslator);
+		patientFlagTranslator.setPatientReferenceTranslator(patientReferenceTranslator);
+		patientFlagTranslator.setTagTranslator(tagTranslator);
+		
+		patient = new Patient();
+		tag = new Tag();
+		openmrsFlag = new org.openmrs.module.patientflags.Flag();
+		openmrsFlag.setTags(Collections.singleton(tag));
+		patientFlag = new PatientFlag();
+		patientFlag.setUuid(FLAG_UUID);
+		patientFlag.setFlag(openmrsFlag);
+	}
+	
+	@Test
+	public void shouldTranslatePatientFlagToFhirFlag() {
+		when(tagTranslator.toFhirResource(tag)).thenReturn(new CodeableConcept());
+		when(flagTranslator.toFhirResource(openmrsFlag)).thenReturn(new CodeableConcept());
+		when(patientReferenceTranslator.toFhirResource(patient)).thenReturn(new Reference());
+		
+		Flag flag = patientFlagTranslator.toFhirResource(patientFlag);
+		assertThat(flag, notNullValue());
+		assertThat(flag.getId(), equalTo(FLAG_UUID));
+	}
 }

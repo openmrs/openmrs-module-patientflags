@@ -63,7 +63,7 @@ public class ManagePatientFlagsProperties {
 	
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("properties") PatientFlagsProperties properties, BindingResult result,
-	                                  SessionStatus status) {
+	        SessionStatus status) {
 		
 		// validate form entries
 		validator.validate(properties, result);
@@ -80,4 +80,3 @@ public class ManagePatientFlagsProperties {
 		return new ModelAndView("/module/patientflags/managePatientFlagsPropertiesSuccess");
 	}
 }
-

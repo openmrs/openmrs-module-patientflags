@@ -29,18 +29,18 @@ import java.util.List;
 import java.util.Set;
 
 public class FilterTest extends BaseModuleContextSensitiveTest {
-
-    protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
-
-    private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "patientflagtest-dataset.xml";
-
-    @Before
-    public void initTestData() throws Exception {
-        initializeInMemoryDatabase();
-        executeDataSet(TEST_DATASET_FILE);
-    }
-
-    @Test
+	
+	protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
+	
+	private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "patientflagtest-dataset.xml";
+	
+	@Before
+	public void initTestData() throws Exception {
+		initializeInMemoryDatabase();
+		executeDataSet(TEST_DATASET_FILE);
+	}
+	
+	@Test
     public void filter_shouldFilterListOfFlags() {
         List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
         Tag tag = Context.getService(FlagService.class).getTag(1);
@@ -51,25 +51,25 @@ public class FilterTest extends BaseModuleContextSensitiveTest {
         List<Flag> filterFlags = filter.filter(flags);
         assertTrue(flags.size() != filterFlags.size());
     }
-
-    @Test
-    public void filter_shouldReturnSameFlagListAsParameter() {
-        List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
-        Filter filter = new Filter();
-
-        List<Flag> filterFlags = filter.filter(flags);
-        assertTrue(flags.size() == filterFlags.size());
-    }
-
-    @Test
-    public void filter_shouldReturnTrueWhenNoTags() {
-        Flag flag = Context.getService(FlagService.class).getFlag(1);
-        Filter filter = new Filter();
-        Boolean result = filter.filter(flag);
-        assertTrue(result);
-    }
-
-    @Test
+	
+	@Test
+	public void filter_shouldReturnSameFlagListAsParameter() {
+		List<Flag> flags = Context.getService(FlagService.class).getAllFlags();
+		Filter filter = new Filter();
+		
+		List<Flag> filterFlags = filter.filter(flags);
+		assertTrue(flags.size() == filterFlags.size());
+	}
+	
+	@Test
+	public void filter_shouldReturnTrueWhenNoTags() {
+		Flag flag = Context.getService(FlagService.class).getFlag(1);
+		Filter filter = new Filter();
+		Boolean result = filter.filter(flag);
+		assertTrue(result);
+	}
+	
+	@Test
     public void filter_shouldReturnTrueWhenFlagHasTag() {
         Flag flag = Context.getService(FlagService.class).getFlag(1);
         Tag tag = Context.getService(FlagService.class).getTag(1);
@@ -80,8 +80,8 @@ public class FilterTest extends BaseModuleContextSensitiveTest {
         Boolean result = filter.filter(flag);
         assertTrue(result);
     }
-
-    @Test
+	
+	@Test
     public void filter_shouldReturnTrueWhenFlagHasNoTagAndFilterTagTypeANYTAG_OR_NOTAG() {
         Flag flag = Context.getService(FlagService.class).getFlag(2);
         Tag tag = Context.getService(FlagService.class).getTag(1);
@@ -93,8 +93,8 @@ public class FilterTest extends BaseModuleContextSensitiveTest {
         Boolean result = filter.filter(flag);
         assertTrue(result);
     }
-
-    @Test
+	
+	@Test
     public void filter_shouldReturnTrueWhenFlagHasTagAndFilterTagTypeALLTAGS() {
         Flag flag = Context.getService(FlagService.class).getFlag(1);
         Tag tag = Context.getService(FlagService.class).getTag(1);
@@ -106,8 +106,8 @@ public class FilterTest extends BaseModuleContextSensitiveTest {
         Boolean result = filter.filter(flag);
         assertTrue(result);
     }
-
-    @Test
+	
+	@Test
     public void filter_shouldReturnFalseWhenFlagHasTagAndFilterTagTypeALLTAGS() {
         Flag flag = Context.getService(FlagService.class).getFlag(2);
         Tag tag = Context.getService(FlagService.class).getTag(1);

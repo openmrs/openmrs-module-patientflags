@@ -28,7 +28,7 @@ import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.api.FlagService;
 
 public class PatientFlagTask implements Runnable {
-
+	
 	private static DaemonToken daemonToken;
 	
 	private Patient patient;
@@ -41,11 +41,9 @@ public class PatientFlagTask implements Runnable {
 		
 		if (patient != null) {
 			generatePatientFlags(patient, flagService);
-		}
-		else if (flag != null) {
+		} else if (flag != null) {
 			generatePatientFlags(flag, flagService);
-		}
-		else {
+		} else {
 			evaluateAllFlags();
 		}
 	}
@@ -53,7 +51,7 @@ public class PatientFlagTask implements Runnable {
 	public static Runnable evaluateAllFlags() {
 		return Daemon.runInDaemonThread(new AllFlagsEvaluator(), daemonToken);
 	}
-
+	
 	public static void setDaemonToken(DaemonToken token) {
 		daemonToken = token;
 	}
@@ -73,13 +71,13 @@ public class PatientFlagTask implements Runnable {
 			Daemon.runInDaemonThread(this, daemonToken);
 		}
 	}
-
+	
 	private static void generatePatientFlags(Flag flag, FlagService service) {
-
+		
 		service.deletePatientFlagsForFlag(flag);
-		generatePatientFlagsForFlagAndPatient(flag,service);
+		generatePatientFlagsForFlagAndPatient(flag, service);
 	}
-
+	
 	private static void generatePatientFlagsForFlagAndPatient(Flag flag, FlagService service){
 		if (!flag.getEnabled() || flag.getRetired()) {
 			return;
@@ -117,15 +115,14 @@ public class PatientFlagTask implements Runnable {
 		HashMap<Object, Object> context = new HashMap<Object, Object>();
 		List<Flag> flags = service.generateFlagsForPatient(patient, context);
 		for (Flag flag : flags) {
-
+			
 			@SuppressWarnings("unchecked")
-			List<String> flgs = (List<String>)context.get(patient.getPatientId());
+			List<String> flgs = (List<String>) context.get(patient.getPatientId());
 			if (flgs != null) {
 				for (String flg : flgs) {
 					service.savePatientFlag(new PatientFlag(patient, flag, flg));
 				}
-			}
-			else {
+			} else {
 				service.savePatientFlag(new PatientFlag(patient, flag, flag.evalMessage(patient.getPatientId())));
 			}
 		}
@@ -134,7 +131,7 @@ public class PatientFlagTask implements Runnable {
 	//The only reason why we have this class is to be able to run in
 	//a daemon thread in order to get daemon access to the database
 	private static class AllFlagsEvaluator implements Runnable {
-
+		
 		@Override
 		public void run() {
 			FlagService flagService = Context.getService(FlagService.class);
@@ -142,18 +139,19 @@ public class PatientFlagTask implements Runnable {
 			flagService.getAllFlags().forEach(flag -> Daemon.runInNewDaemonThread(new PatientFlagGenerator(flag)));
 		}
 	}
-
-	private static class PatientFlagGenerator implements  Runnable {
+	
+	private static class PatientFlagGenerator implements Runnable {
+		
 		private final Flag flag;
-
-		PatientFlagGenerator(Flag flag){
+		
+		PatientFlagGenerator(Flag flag) {
 			this.flag = flag;
 		}
-
-        @Override
-        public void run() {
-            FlagService service = Context.getService(FlagService.class);
-            generatePatientFlagsForFlagAndPatient(flag, service);
-        }
-    }
+		
+		@Override
+		public void run() {
+			FlagService service = Context.getService(FlagService.class);
+			generatePatientFlagsForFlagAndPatient(flag, service);
+		}
+	}
 }

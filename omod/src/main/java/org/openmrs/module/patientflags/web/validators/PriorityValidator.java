@@ -23,36 +23,36 @@ import org.springframework.validation.ValidationUtils;
  * Validator for the Priority class
  */
 public class PriorityValidator {
-
+	
 	@SuppressWarnings("rawtypes")
-    public boolean supports(Class clazz) {
+	public boolean supports(Class clazz) {
 		return Priority.class.isAssignableFrom(clazz);
 	}
-
+	
 	public void validate(Object target, Errors errors) {
 		Priority priorityToValidate = (Priority) target;
-
+		
 		// name, style and rank cannot be empty
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noPriorityName");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "style", "patientflags.errors.noStyleName");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rank", "patientflags.errors.noRank");
-
+		
 		// make sure that the name field isn't too large
 		if (priorityToValidate.getName().length() > 255) {
 			errors.rejectValue("name", "patientflags.errors.priorityNameTooLong");
 		}
-
+		
 		// make sure that the style field isn't too large
 		if (priorityToValidate.getStyle().length() > 255) {
 			errors.rejectValue("style", "patientflags.errors.styleTooLong");
 		}
-
+		
 		//make sure that the name is unique
 		if (isPriorityNameDuplicated(priorityToValidate)) {
 			errors.rejectValue("name", "patientflags.errors.noUniqueName");
 		}
 	}
-
+	
 	private boolean isPriorityNameDuplicated(Priority priorityToValidate) {
 		return Context.getService(FlagService.class).isPriorityNameDuplicated(priorityToValidate);
 	}

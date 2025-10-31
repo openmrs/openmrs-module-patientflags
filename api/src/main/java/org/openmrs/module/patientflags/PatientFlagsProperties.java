@@ -24,7 +24,7 @@ public class PatientFlagsProperties {
 	/* true/false whether or not to display flags in the Patient Dashboard header */
 	private Boolean patientOverviewDisplay;
 	
-	/* Username for the OpenMRS user that will evaluate Groovy flags */ 
+	/* Username for the OpenMRS user that will evaluate Groovy flags */
 	private String username;
 	
 	/**

@@ -29,10 +29,10 @@ import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 
 public class CQLFlagEvaluator implements FlagEvaluator {
-
+	
 	@Override
 	public Boolean eval(Flag flag, Patient patient, Map<Object, Object> context) {
-		if(patient.getVoided())
+		if (patient.getVoided())
 			throw new APIException("Unable to evaluate CQL flag " + flag.getName() + " against voided patient");
 		
 		// create a Cohort that contains just the patient, and then evaluate that Cohort
@@ -42,7 +42,7 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 		Cohort resultCohort = evalCohort(flag, cohort, context);
 		return !resultCohort.isEmpty();
 	}
-
+	
 	@Override
 	public Cohort evalCohort(Flag flag, Cohort cohort, Map<Object, Object> context) {
 		
@@ -84,7 +84,7 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 		
 		return patients;
 	}
-
+	
 	@Override
 	public FlagValidationResult validate(Flag flag) {
 		if (StringUtils.isBlank(flag.getCriteria())) {
@@ -94,10 +94,10 @@ public class CQLFlagEvaluator implements FlagEvaluator {
 		//return new FlagValidationResult(false, flag.getCriteria() + " should be the ID of an existing plan definition. e.g ANCDT17");
 		return new FlagValidationResult(true);
 	}
-
+	
 	@Override
 	public String evalMessage(Flag flag, int patientId) {
 		return flag.getMessage();
 	}
-
+	
 }

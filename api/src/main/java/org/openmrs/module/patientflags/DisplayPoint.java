@@ -26,7 +26,7 @@ public class DisplayPoint extends BaseOpenmrsMetadata {
 	public DisplayPoint() {
 	}
 	
-	public DisplayPoint(String name){
+	public DisplayPoint(String name) {
 		setName(name);
 	}
 	

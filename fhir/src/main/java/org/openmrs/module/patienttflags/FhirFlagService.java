@@ -17,9 +17,9 @@ import org.openmrs.module.patienttflags.search.param.FlagSearchParams;
 import javax.annotation.Nonnull;
 
 public interface FhirFlagService extends FhirService<Flag> {
-
-    @Override
-    Flag get(@Nonnull String uuid);
-
-    IBundleProvider searchFlags(FlagSearchParams patient);
+	
+	@Override
+	Flag get(@Nonnull String uuid);
+	
+	IBundleProvider searchFlags(FlagSearchParams patient);
 }

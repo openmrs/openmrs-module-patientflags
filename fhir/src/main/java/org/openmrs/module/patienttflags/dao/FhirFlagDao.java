@@ -17,10 +17,10 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public interface FhirFlagDao extends FhirDao<PatientFlag> {
-
-    @Override
-    PatientFlag get(@Nonnull String uuid);
-
-    @Override
-    List<PatientFlag> getSearchResults(@Nonnull SearchParameterMap theParams);
+	
+	@Override
+	PatientFlag get(@Nonnull String uuid);
+	
+	@Override
+	List<PatientFlag> getSearchResults(@Nonnull SearchParameterMap theParams);
 }

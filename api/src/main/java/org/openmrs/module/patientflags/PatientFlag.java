@@ -19,7 +19,7 @@ import org.openmrs.BaseOpenmrsData;
 import org.openmrs.Patient;
 
 public class PatientFlag extends BaseOpenmrsData {
-
+	
 	private Integer patientFlagId;
 	
 	private Patient patient;
@@ -41,41 +41,41 @@ public class PatientFlag extends BaseOpenmrsData {
 	public Integer getPatientFlagId() {
 		return patientFlagId;
 	}
-
+	
 	public void setPatientFlagId(Integer patientFlagId) {
 		this.patientFlagId = patientFlagId;
 	}
-
+	
 	public Patient getPatient() {
 		return patient;
 	}
-
+	
 	public void setPatient(Patient patient) {
 		this.patient = patient;
 	}
-
+	
 	public Flag getFlag() {
 		return flag;
 	}
-
+	
 	public void setFlag(Flag flag) {
 		this.flag = flag;
 	}
-
+	
 	@Override
 	public Integer getId() {
 		return getPatientFlagId();
 	}
-
+	
 	@Override
 	public void setId(Integer id) {
 		setPatientFlagId(id);
 	}
-
+	
 	public String getMessage() {
 		return message;
 	}
-
+	
 	public void setMessage(String message) {
 		this.message = message;
 	}

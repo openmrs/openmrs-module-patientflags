@@ -29,7 +29,7 @@ import org.openmrs.module.webservices.rest.web.response.ResponseException;
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/patientflag", supportedClass = PatientFlag.class, supportedOpenmrsVersions = {
         "1.*", "2.*" })
 public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag> {
-
+	
 	@Override
 	public DelegatingResourceDescription getRepresentationDescription(Representation rep) {
 		DelegatingResourceDescription description = null;
@@ -55,51 +55,48 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 		
 		return description;
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getCreatableProperties() throws ResourceDoesNotSupportOperationException {
 		DelegatingResourceDescription cp = super.getCreatableProperties();
 		cp.addProperty("patient");
 		cp.addProperty("flag");
 		cp.addProperty("message");
-        return cp;
-    }
-
+		return cp;
+	}
+	
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getGETModel(rep);
-		return model
-				.property("uuid", new StringProperty())
-				.property("message", new StringProperty())
-				.property("patient", new RefProperty("#/definitions/PatientGet"))
-				.property("flag", new RefProperty("#/definitions/PatientflagsFlagGet"))
-				.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
-				.property("voided", new BooleanProperty());
+		return model.property("uuid", new StringProperty()).property("message", new StringProperty())
+		        .property("patient", new RefProperty("#/definitions/PatientGet"))
+		        .property("flag", new RefProperty("#/definitions/PatientflagsFlagGet"))
+		        .property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
+		        .property("voided", new BooleanProperty());
 	}
-
+	
 	@Override
 	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl()
-				.property("patient", new RefProperty("#/definitions/PatientCreate"))
-				.property("flag", new RefProperty("#/definitions/PatientflagsFlagCreate"))
-				.property("message", new StringProperty());
+		return new ModelImpl().property("patient", new RefProperty("#/definitions/PatientCreate"))
+		        .property("flag", new RefProperty("#/definitions/PatientflagsFlagCreate"))
+		        .property("message", new StringProperty());
 	}
-
+	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
 		return getCREATEModel(rep);
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {
 		return getCreatableProperties();
 	}
-
+	
 	@Override
 	public PatientFlag newDelegate() {
 		return new PatientFlag();
 	}
-
+	
 	@Override
 	public PatientFlag getByUniqueId(String uniqueId) {
 		return Context.getService(FlagService.class).getPatientFlagByUuid(uniqueId);
@@ -110,20 +107,20 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 		String patientUuid = context.getParameter("patient");
 		if (StringUtils.isNotBlank(patientUuid)) {
 			Patient patient = Context.getPatientService().getPatientByUuid(patientUuid);
-			if( patient != null) {
+			if (patient != null) {
 				return new NeedsPaging<PatientFlag>(Context.getService(FlagService.class).getPatientFlags(patient), context);
 			}
-		} 
+		}
 		
 		return new EmptySearchResult();
 	}
-
+	
 	@Override
 	public PatientFlag save(PatientFlag delegate) {
 		Context.getService(FlagService.class).savePatientFlag(delegate);
 		return delegate;
 	}
-
+	
 	/**
 	 * @see org.openmrs.module.webservices.rest.web.resource.impl.BaseDelegatingResource#delete(java.lang.Object,
 	 *      java.lang.String, org.openmrs.module.webservices.rest.web.RequestContext)
@@ -148,7 +145,7 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 		}
 		return delegate;
 	}
-
+	
 	@Override
 	public void purge(PatientFlag delegate, RequestContext context) throws ResponseException {
 		throw new UnsupportedOperationException("PatientFlag cannot be purged");

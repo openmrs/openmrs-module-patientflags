@@ -24,26 +24,27 @@ import javax.annotation.Nonnull;
 @Component
 @Setter
 public class FlagTranslatorImpl implements FlagTranslator {
-    /**
-     * @param flag
-     * @return
-     */
-    @Override
-    public CodeableConcept toFhirResource(@Nonnull Flag flag) {
-        if(flag == null){
-            return null;
-        }
-
-        CodeableConcept codeableConcept = new CodeableConcept();
-        addConceptCoding(codeableConcept.addCoding(), null, flag);
-        codeableConcept.setText(flag.getMessage());
-        return codeableConcept;
-    }
-
-    private void addConceptCoding(Coding coding, String system, Flag flag) {
-        coding.setSystem(system);
-        if (system == null) {
-            coding.setDisplay(FhirUtils.getMetadataTranslation(flag));
-        }
-    }
+	
+	/**
+	 * @param flag
+	 * @return
+	 */
+	@Override
+	public CodeableConcept toFhirResource(@Nonnull Flag flag) {
+		if (flag == null) {
+			return null;
+		}
+		
+		CodeableConcept codeableConcept = new CodeableConcept();
+		addConceptCoding(codeableConcept.addCoding(), null, flag);
+		codeableConcept.setText(flag.getMessage());
+		return codeableConcept;
+	}
+	
+	private void addConceptCoding(Coding coding, String system, Flag flag) {
+		coding.setSystem(system);
+		if (system == null) {
+			coding.setDisplay(FhirUtils.getMetadataTranslation(flag));
+		}
+	}
 }

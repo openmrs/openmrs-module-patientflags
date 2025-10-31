@@ -268,8 +268,7 @@ public class Flag extends BaseOpenmrsMetadata {
 			catch (Exception e) {
 				throw new APIException("Unable to instantiate FlagEvaluator " + evaluator, e);
 			}
-		}
-		else {
+		} else {
 			throw new APIException("FlagEvaluator is null");
 		}
 	}
@@ -290,7 +289,7 @@ public class Flag extends BaseOpenmrsMetadata {
 		}
 	}
 	
-	public String evalMessage(Integer patientId){
+	public String evalMessage(Integer patientId) {
 		if (evaluator != null && patientId != null) {
 			return instantiateEvaluator().evalMessage(this, patientId);
 		} else {

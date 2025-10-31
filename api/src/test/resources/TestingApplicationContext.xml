@@ -24,6 +24,17 @@
 			<ref bean="mappingJarResources" />
 		</property>
 		<!--  default properties must be set in the hibernate.default.properties -->
+
+		<!--FIX: Explicitly register OpenMRS core and module packages for Hibernate scanning.
+     This resolves "Unable to locate referenced entity mapping [org.openmrs.User]". -->
+<property name="packagesToScan">
+    <list>
+        <value>org.openmrs</value>
+        <!-- Add the package where your module's entities are defined (e.g., patientflags.api.model) -->
+        <value>org.openmrs.module.patientflags</value>
+    </list>
+</property>
+
 	</bean>
 	
 </beans>

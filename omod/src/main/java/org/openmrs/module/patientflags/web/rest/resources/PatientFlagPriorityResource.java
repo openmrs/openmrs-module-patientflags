@@ -25,7 +25,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/priority", supportedClass = Priority.class, supportedOpenmrsVersions = {
-		"1.*", "2.*" })
+        "1.*", "2.*" })
 public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<Priority> {
 	
 	@Override
@@ -50,21 +50,19 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 		
 		return description;
 	}
-
+	
 	@Override
 	public Model getGETModel(Representation rep) {
 		ModelImpl model = (ModelImpl) super.getGETModel(rep);
 		if (rep instanceof FullRepresentation) {
 			model.property("auditInfo", new IntegerProperty());
 		} else if (rep instanceof DefaultRepresentation) {
-			model
-					.property("name", new StringProperty())
-					.property("style", new StringProperty())
-					.property("rank", new IntegerProperty());
+			model.property("name", new StringProperty()).property("style", new StringProperty())
+			        .property("rank", new IntegerProperty());
 		}
 		return model;
 	}
-
+	
 	public Priority newDelegate() {
 		return new Priority();
 	}
@@ -83,17 +81,18 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 		
 		return cp;
 	}
-
+	
 	@Override
 	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl().property("name", new StringProperty()).property("style", new StringProperty()).property("rank", new IntegerProperty());
+		return new ModelImpl().property("name", new StringProperty()).property("style", new StringProperty())
+		        .property("rank", new IntegerProperty());
 	}
-
+	
 	@Override
 	public Model getUPDATEModel(Representation rep) {
 		return getCREATEModel(rep);
 	}
-
+	
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() {
 		DelegatingResourceDescription cp = super.getUpdatableProperties();

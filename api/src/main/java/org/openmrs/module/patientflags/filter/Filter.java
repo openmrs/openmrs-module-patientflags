@@ -39,7 +39,7 @@ public class Filter {
 		type = FilterType.ANYTAG; // default the Filter	to match all Flags that contain one or more of the tags in the filter
 	}
 	
-	public Filter(Set<Tag> tags){
+	public Filter(Set<Tag> tags) {
 		type = FilterType.ANYTAG; // default the Filter	to match all Flags that contain one or more of the tags in the filter
 		this.tags = tags;
 	}
@@ -82,23 +82,22 @@ public class Filter {
 		if (this.type == FilterType.ANYTAG || this.type == FilterType.ANYTAG_OR_NOTAG) {
 			for (Flag flag : flags) {
 				Set<Tag> flagTags = flag.getTags();
-				if(flagTags != null && !flagTags.isEmpty()){
+				if (flagTags != null && !flagTags.isEmpty()) {
 					for (Tag tag : this.tags) {
 						if (flagTags.contains(tag)) {
 							results.add(flag);
 							break;
 						}
 					}
-				}
-				else{
+				} else {
 					// if the flag has no tags associated it it and this is an ANYTAG_OR_NOTAG filter, add the flag to the result list
-					if(this.type == FilterType.ANYTAG_OR_NOTAG){
+					if (this.type == FilterType.ANYTAG_OR_NOTAG) {
 						results.add(flag);
 					}
 				}
 			}
 		}
-
+		
 		else if (this.type == FilterType.ALLTAGS) {
 			for (Flag flag : flags) {
 				if (flag.getTags() != null && flag.getTags().containsAll(this.tags))
@@ -120,21 +119,19 @@ public class Filter {
 		
 		if (this.type == FilterType.ANYTAG || this.type == FilterType.ANYTAG_OR_NOTAG) {
 			Set<Tag> flagTags = flag.getTags();
-			if(flagTags != null && !flagTags.isEmpty()){
+			if (flagTags != null && !flagTags.isEmpty()) {
 				for (Tag tag : this.tags) {
 					if (flagTags.contains(tag)) {
 						return true;
 					}
 				}
-			}
-			else{
+			} else {
 				// if the flag has no tags associated it it and this is an ANYTAG_OR_NOTAG filter, add the flag to the result list
-				if (this.type == FilterType.ANYTAG_OR_NOTAG){
+				if (this.type == FilterType.ANYTAG_OR_NOTAG) {
 					return true;
 				}
 			}
-		}
-		else if (this.type == FilterType.ALLTAGS) {
+		} else if (this.type == FilterType.ALLTAGS) {
 			if (flag.getTags() != null && flag.getTags().containsAll(this.tags)) {
 				return true;
 			}

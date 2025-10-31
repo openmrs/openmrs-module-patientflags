@@ -40,14 +40,16 @@ public class FlagPatientDashboardHeaderExt extends Extension {
 		
 		List<PatientFlag> results = new ArrayList<PatientFlag>();
 		
-		results = flagService.getPatientFlags(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Header");
+		results = flagService.getPatientFlags(patient, Context.getAuthenticatedUser().getAllRoles(),
+		    "Patient Dashboard Header");
 		
 		if (!results.isEmpty()) {
 			String content = "<TABLE><TR><TD>";
 			for (PatientFlag patientFlag : results) {
 				Flag flag = patientFlag.getFlag();
 				flag.setMessage(patientFlag.getMessage());
-				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">" + flag.getName() + "</SPAN>, ";
+				content = content + "<SPAN " + (flag.getPriority() != null ? flag.getPriority().getStyle() : "") + ">"
+				        + flag.getName() + "</SPAN>, ";
 			}
 			// cut off the trailing delimiter
 			content = content.substring(0, content.length() - 2);

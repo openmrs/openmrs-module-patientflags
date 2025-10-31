@@ -28,37 +28,37 @@ import static org.hamcrest.Matchers.nullValue;
 
 @ContextConfiguration(classes = TestFhirSpringConfiguration.class, inheritLocations = false)
 public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
-
-    private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/testdata/fhirPatientflagtest-dataset.xml";
-
-    String FLAG_UUID = "7d89924e-e8df-4553-a956-95de80529735";
-
-    String WRONG_FLAG_UUID = "7d89924e-e8df-6666-a956-95de80529735";
-
-    @Autowired
-    @Qualifier("sessionFactory")
-    private SessionFactory sessionFactory;
-
-    private FhirFlagDaoImpl fhirFlagDao;
-
-    @Before
-    public void setup() throws Exception {
-        fhirFlagDao = new FhirFlagDaoImpl();
-        fhirFlagDao.setSessionFactory(sessionFactory);
-        executeDataSet(TEST_DATASET_FILE);
-    }
-
-    @Test
-    public void getByUuid_shouldReturnMatchingPatientFlag() {
-        PatientFlag patientFlag = fhirFlagDao.get(FLAG_UUID);
-        assertThat(patientFlag, notNullValue());
-        assertThat(patientFlag.getUuid(), equalTo(FLAG_UUID));
-    }
-
-    @Test
-    public void getByWithWrongUuid_shouldReturnNullPatientFlag() {
-        PatientFlag patientFlag = fhirFlagDao.get(WRONG_FLAG_UUID);
-        assertThat(patientFlag, nullValue());
-    }
-
+	
+	private static final String TEST_DATASET_FILE = "org/openmrs/module/patientflags/testdata/fhirPatientflagtest-dataset.xml";
+	
+	String FLAG_UUID = "7d89924e-e8df-4553-a956-95de80529735";
+	
+	String WRONG_FLAG_UUID = "7d89924e-e8df-6666-a956-95de80529735";
+	
+	@Autowired
+	@Qualifier("sessionFactory")
+	private SessionFactory sessionFactory;
+	
+	private FhirFlagDaoImpl fhirFlagDao;
+	
+	@Before
+	public void setup() throws Exception {
+		fhirFlagDao = new FhirFlagDaoImpl();
+		fhirFlagDao.setSessionFactory(sessionFactory);
+		executeDataSet(TEST_DATASET_FILE);
+	}
+	
+	@Test
+	public void getByUuid_shouldReturnMatchingPatientFlag() {
+		PatientFlag patientFlag = fhirFlagDao.get(FLAG_UUID);
+		assertThat(patientFlag, notNullValue());
+		assertThat(patientFlag.getUuid(), equalTo(FLAG_UUID));
+	}
+	
+	@Test
+	public void getByWithWrongUuid_shouldReturnNullPatientFlag() {
+		PatientFlag patientFlag = fhirFlagDao.get(WRONG_FLAG_UUID);
+		assertThat(patientFlag, nullValue());
+	}
+	
 }

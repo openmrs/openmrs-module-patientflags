@@ -53,90 +53,90 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest<Flag>  {
-
-    String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
-
-    String PATIENT_UUID = "123xx34-623hh34-22hj89-23hjy5";
-
-    String FLAG_CODE = "FLAG MESSAGE";
-
-    String FLAG_CATEGORY = "FLAG CATEGORY";
-
-    private static final String LAST_UPDATED_DATE = "2020-09-03";
-
-    private static final String CREATED_DATE = "2020-09-03";
-
-    String SUBJECT_DISPLAY = "Patient/ 123xx34-623hh34-22hj89-23hjy5 Patient Name 10000X";
-
-    private static final int START_INDEX = 0;
-
-    private static final int END_INDEX = 10;
-
-    private static final int PREFERRED_PAGE_SIZE = 10;
-
-    private static final int COUNT = 1;
-
-    FlagFhirResourceProvider flagFhirResourceProvider;
-
-    @Mock
-    private FhirFlagService fhirFlagService;
-
-    Flag flag;
-
-    @Before
-    public void setup() {
-        flagFhirResourceProvider = new FlagFhirResourceProvider();
-        flagFhirResourceProvider.setFlagService(fhirFlagService);
-
-        flag = new Flag();
-        flag.setId(FLAG_UUID);
-
-        Reference reference = new Reference();
-        reference.setDisplay(SUBJECT_DISPLAY);
-        flag.setSubject(reference);
-
-        CodeableConcept code = new CodeableConcept();
-        code.addCoding().setCode(FLAG_CODE);
-        flag.setCode(code);
-
-        CodeableConcept category = new CodeableConcept();
-        category.addCoding().setCode(FLAG_CATEGORY);
-        flag.setCategory(Collections.singletonList(category));
-
-    }
-
-    @Test
-    public void getResourceType_shouldReturnResourceType() {
-        assertThat(flagFhirResourceProvider.getResourceType(), equalTo(Flag.class));
-        assertThat(flagFhirResourceProvider.getResourceType().getName(), equalTo(Flag.class.getName()));
-    }
-
-    @Test
-    public void getFlagByUuid_shouldReturnMatchingFlag() {
-        IdType idType = new IdType();
-        idType.setValue(FLAG_UUID);
-
-        when(fhirFlagService.get(idType.getIdPart())).thenReturn(flag);
-
-        Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
-        MatcherAssert.assertThat(flag1, notNullValue());
-        MatcherAssert.assertThat(flag1.getId(), notNullValue());
-        MatcherAssert.assertThat(flag1.getId(), Matchers.equalTo(FLAG_UUID));
-    }
-
-    @Test( expected = ResourceNotFoundException.class )
-    public void getFlagByUuid_shouldThrowResourceNotFoundException() {
-        IdType idType = new IdType();
-        idType.setValue(FLAG_UUID);
-
-        when(fhirFlagService.get(idType.getIdPart())).thenReturn(null);
-
-        Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
-        assertThat(flag1, nullValue());
-    }
-
-    @Test
+public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest<Flag> {
+	
+	String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
+	
+	String PATIENT_UUID = "123xx34-623hh34-22hj89-23hjy5";
+	
+	String FLAG_CODE = "FLAG MESSAGE";
+	
+	String FLAG_CATEGORY = "FLAG CATEGORY";
+	
+	private static final String LAST_UPDATED_DATE = "2020-09-03";
+	
+	private static final String CREATED_DATE = "2020-09-03";
+	
+	String SUBJECT_DISPLAY = "Patient/ 123xx34-623hh34-22hj89-23hjy5 Patient Name 10000X";
+	
+	private static final int START_INDEX = 0;
+	
+	private static final int END_INDEX = 10;
+	
+	private static final int PREFERRED_PAGE_SIZE = 10;
+	
+	private static final int COUNT = 1;
+	
+	FlagFhirResourceProvider flagFhirResourceProvider;
+	
+	@Mock
+	private FhirFlagService fhirFlagService;
+	
+	Flag flag;
+	
+	@Before
+	public void setup() {
+		flagFhirResourceProvider = new FlagFhirResourceProvider();
+		flagFhirResourceProvider.setFlagService(fhirFlagService);
+		
+		flag = new Flag();
+		flag.setId(FLAG_UUID);
+		
+		Reference reference = new Reference();
+		reference.setDisplay(SUBJECT_DISPLAY);
+		flag.setSubject(reference);
+		
+		CodeableConcept code = new CodeableConcept();
+		code.addCoding().setCode(FLAG_CODE);
+		flag.setCode(code);
+		
+		CodeableConcept category = new CodeableConcept();
+		category.addCoding().setCode(FLAG_CATEGORY);
+		flag.setCategory(Collections.singletonList(category));
+		
+	}
+	
+	@Test
+	public void getResourceType_shouldReturnResourceType() {
+		assertThat(flagFhirResourceProvider.getResourceType(), equalTo(Flag.class));
+		assertThat(flagFhirResourceProvider.getResourceType().getName(), equalTo(Flag.class.getName()));
+	}
+	
+	@Test
+	public void getFlagByUuid_shouldReturnMatchingFlag() {
+		IdType idType = new IdType();
+		idType.setValue(FLAG_UUID);
+		
+		when(fhirFlagService.get(idType.getIdPart())).thenReturn(flag);
+		
+		Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
+		MatcherAssert.assertThat(flag1, notNullValue());
+		MatcherAssert.assertThat(flag1.getId(), notNullValue());
+		MatcherAssert.assertThat(flag1.getId(), Matchers.equalTo(FLAG_UUID));
+	}
+	
+	@Test(expected = ResourceNotFoundException.class)
+	public void getFlagByUuid_shouldThrowResourceNotFoundException() {
+		IdType idType = new IdType();
+		idType.setValue(FLAG_UUID);
+		
+		when(fhirFlagService.get(idType.getIdPart())).thenReturn(null);
+		
+		Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
+		assertThat(flag1, nullValue());
+	}
+	
+	@Test
      public void searchFlags_shouldReturnMatchingFlagsForPatientUuid() {
          ReferenceAndListParam patientUuid = new ReferenceAndListParam();
          patientUuid.addValue(new ReferenceOrListParam()
@@ -156,8 +156,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
          MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
          MatcherAssert.assertThat(resultList.get(0).getSubject().getDisplay(), equalTo(SUBJECT_DISPLAY));
      }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForPatientName() {
         ReferenceAndListParam patientUuid = new ReferenceAndListParam();
         patientUuid.addValue(new ReferenceOrListParam()
@@ -177,8 +177,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getSubject().getDisplay(), equalTo(SUBJECT_DISPLAY));
     }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForPatientNaneGiven() {
         ReferenceAndListParam patientUuid = new ReferenceAndListParam();
         patientUuid.addValue(new ReferenceOrListParam()
@@ -198,8 +198,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getSubject().getDisplay(), equalTo(SUBJECT_DISPLAY));
     }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForPatientIdentifier() {
         ReferenceAndListParam patientUuid = new ReferenceAndListParam();
         patientUuid.addValue(new ReferenceOrListParam()
@@ -219,8 +219,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getSubject().getDisplay(), equalTo(SUBJECT_DISPLAY));
     }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForFlagCode() {
         TokenAndListParam codeParam = new TokenAndListParam()
                 .addAnd(new TokenOrListParam().add(new TokenParam(FLAG_CODE)));
@@ -238,8 +238,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getCode().getCoding().get(0).getCode(), equalTo(FLAG_CODE));
     }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForFlagCategory() {
         TokenAndListParam category = new TokenAndListParam()
                 .addAnd(new TokenOrListParam().add(new TokenParam(FLAG_CATEGORY)));
@@ -257,8 +257,8 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getCategory().get(0).getCoding().get(0).getCode(), CoreMatchers.notNullValue());
     }
-
-    @Test
+	
+	@Test
     public void searchFlags_shouldReturnMatchingFlagsForDateRange() {
         DateRangeParam date = new DateRangeParam().setUpperBound(CREATED_DATE).setLowerBound(LAST_UPDATED_DATE);
         when(fhirFlagService.searchFlags(new FlagSearchParams( null, null, null,date, null, null, null, null, null)))
@@ -275,11 +275,9 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(resultList, hasSize(greaterThanOrEqualTo(1)));
         MatcherAssert.assertThat(resultList.get(0).getId(), equalTo(FLAG_UUID));
     }
-
-
-    private List<Flag> get(IBundleProvider results) {
+	
+	private List<Flag> get(IBundleProvider results) {
         return results.getResources(START_INDEX, END_INDEX).stream().filter(it -> it instanceof Flag)
                 .map(it -> (Flag) it).collect(Collectors.toList());
     }
-
 }

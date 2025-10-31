@@ -28,33 +28,31 @@ import java.util.HashSet;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class FlagSearchParams extends BaseResourceSearchParams {
-
-    private ReferenceAndListParam patient;
-
-    private TokenAndListParam code;
-
-    private TokenAndListParam category;
-
-    private DateRangeParam date;
-
-
-    @Builder
-    public FlagSearchParams(ReferenceAndListParam patient, TokenAndListParam code, TokenAndListParam category,
-                            DateRangeParam date, TokenAndListParam id, DateRangeParam lastUpdated,
-                            SortSpec sort, HashSet<Include> includes, HashSet<Include> revIncludes) {
-        super(id, lastUpdated, sort, includes, revIncludes);
-        this.patient = patient;
-        this.code = code;
-        this.category = category;
-        this.date = date;
-    }
-
-    @Override
-    public SearchParameterMap toSearchParameterMap() {
-        return baseSearchParameterMap()
-                .addParameter(FhirConstants.PATIENT_REFERENCE_SEARCH_HANDLER, getPatient())
-                .addParameter(FhirConstants.CATEGORY_SEARCH_HANDLER, getCategory())
-                .addParameter(FhirConstants.DATE_RANGE_SEARCH_HANDLER, getDate())
-                .addParameter(FhirConstants.CODED_SEARCH_HANDLER, getCode());
-    }
+	
+	private ReferenceAndListParam patient;
+	
+	private TokenAndListParam code;
+	
+	private TokenAndListParam category;
+	
+	private DateRangeParam date;
+	
+	@Builder
+	public FlagSearchParams(ReferenceAndListParam patient, TokenAndListParam code, TokenAndListParam category,
+	    DateRangeParam date, TokenAndListParam id, DateRangeParam lastUpdated, SortSpec sort, HashSet<Include> includes,
+	    HashSet<Include> revIncludes) {
+		super(id, lastUpdated, sort, includes, revIncludes);
+		this.patient = patient;
+		this.code = code;
+		this.category = category;
+		this.date = date;
+	}
+	
+	@Override
+	public SearchParameterMap toSearchParameterMap() {
+		return baseSearchParameterMap().addParameter(FhirConstants.PATIENT_REFERENCE_SEARCH_HANDLER, getPatient())
+		        .addParameter(FhirConstants.CATEGORY_SEARCH_HANDLER, getCategory())
+		        .addParameter(FhirConstants.DATE_RANGE_SEARCH_HANDLER, getDate())
+		        .addParameter(FhirConstants.CODED_SEARCH_HANDLER, getCode());
+	}
 }

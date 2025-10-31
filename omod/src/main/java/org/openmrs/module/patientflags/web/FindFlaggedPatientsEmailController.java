@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/module/patientflags/findFlaggedPatientsEmail.form")
 public class FindFlaggedPatientsEmailController {
-
+	
 	/**
 	 * Generic constructor
 	 */
@@ -47,7 +47,7 @@ public class FindFlaggedPatientsEmailController {
 	}
 	
 	/**
-	 *  Handle the request to create an flag email
+	 * Handle the request to create an flag email
 	 */
 	
 	@RequestMapping(method = RequestMethod.GET)

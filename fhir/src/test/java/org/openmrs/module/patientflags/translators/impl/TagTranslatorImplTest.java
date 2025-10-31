@@ -25,33 +25,33 @@ import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TagTranslatorImplTest {
-
-    private static final String TAG_UUID = "0f97e14e-cdc2-49ac-9255-b5126f8a5147";
-
-    private static final String TAG_NAME = "tag";
-
-    TagTranslatorImpl tagTranslator;
-
-    CodeableConcept codeableConcept;
-
-    Tag tag;
-
-    @Before
-    public void setup() {
-        tagTranslator = new TagTranslatorImpl();
-    }
-
-    @Test
-    public void shouldTranslateTagToFhirCodeableConcept() {
-        tag = new Tag();
-        tag.setUuid(TAG_UUID);
-        tag.setName(TAG_NAME);
-        tag.setRoles(Collections.emptySet());
-
-       codeableConcept = tagTranslator.toFhirResource(tag);
-
-        assertThat(codeableConcept, notNullValue());
-        assertThat(codeableConcept.getCoding().get(0).getCode(), equalTo(TAG_NAME));
-    }
-
+	
+	private static final String TAG_UUID = "0f97e14e-cdc2-49ac-9255-b5126f8a5147";
+	
+	private static final String TAG_NAME = "tag";
+	
+	TagTranslatorImpl tagTranslator;
+	
+	CodeableConcept codeableConcept;
+	
+	Tag tag;
+	
+	@Before
+	public void setup() {
+		tagTranslator = new TagTranslatorImpl();
+	}
+	
+	@Test
+	public void shouldTranslateTagToFhirCodeableConcept() {
+		tag = new Tag();
+		tag.setUuid(TAG_UUID);
+		tag.setName(TAG_NAME);
+		tag.setRoles(Collections.emptySet());
+		
+		codeableConcept = tagTranslator.toFhirResource(tag);
+		
+		assertThat(codeableConcept, notNullValue());
+		assertThat(codeableConcept.getCoding().get(0).getCode(), equalTo(TAG_NAME));
+	}
+	
 }

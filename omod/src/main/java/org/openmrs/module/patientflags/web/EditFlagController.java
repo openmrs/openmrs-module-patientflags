@@ -92,8 +92,7 @@ public class EditFlagController {
 			public void setAsText(String priority) {
 				if (StringUtils.isBlank(priority)) {
 					setValue(null);
-				}
-				else {
+				} else {
 					setValue(Context.getService(FlagService.class).getPriority(Integer.valueOf((String) priority)));
 				}
 			}
@@ -101,13 +100,13 @@ public class EditFlagController {
 		});
 		
 		// map the evaluator strings to the full evaluator classes
-		binder.registerCustomEditor(String.class, "evaluator", new PropertyEditorSupport(){
+		binder.registerCustomEditor(String.class, "evaluator", new PropertyEditorSupport() {
+			
 			public void setAsText(String evaluator) {
 				// check to see if the class is in the evaluator map, if so, set based on the map
-				if (PatientFlagsConstants.FLAG_EVALUATOR_MAP.containsKey(evaluator)){
+				if (PatientFlagsConstants.FLAG_EVALUATOR_MAP.containsKey(evaluator)) {
 					setValue(PatientFlagsConstants.FLAG_EVALUATOR_MAP.get(evaluator));
-				}
-				else{
+				} else {
 					// otherwise is must be a custom evaluator; set it directly
 					setValue(evaluator);
 				}
@@ -121,7 +120,7 @@ public class EditFlagController {
 	}
 	
 	@ModelAttribute("priorities")
-	public List<Priority> populatePriorities(){
+	public List<Priority> populatePriorities() {
 		return Context.getService(FlagService.class).getAllPriorities();
 	}
 	
@@ -142,10 +141,10 @@ public class EditFlagController {
 			flag = Context.getService(FlagService.class).getFlag(flagId);
 			
 			// we need to manually set the customEvaluatorTextbox if this is a custom evaluator
-			if(!PatientFlagsConstants.FLAG_EVALUATOR_MAP.containsValue(flag.getEvaluator())){
+			if (!PatientFlagsConstants.FLAG_EVALUATOR_MAP.containsValue(flag.getEvaluator())) {
 				model.addAttribute("customEvaluator", flag.getEvaluator());
 			}
-		}else {
+		} else {
 			flag = new Flag();
 		}
 		
@@ -163,7 +162,7 @@ public class EditFlagController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public ModelAndView processSubmit(@ModelAttribute("flag") Flag flag, BindingResult result, SessionStatus status) {
-	
+		
 		// validate form entries
 		validator.validate(flag, result);
 		

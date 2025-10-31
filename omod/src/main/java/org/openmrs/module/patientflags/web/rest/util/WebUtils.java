@@ -12,7 +12,7 @@ public class WebUtils {
 	public static String getStringFilter(String param, RequestContext req) {
 		return (StringUtils.isNotBlank(req.getParameter(param))) ? req.getParameter(param) : null;
 	}
-
+	
 	public static Boolean getBooleanFilter(String param, RequestContext req) {
 		String strval = getStringFilter(param, req);
 		return strval == null ? null : Boolean.parseBoolean(strval);

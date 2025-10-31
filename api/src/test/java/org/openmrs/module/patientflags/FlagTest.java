@@ -23,11 +23,11 @@ import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.test.BaseModuleContextSensitiveTest;
 
 public class FlagTest extends BaseModuleContextSensitiveTest {
-
+	
 	protected static final String XML_DATASET_PATH = "org/openmrs/module/patientflags/include/";
-
+	
 	private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "flagtest-dataset.xml";
-
+	
 	/**
 	 * Tests of the Flag class
 	 */

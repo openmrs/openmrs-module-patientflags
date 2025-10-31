@@ -48,7 +48,8 @@ public class FlagPatientOverviewPortletController extends PortletController {
 		List<PatientFlag> results = new ArrayList<PatientFlag>();
 		FlagService flagService = Context.getService(FlagService.class);
 		
-		results = flagService.getPatientFlags(patient, Context.getAuthenticatedUser().getAllRoles(), "Patient Dashboard Overview");
+		results = flagService.getPatientFlags(patient, Context.getAuthenticatedUser().getAllRoles(),
+		    "Patient Dashboard Overview");
 		
 		List<Map<String, Object>> fgl = new ArrayList<Map<String, Object>>();
 		for (PatientFlag patientFlag : results) {
@@ -56,7 +57,7 @@ public class FlagPatientOverviewPortletController extends PortletController {
 			flag.setMessage(patientFlag.getMessage());
 			
 			Map<String, Object> mapFp = new HashMap<String, Object>();
-
+			
 			mapFp.put("flag", flag);
 			mapFp.put("flagMessage", flag.evalMessage(patientID));
 			

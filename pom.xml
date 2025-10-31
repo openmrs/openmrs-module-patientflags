@@ -2,6 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.openmrs.maven.parents</groupId>
+		<artifactId>maven-parent-openmrs-module</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
 	<version>3.0.9-SNAPSHOT</version>
@@ -15,8 +21,8 @@
 		<connection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</connection>
 		<developerConnection>scm:git:git@github.com:openmrs/openmrs-module-patientflags</developerConnection>
 		<url>https://github.com/openmrs/openmrs-module-patientflags/</url>
-	  <tag>HEAD</tag>
-  </scm>
+		<tag>HEAD</tag>
+	</scm>
 
 	<distributionManagement>
 		<repository>
@@ -54,7 +60,6 @@
 				<type>jar</type>
 				<scope>provided</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
@@ -82,7 +87,6 @@
 				<version>${webservices.rest-omod.version}</version>
 				<scope>provided</scope>
 			</dependency>
-
 			<dependency>
 				<groupId>org.openmrs.module</groupId>
 				<artifactId>webservices.rest-omod-common</artifactId>
@@ -145,13 +149,30 @@
 				<version>${lombokVersion}</version>
 				<scope>provided</scope>
 			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>5.6.15.Final</version>
+				<scope>provided</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-test</artifactId>
+				<version>3.2.7.RELEASE</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.vintage</groupId>
+				<artifactId>junit-vintage-engine</artifactId>
+				<version>5.10.2</version>
+				<scope>test</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
-	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openMRSVersion>2.2.0</openMRSVersion>
-		<openMRSMinorVersion>2.2</openMRSMinorVersion>
+		<openMRSVersion>2.8.0</openMRSVersion>
+		<openMRSMinorVersion>2.8</openMRSMinorVersion>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>
@@ -159,7 +180,7 @@
 		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
 		<legacyuiVersion>1.16.0</legacyuiVersion>
 		<fhirversion>2.0.0</fhirversion>
-		<lombokVersion>1.18.26</lombokVersion>
+		<lombokVersion>1.18.30</lombokVersion>
 	</properties>
 
 	<build>
@@ -169,8 +190,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<target>1.8</target>
-						<source>1.8</source>
+						<target>21</target>
+						<source>21</source>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -206,65 +227,51 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-	<!-- different profiles for building/testing against different version of openmrs -->
 	<profiles>
-
 		<profile>
 			<id>openmrs-1.9</id>
-
-		    <properties>
+			<properties>
 				<openMRSVersion>1.9.9</openMRSVersion>
 				<openMRSMinorVersion>1.9</openMRSMinorVersion>
-
 			</properties>
 		</profile>
-
 		<profile>
 			<id>openmrs-1.10</id>
-
-		    <properties>
+			<properties>
 				<openMRSVersion>1.10.2</openMRSVersion>
 				<openMRSMinorVersion>1.10</openMRSMinorVersion>
 			</properties>
 		</profile>
-
 		<profile>
 			<id>openmrs-1.11</id>
-
-		    <properties>
+			<properties>
 				<openMRSVersion>1.11.7</openMRSVersion>
 				<openMRSMinorVersion>1.11</openMRSMinorVersion>
 			</properties>
 		</profile>
 
 		<profile>
-			<id>Java 17</id>
+			<id>Java 21</id>
 			<activation>
-				<jdk>17</jdk>
+				<jdk>21</jdk>
 			</activation>
-
 			<dependencies>
 				<dependency>
 					<groupId>com.thoughtworks.xstream</groupId>
 					<artifactId>xstream</artifactId>
-					<version>1.4.18</version>
+					<version>1.4.21</version>
 					<scope>provided</scope>
 				</dependency>
 			</dependencies>
-
 			<build>
 				<plugins>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.22.1</version>
-						<configuration>
-							<argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-						</configuration>
+						<version>3.2.5</version>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
-
 	</profiles>
 </project>

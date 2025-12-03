@@ -34,6 +34,26 @@
 		<point>org.openmrs.api.EncounterService</point>
 		<class>org.openmrs.module.patientflags.aop.EncounterServiceAdvice</class>
 	</advice>
+	
+	<advice>
+		<point>org.openmrs.api.ObsService</point>
+		<class>org.openmrs.module.patientflags.aop.ObsServiceAdvice</class>
+	</advice>
+	
+	<advice>
+		<point>org.openmrs.api.OrderService</point>
+		<class>org.openmrs.module.patientflags.aop.OrderServiceAdvice</class>
+	</advice>
+	
+	<advice>
+		<point>org.openmrs.api.PatientService</point>
+		<class>org.openmrs.module.patientflags.aop.PatientServiceAdvice</class>
+	</advice>
+	
+	<advice>
+		<point>org.openmrs.api.ConditionService</point>
+		<class>org.openmrs.module.patientflags.aop.ConditionServiceAdvice</class>
+	</advice>
 
 	<!-- Internationalization -->
 	<messages>

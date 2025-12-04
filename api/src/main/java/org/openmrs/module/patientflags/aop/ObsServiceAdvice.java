@@ -25,10 +25,12 @@ public class ObsServiceAdvice implements AfterReturningAdvice {
 	@Override
 	public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
 		
-		if (method.getName().equals("voidObs")) {
+		String methodName = method.getName();
+		if (methodName.equals("voidObs") || methodName.equals("saveObs")) {
 			if (args.length > 0 && args[0] instanceof Obs) {
 				Obs obs = (Obs) args[0];
 				Patient patient = getPatientFromObs(obs);
+				patient = FlagGenerationTransactionTracker.handlePatient(patient);
 				if (patient != null) {
 					new PatientFlagTask().generatePatientFlags(patient);
 				}

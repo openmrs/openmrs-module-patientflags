@@ -42,6 +42,7 @@ public class ConditionServiceAdvice implements AfterReturningAdvice {
 			}
 		}
 		
+		patient = FlagGenerationTransactionTracker.handlePatient(patient);
 		if (patient != null) {
 			new PatientFlagTask().generatePatientFlags(patient);
 		}

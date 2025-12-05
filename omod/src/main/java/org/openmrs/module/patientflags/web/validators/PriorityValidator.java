@@ -32,7 +32,7 @@ public class PriorityValidator {
 	public void validate(Object target, Errors errors) {
 		Priority priorityToValidate = (Priority) target;
 
-		// name and rank cannot be empty (style is optional - legacy field, not used in OpenMRS 3+)
+		// name and rank cannot be empty
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "patientflags.errors.noPriorityName");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "rank", "patientflags.errors.noRank");
 
@@ -41,14 +41,14 @@ public class PriorityValidator {
 			errors.rejectValue("name", "patientflags.errors.priorityNameTooLong");
 		}
 
-		// make sure that the style field isn't too large (only if provided)
-		if (priorityToValidate.getStyle() != null && priorityToValidate.getStyle().length() > 255) {
-			errors.rejectValue("style", "patientflags.errors.styleTooLong");
-		}
-
 		//make sure that the name is unique
 		if (isPriorityNameDuplicated(priorityToValidate)) {
 			errors.rejectValue("name", "patientflags.errors.noUniqueName");
+		}
+
+		// make sure that the style field isn't too large if provided
+		if (priorityToValidate.getStyle() != null && priorityToValidate.getStyle().length() > 255) {
+			errors.rejectValue("style", "patientflags.errors.styleTooLong");
 		}
 	}
 

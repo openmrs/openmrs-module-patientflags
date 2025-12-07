@@ -119,9 +119,7 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="style" type="VARCHAR(255)">
-                <constraints nullable="false"/>
-            </column>
+            <column name="style" type="VARCHAR(255)"/>
             <column name="rank" type="int">
                 <constraints nullable="false"/>
             </column>
@@ -512,5 +510,16 @@
 	<changeSet id="patientflags_patient_flag_clean_up_for_schema_change" author="dkayiwa">
 		<sql>delete from patientflags_patient_flag</sql>
     </changeSet>
+
+	<changeSet id="patientflags_priority_style_nullable" author="bistenes">
+		<preConditions onFail="MARK_RAN">
+			<and>
+				<tableExists tableName="patientflags_priority"/>
+				<columnExists tableName="patientflags_priority" columnName="style"/>
+			</and>
+		</preConditions>
+		<comment>Make Priority.style nullable (legacy field, not used in OpenMRS 3+)</comment>
+		<dropNotNullConstraint columnName="style" columnDataType="VARCHAR(255)" tableName="patientflags_priority"/>
+	</changeSet>
 
 </databaseChangeLog>

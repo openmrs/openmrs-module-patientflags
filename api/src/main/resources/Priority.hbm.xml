@@ -18,7 +18,7 @@
 			not-null="true" length="255" />
 
 		<property name="style" type="java.lang.String" column="style"
-			not-null="true" length="255" />
+			length="255" />
 
 		<property name="rank" type="int" column="p_rank" not-null="true"/>
 

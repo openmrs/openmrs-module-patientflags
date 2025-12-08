@@ -15,30 +15,30 @@ package org.openmrs.module.patientflags.aop;
 
 import java.lang.reflect.Method;
 
-import org.openmrs.Condition;
 import org.openmrs.Patient;
+import org.openmrs.PatientProgram;
 import org.openmrs.module.patientflags.task.PatientFlagTask;
 import org.springframework.aop.AfterReturningAdvice;
 
-public class ConditionServiceAdvice implements AfterReturningAdvice {
+public class ProgramWorkflowServiceAdvice implements AfterReturningAdvice {
 
 	@Override
 	public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
-		
+
 		String methodName = method.getName();
 		Patient patient = null;
-		
-		if ((methodName.equals("saveCondition") || methodName.equals("voidCondition")
-				|| methodName.equals("unvoidCondition") || methodName.equals("purgeCondition"))) {
-			if (args.length > 0 && args[0] instanceof Condition) {
-				Condition condition = (Condition) args[0];
-				patient = condition.getPatient();
+
+		if ((methodName.equals("savePatientProgram") || methodName.equals("purgePatientProgram")
+				|| methodName.equals("voidPatientProgram") || methodName.equals("unvoidPatientProgram"))) {
+			if (args.length > 0 && args[0] instanceof PatientProgram) {
+				PatientProgram patientProgram = (PatientProgram) args[0];
+				patient = patientProgram.getPatient();
 			}
 		}
+
 		patient = FlagGenerationTransactionTracker.handlePatient(patient);
 		if (patient != null) {
 			new PatientFlagTask().generatePatientFlags(patient);
 		}
 	}
 }
-

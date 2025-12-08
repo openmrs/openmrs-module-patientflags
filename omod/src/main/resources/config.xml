@@ -55,6 +55,11 @@
 		<class>org.openmrs.module.patientflags.aop.ConditionServiceAdvice</class>
 	</advice>
 
+	<advice>
+		<point>org.openmrs.api.ProgramWorkflowService</point>
+		<class>org.openmrs.module.patientflags.aop.ProgramWorkflowServiceAdvice</class>
+	</advice>
+
 	<!-- Internationalization -->
 	<messages>
 		<lang>en</lang>

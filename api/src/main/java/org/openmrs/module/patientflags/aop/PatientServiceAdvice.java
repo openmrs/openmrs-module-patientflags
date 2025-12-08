@@ -28,21 +28,9 @@ public class PatientServiceAdvice implements AfterReturningAdvice {
 		String methodName = method.getName();
 		Patient patient = null;
 		
-		if (methodName.equals("saveAllergy")) {
-			if (args.length > 0 && args[0] instanceof Allergy) {
-				Allergy allergy = (Allergy) args[0];
-				patient = allergy.getPatient();
-			}
-		}
-		else if (methodName.equals("removeAllergy")) {
-			// removeAllergy typically takes (Allergy, String) or (Allergy)
-			if (args.length > 0 && args[0] instanceof Allergy) {
-				Allergy allergy = (Allergy) args[0];
-				patient = allergy.getPatient();
-			}
-		}
-		else if (methodName.equals("voidAllergy")) {
-			// voidAllergy typically takes (Allergy, String)
+		if (methodName.equals("saveAllergy") 
+				|| methodName.equals("removeAllergy") 
+				|| methodName.equals("voidAllergy")) {
 			if (args.length > 0 && args[0] instanceof Allergy) {
 				Allergy allergy = (Allergy) args[0];
 				patient = allergy.getPatient();

@@ -28,25 +28,17 @@ public class OrderServiceAdvice implements AfterReturningAdvice {
 		String methodName = method.getName();
 		Patient patient = null;
 		
-		if (methodName.equals("saveOrder")) {
+		if (methodName.equals("saveOrder")
+				|| methodName.equals("discontinueOrder")
+				|| methodName.equals("voidOrder")
+				|| methodName.equals("unvoidOrder")
+				|| methodName.equals("purgeOrder")) {
 			if (args.length > 0 && args[0] instanceof Order) {
 				Order order = (Order) args[0];
 				patient = order.getPatient();
 			}
 		}
-		else if (methodName.equals("discontinueOrder")) {
-			if (args.length > 0 && args[0] instanceof Order) {
-				Order order = (Order) args[0];
-				patient = order.getPatient();
-			}
-		}
-		else if (methodName.equals("voidOrder")) {
-			if (args.length > 0 && args[0] instanceof Order) {
-				Order order = (Order) args[0];
-				patient = order.getPatient();
-			}
-		}
-		
+
 		patient = FlagGenerationTransactionTracker.handlePatient(patient);
 		if (patient != null) {
 			new PatientFlagTask().generatePatientFlags(patient);

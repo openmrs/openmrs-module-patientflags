@@ -26,7 +26,7 @@ public class ObsServiceAdvice implements AfterReturningAdvice {
 	public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
 		
 		String methodName = method.getName();
-		if (methodName.equals("voidObs") || methodName.equals("saveObs")) {
+		if (methodName.equals("voidObs") || methodName.equals("saveObs") || methodName.equals("unvoidObs") || methodName.equals("purgeObs")) {
 			if (args.length > 0 && args[0] instanceof Obs) {
 				Obs obs = (Obs) args[0];
 				Patient patient = getPatientFromObs(obs);

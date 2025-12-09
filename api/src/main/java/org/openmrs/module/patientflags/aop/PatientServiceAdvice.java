@@ -31,7 +31,7 @@ public class PatientServiceAdvice implements AfterReturningAdvice {
 		if (methodName.equals("saveAllergy") 
 				|| methodName.equals("removeAllergy") 
 				|| methodName.equals("voidAllergy")) {
-			if (args.length > 0 && args[0] instanceof Allergy) {
+			if (args[0] != null) {
 				Allergy allergy = (Allergy) args[0];
 				patient = allergy.getPatient();
 			}

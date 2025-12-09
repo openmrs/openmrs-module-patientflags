@@ -33,7 +33,7 @@ public class OrderServiceAdvice implements AfterReturningAdvice {
 				|| methodName.equals("voidOrder")
 				|| methodName.equals("unvoidOrder")
 				|| methodName.equals("purgeOrder")) {
-			if (args.length > 0 && args[0] instanceof Order) {
+			if (args[0] != null) {
 				Order order = (Order) args[0];
 				patient = order.getPatient();
 			}

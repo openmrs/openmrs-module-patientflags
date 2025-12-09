@@ -27,7 +27,7 @@ public class ObsServiceAdvice implements AfterReturningAdvice {
 		
 		String methodName = method.getName();
 		if (methodName.equals("voidObs") || methodName.equals("saveObs") || methodName.equals("unvoidObs") || methodName.equals("purgeObs")) {
-			if (args.length > 0 && args[0] instanceof Obs) {
+			if (args[0] != null) {
 				Obs obs = (Obs) args[0];
 				Patient patient = getPatientFromObs(obs);
 				patient = FlagGenerationTransactionTracker.handlePatient(patient);

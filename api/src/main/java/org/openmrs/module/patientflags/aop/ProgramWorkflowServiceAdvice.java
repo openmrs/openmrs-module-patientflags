@@ -30,7 +30,7 @@ public class ProgramWorkflowServiceAdvice implements AfterReturningAdvice {
 
 		if ((methodName.equals("savePatientProgram") || methodName.equals("purgePatientProgram")
 				|| methodName.equals("voidPatientProgram") || methodName.equals("unvoidPatientProgram"))) {
-			if (args.length > 0 && args[0] instanceof PatientProgram) {
+			if (args[0] != null) {
 				PatientProgram patientProgram = (PatientProgram) args[0];
 				patient = patientProgram.getPatient();
 			}

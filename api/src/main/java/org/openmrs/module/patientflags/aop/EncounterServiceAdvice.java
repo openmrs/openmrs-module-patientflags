@@ -41,7 +41,7 @@ public class EncounterServiceAdvice implements MethodInterceptor {
 					flagTask.generatePatientFlags(patient);
 				}
 				
-				if (args.length > 0 && args[0] instanceof Encounter) {
+				if (args[0] != null) {
 					Encounter encounter = (Encounter) args[0];
 					Patient encounterPatient = encounter.getPatient();
 					if (encounterPatient != null && !patients.contains(encounterPatient)) {

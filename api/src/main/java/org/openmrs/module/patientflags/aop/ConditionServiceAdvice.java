@@ -30,7 +30,7 @@ public class ConditionServiceAdvice implements AfterReturningAdvice {
 		
 		if ((methodName.equals("saveCondition") || methodName.equals("voidCondition")
 				|| methodName.equals("unvoidCondition") || methodName.equals("purgeCondition"))) {
-			if (args.length > 0 && args[0] instanceof Condition) {
+			if (args[0] != null) {
 				Condition condition = (Condition) args[0];
 				patient = condition.getPatient();
 			}

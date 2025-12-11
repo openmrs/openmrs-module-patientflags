@@ -17,6 +17,7 @@ import java.lang.reflect.Method;
 
 import org.openmrs.Obs;
 import org.openmrs.Patient;
+import org.openmrs.api.db.hibernate.HibernateUtil;
 import org.openmrs.module.patientflags.task.PatientFlagTask;
 import org.springframework.aop.AfterReturningAdvice;
 
@@ -54,8 +55,11 @@ public class ObsServiceAdvice implements AfterReturningAdvice {
 		}
 		
 		// Fall back to getting patient from person
-		if (obs.getPerson() != null && obs.getPerson() instanceof Patient) {
-			return (Patient) obs.getPerson();
+		if (obs.getPerson() != null) {
+			org.openmrs.Person person = HibernateUtil.getRealObjectFromProxy(obs.getPerson());
+			if (person instanceof Patient) {
+				return (Patient) person;
+			}
 		}
 		
 		return null;

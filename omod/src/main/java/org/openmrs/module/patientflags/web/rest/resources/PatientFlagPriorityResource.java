@@ -4,10 +4,6 @@ import static org.openmrs.module.patientflags.web.rest.util.WebUtils.getStringFi
 
 import java.util.Arrays;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.IntegerProperty;
-import io.swagger.models.properties.StringProperty;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.api.FlagService;
@@ -51,20 +47,6 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 		return description;
 	}
 
-	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
-		if (rep instanceof FullRepresentation) {
-			model.property("auditInfo", new IntegerProperty());
-		} else if (rep instanceof DefaultRepresentation) {
-			model
-					.property("name", new StringProperty())
-					.property("style", new StringProperty())
-					.property("rank", new IntegerProperty());
-		}
-		return model;
-	}
-
 	public Priority newDelegate() {
 		return new Priority();
 	}
@@ -82,16 +64,6 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 		cp.addRequiredProperty("rank");
 		
 		return cp;
-	}
-
-	@Override
-	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl().property("name", new StringProperty()).property("style", new StringProperty()).property("rank", new IntegerProperty());
-	}
-
-	@Override
-	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep);
 	}
 
 	@Override

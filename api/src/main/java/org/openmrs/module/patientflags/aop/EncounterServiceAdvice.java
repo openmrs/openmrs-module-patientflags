@@ -14,19 +14,47 @@
 package org.openmrs.module.patientflags.aop;
 
 import java.lang.reflect.Method;
+import java.util.Set;
 
+import org.aopalliance.intercept.MethodInterceptor;
+import org.aopalliance.intercept.MethodInvocation;
 import org.openmrs.Encounter;
+import org.openmrs.Patient;
 import org.openmrs.module.patientflags.task.PatientFlagTask;
-import org.springframework.aop.AfterReturningAdvice;
 
-public class EncounterServiceAdvice implements AfterReturningAdvice {
-
+public class EncounterServiceAdvice implements MethodInterceptor {
+    
 	@Override
-	public void afterReturning(Object returnValue, Method method, Object[] args, Object target) throws Throwable {
+	public Object invoke(MethodInvocation invocation) throws Throwable {
+		Method method = invocation.getMethod();
+		Object[] args = invocation.getArguments();
 		
 		if (method.getName().equals("saveEncounter")) {
-			Encounter encounter = (Encounter) args[0];
-			new PatientFlagTask().generatePatientFlags(encounter.getPatient());
+			FlagGenerationTransactionTracker.startTransaction();
+			
+			try {
+				Object result = invocation.proceed();
+				
+				Set<Patient> patients = FlagGenerationTransactionTracker.endTransaction();
+				PatientFlagTask flagTask = new PatientFlagTask();
+				for (Patient patient : patients) {
+					flagTask.generatePatientFlags(patient);
+				}
+				
+				if (args[0] != null) {
+					Encounter encounter = (Encounter) args[0];
+					Patient encounterPatient = encounter.getPatient();
+					if (encounterPatient != null && !patients.contains(encounterPatient)) {
+						flagTask.generatePatientFlags(encounterPatient);
+					}
+				}
+				
+				return result;
+			} finally {
+				FlagGenerationTransactionTracker.clear();
+			}
+		} else {
+			return invocation.proceed();
 		}
 	}
 }

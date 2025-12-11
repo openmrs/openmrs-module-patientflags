@@ -26,9 +26,13 @@ import org.openmrs.module.DaemonToken;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patientflags.api.FlagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class PatientFlagTask implements Runnable {
 
+	private static final Logger log = LoggerFactory.getLogger(PatientFlagTask.class);
+	
 	private static DaemonToken daemonToken;
 	
 	private Patient patient;
@@ -40,12 +44,15 @@ public class PatientFlagTask implements Runnable {
 		FlagService flagService = Context.getService(FlagService.class);
 		
 		if (patient != null) {
+			log.debug("Generating patient flags for patient {}", patient.getUuid());
 			generatePatientFlags(patient, flagService);
 		}
 		else if (flag != null) {
+			log.debug("Generating patient flags for flag '{}'", flag.getName());
 			generatePatientFlags(flag, flagService);
 		}
 		else {
+			log.debug("Evaluating all patient flags");
 			evaluateAllFlags();
 		}
 	}

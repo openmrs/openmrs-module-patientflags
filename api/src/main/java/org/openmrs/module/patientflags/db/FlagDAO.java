@@ -318,10 +318,4 @@ public interface FlagDAO {
 	 */
 	void deletePatientFlagsForFlag(Flag flag) throws DAOException;
 
-	/**
-	 * Delete all patient flags.
-	 *
-	 * @throws DAOException the dao exception
-	 */
-	void deleteAllPatientFlags() throws DAOException;
 }

@@ -119,7 +119,9 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="style" type="VARCHAR(255)"/>
+            <column name="style" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="rank" type="int">
                 <constraints nullable="false"/>
             </column>

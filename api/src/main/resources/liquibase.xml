@@ -106,6 +106,7 @@
     </changeSet>
 
     <changeSet author="slubwama" id="patientflags-1554735240623-4">
+        <validCheckSum>8:f9220202f1e6b3e33784e132be742f77</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <not>
                 <tableExists tableName="patientflags_priority"/>
@@ -119,7 +120,9 @@
             <column name="name" type="VARCHAR(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="style" type="VARCHAR(255)"/>
+            <column name="style" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="rank" type="int">
                 <constraints nullable="false"/>
             </column>

@@ -3,10 +3,10 @@ package org.openmrs.module.patientflags.web.rest.resources;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.IntegerProperty;
-import io.swagger.models.properties.StringProperty;
+import io.swagger.v3.oas.models.media.IntegerSchema;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.media.UUIDSchema;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.DisplayPoint;
@@ -76,13 +76,13 @@ public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResou
 	}
 
 	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+	public Schema<?> getGETSchema(Representation rep) {
+		Schema<?> model = super.getGETSchema(rep);
 		return model
-				.property("uuid", new StringProperty())
-				.property("displayPointId", new IntegerProperty())
-				.property("name", new StringProperty())
-				.property("auditInfo", new StringProperty());
+				.addProperty("uuid", new UUIDSchema())
+				.addProperty("displayPointId", new IntegerSchema())
+				.addProperty("name", new StringSchema())
+				.addProperty("auditInfo", new StringSchema());
     }
 
 	@Override

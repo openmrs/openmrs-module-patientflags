@@ -156,7 +156,7 @@
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
-		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
+		<webservices.rest-omod.version>2.47.0-SNAPSHOT</webservices.rest-omod.version>
 		<legacyuiVersion>1.16.0</legacyuiVersion>
 		<fhirversion>2.0.0</fhirversion>
 		<lombokVersion>1.18.26</lombokVersion>

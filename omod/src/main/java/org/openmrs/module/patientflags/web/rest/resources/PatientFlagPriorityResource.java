@@ -4,10 +4,10 @@ import static org.openmrs.module.patientflags.web.rest.util.WebUtils.getStringFi
 
 import java.util.Arrays;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.IntegerProperty;
-import io.swagger.models.properties.StringProperty;
+import io.swagger.v3.oas.models.media.IntegerSchema;
+import io.swagger.v3.oas.models.media.ObjectSchema;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Priority;
 import org.openmrs.module.patientflags.api.FlagService;
@@ -52,15 +52,15 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 	}
 
 	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
+	public Schema<?> getGETSchema(Representation rep) {
+		Schema<?> model = super.getGETSchema(rep);
 		if (rep instanceof FullRepresentation) {
-			model.property("auditInfo", new IntegerProperty());
+			model.addProperty("auditInfo", new IntegerSchema());
 		} else if (rep instanceof DefaultRepresentation) {
 			model
-					.property("name", new StringProperty())
-					.property("style", new StringProperty())
-					.property("rank", new IntegerProperty());
+					.addProperty("name", new StringSchema())
+					.addProperty("style", new StringSchema())
+					.addProperty("rank", new IntegerSchema());
 		}
 		return model;
 	}
@@ -85,13 +85,13 @@ public class PatientFlagPriorityResource extends MetadataDelegatingCrudResource<
 	}
 
 	@Override
-	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl().property("name", new StringProperty()).property("style", new StringProperty()).property("rank", new IntegerProperty());
+	public Schema<?> getCREATESchema(Representation rep) {
+		return new ObjectSchema().addProperty("name", new StringSchema()).addProperty("style", new StringSchema()).addProperty("rank", new IntegerSchema());
 	}
 
 	@Override
-	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep);
+	public Schema<?> getUPDATESchema(Representation rep) {
+		return getCREATESchema(rep);
 	}
 
 	@Override

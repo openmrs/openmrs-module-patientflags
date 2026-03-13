@@ -3,14 +3,15 @@ package org.openmrs.module.patientflags.web.rest.resources;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.ArrayProperty;
-import io.swagger.models.properties.IntegerProperty;
-import io.swagger.models.properties.RefProperty;
-import io.swagger.models.properties.StringProperty;
+import io.swagger.v3.oas.models.media.ArraySchema;
+import io.swagger.v3.oas.models.media.IntegerSchema;
+import io.swagger.v3.oas.models.media.ObjectSchema;
+import io.swagger.v3.oas.models.media.Schema;
+import io.swagger.v3.oas.models.media.StringSchema;
 import org.apache.commons.lang3.StringUtils;
+import org.openmrs.Role;
 import org.openmrs.api.context.Context;
+import org.openmrs.module.patientflags.DisplayPoint;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.patientflags.web.PatientFlagsRestController;
@@ -73,25 +74,27 @@ public class PatientFlagTagResource extends MetadataDelegatingCrudResource<Tag> 
 	}
 
 	@Override
-	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl()
-				.property("name", new StringProperty())
-				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleCreate")))
-				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointCreate")));
+	public Schema<?> getCREATESchema(Representation rep) {
+		return new ObjectSchema()
+				.addProperty("name", new StringSchema())
+				.addProperty("roles", new ArraySchema().items(new Schema<Role>().$ref("#/components/schemas/RoleCreate")))
+				.addProperty("displayPoints", new ArraySchema().items(new Schema<DisplayPoint>().$ref("#/components/schemas/PatientflagsDisplaypointCreate")));
 	}
 
 	@Override
-	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep);
+	public Schema<?> getUPDATESchema(Representation rep) {
+		return getCREATESchema(rep);
 	}
 
 	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
-		return model.property("tagId", new IntegerProperty()).property("name", new StringProperty())
-				.property("roles", new ArrayProperty(new RefProperty("#/definitions/RoleGet")))
-				.property("displayPoints", new ArrayProperty(new RefProperty("#/definitions/PatientflagsDisplaypointGet")))
-				.property("auditInfo", new StringProperty());
+	public Schema<?> getGETSchema(Representation rep) {
+		Schema<?> model = super.getGETSchema(rep);
+		return model
+				.addProperty("tagId", new IntegerSchema())
+				.addProperty("name", new StringSchema())
+				.addProperty("roles", new ArraySchema().items(new Schema<Role>().$ref("#/components/schemas/RoleGet")))
+				.addProperty("displayPoints", new ArraySchema().items(new Schema<DisplayPoint>().$ref("#/components/schemas/PatientflagsDisplaypointGet")))
+				.addProperty("auditInfo", new StringSchema());
 	}
 
 	@Override

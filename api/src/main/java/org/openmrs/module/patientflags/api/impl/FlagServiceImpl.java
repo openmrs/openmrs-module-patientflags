@@ -96,23 +96,28 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	 * @see org.openmrs.module.patientflags.api.FlagService#generateFlagsForPatient(Patient, Filter, Map<Object, Object>)
 	 */
 	public List<Flag> generateFlagsForPatient(Patient patient, Filter filter, Map<Object, Object> context) {
-		List<Flag> results = new ArrayList<Flag>();
-		
+		List<Flag> results = Collections.synchronizedList(new ArrayList<>());
+
 		// we can get rid of this once onStartup is implemented
 		if (!isInitialized)
 			refreshCache();
-		
+
 		// test each Flag in the cache against the specific Patient
-		for (Flag flag : filter.filter(flagCache)) {
-			// trap bad flags so that they don't hang the system
+		filter.filter(flagCache).parallelStream().forEach(flag -> {
 			try {
-				if (flag.eval(patient, context))
+				Context.openSession();
+				if (flag.eval(patient, context)) {
 					results.add(flag);
+				}
 			}
 			catch (Exception e) {
 				log.error("Unable to test flag " + flag.getName() + " on patient #" + patient.getId(), e);
 			}
-		}
+			finally {
+				Context.closeSession();
+			}
+		});
+
 		return results;
 	}
 	

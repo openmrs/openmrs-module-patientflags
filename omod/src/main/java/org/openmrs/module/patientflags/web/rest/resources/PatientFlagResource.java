@@ -1,10 +1,5 @@
 package org.openmrs.module.patientflags.web.rest.resources;
 
-import io.swagger.models.Model;
-import io.swagger.models.ModelImpl;
-import io.swagger.models.properties.BooleanProperty;
-import io.swagger.models.properties.RefProperty;
-import io.swagger.models.properties.StringProperty;
 import org.apache.commons.lang3.StringUtils;
 import org.openmrs.Patient;
 import org.openmrs.api.context.Context;
@@ -64,31 +59,6 @@ public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag>
 		cp.addProperty("message");
         return cp;
     }
-
-	@Override
-	public Model getGETModel(Representation rep) {
-		ModelImpl model = (ModelImpl) super.getGETModel(rep);
-		return model
-				.property("uuid", new StringProperty())
-				.property("message", new StringProperty())
-				.property("patient", new RefProperty("#/definitions/PatientGet"))
-				.property("flag", new RefProperty("#/definitions/PatientflagsFlagGet"))
-				.property("tags", new RefProperty("#/definitions/PatientflagsTagCreate"))
-				.property("voided", new BooleanProperty());
-	}
-
-	@Override
-	public Model getCREATEModel(Representation rep) {
-		return new ModelImpl()
-				.property("patient", new RefProperty("#/definitions/PatientCreate"))
-				.property("flag", new RefProperty("#/definitions/PatientflagsFlagCreate"))
-				.property("message", new StringProperty());
-	}
-
-	@Override
-	public Model getUPDATEModel(Representation rep) {
-		return getCREATEModel(rep);
-	}
 
 	@Override
 	public DelegatingResourceDescription getUpdatableProperties() throws ResourceDoesNotSupportOperationException {

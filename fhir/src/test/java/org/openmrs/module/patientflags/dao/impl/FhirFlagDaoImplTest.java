@@ -10,15 +10,16 @@
 package org.openmrs.module.patientflags.dao.impl;
 
 import org.hibernate.SessionFactory;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import org.openmrs.module.fhir2.TestFhirSpringConfiguration;
 import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patienttflags.dao.impl.FhirFlagDaoImpl;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.context.ContextConfiguration;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -41,10 +42,10 @@ public class FhirFlagDaoImplTest extends BaseModuleContextSensitiveTest {
 
     private FhirFlagDaoImpl fhirFlagDao;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         fhirFlagDao = new FhirFlagDaoImpl();
-        fhirFlagDao.setSessionFactory(sessionFactory);
+        ReflectionTestUtils.setField(fhirFlagDao, "sessionFactory", sessionFactory);
         executeDataSet(TEST_DATASET_FILE);
     }
 

@@ -46,6 +46,9 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	/* stores any exception throw during execution */
 	private Exception exception; 
 	
+	/* set once the evaluation has finished, so that a notify() sent before fetchResultCohort() waits is not lost */
+	private boolean done = false;
+	
 	/**
 	 * Constructors
 	 */
@@ -109,7 +112,9 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 	
 	public synchronized Cohort fetchResultCohort() throws Exception{
 		// wait for the evaluator thread to alert notify that it's done evaluating
-	    wait();
+	    while (!done) {
+	        wait();
+	    }
         
         // if the evaluator thread created an exception, throw it; otherwise, return resultCohort
         Exception e = getException();
@@ -148,6 +153,7 @@ public class GroovyFlagEvaluatorThread implements Runnable{
 		}
 		finally {
 			// notify the main thread that execution is complete
+			done = true;
 			notify();
 		}
     }

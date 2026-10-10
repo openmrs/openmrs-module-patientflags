@@ -20,9 +20,6 @@
 	<concept_name concept_id="2" locale_preferred="true" name="CURRENT ANTIRETROVIRAL DRUGS USED FOR TREATMENT" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="2" voided="false" uuid="ceb058e2-f636-47ea-acd0-b6906c7f4401"/>
 	<concept_name concept_id="3" locale_preferred="true" name="WEIGHT (KG)" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="3" voided="false" uuid="0586cb3c-9115-4e77-8329-f5455e1c641e"/>
 	<concept_name_tag concept_name_tag_id="4" tag="preferred" description="preferred name in a language" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="54d67a06-62d9-426b-a2e5-e3cccbff10f9"/>
-	<concept_name_tag_map concept_name_id="1" concept_name_tag_id="4"/>
-	<concept_name_tag_map concept_name_id="2" concept_name_tag_id="4"/>
-	<concept_name_tag_map concept_name_id="3" concept_name_tag_id="4"/>
 
 	<allergy allergy_id="1" patient_id="2" severity_concept_id="1" coded_allergen="1"  allergen_type="DRUG" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d87924e-e8df-4553-a956-95de80529735"/>
 	<allergy allergy_id="2" patient_id="1" severity_concept_id="1" coded_allergen="1"  allergen_type="FOOD" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>

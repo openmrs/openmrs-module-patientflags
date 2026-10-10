@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <dataset>
-	<patient patient_id="1" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
+	<person person_id="100" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27cw-4bb2-86d6-6d1d05312bd5"/>
+	<patient patient_id="100" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
 	<patient patient_id="2" creator="1" date_created="2005-09-22 00:00:00.0" changed_by="1" date_changed="2008-08-18 12:29:59.0" voided="false"/>
 	<person person_id="2" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5"/>
-	<person person_id="1" gender="M" birthdate="1975-04-08 00:00:00.0" dead="false" creator="1" date_created="2005-09-22 00:00:00.0" voided="false" uuid="da7f524f-27cw-4bb2-86d6-6d1d05312bd5"/>
-	<person_name person_name_id="1000" preferred="true" person_id="1" given_name="Azalaïs" middle_name="" family_name="Aygul" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="9fdb167d-2ae9-4a03-be1c-d92e221f292b"/>
+	<person_name person_name_id="1000" preferred="true" person_id="100" given_name="Azalaïs" middle_name="" family_name="Aygul" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="9fdb167d-2ae9-4a03-be1c-d92e221f292b"/>
 	<person_name person_name_id="1001" preferred="true" person_id="2" given_name="Rahmi" middle_name="" family_name="Valeriu" creator="1" date_created="2005-01-01 00:00:00.0" voided="false" uuid="de58be3f-b5c5-4144-9bfb-2c0ef67fca4e"/>
 
 	<!-- concepts taken from LogicBasicTest.concepts.xml -->
@@ -22,12 +22,9 @@
 	<concept_name concept_id="2" locale_preferred="true" name="CURRENT ANTIRETROVIRAL DRUGS USED FOR TREATMENT" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="2" voided="false" uuid="ceb058e2-f636-47ea-acd0-b6906c7f4401"/>
 	<concept_name concept_id="3" locale_preferred="true" name="WEIGHT (KG)" locale="en" creator="1" date_created="2005-01-01 00:00:00.0" concept_name_id="3" voided="false" uuid="0586cb3c-9115-4e77-8329-f5455e1c641e"/>
 	<concept_name_tag concept_name_tag_id="4" tag="preferred" description="preferred name in a language" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="54d67a06-62d9-426b-a2e5-e3cccbff10f9"/>
-	<concept_name_tag_map concept_name_id="1" concept_name_tag_id="4"/>
-	<concept_name_tag_map concept_name_id="2" concept_name_tag_id="4"/>
-	<concept_name_tag_map concept_name_id="3" concept_name_tag_id="4"/>
 
 	<allergy allergy_id="1" patient_id="2" severity_concept_id="1" coded_allergen="1"  allergen_type="DRUG" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d87924e-e8df-4553-a956-95de80529735"/>
-	<allergy allergy_id="2" patient_id="1" severity_concept_id="1" coded_allergen="1"  allergen_type="FOOD" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>
+	<allergy allergy_id="2" patient_id="100" severity_concept_id="1" coded_allergen="1"  allergen_type="FOOD" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>
 
 	<patientflags_priority priority_id="1" name="pr 1" style="style" p_rank="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5" />
 	<patientflags_priority priority_id="2" name="pr 2" style="style" p_rank="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd6" />
@@ -35,7 +32,7 @@
 	<patientflags_flag flag_id="1" name="DRUG FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a where a.allergen_type = 'DRUG';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-27ce-4bb2-86d6-6d1d05312bd5" priority_id="1"/>
 	<patientflags_flag flag_id="2" name="FOOD FLAG" evaluator="org.openmrs.module.patientflags.evaluator.SQLFlagEvaluator" criteria="SELECT a.patient_id FROM allergy a where a.allergen_type = 'FOOD';" message="Test" enabled="1" creator="1" date_created="2005-09-22 00:00:00.0" retired="false" uuid="da7f524f-28ce-4bb2-86d6-6d1d05312bd5"/>
 
-	<patientflags_patient_flag patient_flag_id="1" patient_id="1" flag_id="1" message="Test" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>
+	<patientflags_patient_flag patient_flag_id="1" patient_id="100" flag_id="1" message="Test" creator="1" date_created="2007-05-01 00:00:00.0" voided="false" uuid="7d89924e-e8df-4553-a956-95de80529735"/>
 	<patientflags_patient_flag patient_flag_id="2" patient_id="2" flag_id="1" message="Test" creator="1" date_created="2007-05-01 00:00:00.0" voided="true" uuid="7d89924e-e8df-4543-a956-95de80529735"/>
   
 </dataset>

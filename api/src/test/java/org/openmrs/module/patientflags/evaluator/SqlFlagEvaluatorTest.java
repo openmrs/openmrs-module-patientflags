@@ -13,13 +13,14 @@
  */
 package org.openmrs.module.patientflags.evaluator;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -28,7 +29,7 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,7 +43,7 @@ public class SqlFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     SQLFlagEvaluator sqlFlagEvaluator;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet(TEST_DATASET_FILE);
@@ -61,13 +62,15 @@ public class SqlFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         assertTrue(result);
     }
 
-    @Test(expected = APIException.class)
+    @Test
     public void eval_shouldThrowApiExceptionWhenPatientIsVoided() {
         Flag flag = Context.getService(FlagService.class).getFlag(5);
         Patient patient = Context.getService(PatientService.class).getPatient(1);
         Map<Object, Object> context = new HashMap<>();
 
-        sqlFlagEvaluator.eval(flag, patient, context);
+        assertThrows(APIException.class, () -> {
+            sqlFlagEvaluator.eval(flag, patient, context);
+        });
     }
 
     @Test
@@ -95,12 +98,14 @@ public class SqlFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         assertFalse(resultCohort.isEmpty());
     }
 
-    @Test(expected = APIException.class)
+    @Test
     public void evalCohort_shouldThrowsException() {
         Flag flag = Context.getService(FlagService.class).getFlag(6);
         Map<Object, Object> context = new HashMap<>();
 
-        sqlFlagEvaluator.evalCohort(flag, null, context);
+        assertThrows(APIException.class, () -> {
+            sqlFlagEvaluator.evalCohort(flag, null, context);
+        });
     }
 
     @Test
@@ -139,11 +144,13 @@ public class SqlFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         assertEquals(flag.getMessage(), message);
     }
 
-    @Test(expected = APIException.class)
+    @Test
     public void evalMessage_ShouldThrowsAPIExceptionForVoidedPatient() {
         Flag flag = Context.getService(FlagService.class).getFlag(1);
         Patient patient = Context.getService(PatientService.class).getPatient(1);
 
-        sqlFlagEvaluator.evalMessage(flag, patient.getPatientId());
+        assertThrows(APIException.class, () -> {
+            sqlFlagEvaluator.evalMessage(flag, patient.getPatientId());
+        });
     }
 }

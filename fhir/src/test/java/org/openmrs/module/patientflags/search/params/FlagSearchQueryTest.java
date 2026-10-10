@@ -20,8 +20,8 @@ import org.hl7.fhir.instance.model.api.IBaseResource;
 import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Practitioner;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.module.fhir2.FhirConstants;
 import org.openmrs.module.fhir2.TestFhirSpringConfiguration;
 import org.openmrs.module.fhir2.api.search.SearchQuery;
@@ -30,7 +30,7 @@ import org.openmrs.module.fhir2.api.search.param.SearchParameterMap;
 import org.openmrs.module.patientflags.PatientFlag;
 import org.openmrs.module.patienttflags.dao.FhirFlagDao;
 import org.openmrs.module.patienttflags.translators.PatientFlagTranslator;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -93,7 +93,7 @@ public class FlagSearchQueryTest extends BaseModuleContextSensitiveTest {
         return searchQuery.getQueryResults(theParams, dao, translator, searchQueryInclude);
     }
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         executeDataSet(TEST_DATASET_FILE);
     }

@@ -2,7 +2,7 @@ package org.openmrs.module.patientflags.metadatadeploy.bundle;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Transformer;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.openmrs.OpenmrsObject;
 import org.openmrs.Role;
 import org.openmrs.module.metadatadeploy.MetadataUtils;

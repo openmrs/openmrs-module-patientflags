@@ -26,8 +26,8 @@ import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.IdType;
 import org.hl7.fhir.r4.model.Patient;
 import org.hl7.fhir.r4.model.Reference;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
@@ -36,9 +36,9 @@ import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.mockito.Mockito.when;
 
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openmrs.module.fhir2.providers.BaseFhirProvenanceResourceTest;
 import org.openmrs.module.fhir2.providers.r4.MockIBundleProvider;
 import org.openmrs.module.patienttflags.FhirFlagService;
@@ -50,9 +50,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.springframework.test.util.MatcherAssertionErrors.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest<Flag>  {
 
     String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
@@ -84,7 +85,7 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
 
     Flag flag;
 
-    @Before
+    @BeforeEach
     public void setup() {
         flagFhirResourceProvider = new FlagFhirResourceProvider();
         flagFhirResourceProvider.setFlagService(fhirFlagService);
@@ -125,15 +126,17 @@ public class FlagFhirResourceProviderTest extends BaseFhirProvenanceResourceTest
         MatcherAssert.assertThat(flag1.getId(), Matchers.equalTo(FLAG_UUID));
     }
 
-    @Test( expected = ResourceNotFoundException.class )
+    @Test
     public void getFlagByUuid_shouldThrowResourceNotFoundException() {
         IdType idType = new IdType();
         idType.setValue(FLAG_UUID);
 
         when(fhirFlagService.get(idType.getIdPart())).thenReturn(null);
 
-        Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
-        assertThat(flag1, nullValue());
+        assertThrows(ResourceNotFoundException.class, () -> {
+            Flag flag1 = flagFhirResourceProvider.getFlagById(idType);
+            assertThat(flag1, nullValue());
+        });
     }
 
     @Test

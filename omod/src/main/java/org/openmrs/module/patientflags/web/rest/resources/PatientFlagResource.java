@@ -27,7 +27,7 @@ import org.openmrs.module.webservices.rest.web.response.ResourceDoesNotSupportOp
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/patientflag", supportedClass = PatientFlag.class, supportedOpenmrsVersions = {
-        "1.*", "2.*" })
+        "1.*", "2.*", "3.*" })
 public class PatientFlagResource extends DataDelegatingCrudResource<PatientFlag> {
 
 	@Override

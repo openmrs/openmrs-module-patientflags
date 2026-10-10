@@ -12,11 +12,11 @@ package org.openmrs.module.patientflags.translators.impl;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Reference;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openmrs.Patient;
 import org.openmrs.module.fhir2.api.translators.PatientReferenceTranslator;
 import org.openmrs.module.patientflags.PatientFlag;
@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.notNullValue;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class PatientFlagTranslatorImplTest {
 
     String FLAG_UUID = "123xx34-623hh34-22hj89-23hjy5";
@@ -57,7 +57,7 @@ public class PatientFlagTranslatorImplTest {
 
     Patient patient;
 
-    @Before
+    @BeforeEach
     public void setup() {
         patientFlagTranslator = new PatientFlagTranslatorImpl();
         patientFlagTranslator.setFlagTranslator(flagTranslator);
@@ -71,6 +71,7 @@ public class PatientFlagTranslatorImplTest {
         patientFlag = new PatientFlag();
         patientFlag.setUuid(FLAG_UUID);
         patientFlag.setFlag(openmrsFlag);
+        patientFlag.setPatient(patient);
     }
 
     @Test

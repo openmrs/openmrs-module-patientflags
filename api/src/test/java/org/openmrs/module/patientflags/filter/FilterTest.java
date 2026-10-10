@@ -13,16 +13,16 @@
  */
 package org.openmrs.module.patientflags.filter;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 
 import java.util.HashSet;
 import java.util.List;
@@ -34,7 +34,7 @@ public class FilterTest extends BaseModuleContextSensitiveTest {
 
     private static final String TEST_DATASET_FILE = XML_DATASET_PATH + "patientflagtest-dataset.xml";
 
-    @Before
+    @BeforeEach
     public void initTestData() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet(TEST_DATASET_FILE);

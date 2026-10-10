@@ -525,4 +525,12 @@
 		<dropNotNullConstraint columnName="style" columnDataType="VARCHAR(255)" tableName="patientflags_priority"/>
 	</changeSet>
 
+	<changeSet id="patientflags_tag_id_sequence_past_existing_tags" author="dkayiwa" dbms="postgresql">
+		<preConditions onFail="MARK_RAN">
+			<tableExists tableName="patientflags_tag"/>
+		</preConditions>
+		<comment>Tag ids used to come from patientflags_flag_flag_id_seq, so move the tag_id sequence past the existing tags now that inserts use it</comment>
+		<sql>SELECT setval(pg_get_serial_sequence('patientflags_tag', 'tag_id'), (SELECT MAX(tag_id) FROM patientflags_tag))</sql>
+	</changeSet>
+
 </databaseChangeLog>

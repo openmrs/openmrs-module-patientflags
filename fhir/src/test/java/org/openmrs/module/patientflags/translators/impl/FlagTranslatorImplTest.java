@@ -10,10 +10,10 @@
 package org.openmrs.module.patientflags.translators.impl;
 
 import org.hl7.fhir.r4.model.CodeableConcept;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patienttflags.translators.impl.FlagTranslatorImpl;
 
@@ -21,7 +21,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FlagTranslatorImplTest {
 
     private static final String FLAG_NAME = "flagName";
@@ -33,7 +33,7 @@ public class FlagTranslatorImplTest {
 
     Flag flag;
 
-    @Before
+    @BeforeEach
     public void setup() {
         flagTranslator = new FlagTranslatorImpl();
     }

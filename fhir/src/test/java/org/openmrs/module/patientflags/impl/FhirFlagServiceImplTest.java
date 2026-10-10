@@ -13,11 +13,11 @@ import ca.uhn.fhir.rest.api.server.IBundleProvider;
 import org.hl7.fhir.r4.model.CodeableConcept;
 import org.hl7.fhir.r4.model.Flag;
 import org.hl7.fhir.r4.model.Reference;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openmrs.Patient;
 import org.openmrs.module.fhir2.api.FhirGlobalPropertyService;
 import org.openmrs.module.fhir2.api.search.SearchQuery;
@@ -44,13 +44,14 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Matchers.any;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyCollection;
 import static org.mockito.Mockito.when;
 
 /**
  * The type Fhir flag service impl test.
  */
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class FhirFlagServiceImplTest {
 
     private static final int START_INDEX = 0;
@@ -90,7 +91,7 @@ public class FhirFlagServiceImplTest {
     /**
      * Sets .
      */
-    @Before
+    @BeforeEach
     public void setup() {
         fhirFlagService = new FhirFlagServiceImpl();
 
@@ -152,6 +153,7 @@ public class FhirFlagServiceImplTest {
 
         when(searchQueryInclude.getIncludedResources(any(), any())).thenReturn(Collections.emptySet());
         when(patientFlagTranslator.toFhirResource(patientFlag)).thenReturn(fhirFlag);
+        when(patientFlagTranslator.toFhirResources(anyCollection())).thenCallRealMethod();
         when(fhirFlagDao.getSearchResults(any())).thenReturn(patientFlags);
 
         IBundleProvider results = fhirFlagService.searchFlags(

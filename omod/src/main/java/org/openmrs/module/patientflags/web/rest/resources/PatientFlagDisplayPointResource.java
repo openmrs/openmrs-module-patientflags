@@ -25,7 +25,7 @@ import org.openmrs.module.webservices.rest.web.resource.impl.NeedsPaging;
 import org.openmrs.module.webservices.rest.web.response.ResponseException;
 
 @Resource(name = RestConstants.VERSION_1 + PatientFlagsRestController.PATIENT_FLAGS_REST_NAMESPACE + "/displaypoint", supportedClass = DisplayPoint.class, supportedOpenmrsVersions = {
-		"1.*", "2.*" })
+		"1.*", "2.*", "3.*" })
 public class PatientFlagDisplayPointResource extends MetadataDelegatingCrudResource<DisplayPoint> {
 	
 	public DisplayPoint newDelegate() {

@@ -1,7 +1,7 @@
 package org.openmrs.module.patientflags;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Patient;
 import org.openmrs.api.PatientService;
 import org.openmrs.api.context.Context;
@@ -10,12 +10,12 @@ import org.openmrs.module.Module;
 import org.openmrs.module.ModuleFactory;
 import org.openmrs.module.patientflags.api.FlagService;
 import org.openmrs.module.patientflags.task.PatientFlagTask;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 
 import java.lang.reflect.Method;
 import java.util.List;
 
-import static junit.framework.TestCase.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class PatientFlagTaskTest extends BaseModuleContextSensitiveTest {
 
@@ -25,7 +25,7 @@ public class PatientFlagTaskTest extends BaseModuleContextSensitiveTest {
 
     PatientFlagTask patientFlagTask;
 
-    @Before
+    @BeforeEach
     public void initTestData() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet(TEST_DATASET_FILE);

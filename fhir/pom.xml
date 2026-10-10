@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.openmrs.module</groupId>
 		<artifactId>patientflags</artifactId>
-		<version>3.0.11-SNAPSHOT</version>
+		<version>4.0.0-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>patientflags-fhir</artifactId>
@@ -19,11 +19,6 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
-			<type>jar</type>
-		</dependency>
-		<dependency>
 			<groupId>org.openmrs.module</groupId>
 			<artifactId>patientflags-api</artifactId>
 			<version>${project.parent.version}</version>
@@ -31,11 +26,6 @@
 		<dependency>
 			<groupId>org.openmrs.api</groupId>
 			<artifactId>openmrs-api</artifactId>
-			<type>test-jar</type>
-		</dependency>
-		<dependency>
-			<groupId>org.openmrs.web</groupId>
-			<artifactId>openmrs-web</artifactId>
 			<type>test-jar</type>
 		</dependency>
 		<dependency>
@@ -47,8 +37,7 @@
 		<!--  include groovy, but mark as provided since it is included with openmrs-core v1.10+-->
 		<dependency>
 			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-			<version>1.7.6</version>
+			<artifactId>groovy-all</artifactId>
 			<type>jar</type>
 			<scope>provided</scope>
 		</dependency>

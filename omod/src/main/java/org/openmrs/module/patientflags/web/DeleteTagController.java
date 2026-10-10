@@ -13,7 +13,7 @@
  */
 package org.openmrs.module.patientflags.web;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.api.FlagService;

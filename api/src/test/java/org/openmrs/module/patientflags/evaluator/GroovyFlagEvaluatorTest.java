@@ -1,7 +1,7 @@
 package org.openmrs.module.patientflags.evaluator;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.openmrs.Cohort;
 import org.openmrs.Patient;
 import org.openmrs.api.APIException;
@@ -10,15 +10,16 @@ import org.openmrs.api.context.Context;
 import org.openmrs.module.patientflags.Flag;
 import org.openmrs.module.patientflags.FlagValidationResult;
 import org.openmrs.module.patientflags.api.FlagService;
-import org.openmrs.test.BaseModuleContextSensitiveTest;
+import org.openmrs.test.jupiter.BaseModuleContextSensitiveTest;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
@@ -28,7 +29,7 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
 
     GroovyFlagEvaluator groovyFlagEvaluator;
 
-    @Before
+    @BeforeEach
     public void setup() throws Exception {
         initializeInMemoryDatabase();
         executeDataSet(TEST_DATASET_FILE);
@@ -47,12 +48,14 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         assertTrue(result);
     }
 
-    @Test(expected = APIException.class)
+    @Test
     public void eval_shouldThrowApiExceptionWhenPatientIsVoided() {
         Flag flag = Context.getService(FlagService.class).getFlag(8);
         Patient patient = Context.getService(PatientService.class).getPatient(1);
         Map<Object, Object> context = new HashMap<>();
-        groovyFlagEvaluator.eval(flag, patient, context);
+        assertThrows(APIException.class, () -> {
+            groovyFlagEvaluator.eval(flag, patient, context);
+        });
     }
 
     @Test
@@ -80,12 +83,14 @@ public class GroovyFlagEvaluatorTest extends BaseModuleContextSensitiveTest {
         assertFalse(resultCohort.isEmpty());
     }
 
-    @Test(expected = APIException.class)
+    @Test
     public void evalCohort_shouldThrowsException() {
         Flag flag = Context.getService(FlagService.class).getFlag(4);
         Map<Object, Object> context = new HashMap<>();
 
-        groovyFlagEvaluator.evalCohort(flag, null, context);
+        assertThrows(APIException.class, () -> {
+            groovyFlagEvaluator.evalCohort(flag, null, context);
+        });
     }
 
     @Test

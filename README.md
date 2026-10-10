@@ -39,7 +39,7 @@ Developer Guide
 
 **Prerequisite**
 
-* Java version ( 8, 11 or 17)
+* Java version (21 or 25)
 * Maven
 #### Setup Project
 1. Fork the repository

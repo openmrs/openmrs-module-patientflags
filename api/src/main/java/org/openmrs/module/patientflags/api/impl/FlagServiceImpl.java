@@ -13,7 +13,7 @@
  */
 package org.openmrs.module.patientflags.api.impl;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Cohort;
@@ -49,8 +49,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
@@ -71,8 +69,6 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 	
 	/* Data access object for Flags */
 	private FlagDAO dao;
-	
-	private ExecutorService executor;
 	
 	private boolean isInitialized = false; // a hack to overcome the fact that calling "onStartup" has yet to implemented in OpenMRS core
 	
@@ -591,6 +587,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		try{
 			Context.addProxyPrivilege("Get Users");
 			Context.addProxyPrivilege("View Users");
+			Context.addProxyPrivilege("Get Global Properties");
+			Context.addProxyPrivilege("Manage Privileges");
 			String username = Context.getAdministrationService().getGlobalProperty("patientflags.username");
 			User user = Context.getUserService().getUserByUsername(username);
 		
@@ -610,6 +608,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 		finally{
 			Context.removeProxyPrivilege("Get Users");
 			Context.removeProxyPrivilege("View Users");
+			Context.removeProxyPrivilege("Get Global Properties");
+			Context.removeProxyPrivilege("Manage Privileges");
 		}
 			
 		// set the initialized flag to true
@@ -670,11 +670,8 @@ public class FlagServiceImpl extends BaseOpenmrsService implements FlagService {
 
 	@Override
 	public Future<?> evaluateAllFlags() {
-		if (executor == null) {
-			executor = Executors.newSingleThreadExecutor();
-		}
 		dao.deleteAllPatientFlags();
-		return executor.submit(PatientFlagTask.evaluateAllFlags());
+		return PatientFlagTask.evaluateAllFlags();
 	}
 	
 	/**

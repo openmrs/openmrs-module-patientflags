@@ -10,10 +10,10 @@
 package org.openmrs.module.patientflags.translators.impl;
 
 import org.hl7.fhir.r4.model.CodeableConcept;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.openmrs.module.patientflags.Tag;
 import org.openmrs.module.patienttflags.translators.impl.TagTranslatorImpl;
 
@@ -23,7 +23,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class TagTranslatorImplTest {
 
     private static final String TAG_UUID = "0f97e14e-cdc2-49ac-9255-b5126f8a5147";
@@ -36,7 +36,7 @@ public class TagTranslatorImplTest {
 
     Tag tag;
 
-    @Before
+    @BeforeEach
     public void setup() {
         tagTranslator = new TagTranslatorImpl();
     }

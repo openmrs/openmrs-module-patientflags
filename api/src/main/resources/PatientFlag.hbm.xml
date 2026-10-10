@@ -8,7 +8,7 @@
 	<class name="PatientFlag" table="patientflags_patient_flag" lazy="false">
 
 		<id name="patientFlagId" type="int" column="patient_flag_id" unsaved-value="0">
-			<generator class="native">
+			<generator class="identity">
 				<param name="sequence">patientflags_patient_flag_id_seq</param>
 			</generator>
 		</id>

@@ -4,7 +4,7 @@
 
 	<groupId>org.openmrs.module</groupId>
 	<artifactId>patientflags</artifactId>
-	<version>3.0.11-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Patient Flags Module</name>
 	<description>Parent project for Patient Flags Module</description>
@@ -40,6 +40,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+			<dependency>
+				<groupId>org.openmrs</groupId>
+				<artifactId>openmrs-bom</artifactId>
+				<version>${openMRSVersion}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.openmrs.api</groupId>
 				<artifactId>openmrs-api</artifactId>
@@ -150,16 +157,17 @@
 
 	<!-- default property values, required for eclipse build path configuration -->
 	<properties>
-		<openMRSVersion>2.2.0</openMRSVersion>
-		<openMRSMinorVersion>2.2</openMRSMinorVersion>
+		<openMRSVersion>3.0.0-SNAPSHOT</openMRSVersion>
+		<openMRSMinorVersion>3.0</openMRSMinorVersion>
+		<maven.compiler.release>21</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<uiframeworkVersion>3.11.0</uiframeworkVersion>
 		<metadatadeployVersion>1.8.1</metadatadeployVersion>
 		<metadatasharingVersion>1.2.2</metadatasharingVersion>
-		<webservices.rest-omod.version>2.40.0</webservices.rest-omod.version>
-		<legacyuiVersion>1.16.0</legacyuiVersion>
-		<fhirversion>2.0.0</fhirversion>
-		<lombokVersion>1.18.26</lombokVersion>
+		<webservices.rest-omod.version>5.0.0-SNAPSHOT</webservices.rest-omod.version>
+		<legacyuiVersion>3.0.0-SNAPSHOT</legacyuiVersion>
+		<fhirversion>6.0.0-SNAPSHOT</fhirversion>
+		<lombokVersion>1.18.42</lombokVersion>
 	</properties>
 
 	<build>
@@ -168,10 +176,23 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.15.0</version>
 					<configuration>
-						<target>1.8</target>
-						<source>1.8</source>
+						<release>${maven.compiler.release}</release>
+						<parameters>true</parameters>
+						<annotationProcessorPaths>
+							<path>
+								<groupId>org.projectlombok</groupId>
+								<artifactId>lombok</artifactId>
+								<version>${lombokVersion}</version>
+							</path>
+						</annotationProcessorPaths>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.5.4</version>
 				</plugin>
 				<plugin>
 					<groupId>org.openmrs.maven.plugins</groupId>
@@ -205,66 +226,4 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
-
-	<!-- different profiles for building/testing against different version of openmrs -->
-	<profiles>
-
-		<profile>
-			<id>openmrs-1.9</id>
-
-		    <properties>
-				<openMRSVersion>1.9.9</openMRSVersion>
-				<openMRSMinorVersion>1.9</openMRSMinorVersion>
-
-			</properties>
-		</profile>
-
-		<profile>
-			<id>openmrs-1.10</id>
-
-		    <properties>
-				<openMRSVersion>1.10.2</openMRSVersion>
-				<openMRSMinorVersion>1.10</openMRSMinorVersion>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>openmrs-1.11</id>
-
-		    <properties>
-				<openMRSVersion>1.11.7</openMRSVersion>
-				<openMRSMinorVersion>1.11</openMRSMinorVersion>
-			</properties>
-		</profile>
-
-		<profile>
-			<id>Java 17</id>
-			<activation>
-				<jdk>17</jdk>
-			</activation>
-
-			<dependencies>
-				<dependency>
-					<groupId>com.thoughtworks.xstream</groupId>
-					<artifactId>xstream</artifactId>
-					<version>1.4.18</version>
-					<scope>provided</scope>
-				</dependency>
-			</dependencies>
-
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-surefire-plugin</artifactId>
-						<version>2.22.1</version>
-						<configuration>
-							<argLine>--add-opens java.base/java.lang=ALL-UNNAMED</argLine>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	</profiles>
 </project>
